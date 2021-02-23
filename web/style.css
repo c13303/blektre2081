@@ -1,0 +1,77 @@
+.hidden{
+    display:none;
+}
+body{
+
+
+}
+#text{
+    font-size: 150%;
+    line-height: 26px;
+}
+.selected{
+    border:2px solid red;
+}
+
+.notif{
+    margin:5px;
+    font-style: italic;
+}
+
+#game{
+    display:flex;
+}
+#leftgame{
+    width:50%;
+}
+#fiche{
+    width:50%;
+}
+
+button{
+    padding:10px;
+    font-size: 20px;
+    margin:0 0 20px;
+}
+
+.old{
+
+}
+.removing{
+    position:absolute;
+}
+
+
+#choices{
+    text-align:center;
+}
+
+.gamechoice{
+    display:block;
+    margin: 20px auto;
+
+}
+#json{
+    font-size:12px;
+}
+
+#place{
+    font-variant: all-petite-caps;
+
+}
+
+#thecanvas{
+    position:relative;
+    width: 640px;
+    height: 480px;
+}
+
+#sprite_mychar{
+    position:absolute;
+    margin-top:160px;
+    width:320px;
+    height:320px;
+}
+#peoplehere{
+    border:1px solid blue; padding:20px;
+}
