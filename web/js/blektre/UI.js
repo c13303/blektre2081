@@ -46,11 +46,23 @@ $(document).ready(function () {
 
     $(document).on('click', '.gamechoice', function (e) {
         console.log('Choice : ' + $(this).data('target'));
-        ws.send(JSON.stringify({
-            choice: $(this).data('target'),
-            page: $(this).data('page')
+        $("#map").hide();
+        $("#places").html("");
+        if ($(this).data('target') === 'map') {
+            $('#map').show();
+            var html = "";
 
-        }));
+            for (var i = 0; i < mychar.places.length; i++) {
+                html += "<div class='placemap gamechoice' data-target='" + mychar.places[i][1] + "'>" + mychar.places[i][0] + "</div>";
+            }
+            $('#places').html(html);
+        } else {
+            ws.send(JSON.stringify({
+                choice: $(this).data('target'),
+                page: $(this).data('page')
+
+            }));
+        }
     });
 
     $("#submitbio").click(function () {

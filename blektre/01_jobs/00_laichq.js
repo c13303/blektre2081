@@ -6,10 +6,10 @@ module.exports = {
     getPage: function (ws, page = "intro") {
 
         /* HERE IS THE PLACE */
-        ws.current_perso.place = "Home";
-        var folder = "00_home";
-        var nameChapitre = folder + "/01_tinder";
+        ws.current_perso.place = "Laich&Q Centrale";
+        var folder = "01_jobs";
 
+        var nameChapitre = folder + "/00_laichq";
 
         /* DEFAULT CHOICE */
         var perso = ws.current_perso;
@@ -18,25 +18,36 @@ module.exports = {
         /* CHAPITRE */
         var chapitre = {
 
+            /* PAGE */
             "intro": function () {
-                var text = "Vous êtes sur Tinder. La photo de votre profil, qui de l'ange l'antique beauté a, n'est pas représentative de la réalité.";
+
                 var choices = [
-                    ["Je consulte les profils", "00_home/01_tinder", "swipe"],
-                    ["Je quitte", folder + "/00_intro", "intro"],
+                    ["Je me casse", "map"],
                 ];
 
+                var text = "Vous arrivez devant la centrale de Laich&Q, la fameuse multinationale de nettoyage.";
+                if (perso.job === "technicien de surface") {
+                    choices.push(["Je me mets au travail", nameChapitre, "jobing"]);
+                }
                 return {
                     flush: 1,
                     text: text,
                     choices: choices
                 }
             },
-            "swipe": function () {
-                var text = "OUIN";
+            "jobing": function () {
+
                 var choices = [
-                    ["Je consulte les profils", "00_home/01_tinder", "swipe"],
-                    ["Je quitte", folder + "/00_intro", "intro"],
+                    ["Super, j'adore", "map"],
                 ];
+
+                var text = "Vous enfilez la tenue règlementaire. Vous allez ramasser des détritus à partir de maintenant.";
+
+                perso.jobing = {
+                    money: 1,
+                    karma: 1,
+                    sex: -1
+                }
 
                 return {
                     flush: 1,

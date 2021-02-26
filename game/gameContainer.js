@@ -2,6 +2,8 @@
 var tools = require('./../server/tools.js');
 module.exports = {
     gS: require('../game/gameSettings.js'),
+    date: 0,
+    heure: 0,
     persos: {},
     onlinePersos: {},
     places: {},
@@ -29,6 +31,16 @@ module.exports = {
             console.log(Object.keys(that.persos).length + ' personnages loaded');
         });
     },
+    updatePlace(place) {
+        /// update clients from a place when someone is leaving / entering a place
+        for (const [key, value] of Object.entries(this.places[place])) {
+            var perso = value;
+            if (this.onlinePersos[key]) {
+                var ws = this.onlinePersos[key];
+                ws.send(JSON.stringify({persos: this.places[place]}));
+            }
+        }
+    },
     setInPlace: function (place, perso) {
 
         if (!place) {
@@ -39,9 +51,10 @@ module.exports = {
 
         if (!this.places[place])
             this.places[place] = {};
-        
+
         this.places[place][perso.nom] = perso;
 
+        this.updatePlace(place);
         console.log('updated places');
         // console.log(this.places);
     },
@@ -58,7 +71,7 @@ module.exports = {
             tools.report('SetOutPlace error ' + perso.nom + ' is not in ' + place);
             return null;
         }
-
+        this.updatePlace(place);
         delete this.places[place][perso.nom];
     },
     getOtherPeopleHere: function (place, perso) {

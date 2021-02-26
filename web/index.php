@@ -107,16 +107,19 @@ if ($isdev) {
 
                 <div id="visuel">
 
-                    <div id="thecanvas">
+                   <!-- <div id="thecanvas">
                         <div id="sprite_mychar">
 
                         </div>
-                    </div>
+                    </div> -->
                     <div id="place"></div>
                     <div id="peoplehere"></div>
                 </div>
                 <div id="notifs"></div>
                 <div id="json" ></div>
+            </div>
+            <div id="map">
+                <div id="places"></div>
             </div>
         </div>
 

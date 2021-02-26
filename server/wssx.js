@@ -49,7 +49,7 @@ class wssx extends server {
         this.clients.forEach(function each(client) {
             if (client.name === name) {
                 /* IS ALREADY LOGGED */
-            //    callback(false);
+                //  callback(false);
             }
         });
         var token = sha256(token);

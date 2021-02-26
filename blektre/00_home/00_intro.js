@@ -7,7 +7,9 @@ module.exports = {
 
         /* HERE IS THE PLACE */
         ws.current_perso.place = "Home";
-        var nameChapitre = "00_home/00_intro";
+        var folder = "00_home";
+
+        var nameChapitre = folder + "/00_intro";
 
         /* DEFAULT CHOICE */
         var perso = ws.current_perso;
@@ -35,8 +37,9 @@ module.exports = {
             "intro": function () {
                 var text = "Vous êtes chez vous.";
                 var choices = [
-                    ["Je vais sur Tinder", "00_home/01_tinder", "intro"],
-                    ["Je vais sur LinkedIn", nameChapitre, "linkedin"],
+                    ["Je vais sur Tinder", folder + "/01_tinder", "intro"],
+                    ["Je vais sur LinkedIn", folder + "/02_linkedin", "intro"],
+                    ["Je sors", "map"]
                 ];
 
                 return {
@@ -45,8 +48,6 @@ module.exports = {
                     choices: choices
                 }
             },
-
-           
 
         }
 

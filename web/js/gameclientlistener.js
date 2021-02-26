@@ -88,7 +88,7 @@ function gameClientHook(d) {
         var choices = '';
         for (var i = 0; i < d.choices.length; i++) {
             var line = d.choices[i];
-            var buton = "<button id='#tutu" + i + "' class='gamechoice' data-target='" + line[1] + "' style='opacity:0' data-page='" + line[2] + "'>" + line[0] + "</button>";
+            var buton = "<button id='#tutu" + i + "' class='gamechoice gamechoice_button' data-target='" + line[1] + "' style='opacity:0' data-page='" + line[2] + "'>" + line[0] + "</button>";
             choices += buton;
         }
         $('#choices').append(choices);

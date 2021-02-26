@@ -22,6 +22,7 @@ module.exports = {
             ws.char_inventory = [];
         }
 
+        this.tick();
         // load my characters
 
 
@@ -33,7 +34,7 @@ module.exports = {
                     ws.char_inventory.push(JSON.parse(rows[i].data));
                 }
 
-            console.log(ws.char_inventory);
+           // console.log(ws.char_inventory);
 
             ws.send(JSON.stringify({
                 'character_menu': 1,
@@ -64,28 +65,14 @@ module.exports = {
 
         /* CREATION DE PERSONNAGE */
         if (msg.create_char) {
-            var perso = msg.create_char;
-            perso.chapitre = '00_home/00_intro';
-            perso.page = "disclaimer";
+            //var perso = msg.create_char;
 
-            perso.traits = {};
-            perso.physique = 100;
-            perso.mental = 100;
-            perso.money = 12;
-            perso.social = 0; /// autiste <-> sociable
-            perso.love = 0; /// sexuel <-> amical
-            perso.crea = 0; /// serenité <-> creativité
-            perso.conso = 0; /// ecolo <-> consumériste
-            perso.gouv = 0; /// autoritaire <-> libertaire
-            perso.ideal = 0; /// communiste <-> liberal
-
-            perso.disclaimer = true;
+            var perso = require('./../game/objets/personnage.js');
 
 
-            perso.notifications = [];
-            perso.step = 0;
-            perso.inventaire = {};
-            perso.toInsertDB = true;
+            for (const [key, value] of Object.entries(msg.create_char)) {
+                perso[key] = value;
+            }
 
             itemTools.addItem(perso, "joint", 1);
             itemTools.addItem(perso, "vodka", 1);
@@ -103,22 +90,44 @@ module.exports = {
 
         /* DEMARRAGE PARTIE */
         if (msg.go) {
-            //console.log(ws.name + ' start game with ' + ws.char_inventory[msg.char].nom);
+            console.log(ws.name + ' start game with ' + ws.char_inventory[msg.char].nom);
             var perso = ws.char_inventory[msg.char];
             ws.current_perso = perso;
             gC.persos[perso.nom] = perso;
-            gC.onlinePersos[perso.nom] = true;
+            gC.onlinePersos[perso.nom] = ws;
             //  console.log(ws.name + ' starts the game');
             // console.log(ws.current_perso);
 
-            if (perso.disclaimer)
+            if (perso.disclaimer) {
                 var pagedepart = "disclaimer";
-            else
+                delete perso.disclaimer;
+            } else
                 pagedepart = "intro";
 
             this.loadPage(ws, ws.current_perso.chapitre, pagedepart);
-            this.updateMyChar(ws);
+            this.updateChar(perso);
         }
+    },
+    tick: function () {
+        var that = this;
+        for (const [key, value] of Object.entries(gC.persos)) {
+            // jobs 
+            var perso = value;
+            if (perso.jobing) {
+                for (const [key2, value2] of Object.entries(perso.jobing)) {
+                    console.log('jobing of ' + key2 + ' ' + value2 + ' ' + perso.nom);
+                    perso[key2] += value2;
+                }
+                this.notif(perso, "C'est jour de votre paye " + perso.job + " !");
+                this.updateChar(perso);
+            }
+
+        }
+        setTimeout(function () {
+            gC.date++;
+            that.tick();
+        }, 60000);
+
     },
 
     loadPage: function (ws, chapitre, page) {
@@ -142,30 +151,35 @@ module.exports = {
             ws.current_perso.step++;
 
             gC.setInPlace(ws.current_perso.place, ws.current_perso);
-            this.updateMyChar(ws);
+            this.updateChar(ws.current_perso);
             ws.send(JSON.stringify(pageObject));
             gC.persos[ws.current_perso.nom] = ws.current_perso;
-            this.updatePersos(ws);
+          //  this.updatePersos(ws);
 
 
         } catch (e) {
             tools.report('!!!! ERROR PAGE Missing !!!!' + chapitre + ' page ' + page);
-            console.log(e);
+            //   console.log(e);
         }
         return null;
     },
-    updateMyChar: function (ws) {
+    updateChar: function (perso) {
         var data = {
-            "mychar": ws.current_perso
+            "mychar": perso
         }
-
-        ws.send(JSON.stringify(data));
-        ws.current_perso.notifications = [];
+        var ws = gC.onlinePersos[perso.nom];
+        if (ws)
+            try {
+                ws.send(JSON.stringify(data));
+                ws.current_perso.notifications = [];
+            } catch (e) {
+                ws.close();
+                delete gC.onlinePersos[perso.nom];
+            }
 
     },
-
     notif: function (perso, notif) {
-        perso.notifications.push(notif);
+        perso.notifications.push(gC.date + ':' + notif);
     },
 
     updateTrait: function (perso, trait, value, notif) {
@@ -197,17 +211,17 @@ module.exports = {
         perso.notifications.push("(" + stat + " " + value + ")");
         perso[stat] = +value;
     }
-
+/*
     , updatePersos: function (ws, place = null) {
+    USE SETINPLACE INSTED
         if (!place) {
             var data = {
                 persos: gC.persos
             }
-
             ws.send(JSON.stringify(data));
         }
         return null;
-    }
+    }*/
     , getRole: function (role) {
         if (gC.roles[role]) {
             return gC.roles[role];

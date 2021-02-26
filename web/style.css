@@ -46,7 +46,7 @@ button{
     text-align:center;
 }
 
-.gamechoice{
+.gamechoice_button{
     display:block;
     margin: 20px auto;
 
@@ -74,4 +74,21 @@ button{
 }
 #peoplehere{
     border:1px solid blue; padding:20px;
+}
+
+#map{
+    position: absolute;
+    background: white;
+    width: 500px;
+    padding: 30px;
+    border: 1px solid black;
+    top: 50px;
+    left: 50px;
+    display:none;
+}
+
+.placemap{
+    width:100px;
+    display:inline-block;
+    cursor: pointer;
 }
