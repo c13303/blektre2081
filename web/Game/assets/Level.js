@@ -4,32 +4,38 @@
 /* START OF COMPILED CODE */
 
 class Level extends Phaser.Scene {
-
+	
 	constructor() {
 		super("Level");
-
+		
+		/** @type {Phaser.GameObjects.Image} */
+		this.head_40;
+		
 		/* START-USER-CTR-CODE */
 		this.started = 0;
 		/* END-USER-CTR-CODE */
 	}
-
+	
 	create() {
-
-		// man
-		this.add.image(357, 364, "man");
-
+		
 		// win
 		const win = this.add.image(328, 319, "win");
 		win.scaleX = 1.5;
 		win.scaleY = 1.5;
+		
+		// head_40
+		const head_40 = this.add.image(284, 344, "head_4", 0);
+		
+		this.head_40 = head_40;
 	}
-
+	
 	/* START-USER-CODE */
 
 	update() {
 		if (!this.started) {
 			this.started = true;
 			this.rain();
+			this.changeHead(3);
 		}
 	}
 	rain() {
@@ -44,6 +50,10 @@ class Level extends Phaser.Scene {
 			quantity: 3,
 			blendMode: 'ADD'
 		});
+	}
+
+	changeHead(frame = 1){
+		this.head_40.setFrame(frame);
 	}
 
 	/* END-USER-CODE */

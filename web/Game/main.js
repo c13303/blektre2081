@@ -37,4 +37,5 @@ class Boot extends Phaser.Scene {
 var jeanpierre = 333;
 function Test(){
     return ('OK GROS');
+    var caca = 2;
 }

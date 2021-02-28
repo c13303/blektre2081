@@ -2,6 +2,19 @@
     "section1": {
         "files": [
             {
+                "url": "assets/head_4.png",
+                "frameConfig": {
+                    "frameWidth": 320,
+                    "frameHeight": 240,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "head_4"
+            },
+            {
                 "url": "assets/Level.js",
                 "type": "sceneFile",
                 "key": "Level"

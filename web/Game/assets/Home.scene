@@ -1,36 +1,35 @@
 {
-    "id": "01aefa93-6044-4159-8358-7e91310aa05f",
+    "id": "8efecfd6-4160-4e7c-85e2-9b44e5f00a9f",
     "sceneType": "SCENE",
     "settings": {
         "preloadPackFiles": [],
-        "sceneKey": "Level"
+        "sceneKey": "Home"
     },
     "displayList": [
         {
             "type": "Image",
-            "id": "54cb2c74-d19a-4ff1-a8df-28c669f903f0",
+            "id": "b06147fc-a045-4785-83da-df20025d9eab",
             "label": "win",
             "components": [],
             "texture": {
                 "key": "win"
             },
-            "x": 328,
-            "y": 319,
+            "x": 426,
+            "y": 317,
             "scaleX": 1.5,
             "scaleY": 1.5
         },
         {
             "type": "Image",
-            "id": "61cd2bbe-56eb-48ce-9c0b-4ff668e955c4",
+            "id": "2e2816b8-bb93-4b01-819a-b34026c640c1",
             "label": "head_40",
-            "scope": "PUBLIC",
             "components": [],
             "texture": {
                 "key": "head_4",
                 "frame": 0
             },
-            "x": 284,
-            "y": 344
+            "x": 277,
+            "y": 321
         }
     ],
     "plainObjects": [],
