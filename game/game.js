@@ -16,6 +16,8 @@ module.exports = {
     timerLast: Date.now(),
     age: 0,
     gameInit: function (ws, connection) {
+        /* INIT GAME FOR A CLIENT */
+
         tools.clearLog();
 
         if (!ws.char_inventory) {
@@ -34,7 +36,7 @@ module.exports = {
                     ws.char_inventory.push(JSON.parse(rows[i].data));
                 }
 
-           // console.log(ws.char_inventory);
+            // console.log(ws.char_inventory);
 
             ws.send(JSON.stringify({
                 'character_menu': 1,
@@ -55,7 +57,27 @@ module.exports = {
             tools.report(ws.name + ' LEFT THE GAME : ' + ws.id);
 
         }
-    }, onPlayerCommand: function (ws, msg) {
+    },
+    createCharacter: function (nom, type, bio) {
+//var perso = msg.create_char;
+        var perso = require('./../game/objets/personnage.js');
+        perso.nom = nom;
+        perso.type = type;
+        perso.bio = bio;
+        /*
+         for (const [key, value] of Object.entries(msg.create_char)) {
+         perso[key] = value;
+         }
+         */
+        itemTools.addItem(perso, "joint", 1);
+        itemTools.addItem(perso, "vodka", 1);
+        gC.persos[perso.nom] = perso;
+        gC.setInPlace("Home", perso);
+
+        return (perso);
+    },
+
+    onPlayerCommand: function (ws, msg) {
         tools.report(ws.name + ' client msg recvd : ' + JSON.stringify(msg));
 
         /* Load un chapitre page après un choice */
@@ -65,17 +87,7 @@ module.exports = {
 
         /* CREATION DE PERSONNAGE */
         if (msg.create_char) {
-            //var perso = msg.create_char;
-
-            var perso = require('./../game/objets/personnage.js');
-
-
-            for (const [key, value] of Object.entries(msg.create_char)) {
-                perso[key] = value;
-            }
-
-            itemTools.addItem(perso, "joint", 1);
-            itemTools.addItem(perso, "vodka", 1);
+            var perso = this.createCharacter(msg.create_char.nom, msg.create_char.type, msg.create_char.bio)
 
             ws.char_inventory.push(perso);
             ws.save();
@@ -83,8 +95,6 @@ module.exports = {
                 'character_menu': 1,
                 'char_inventory': ws.char_inventory
             }));
-
-
         }
 
 
@@ -93,7 +103,7 @@ module.exports = {
             console.log(ws.name + ' start game with ' + ws.char_inventory[msg.char].nom);
             var perso = ws.char_inventory[msg.char];
             ws.current_perso = perso;
-            gC.persos[perso.nom] = perso;
+
             gC.onlinePersos[perso.nom] = ws;
             //  console.log(ws.name + ' starts the game');
             // console.log(ws.current_perso);
@@ -135,31 +145,29 @@ module.exports = {
 
 
         try {
-            gC.setOutPlace(ws.current_perso.place, ws.current_perso);
+            var perso = ws.current_perso;
             var pageO = require('./../blektre/' + chapitre + '.js');
             var pageObject = pageO.getPage(ws, page);
-            // console.log(pageObject);
 
             if (!pageObject) {
                 tools.report('pageOjbect is missing at ' + chapitre + ' ' + page);
                 return null;
             }
 
+            perso.chapitre = chapitre;
+            perso.page = page;
+            perso.step++;
 
-            ws.current_perso.chapitre = chapitre;
-            ws.current_perso.page = page;
-            ws.current_perso.step++;
-
-            gC.setInPlace(ws.current_perso.place, ws.current_perso);
-            this.updateChar(ws.current_perso);
+            gC.setInPlace(perso.place, perso);
+            this.updateChar(perso);
             ws.send(JSON.stringify(pageObject));
-            gC.persos[ws.current_perso.nom] = ws.current_perso;
-          //  this.updatePersos(ws);
+
+            //  this.updatePersos(ws);
 
 
         } catch (e) {
-            tools.report('!!!! ERROR PAGE Missing !!!!' + chapitre + ' page ' + page);
-            //   console.log(e);
+            tools.report('!!!! ERROR at loading page : ' + chapitre + ' page ' + page);
+            console.log(e);
         }
         return null;
     },
@@ -211,17 +219,17 @@ module.exports = {
         perso.notifications.push("(" + stat + " " + value + ")");
         perso[stat] = +value;
     }
-/*
-    , updatePersos: function (ws, place = null) {
-    USE SETINPLACE INSTED
-        if (!place) {
-            var data = {
-                persos: gC.persos
-            }
-            ws.send(JSON.stringify(data));
-        }
-        return null;
-    }*/
+    /*
+     , updatePersos: function (ws, place = null) {
+     USE SETINPLACE INSTED
+     if (!place) {
+     var data = {
+     persos: gC.persos
+     }
+     ws.send(JSON.stringify(data));
+     }
+     return null;
+     }*/
     , getRole: function (role) {
         if (gC.roles[role]) {
             return gC.roles[role];

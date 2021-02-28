@@ -9,6 +9,7 @@ process.chdir("/home/blektre2081/blektre2081/");
 
 
 module.exports = {
+
     chapitre: '00_home/00_intro',
     page: "disclaimer",
     traits: {},
@@ -25,5 +26,8 @@ module.exports = {
     step: 0,
     inventaire: {},
     toInsertDB: true,
-
+    nom: "Jacques Mimol",
+    type: "1",
+    bio: "IA",
+    place: "Home"
 }

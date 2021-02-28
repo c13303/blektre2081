@@ -41,6 +41,7 @@ if ($isdev) {
         <script src="/js/gameclientlistener.js?v=<?= $v; ?>"></script>
         <script src="/js/monitor.js?v=<?= $v; ?>"></script>
         <script src="/js/blektre/UI.js?v=<?= $v; ?>"></script>
+        <script src="/js/blektre/phaser.js?v=<?= $v; ?>"></script>
 
 
     </head>
@@ -106,14 +107,15 @@ if ($isdev) {
             <div id="fiche">
 
                 <div id="visuel">
-
-                   <!-- <div id="thecanvas">
-                        <div id="sprite_mychar">
-
-                        </div>
-                    </div> -->
+                    <iframe id="phaserframe" src="Game/index.html?v=<?= $v; ?>" ></iframe>
                     <div id="place"></div>
                     <div id="peoplehere"></div>
+                    <div class="stats">
+                        <br/>€ <span class="stat" data-stat="money"></span>
+                        <br/>KARMA <span class="stat" data-stat="karma"></span>
+                        <br/>SEX <span class="stat" data-stat="sex"></span>
+                        <br/>SANITY <span class="stat" data-stat="sanity"></span>
+                    </div>
                 </div>
                 <div id="notifs"></div>
                 <div id="json" ></div>

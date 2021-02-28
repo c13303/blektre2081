@@ -75,6 +75,8 @@ serveur.startServer = function () {
 
     function websocketStart() {
         tools.report('- - - - Lancement Websocket Serveur port ' + port);
+        
+        /* SERVER START */
         wss = new WebSocketServer({
             server: httpsServer,
             verifyClient: function (info, callback) {
@@ -84,11 +86,15 @@ serveur.startServer = function () {
         wss.subinit();
         tools.wss = wss;
         gC.recoverPlayersFromDB(connection);
+        game.createCharacter("Bot1",1,"IA");
+        game.createCharacter("Bot2",1,"IA");
+        
+       
+        /* ADD IA PLAYER */
 
 
 
-
-
+        /* ON CLIENT CONNECTION */
         wss.on('connection', function myconnection(ws, request) {
 
             try {

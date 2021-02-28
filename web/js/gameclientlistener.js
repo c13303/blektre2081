@@ -74,6 +74,8 @@ function gameClientHook(d) {
 
     if (d.text) {
 
+        
+
         if (!d.choices)
             console.log('ERREUR : D.CHOICES MISSING');
         if (d.flush) {
@@ -117,18 +119,28 @@ function gameClientHook(d) {
         $('#fiche #json').html(html);
         mychar = d.mychar;
         $('#place').html(mychar.place);
-        $('#sprite_mychar').css('background', 'url(/img-persos/type' + mychar.type + '.png?v=');
+        //$('#sprite_mychar').css('background', 'url(/img-persos/type' + mychar.type + '.png?v=');
+
+        $(".stat").each(function () {
+            var stat = $(this).data('stat');
+            $(this).html(mychar[stat]);
+        });
+
     }
+
 
 
     if (d.persos) {
         var html = '';
 
+        /* persos here */
         for (const [key, value] of Object.entries(d.persos)) {
             html += ' <div class="persal">' + value.nom + '</div> ';
         }
-
         $('#peoplehere').html(html);
+
+
+
     }
 
 }

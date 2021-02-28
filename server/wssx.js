@@ -128,8 +128,8 @@ class wssx extends server {
             }
         });
     }
-    ;
-            getClientFromId(id) {
+
+    getClientFromId(id) {
         var that = null;
         for (let daCli of this.clients) {
             if (daCli.id === id) {

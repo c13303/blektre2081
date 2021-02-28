@@ -1,0 +1,32 @@
+{
+    "section1": {
+        "files": [
+            {
+                "url": "assets/Level.js",
+                "type": "sceneFile",
+                "key": "Level"
+            },
+            {
+                "url": "assets/man.png",
+                "type": "image",
+                "key": "man"
+            },
+            {
+                "url": "assets/raindrop.png",
+                "type": "image",
+                "key": "raindrop"
+            },
+            {
+                "url": "assets/win.png",
+                "type": "image",
+                "key": "win"
+            }
+        ]
+    },
+    "meta": {
+        "app": "Phaser Editor 2D - Asset Pack Editor",
+        "contentType": "phasereditor2d.pack.core.AssetContentType",
+        "url": "https://phasereditor2d.com",
+        "version": 2
+    }
+}

@@ -36,6 +36,9 @@ module.exports = {
             /* PAGE */
             "intro": function () {
                 var text = "Vous êtes chez vous.";
+                if(perso.job == "technicien de surface"){
+                    text = "Vous êtes chez vous, habillé comme une merde"
+                }
                 var choices = [
                     ["Je vais sur Tinder", folder + "/01_tinder", "intro"],
                     ["Je vais sur LinkedIn", folder + "/02_linkedin", "intro"],

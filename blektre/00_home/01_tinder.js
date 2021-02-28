@@ -32,10 +32,16 @@ module.exports = {
                 }
             },
             "swipe": function () {
-                var text = "OUIN";
+                var people = game.gC.people;
+                var browsing = [];
+                for (const[key, value] in Object.entries(game.gC.persos)) {
+                    browsing.push(key);
+                }
+                perso.browsing = 0;
+
+                var text = "S'affiche sur l'écran le profil de " + perso;
                 var choices = [
-                    ["Je consulte les profils", "00_home/01_tinder", "swipe"],
-                    ["Je quitte", folder + "/00_intro", "intro"],
+
                 ];
 
                 return {

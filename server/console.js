@@ -57,9 +57,15 @@ var consoleTools = {
     quit: function (arg = null) {
         tools.wss.masssave(process.exit);
     },
+
     persos: function (arg = null) {
         console.log(gC.persos);
+    },
+    places: function (arg = null) {
+        console.log(gC.places);
     }
+
+
 
 };
 

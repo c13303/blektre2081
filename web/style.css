@@ -5,6 +5,9 @@ body{
 
 
 }
+#character_menu,#createchar{
+    float:left;
+}
 #text{
     font-size: 150%;
     line-height: 26px;
@@ -91,4 +94,11 @@ button{
     width:100px;
     display:inline-block;
     cursor: pointer;
+}
+
+iframe{
+    border:none !important;
+    background:white;
+    width:640px;
+    height:480px;
 }

@@ -42,37 +42,31 @@ module.exports = {
         }
     },
     setInPlace: function (place, perso) {
-
-        if (!place) {
-            console.log('ok gros');
-            console.log(perso);
-            tools.fatal('ERREUR SETINPLACE NO PLACE ' + place);
-        }
-
         if (!this.places[place])
             this.places[place] = {};
+
+        if (!place)
+            tools.fatal("set in place no place ? FUCK YOU");
+
+        if (place === perso.place && this.places[place][perso.nom] === perso) {
+            // normal quand on reste dans la même pièce
+            return null;
+        }
+
+
+
+        /* remove old place from index */
+        if (!this.places[place][perso.nom]) {
+            tools.report('SetOutPlace error ' + perso.nom + ' is not in ' + place);
+        } else {
+            delete this.places[place][perso.nom];
+        }
+
 
         this.places[place][perso.nom] = perso;
 
         this.updatePlace(place);
-        console.log('updated places');
-        // console.log(this.places);
-    },
-    setOutPlace: function (place, perso) {
-
-        if (!place) {
-            return null;
-        }
-
-        if (!this.places[place])
-            this.places[place] = {};
-
-        if (!this.places[place][perso.nom]) {
-            tools.report('SetOutPlace error ' + perso.nom + ' is not in ' + place);
-            return null;
-        }
-        this.updatePlace(place);
-        delete this.places[place][perso.nom];
+        console.log(perso.nom + ' has moved, --updated places');
     },
     getOtherPeopleHere: function (place, perso) {
 

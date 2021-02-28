@@ -159,6 +159,7 @@ module.exports = {
             }
             connection.query("DELETE FROM persos", function () {
                 that.report('persos FLUSHED!');
+                
                 if (callback) {
                     callback();
                 }
