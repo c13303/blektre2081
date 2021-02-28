@@ -74,7 +74,7 @@ function gameClientHook(d) {
 
     if (d.text) {
 
-        
+
 
         if (!d.choices)
             console.log('ERREUR : D.CHOICES MISSING');
@@ -132,10 +132,11 @@ function gameClientHook(d) {
 
     if (d.persos) {
         var html = '';
+        console.log(d.persos);
 
         /* persos here */
         for (const [key, value] of Object.entries(d.persos)) {
-            html += ' <div class="persal">' + value.nom + '</div> ';
+            html += ' <div class="persal">' + key + '</div> ';
         }
         $('#peoplehere').html(html);
 

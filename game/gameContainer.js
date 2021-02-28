@@ -5,7 +5,7 @@ module.exports = {
     date: 0,
     heure: 0,
     persos: {},
-    onlinePersos: {},
+    onlinePersos: {}, /// les clients WS en stock
     places: {},
     roles: {
         dj: null,
@@ -31,19 +31,10 @@ module.exports = {
             console.log(Object.keys(that.persos).length + ' personnages loaded');
         });
     },
-    updatePlace(place) {
-        /// update clients from a place when someone is leaving / entering a place
-        for (const [key, value] of Object.entries(this.places[place])) {
-            var perso = value;
-            if (this.onlinePersos[key]) {
-                var ws = this.onlinePersos[key];
-                ws.send(JSON.stringify({persos: this.places[place]}));
-            }
-        }
-    },
     setInPlace: function (place, perso) {
+        // creation list des places si nexiste pas
         if (!this.places[place])
-            this.places[place] = {};
+            this.places[place] = {}; // contient les persos
 
         if (!place)
             tools.fatal("set in place no place ? FUCK YOU");
@@ -56,16 +47,27 @@ module.exports = {
 
 
         /* remove old place from index */
-        if (!this.places[place][perso.nom]) {
-            tools.report('SetOutPlace error ' + perso.nom + ' is not in ' + place);
-        } else {
-            delete this.places[place][perso.nom];
+        if (perso.place) {
+            if (!this.places[perso.place][perso.nom]) {
+                tools.report('SetOutPlace error ' + perso.nom + ' is not in ' + place);
+            } else {
+                delete this.places[place][perso.nom];
+            }
         }
 
-
+        // set in places index
         this.places[place][perso.nom] = perso;
 
-        this.updatePlace(place);
+        /// update clients 
+        for (const [key, value] of Object.entries(this.places[place])) {
+            var perso = value;
+            if (this.onlinePersos[key]) {
+                var ws = this.onlinePersos[key];
+                ws.send(JSON.stringify({persos: this.places[place]}));
+                console.log(perso.nom + ' updated place client');
+            }
+        }
+
         console.log(perso.nom + ' has moved, --updated places');
     },
     getOtherPeopleHere: function (place, perso) {

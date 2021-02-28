@@ -29,5 +29,5 @@ module.exports = {
     nom: "Jacques Mimol",
     type: "1",
     bio: "IA",
-    place: "Home"
+    place: null
 }

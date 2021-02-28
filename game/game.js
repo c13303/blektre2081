@@ -58,7 +58,7 @@ module.exports = {
 
         }
     },
-    createCharacter: function (nom, type, bio) {
+    createCharacter: function (nom, type, bio) { 
 //var perso = msg.create_char;
         var perso = require('./../game/objets/personnage.js');
         perso.nom = nom;
@@ -100,11 +100,15 @@ module.exports = {
 
         /* DEMARRAGE PARTIE */
         if (msg.go) {
-            console.log(ws.name + ' start game with ' + ws.char_inventory[msg.char].nom);
+            console.log(ws.name + ' CHARACTEUR ONLINE  : ' + ws.char_inventory[msg.char].nom);
             var perso = ws.char_inventory[msg.char];
             ws.current_perso = perso;
 
             gC.onlinePersos[perso.nom] = ws;
+
+
+
+
             //  console.log(ws.name + ' starts the game');
             // console.log(ws.current_perso);
 
@@ -115,6 +119,9 @@ module.exports = {
                 pagedepart = "intro";
 
             this.loadPage(ws, ws.current_perso.chapitre, pagedepart);
+            // forcer update place if not moved
+            ws.send(JSON.stringify({persos: gC.places[perso.place]}));
+
             this.updateChar(perso);
         }
     },
@@ -176,7 +183,7 @@ module.exports = {
             "mychar": perso
         }
         var ws = gC.onlinePersos[perso.nom];
-        if (ws)
+        if (ws) {
             try {
                 ws.send(JSON.stringify(data));
                 ws.current_perso.notifications = [];
@@ -184,6 +191,9 @@ module.exports = {
                 ws.close();
                 delete gC.onlinePersos[perso.nom];
             }
+        } else {
+            delete gC.onlinePersos[perso.nom];
+        }
 
     },
     notif: function (perso, notif) {
