@@ -3,7 +3,7 @@ var tickrate;
 var map;
 var mapSizeX = mapSizeY = null;
 var viewSize = null;
-var people = [];
+var persos = null;
 var centerX = centerY = 0;
 var followId = null;
 var monitor = "";
@@ -48,6 +48,9 @@ function gameClientHook(d) {
     /* d = data from serveur message */
 
     console.log(d);
+
+    phaserHook(d);
+
     if (d.connected) {
         $("#connect").remove();
         $('#game').removeClass('hidden');
@@ -73,9 +76,6 @@ function gameClientHook(d) {
 
 
     if (d.text) {
-
-
-
         if (!d.choices)
             console.log('ERREUR : D.CHOICES MISSING');
         if (d.flush) {
@@ -94,13 +94,7 @@ function gameClientHook(d) {
             choices += buton;
         }
         $('#choices').append(choices);
-        $('#choices').find('.gamechoice').delay(500).fadeTo(500, 1);
-        if (d.visu) {
-            $('#thecanvas').fadeTo(200, 0, function () {
-                $('#thecanvas').css('background', 'url(/img/' + d.visu + '.png?v=' + Date.now()).fadeTo(500, 1);
-            })
-        }
-
+        $('#choices').find('.gamechoice').delay(1).fadeTo(100, 1);
     }
 
 
@@ -140,7 +134,13 @@ function gameClientHook(d) {
         }
         $('#peoplehere').html(html);
 
+        persos = d.persos;
 
+    }
+
+
+    /* PHASER ANIMATION */
+    if (d.phasercommand) {
 
     }
 

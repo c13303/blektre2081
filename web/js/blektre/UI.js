@@ -53,15 +53,19 @@ $(document).ready(function () {
             var html = "";
 
             for (var i = 0; i < mychar.places.length; i++) {
-                html += "<div class='placemap gamechoice' data-target='" + mychar.places[i][1] + "'>" + mychar.places[i][0] + "</div>";
+                html += "<div class='placemap gamechoice' data-target='00_home/metro' data-dest='" + mychar.places[i][1] + "' data-destname='" + mychar.places[i][0] + "'>" + mychar.places[i][0] + "</div>";
             }
             $('#places').html(html);
         } else {
-            ws.send(JSON.stringify({
+            var msg = {
                 choice: $(this).data('target'),
                 page: $(this).data('page')
-
-            }));
+            };
+            if ($(this).data('dest')) {
+                msg.dest = $(this).data('dest');
+                msg.destname = $(this).data('destname');
+            }
+            ws.send(JSON.stringify(msg));
         }
     });
 
@@ -84,7 +88,7 @@ $(document).ready(function () {
         }
 
     });
-    
-    
+
+
 
 });

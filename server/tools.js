@@ -36,6 +36,7 @@ module.exports = {
 
 
         this.report(msg, dump, false);
+        process.exit();
         //   process.exit();
         //  this.wss.masssave();
 

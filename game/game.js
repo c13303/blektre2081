@@ -54,16 +54,15 @@ module.exports = {
     onPlayerLeave: function (ws) {
         if (ws.isOnline) {
             ws.isOnline = false;
+            delete gC.onlinePersos[ws.name];
             tools.report(ws.name + ' LEFT THE GAME : ' + ws.id);
 
         }
     },
-    createCharacter: function (nom, type, bio) { 
+    createCharacter: function (nom, type, bio, startplace = "Home") {
 //var perso = msg.create_char;
-        var perso = require('./../game/objets/personnage.js');
-        perso.nom = nom;
-        perso.type = type;
-        perso.bio = bio;
+        var persoTool = require('./../game/objets/personnage.js');
+        var perso = persoTool.create(nom, type, bio);
         /*
          for (const [key, value] of Object.entries(msg.create_char)) {
          perso[key] = value;
@@ -72,8 +71,7 @@ module.exports = {
         itemTools.addItem(perso, "joint", 1);
         itemTools.addItem(perso, "vodka", 1);
         gC.persos[perso.nom] = perso;
-        gC.setInPlace("Home", perso);
-
+        gC.setInPlace(startplace, perso);
         return (perso);
     },
 
@@ -82,13 +80,13 @@ module.exports = {
 
         /* Load un chapitre page après un choice */
         if (msg.choice) {
-            this.loadPage(ws, msg.choice, msg.page);
+
+            this.loadPage(ws, msg.choice, msg.page, msg.dest);
         }
 
         /* CREATION DE PERSONNAGE */
         if (msg.create_char) {
             var perso = this.createCharacter(msg.create_char.nom, msg.create_char.type, msg.create_char.bio)
-
             ws.char_inventory.push(perso);
             ws.save();
             ws.send(JSON.stringify({
@@ -147,15 +145,26 @@ module.exports = {
 
     },
 
-    loadPage: function (ws, chapitre, page) {
+    loadPage: function (ws, chapitre, page, dest = null) {
         // console.log('LoadPage() ' + chapitre + ' page ' + JSON.stringify(page));
 
 
         try {
-            var perso = ws.current_perso;
-            var pageO = require('./../blektre/' + chapitre + '.js');
-            var pageObject = pageO.getPage(ws, page);
 
+            var perso = ws.current_perso;
+            delete perso.adversaire;
+
+            if (dest)
+                perso.dest = dest;
+
+
+            var pageO = require('./../blektre/' + chapitre + '.js');
+            if (!pageO) {
+                tools.fatal('Fatal Page O pisssmigpoon');
+            }
+
+
+            var pageObject = pageO.getPage(ws, page);
             if (!pageObject) {
                 tools.report('pageOjbect is missing at ' + chapitre + ' ' + page);
                 return null;
@@ -165,9 +174,14 @@ module.exports = {
             perso.page = page;
             perso.step++;
 
-            gC.setInPlace(perso.place, perso);
+            // go to target place
+            gC.setInPlace(pageO.name, perso);
+
             this.updateChar(perso);
-            ws.send(JSON.stringify(pageObject));
+            var data = (pageObject);
+            data.scene = pageO.name;
+
+            ws.send(JSON.stringify(data));
 
             //  this.updatePersos(ws);
 
@@ -188,8 +202,8 @@ module.exports = {
                 ws.send(JSON.stringify(data));
                 ws.current_perso.notifications = [];
             } catch (e) {
-                ws.close();
-                delete gC.onlinePersos[perso.nom];
+                console.log(e);
+
             }
         } else {
             delete gC.onlinePersos[perso.nom];

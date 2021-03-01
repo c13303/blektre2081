@@ -75,7 +75,7 @@ serveur.startServer = function () {
 
     function websocketStart() {
         tools.report('- - - - Lancement Websocket Serveur port ' + port);
-        
+
         /* SERVER START */
         wss = new WebSocketServer({
             server: httpsServer,
@@ -86,10 +86,11 @@ serveur.startServer = function () {
         wss.subinit();
         tools.wss = wss;
         gC.recoverPlayersFromDB(connection);
-        game.createCharacter("Bot1",1,"IA");
-        game.createCharacter("Bot2",1,"IA");
-        
-       
+        var bot1 = game.createCharacter("Bot1", 2, "IA", "Metro");
+        var bot2 = game.createCharacter("Bot2", 3, "IA", "Metro");
+
+
+
         /* ADD IA PLAYER */
 
 

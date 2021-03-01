@@ -3,15 +3,14 @@ var game = require('./../../game/game.js');
 var itemTools = require('./../../game/objets/itemsTools.js');
 
 module.exports = {
+    name: "Home",
+    folder: "00_home",
+    chapitre: "/00_intro",
+
     getPage: function (ws, page = "intro") {
 
-        /* HERE IS THE PLACE */
-        ws.current_perso.place = "Home";
-        var folder = "00_home";
-
-        var nameChapitre = folder + "/00_intro";
-
-        /* DEFAULT CHOICE */
+        var nameChapitre = this.folder + "/" + this.chapitre;
+        var folder = this.folder;
         var perso = ws.current_perso;
 
 
@@ -36,8 +35,8 @@ module.exports = {
             /* PAGE */
             "intro": function () {
                 var text = "Vous êtes chez vous.";
-                if(perso.job == "technicien de surface"){
-                    text = "Vous êtes chez vous, habillé comme une merde"
+                if (perso.job === "technicien de surface") {
+                    text = "Vous êtes chez vous, habillé comme une merde de technicien de surface."
                 }
                 var choices = [
                     ["Je vais sur Tinder", folder + "/01_tinder", "intro"],

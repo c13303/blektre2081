@@ -87,10 +87,13 @@ if ($isdev) {
                 }
                 ?>
                 Nom : <input type="text" id="nom" value="<?= generateRandomString(8); ?>" />
-                <br/> Corps : 
-                1<input type="radio" id="type" name="type" selected="selected" value="1" />
-                2<input type="radio" id="type" name="type" selected="selected" value="2" />
-                3<input type="radio" id="type" name="type" selected="selected" value="3" />
+                <br/> Morphologie : <select id="type" name="type">
+                    <option value="1">Corps 1</option>
+                    <option value="2">Corps 2</option>
+                    <option value="3">Corps 3</option>
+                    <option value="4">Tête Large</option>
+                </select>
+
                 <br/> Biographie<textarea id="bio">Coucouille</textarea>
                 <br/> <button id="submitbio">Incarner ce merveilleux personnage</button> <button id="cancelbio">Annuler</button> 
             </div>

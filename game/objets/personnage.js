@@ -9,25 +9,30 @@ process.chdir("/home/blektre2081/blektre2081/");
 
 
 module.exports = {
+    create: function (nom, type, bio) {
+        var perso = {
+            nom: nom,
+            type: type,
+            bio: bio,
+            chapitre: '00_home/00_intro',
+            page: "disclaimer",
+            traits: {},
+            life: 100,
+            karma: 0,
+            sex: 0,
+            sanity: 0,
+            money: 12,
+            job: null,
+            jobing: null,
+            places: [["Maison", "00_home/00_intro"]],
+            disclaimer: true,
+            notifications: [],
+            step: 0,
+            inventaire: {},
+            toInsertDB: true,           
+            place: null
+        }
+        return perso;
+    }
 
-    chapitre: '00_home/00_intro',
-    page: "disclaimer",
-    traits: {},
-    life: 100,
-    karma: 0,
-    sex: 0,
-    sanity: 0,
-    money: 12,
-    job: null,
-    jobing: null,
-    places: [["Maison", "00_home/00_intro"]],
-    disclaimer: true,
-    notifications: [],
-    step: 0,
-    inventaire: {},
-    toInsertDB: true,
-    nom: "Jacques Mimol",
-    type: "1",
-    bio: "IA",
-    place: null
 }

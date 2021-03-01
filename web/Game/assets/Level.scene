@@ -3,34 +3,70 @@
     "sceneType": "SCENE",
     "settings": {
         "preloadPackFiles": [],
-        "sceneKey": "Level"
+        "sceneKey": "Level",
+        "borderWidth": 640,
+        "borderHeight": 480
     },
     "displayList": [
         {
-            "type": "Image",
-            "id": "54cb2c74-d19a-4ff1-a8df-28c669f903f0",
-            "label": "win",
+            "type": "Text",
+            "id": "59372d77-174f-4fa9-ad96-ffeabe8bd048",
+            "label": "title",
             "components": [],
-            "texture": {
-                "key": "win"
-            },
-            "x": 328,
-            "y": 319,
-            "scaleX": 1.5,
-            "scaleY": 1.5
+            "x": 125,
+            "y": 22,
+            "originX": 0,
+            "originY": 0,
+            "text": "BLEKTRE 2081",
+            "fontSize": "55px"
         },
         {
             "type": "Image",
-            "id": "61cd2bbe-56eb-48ce-9c0b-4ff668e955c4",
-            "label": "head_40",
-            "scope": "PUBLIC",
+            "id": "17cba179-80f5-47e2-94f4-1590e6ba15c7",
+            "label": "head_41",
             "components": [],
             "texture": {
                 "key": "head_4",
-                "frame": 0
+                "frame": 1
             },
-            "x": 284,
-            "y": 344
+            "x": 256,
+            "y": 242
+        },
+        {
+            "type": "Image",
+            "id": "0a118c3a-31ed-40ac-b229-4aee3573482e",
+            "label": "head_42",
+            "components": [],
+            "texture": {
+                "key": "head_4",
+                "frame": 2
+            },
+            "x": 649,
+            "y": 245
+        },
+        {
+            "type": "Image",
+            "id": "e07ddd5a-5fbd-404e-a7f4-be5a708d786d",
+            "label": "head_43",
+            "components": [],
+            "texture": {
+                "key": "head_4",
+                "frame": 3
+            },
+            "x": 460,
+            "y": 241
+        },
+        {
+            "type": "Image",
+            "id": "9e9ff463-fafe-47d6-8027-085bc01a593b",
+            "label": "head_44",
+            "components": [],
+            "texture": {
+                "key": "head_4",
+                "frame": 4
+            },
+            "x": 41,
+            "y": 243
         }
     ],
     "plainObjects": [],

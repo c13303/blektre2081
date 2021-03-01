@@ -1,4 +1,9 @@
 var game;
+var ctx;
+var levelctx, scenery;
+var head1, head2, head3, head4;
+var currentScene;
+
 
 window.addEventListener('load', function () {
 
@@ -6,11 +11,11 @@ window.addEventListener('load', function () {
         width: 640,
         height: 480,
         type: Phaser.AUTO,
-        backgroundColor: "#242424",
+        backgroundColor: "#CCC",
         scale: {
             mode: Phaser.Scale.FIT,
             autoCenter: Phaser.Scale.CENTER_BOTH
-        }
+        },
     });
 
     game.scene.add("Boot", Boot, true);
@@ -20,22 +25,44 @@ window.addEventListener('load', function () {
 class Boot extends Phaser.Scene {
 
     preload() {
-
         this.load.pack("pack", "assets/asset-pack.json");
     }
 
     create() {
-
-        this.scene.start("Level");
-
-
+        ctx = this;
+        changeScene("Level", false);
     }
 
 }
 
+function Ctx() {
+    return ctx;
+}
 
-var jeanpierre = 333;
-function Test(){
-    return ('OK GROS');
-    var caca = 2;
+function levelCtx() {
+    return levelctx;
+}
+
+function changeScene(name, remove = true) {
+
+
+    if (currentScene)
+        ctx.scene.stop(currentScene);
+
+    ctx.scene.start(name);
+
+
+    currentScene = name;
+    return ("Switched to " + name);
+}
+
+function changeHead(headNumber, frame) {
+    console.log('changing head ' + headNumber + ' to frame ' + frame);
+    var head = levelctx["head" + headNumber];
+    if (head)
+        head.setFrame(frame);
+    else {
+        console.log('ERROR HEAD NOT FOUND');
+        console.log(levelctx);
+    }
 }

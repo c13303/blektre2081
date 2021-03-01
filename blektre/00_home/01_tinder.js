@@ -3,16 +3,16 @@ var game = require('./../../game/game.js');
 var itemTools = require('./../../game/objets/itemsTools.js');
 
 module.exports = {
+    name: "Home",
+    folder: "00_home",
+    chapitre: "/01_tinder",
+
     getPage: function (ws, page = "intro") {
 
-        /* HERE IS THE PLACE */
-        ws.current_perso.place = "Home";
-        var folder = "00_home";
-        var nameChapitre = folder + "/01_tinder";
-
-
-        /* DEFAULT CHOICE */
+        var nameChapitre = this.folder + "/" + this.chapitre;
+        var folder = this.folder;
         var perso = ws.current_perso;
+
 
 
         /* CHAPITRE */

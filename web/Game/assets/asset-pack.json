@@ -2,10 +2,10 @@
     "section1": {
         "files": [
             {
-                "url": "assets/head_4.png",
+                "url": "assets/png/head_4.png",
                 "frameConfig": {
                     "frameWidth": 320,
-                    "frameHeight": 240,
+                    "frameHeight": 480,
                     "startFrame": 0,
                     "endFrame": -1,
                     "spacing": 0,
@@ -13,6 +13,16 @@
                 },
                 "type": "spritesheet",
                 "key": "head_4"
+            },
+            {
+                "url": "assets/png/home.png",
+                "type": "image",
+                "key": "home"
+            },
+            {
+                "url": "assets/places/Home.js",
+                "type": "sceneFile",
+                "key": "Home"
             },
             {
                 "url": "assets/Level.js",
@@ -25,12 +35,17 @@
                 "key": "man"
             },
             {
+                "url": "assets/places/Metro.js",
+                "type": "sceneFile",
+                "key": "Metro"
+            },
+            {
                 "url": "assets/raindrop.png",
                 "type": "image",
                 "key": "raindrop"
             },
             {
-                "url": "assets/win.png",
+                "url": "assets/png/metro.png",
                 "type": "image",
                 "key": "win"
             }

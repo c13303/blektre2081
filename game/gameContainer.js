@@ -32,14 +32,17 @@ module.exports = {
         });
     },
     setInPlace: function (place, perso) {
+
+        // place = new placed :(
+        perso.oldplace = perso.place;
+        //  console.log('[setInPlace] Moving ' + perso.nom + ' to ' + place);
         // creation list des places si nexiste pas
         if (!this.places[place])
             this.places[place] = {}; // contient les persos
 
         if (!place)
             tools.fatal("set in place no place ? FUCK YOU");
-
-        if (place === perso.place && this.places[place][perso.nom] === perso) {
+        if (place === perso.oldplace && this.places[place][perso.nom] === perso) {
             // normal quand on reste dans la même pièce
             return null;
         }
@@ -47,24 +50,31 @@ module.exports = {
 
 
         /* remove old place from index */
-        if (perso.place) {
-            if (!this.places[perso.place][perso.nom]) {
-                tools.report('SetOutPlace error ' + perso.nom + ' is not in ' + place);
+        if (perso.oldplace) {
+            if (!this.places[perso.oldplace][perso.nom]) {
+                tools.report('SetOutPlace error ' + perso.nom + ' was not in ' + perso.oldplace);
             } else {
-                delete this.places[place][perso.nom];
+                //   console.log('Deleted ' + perso.nom + ' from ' + perso.oldplace);
+                delete this.places[perso.oldplace][perso.nom];
+                delete perso.oldplace;
             }
         }
 
         // set in places index
         this.places[place][perso.nom] = perso;
-
+        perso.place = place;
         /// update clients 
         for (const [key, value] of Object.entries(this.places[place])) {
             var perso = value;
             if (this.onlinePersos[key]) {
-                var ws = this.onlinePersos[key];
-                ws.send(JSON.stringify({persos: this.places[place]}));
-                console.log(perso.nom + ' updated place client');
+                try {
+                    var ws = this.onlinePersos[key];
+                    ws.send(JSON.stringify({persos: this.places[place]}));
+                } catch (e) {
+                    delete this.onlinePersos[key]
+                    console.log('missing ws client update palce -> deleting from index');
+                }
+                //  console.log(perso.nom + ' updated place client');
             }
         }
 
@@ -76,22 +86,17 @@ module.exports = {
             tools.fatal('getOtherPeopleHere() MISSING PLACE');
         if (!perso)
             tools.fatal('getOtherPeopleHere() MISSING PERSO');
-
         if (!this.places[place])
             this.places[place] = {};
-
         var tablo = [];
-        var limit = 3;
         for (const [key, value] of Object.entries(this.places[place])) {
             if (value.nom !== perso.nom) {
-                limit--;
                 tablo.push(value);
             }
-
-            if (limit === 0) {
-                return tablo;
-            }
         }
+        console.log('people in ' + place);
+        console.log(tablo);
+        console.log(this.places[place]);
         return tablo;
     }
 };

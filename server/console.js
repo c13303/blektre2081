@@ -63,8 +63,19 @@ var consoleTools = {
     },
     places: function (arg = null) {
         console.log(gC.places);
+    },
+    phaser: function (arg = null, arg2 = null, arg3 = null) {
+        for (const[key, value] of Object.entries(gC.onlinePersos)) {
+            var ws = gC.onlinePersos[key];
+            ws.send(JSON.stringify({"phasercommand": {
+                    arg1: arg,
+                    arg2: arg2,
+                    arg3: arg3
+                }
+            }));
+        }
+        return null;
     }
-
 
 
 };

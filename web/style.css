@@ -6,7 +6,8 @@ body{
 
 }
 #character_menu,#createchar{
-    float:left;
+       position: absolute;
+
 }
 #text{
     font-size: 150%;

@@ -14,7 +14,7 @@ module.exports = {
     getPage: function (ws, page = "intro") {
 
         /* HERE IS THE PLACE */
-        ws.current_perso.place = "la defense";
+        ws.current_perso.targetplace = "la defense";
         var nameChapitre = "02_ladefense/01_intro_defense";
 
         /* DEFAULT CHOICE */

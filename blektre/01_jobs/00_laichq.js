@@ -3,17 +3,15 @@ var game = require('./../../game/game.js');
 var itemTools = require('./../../game/objets/itemsTools.js');
 
 module.exports = {
+    name: "Job Center",
+    folder: "01_jobs",
+    chapitre: "/00_laichq",
+
     getPage: function (ws, page = "intro") {
 
-        /* HERE IS THE PLACE */
-        ws.current_perso.place = "Laich&Q Centrale";
-        var folder = "01_jobs";
-
-        var nameChapitre = folder + "/00_laichq";
-
-        /* DEFAULT CHOICE */
+        var nameChapitre = this.folder + "/" + this.chapitre;
+        var folder = this.folder;
         var perso = ws.current_perso;
-
 
         /* CHAPITRE */
         var chapitre = {
