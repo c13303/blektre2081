@@ -152,7 +152,7 @@ module.exports = {
         try {
 
             var perso = ws.current_perso;
-            delete perso.adversaire;
+            // delete perso.adversaire; // dont do that 
 
             if (dest)
                 perso.dest = dest;

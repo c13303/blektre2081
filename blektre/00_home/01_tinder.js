@@ -26,7 +26,7 @@ module.exports = {
                 ];
 
                 return {
-                    flush: 1,
+                 //   flush: 1,
                     text: text,
                     choices: choices
                 }

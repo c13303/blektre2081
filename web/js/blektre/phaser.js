@@ -23,10 +23,11 @@ setTimeout(function () {
     phaseranim();
 }, 1000);
 
+var lastScene = null;
 function phaserHook(d) {
 
     if (PS) {
-        if (d.scene) {
+        if (d.scene && d.scene !== lastScene) {
             PS.changeScene(d.scene);
             setTimeout(function () {
                 PS.changeHead(1, mychar.type);
@@ -35,6 +36,7 @@ function phaserHook(d) {
                     PS.changeHead(2, man.type);
                 }
             }, 100);
+            lastScene = d.scene;
         }
 
 

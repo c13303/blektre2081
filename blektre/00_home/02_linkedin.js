@@ -18,7 +18,7 @@ module.exports = {
 
             "intro": function () {
                 if (!perso.job) {
-                    var text = "Vous êtes sur Linkedin.";
+                    var text = "La page d'accueil de Linkedin apparaît dans un beau cadre bleu <i>corporate</i>.";
                     var choices = [
                         ["Je consulte les offres d'emploi", nameChapitre, "jobs"],
                         ["Je consulte les profils des chercheurs d'emploi", nameChapitre, "hire"],
@@ -35,7 +35,7 @@ module.exports = {
 
 
                 return {
-                    flush: 1,
+                   // flush: 1,
                     text: text,
                     choices: choices
                 }
