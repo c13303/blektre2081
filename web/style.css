@@ -12,7 +12,11 @@ body{
     margin-top: 110px;
     margin-left: 20px;
 }
-
+#connect{
+    position: absolute;
+    /* margin-top: 110px; */
+    margin-left: 20px;
+}
 
 #text{
     font-size: 150%;
@@ -128,6 +132,7 @@ iframe{
 .stats{
     opacity:0;
     display:flex;
+    color: pink;
 }
 .statbloc{
     width:25%;

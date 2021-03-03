@@ -12,6 +12,15 @@ module.exports = {
         tube: "Double arc en ciel",
         filosof: null,
     },
+    races: {
+        1: "reptilienne",
+        2: "marbreuse",
+        3: "végétale",
+        4: "tête large"
+    },
+    rules: {
+        oppressed: 4,
+    },
     recoverPlayersFromDB: function (connection) {
         var that = this;
         connection.query('SELECT * FROM players', function (err, rows, fields) {
@@ -97,8 +106,8 @@ module.exports = {
         //  console.log('people in ' + place);
         //  console.log(tablo);
         // console.log(this.places[place]);
-       
-        
+
+
         return tablo;
     }
 };

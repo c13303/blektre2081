@@ -9,7 +9,7 @@ module.exports = {
 
     getPage: function (ws, page = "intro") {
 
-        var nameChapitre = this.folder + "/" + this.chapitre;
+        var ppath = this.folder + "/" + this.chapitre;
         var folder = this.folder;
         var perso = ws.current_perso;
 
@@ -20,50 +20,53 @@ module.exports = {
                 if (!perso.job) {
                     var text = "La page d'accueil de Linkedin apparaît dans un beau cadre bleu <i>corporate</i>.";
                     var choices = [
-                        ["Je consulte les offres d'emploi", nameChapitre, "jobs"],
-                        ["Je consulte les profils des chercheurs d'emploi", nameChapitre, "hire"],
+                        ["Je consulte les offres d'emploi", ppath, "jobs"],
+                        ["Je consulte les profils des chercheurs d'emploi", ppath, "hire"],
                         ["Je quitte", folder + "/00_intro", "intro"],
                     ];
                 } else {
                     var text = "Vous êtes sur Linkedin, sur lequel il est inscrit que vous avez déjà un job de " + perso.job;
                     var choices = [
-                        ["Je quitte mon job de " + perso.job, nameChapitre, "quit"],
-                        ["Je consulte les profils des chercheurs d'emploi", nameChapitre, "hire"],
-                        ["Je quitte", folder + "/00_intro", "intro"],
+                        ["Je quitte mon job de " + perso.job, ppath, "quit"],
+                        ["Je consulte les profils des chercheurs d'emploi", ppath, "hire"],
+                        ["J'éteins le tel", folder + "/00_intro", "intro"],
                     ];
                 }
 
 
                 return {
-                   // flush: 1,
+                    // flush: 1,
                     text: text,
-                    choices: choices
+                    choices: choices,
+                    phaserscene: "Portrait",
                 }
             },
             "jobs": function () {
                 var text = "Les offres d'emploi sont actualisées régulièrement.";
                 var choices = [
-                    ["Technicien de surface chez Laich&Q", nameChapitre, "technicien"],
-                    ["Je retourne à l'accueil", nameChapitre, "intro"],
+                    ["Technicien de surface chez Laich&Q", ppath, "technicien"],
+                    ["J'éteins le tel", folder + "/00_intro", "intro"],
                 ];
 
                 return {
                     flush: 1,
                     text: text,
-                    choices: choices
+                    choices: choices,
+                    phaserscene: "Portrait",
                 }
             },
             "technicien": function () {
                 var text = "Ce travail est payé 1$ de l'heure.";
                 var choices = [
-                    ["Je postule", nameChapitre, "technicien_ok"],
-                    ["Je retourne à l'accueil", nameChapitre, "intro"],
+                    ["Je postule", ppath, "technicien_ok"],
+                    ["J'éteins le tel", folder + "/00_intro", "intro"],
                 ];
 
                 return {
                     flush: 1,
                     text: text,
-                    choices: choices
+                    choices: choices,
+                    phaserscene: "Portrait",
                 }
             },
             "technicien_ok": function () {
@@ -76,14 +79,15 @@ module.exports = {
                 game.updateChar(perso);
 
                 var choices = [
-                    ["Je sors de chez moi", "map", null],
-                    ["Je retourne à l'accueil", nameChapitre, "intro"],
+                    ["J'éteins le tel", folder + "/00_intro", "intro"],
+                    ["Je prends le métro", "map", null],
                 ];
 
                 return {
                     flush: 1,
                     text: text,
-                    choices: choices
+                    choices: choices,
+                    phaserscene: "Portrait",
                 }
             },
 

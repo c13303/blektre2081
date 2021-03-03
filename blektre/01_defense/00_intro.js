@@ -9,7 +9,7 @@ module.exports = {
 
     getPage: function (ws, page = "intro") {
 
-        var nameChapitre = this.folder + "/" + this.chapitre;
+        var ppath = this.folder + "/" + this.chapitre;
         var folder = this.folder;
         var perso = ws.current_perso;
 
@@ -28,12 +28,12 @@ module.exports = {
                 var people = game.gC.getOtherPeopleHere("Defense", perso);
                 if (people[0]) {
                     text += '<br/>' + people[0].nom + ' est là et vous regarde d\'un air méprisant.';
-                    choices.push(["Je demande à " + people[0].nom + " quel est son problème", nameChapitre, "embrouille"]);
+                    choices.push(["Je demande à " + people[0].nom + " quel est son problème", ppath, "embrouille"]);
                     perso.adversaire = people[0].nom;
                 }
 
                 if (perso.job === "technicien de surface") {
-                    choices.push(["Je me mets au travail", nameChapitre, "jobing"]);
+                    choices.push(["Je me mets au travail", ppath, "jobing"]);
                 }
                 return {
                     flush: 1,

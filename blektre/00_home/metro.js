@@ -9,7 +9,7 @@ module.exports = {
 
     getPage: function (ws, page = "intro") {
 
-        var nameChapitre = this.folder + "/" + this.chapitre;
+        var ppath = this.folder + "/" + this.chapitre;
         var folder = this.folder;
         var perso = ws.current_perso;
         var dest = require('../' + perso.dest + '.js');
@@ -30,7 +30,7 @@ module.exports = {
                 for (var i = 0; i < people.length; i++) {
                     if (people[i] && !people[i].horsjeu) {
                         text += people[i].nom + ' est là et vous regarde d\'un air arrogant. ';
-                        choices.push(["Je demande à " + people[i].nom + " quel est son problème", nameChapitre, "embrouille"]);
+                        choices.push(["Je demande à " + people[i].nom + " quel est son problème", ppath, "embrouille"]);
                         perso.adversaire = people[i].nom;
                         break;
                     }
@@ -54,9 +54,9 @@ module.exports = {
                 text += '<br>-Pardon, maugrée-t-el.';
 
 
-                choices.push(["Pas de raison de faire une embrouille, el s'est excusé·e ...", nameChapitre, "embrouille_echec"]);
-                choices.push(["Je souligne cette incivilité", nameChapitre, "embrouille_sanity"]);
-                choices.push(["Je lui éclate sa tronche", nameChapitre, "embrouille_physique"]);
+                choices.push(["Pas de raison de faire une embrouille, el s'est excusé·e ...", ppath, "embrouille_echec"]);
+                choices.push(["Je me mets en PLS", ppath, "embrouille_sanity"]);
+                choices.push(["Je lui éclate sa tronche", ppath, "embrouille_physique"]);
 
 
                 return {
@@ -68,9 +68,11 @@ module.exports = {
             ,
             "embrouille_echec": function () {
                 var choices = [];
-
                 var adversaire = game.gC.persos[perso.adversaire];
                 var text = "Vous vous éloignez, penaud, tandis que " + adversaire.nom + " vous prend en photo avec son iPhone en rigolant.";
+
+
+
                 text += '<br/>Le métro arrive à votre destination';
                 game.notif(perso, adversaire.nom + " vous méprise dans le métro");
                 game.updateStat(perso, "sex", -1);
@@ -88,16 +90,28 @@ module.exports = {
                 var choices = [];
 
                 var adversaire = game.gC.persos[perso.adversaire];
-                var text = "Vous levez l'index et commencez à expliquer les règles de l'ordre et la morale à " + adversaire.nom;
+                var text = "Vous prenez la position latérale de sécurité que vous avez appris à l'école.";
 
                 if (perso.karma > adversaire.karma) {
-                    text += '<br/>El éclate en sanglots.';
+                    text += '\n\
+' + adversaire.nom + ' éclate en sanglots.';
                     game.updateStat(perso, "sex", +5);
                     game.updateStat(perso, "karma", -5);
                 } else {
                     game.updateStat(perso, "sex", -5);
-                    text += '<br/>El éclate de rire.';
+                    text += '\n\
+' + adversaire.nom + ' éclate de rire.';
                 }
+
+                if (perso.traits.romancier) {
+                    perso.traits.romancier.level++;
+                    text += "<i>\n\
+Vous êtes ému et vous sentez que vos talents de romancier s'aimeillorent ! Vous voilà Romancier niveau " + perso.traits.romancier.level + "</i>\n\
+";
+                }
+
+
+
 
                 adversaire.horsjeu = true;
                 delete perso.adversaire;

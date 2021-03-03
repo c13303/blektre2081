@@ -15,7 +15,7 @@ module.exports = {
 
         /* HERE IS THE PLACE */
         ws.current_perso.targetplace = "la defense";
-        var nameChapitre = "02_ladefense/01_intro_defense";
+        var ppath = "02_ladefense/01_intro_defense";
 
         /* DEFAULT CHOICE */
         var perso = ws.current_perso;
@@ -33,11 +33,11 @@ module.exports = {
                 var choices = [
                     [
                         "Je retourne à la ma voiture",
-                        nameChapitre, "voiture"
+                        ppath, "voiture"
                     ],
                     [
                         "Je vais au boulot",
-                        nameChapitre, "boulot"
+                        ppath, "boulot"
                     ],
                 ];
 
@@ -55,7 +55,7 @@ module.exports = {
             "voiture": function () {
                 var text = "Vous êtes dans votre Skoda.";
                 var choices = [
-                    ["Je sors de la voiture", nameChapitre, "intro"],
+                    ["Je sors de la voiture", ppath, "intro"],
                     ["Je rentre à la maison", "00_home/00_intro", "intro"],
                 ];
 
@@ -70,7 +70,7 @@ module.exports = {
             "voiture": function () {
                 var text = "Vous êtes dans votre Skoda.";
                 var choices = [
-                    ["Je sors de la voiture", nameChapitre, "intro"],
+                    ["Je sors de la voiture", ppath, "intro"],
                     ["Je rentre à la maison", "00_home/00_intro", "intro"],
                 ];
 

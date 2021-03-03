@@ -9,7 +9,7 @@ module.exports = {
 
     getPage: function (ws, page = "intro") {
 
-        var nameChapitre = this.folder + "/" + this.chapitre;
+        var ppath = this.folder + "/" + this.chapitre;
         var folder = this.folder;
         var perso = ws.current_perso;
 

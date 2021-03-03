@@ -98,9 +98,9 @@ if ($isdev) {
                 ?>
                 Nom : <input type="text" id="nom" value="<?= randomprenom(); ?>" /> 
                 <br/> Morphologie : <select id="type" name="type">
-                    <option value="1">Corps 1</option>
-                    <option value="2">Corps 2</option>
-                    <option value="3">Corps 3</option>
+                    <option value="1">Reptilienne</option>
+                    <option value="2">Marbreuse</option>
+                    <option value="3">Végétale</option>
                     <option value="4">Tête Large</option>
                 </select>
 

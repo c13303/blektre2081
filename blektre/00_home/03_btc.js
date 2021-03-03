@@ -9,7 +9,7 @@ module.exports = {
 
     getPage: function (ws, page = "intro") {
 
-        var nameChapitre = this.folder + "/" + this.chapitre;
+        var ppath = this.folder + "/" + this.chapitre;
         var folder = this.folder;
         var perso = ws.current_perso;
 
@@ -20,7 +20,7 @@ module.exports = {
             "intro": function () {
                 var text = "Vous aimeriez miner de la cryptomonnaie, mais vous n'avez ni compétences, ni matériel.";
                 var choices = [
-                    ["J'investis", nameChapitre, "investir"],
+                    ["J'investis", ppath, "investir"],
                     ["Je range le téléphone", folder + "/00_intro", "intro"],
                 ];
 
