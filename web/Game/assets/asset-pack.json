@@ -2,6 +2,34 @@
     "section1": {
         "files": [
             {
+                "url": "assets/png/anim1.png",
+                "frameConfig": {
+                    "frameWidth": 320,
+                    "frameHeight": 480,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "anim1"
+            },
+            {
+                "url": "assets/animations.json",
+                "type": "animation",
+                "key": "animations"
+            },
+            {
+                "url": "assets/png/Defense.png",
+                "type": "image",
+                "key": "Defense"
+            },
+            {
+                "url": "assets/places/Defense.js",
+                "type": "sceneFile",
+                "key": "Defense"
+            },
+            {
                 "url": "assets/png/head_4.png",
                 "frameConfig": {
                     "frameWidth": 320,
@@ -38,6 +66,16 @@
                 "url": "assets/places/Metro.js",
                 "type": "sceneFile",
                 "key": "Metro"
+            },
+            {
+                "url": "assets/png/phone.png",
+                "type": "image",
+                "key": "phone"
+            },
+            {
+                "url": "assets/places/Portrait.js",
+                "type": "sceneFile",
+                "key": "Portrait"
             },
             {
                 "url": "assets/raindrop.png",

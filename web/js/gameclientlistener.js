@@ -51,6 +51,10 @@ function gameClientHook(d) {
 
     phaserHook(d);
 
+    if (d.error) {
+        alert(d.error);
+    }
+
     if (d.connected) {
         $("#connect").remove();
         $('#game').removeClass('hidden');
@@ -74,8 +78,9 @@ function gameClientHook(d) {
 
 
 
-
     if (d.text) {
+        var texthtml = nl2br(d.text);
+
         if (!d.choices)
             console.log('ERREUR : D.CHOICES MISSING');
         if (d.flush) {
@@ -86,16 +91,44 @@ function gameClientHook(d) {
         }
 
         $('#choices').find('.gamechoice').fadeTo(500, 0).delay(50).remove();
-        $('#text').append("<div class='content'>" + nl2br(d.text) + "<br/><br/></div>");
+
+        /* is there textarea */
+
+
+
+
+        if (d.textarea) {
+            texthtml += '<br/><div class="fragebox"><textarea id="frage"></textarea><button id="frageok">OK</button></div>';
+            $(document).find('#choices').hide();
+        }
+
+        if (d.text2) {
+            texthtml += '<div class="hidden text2">' + nl2br(d.text2) + '</div>';
+        }
+
+
+
+
+
+        $('#text').append("<div class='content'>" + texthtml + "<br/><br/></div>");
+
         var choices = '';
         for (var i = 0; i < d.choices.length; i++) {
             var line = d.choices[i];
             var buton = "<button id='#tutu" + i + "' class='gamechoice gamechoice_button' data-target='" + line[1] + "' style='opacity:0' data-page='" + line[2] + "'>" + line[0] + "</button>";
             choices += buton;
         }
+
+
         $('#choices').append(choices);
         $('#choices').find('.gamechoice').delay(1).fadeTo(100, 1);
     }
+
+
+
+
+
+
 
 
 
@@ -105,14 +138,17 @@ function gameClientHook(d) {
     if (d.mychar) {
         if (d.mychar.notifications.length) {
             for (var i = 0; i < d.mychar.notifications.length; i++) {
-                $('#notifs').append('<div class="notif">' + d.mychar.notifications[i] + '</div>');
+                if (d.mychar.notifications[i][0] !== '!') // symbole update stat
+                    $('#notifs').append('<div class="notif">' + d.mychar.notifications[i] + '</div>');
             }
         }
         var html = "<b class='name'>" + d.mychar.nom + "</b>";
         html += JSON.stringify(d.mychar);
         $('#fiche #json').html(html);
         mychar = d.mychar;
-        $('#place').html(mychar.place);
+        // $('#place').html(mychar.place);
+        $('.stats').css("opacity", 1);
+
         //$('#sprite_mychar').css('background', 'url(/img-persos/type' + mychar.type + '.png?v=');
 
         $(".stat").each(function () {

@@ -11,7 +11,7 @@ window.addEventListener('load', function () {
         width: 640,
         height: 480,
         type: Phaser.AUTO,
-        backgroundColor: "#CCC",
+        backgroundColor: "#96b19c",
         scale: {
             mode: Phaser.Scale.FIT,
             autoCenter: Phaser.Scale.CENTER_BOTH
@@ -30,7 +30,7 @@ class Boot extends Phaser.Scene {
 
     create() {
         ctx = this;
-        changeScene("Level", false);
+        changeScene("Portrait", false);
     }
 
 }

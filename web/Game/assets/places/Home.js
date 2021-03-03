@@ -19,12 +19,10 @@ class Home extends Phaser.Scene {
 	create() {
 		
 		// home
-		this.add.image(322, 241, "home");
+		this.add.image(320, 240, "home");
 		
 		// head1
-		const head1 = this.add.image(251, 380, "head_4", 0);
-		head1.scaleX = 1.5;
-		head1.scaleY = 1.5;
+		const head1 = this.add.image(251, 240, "head_4", 0);
 		
 		this.head1 = head1;
 	}

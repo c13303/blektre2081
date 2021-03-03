@@ -9,6 +9,18 @@
     },
     "displayList": [
         {
+            "type": "Image",
+            "id": "29d2b685-3ccd-4fa4-8ad1-b60fc4cd61db",
+            "label": "head_44",
+            "components": [],
+            "texture": {
+                "key": "head_4",
+                "frame": 4
+            },
+            "x": 361,
+            "y": 243
+        },
+        {
             "type": "Text",
             "id": "59372d77-174f-4fa9-ad96-ffeabe8bd048",
             "label": "title",
@@ -22,51 +34,39 @@
         },
         {
             "type": "Image",
-            "id": "17cba179-80f5-47e2-94f4-1590e6ba15c7",
-            "label": "head_41",
+            "id": "535abdfd-e245-438b-b9ff-38d895e7dd6d",
+            "label": "head1",
             "components": [],
             "texture": {
                 "key": "head_4",
                 "frame": 1
             },
-            "x": 256,
-            "y": 242
+            "x": 84,
+            "y": 241
         },
         {
             "type": "Image",
-            "id": "0a118c3a-31ed-40ac-b229-4aee3573482e",
-            "label": "head_42",
+            "id": "553606ca-1757-435a-b4b2-37727d8c4d64",
+            "label": "head2",
             "components": [],
             "texture": {
                 "key": "head_4",
                 "frame": 2
             },
-            "x": 649,
-            "y": 245
+            "x": 277,
+            "y": 313
         },
         {
             "type": "Image",
-            "id": "e07ddd5a-5fbd-404e-a7f4-be5a708d786d",
+            "id": "b01f1619-5979-42f6-bd9e-46b10bb3be41",
             "label": "head_43",
             "components": [],
             "texture": {
                 "key": "head_4",
                 "frame": 3
             },
-            "x": 460,
-            "y": 241
-        },
-        {
-            "type": "Image",
-            "id": "9e9ff463-fafe-47d6-8027-085bc01a593b",
-            "label": "head_44",
-            "components": [],
-            "texture": {
-                "key": "head_4",
-                "frame": 4
-            },
-            "x": 41,
-            "y": 243
+            "x": 548,
+            "y": 298
         }
     ],
     "plainObjects": [],

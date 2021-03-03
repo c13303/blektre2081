@@ -61,6 +61,13 @@ module.exports = {
     },
     createCharacter: function (nom, type, bio, startplace = "Home") {
 //var perso = msg.create_char;
+
+
+        if (gC.persos[nom]) {
+            console.log('name taken ' + nom);
+            return null;
+        }
+
         var persoTool = require('./../game/objets/personnage.js');
         var perso = persoTool.create(nom, type, bio);
         /*
@@ -76,17 +83,33 @@ module.exports = {
     },
 
     onPlayerCommand: function (ws, msg) {
-        tools.report(ws.name + ' client msg recvd : ' + JSON.stringify(msg));
+        tools.report('---------------------------' + ws.name + ' JSON FROM CLIENT ' + JSON.stringify(msg));
 
         /* Load un chapitre page après un choice */
-        if (msg.choice) {
 
-            this.loadPage(ws, msg.choice, msg.page, msg.dest);
+        if (msg.textarea) {
+            console.log('Recu Textarea' + msg.textarea);
+            ws.current_perso.textarea = msg.textarea;
+
         }
+
+        if (msg.choice) {
+            this.loadPage(ws, msg.choice, msg.page, msg.dest);
+
+            /* clear textarea */
+            delete ws.current_perso.textarea;
+        }
+
 
         /* CREATION DE PERSONNAGE */
         if (msg.create_char) {
             var perso = this.createCharacter(msg.create_char.nom, msg.create_char.type, msg.create_char.bio)
+            if (!perso) {
+                ws.errorme("Nom de personnage déjà pris");
+                return null;
+            }
+
+
             ws.char_inventory.push(perso);
             ws.save();
             ws.send(JSON.stringify({
@@ -130,7 +153,7 @@ module.exports = {
             var perso = value;
             if (perso.jobing) {
                 for (const [key2, value2] of Object.entries(perso.jobing)) {
-                    console.log('jobing of ' + key2 + ' ' + value2 + ' ' + perso.nom);
+                    // console.log('jobing of ' + key2 + ' ' + value2 + ' ' + perso.nom);
                     perso[key2] += value2;
                 }
                 this.notif(perso, "C'est jour de votre paye " + perso.job + " !");
@@ -152,6 +175,9 @@ module.exports = {
         try {
 
             var perso = ws.current_perso;
+            delete perso.horsjeu;
+
+
             // delete perso.adversaire; // dont do that 
 
             if (dest)
@@ -202,7 +228,8 @@ module.exports = {
                 ws.send(JSON.stringify(data));
                 ws.current_perso.notifications = [];
             } catch (e) {
-                console.log(e);
+                console.log('erreur at update CHAR');
+                // console.log(e);
 
             }
         } else {
@@ -240,8 +267,8 @@ module.exports = {
 
     , updateStat: function (perso, stat, value) {
         console.log('Update STAT de ' + perso.nom + ' ' + stat + ' ' + value);
-        perso.notifications.push("(" + stat + " " + value + ")");
-        perso[stat] = +value;
+        perso.notifications.push("!" + stat + "!" + value + "");
+        perso[stat] += value;
     }
     /*
      , updatePersos: function (ws, place = null) {

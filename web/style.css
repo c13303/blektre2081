@@ -2,13 +2,18 @@
     display:none;
 }
 body{
+    max-width: 1280px;
+    margin: auto;
 
 
 }
 #character_menu,#createchar{
-       position: absolute;
-
+    position: absolute;
+    margin-top: 110px;
+    margin-left: 20px;
 }
+
+
 #text{
     font-size: 150%;
     line-height: 26px;
@@ -25,8 +30,10 @@ body{
 #game{
     display:flex;
 }
-#leftgame{
-    width:50%;
+#leftgame {
+    min-width: 600px;
+    width: 30%;
+    padding: 20px;
 }
 #fiche{
     width:50%;
@@ -56,7 +63,17 @@ button{
 
 }
 #json{
-    font-size:12px;
+    font-size: 12px;
+    margin-top: 62Px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    opacity:0;
+}
+
+#json:hover{
+    opacity:1;
 }
 
 #place{
@@ -83,7 +100,8 @@ button{
 #map{
     position: absolute;
     background: white;
-    width: 500px;
+    width: 90%;
+    min-height: 320px;
     padding: 30px;
     border: 1px solid black;
     top: 50px;
@@ -102,4 +120,20 @@ iframe{
     background:white;
     width:640px;
     height:480px;
+}
+
+.green{
+    background-color:#cefbd8;
+}
+.stats{
+    opacity:0;
+    display:flex;
+}
+.statbloc{
+    width:25%;
+}
+
+#visuel{
+    margin-top: 62px;
+
 }

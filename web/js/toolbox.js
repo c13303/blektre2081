@@ -24,12 +24,20 @@ function lineOnGrid(x0, y0, x1, y1, distMax = 8) {
     while (true) {
         var curPoint = [x0, y0];
         curDist++;
-        if (curDist >= distMax) break;
+        if (curDist >= distMax)
+            break;
 
-        if ((x0 === x1) && (y0 === y1)) break;
+        if ((x0 === x1) && (y0 === y1))
+            break;
         var e2 = 2 * err;
-        if (e2 > -dy) { err -= dy; x0 += sx; }
-        if (e2 < dx) { err += dx; y0 += sy; }
+        if (e2 > -dy) {
+            err -= dy;
+            x0 += sx;
+        }
+        if (e2 < dx) {
+            err += dx;
+            y0 += sy;
+        }
     }
     return (curPoint);
 }
@@ -169,11 +177,11 @@ function matrix3D(size, defaultValue = null, nullvalue = false) {
 function rotate(tablo) {
     Array.prototype.rotate = (function () {
         var unshift = Array.prototype.unshift,
-            splice = Array.prototype.splice;
+                splice = Array.prototype.splice;
 
         return function (count) {
             var len = this.length >>> 0,
-                count = count >> 0;
+                    count = count >> 0;
 
             unshift.apply(this, splice.call(this, count % len, len));
             return this;
@@ -242,15 +250,19 @@ function isEquivalent(a, b) {
 function inArray(needle, haystack) {
     var length = haystack.length;
     for (var i = 0; i < length; i++) {
-        if (haystack[i] == needle) return true;
+        if (haystack[i] == needle)
+            return true;
     }
     return false;
 }
 
-function nl2br (str, is_xhtml) {
+function nl2br(str, is_xhtml) {
     if (typeof str === 'undefined' || str === null) {
         return '';
     }
     var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br /><br />' : '<br>';
     return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
 }
+
+
+

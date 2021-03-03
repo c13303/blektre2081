@@ -69,7 +69,7 @@ module.exports = {
             "technicien_ok": function () {
                 var text = "Vous voilà officiellement embauché chez Laich&Q, la boîte de nettoyage urbain. Vous devez vous rendre au siège.";
 
-                perso.places.push(["Laich&Q", "01_jobs/00_laichq"]);
+                perso.places.push(["The Defense", "01_defense/00_intro"]);
                 perso.job = "technicien de surface";
                 game.notif(perso, "Vous devenez technicien de surface");
 

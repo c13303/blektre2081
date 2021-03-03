@@ -16,8 +16,8 @@
             "texture": {
                 "key": "home"
             },
-            "x": 322,
-            "y": 241
+            "x": 320,
+            "y": 240
         },
         {
             "type": "Image",
@@ -30,9 +30,7 @@
                 "frame": 0
             },
             "x": 251,
-            "y": 380,
-            "scaleX": 1.5,
-            "scaleY": 1.5
+            "y": 240
         }
     ],
     "plainObjects": [],

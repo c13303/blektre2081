@@ -48,19 +48,30 @@ $(document).ready(function () {
         console.log('Choice : ' + $(this).data('target'));
         $("#map").hide();
         $("#places").html("");
+
+        /* AFFICHAGE MAP DE METRO */
         if ($(this).data('target') === 'map') {
             $('#map').show();
             var html = "";
-
             for (var i = 0; i < mychar.places.length; i++) {
-                html += "<div class='placemap gamechoice' data-target='00_home/metro' data-dest='" + mychar.places[i][1] + "' data-destname='" + mychar.places[i][0] + "'>" + mychar.places[i][0] + "</div>";
+                html += "<button class='placemap gamechoice' data-target='00_home/metro' data-dest='" + mychar.places[i][1] + "' data-destname='" + mychar.places[i][0] + "'>" + mychar.places[i][0] + "</button>";
             }
             $('#places').html(html);
         } else {
+
+            /* VALIDATION DES CHOIX */
+
             var msg = {
                 choice: $(this).data('target'),
                 page: $(this).data('page')
             };
+
+            /* textarea*/
+
+            if ($(document).find('#frage').length) {
+                msg.textarea = $(document).find('#frage').val();
+            }
+
             if ($(this).data('dest')) {
                 msg.dest = $(this).data('dest');
                 msg.destname = $(this).data('destname');
@@ -88,6 +99,17 @@ $(document).ready(function () {
         }
 
     });
+
+
+    /* lors du textarea en pleine page */
+    $(document).on('click', '#frageok', function (e) {
+        var data = $(document).find('#frage').val();
+        console.log(' YEAH ' + data);
+        $(document).find('.fragebox').hide();
+        $(document).find(".text2").removeClass('hidden');
+        $(document).find('#choices').show()
+    });
+
 
 
 

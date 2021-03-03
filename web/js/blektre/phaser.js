@@ -26,20 +26,33 @@ setTimeout(function () {
 var lastScene = null;
 function phaserHook(d) {
 
+    var scenechanged = false;
+
     if (PS) {
-        if (d.scene && d.scene !== lastScene) {
-            PS.changeScene(d.scene);
+
+
+        if (d.phaserscene && d.phaserscene !== lastScene) {
+            PS.changeScene(d.phaserscene);
+            lastScene = d.phaserscene;
+            scenechanged = true;
+        } else {
+            if (d.scene && d.scene !== lastScene) {
+                PS.changeScene(d.scene);
+                lastScene = d.scene;
+                scenechanged = true;
+            }
+        }
+
+        if (scenechanged) {
             setTimeout(function () {
                 PS.changeHead(1, mychar.type);
                 if (mychar.adversaire) {
                     var man = persos[mychar.adversaire];
-                    PS.changeHead(2, man.type);
+                    if (man && man.type)
+                        PS.changeHead(2, man.type);
                 }
             }, 100);
-            lastScene = d.scene;
         }
-
-
     }
 
 }

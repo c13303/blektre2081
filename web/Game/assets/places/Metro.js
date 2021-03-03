@@ -24,11 +24,11 @@ class Metro extends Phaser.Scene {
 		this.add.image(321, 240, "win");
 		
 		// head2
-		const head2 = this.add.image(491, 359, "head_4", 0);
+		const head2 = this.add.image(491, 240, "head_4", 0);
 		head2.flipX = true;
 		
 		// head1
-		const head1 = this.add.image(167, 359, "head_4", 0);
+		const head1 = this.add.image(167, 240, "head_4", 0);
 		
 		this.head2 = head2;
 		this.head1 = head1;

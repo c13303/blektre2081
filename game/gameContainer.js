@@ -94,9 +94,11 @@ module.exports = {
                 tablo.push(value);
             }
         }
-        console.log('people in ' + place);
-        console.log(tablo);
-        console.log(this.places[place]);
+        //  console.log('people in ' + place);
+        //  console.log(tablo);
+        // console.log(this.places[place]);
+       
+        
         return tablo;
     }
 };

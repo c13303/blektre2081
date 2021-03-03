@@ -16,22 +16,22 @@ class Level extends Phaser.Scene {
 	
 	create() {
 		
+		// head_44
+		this.add.image(361, 243, "head_4", 4);
+		
 		// title
 		const title = this.add.text(125, 22, "", {});
 		title.text = "BLEKTRE 2081";
 		title.setStyle({"fontSize":"55px"});
 		
-		// head_41
-		this.add.image(256, 242, "head_4", 1);
+		// head1
+		this.add.image(84, 241, "head_4", 1);
 		
-		// head_42
-		this.add.image(649, 245, "head_4", 2);
+		// head2
+		this.add.image(277, 313, "head_4", 2);
 		
 		// head_43
-		this.add.image(460, 241, "head_4", 3);
-		
-		// head_44
-		this.add.image(41, 243, "head_4", 4);
+		this.add.image(548, 298, "head_4", 3);
 	}
 	
 	/* START-USER-CODE */

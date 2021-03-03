@@ -47,10 +47,10 @@ if ($isdev) {
     </head>
 
     <body class="<?= $isdev ? " dev " : " "; ?>">
-        <h1>BLEKTRE 2081</h1>
+
 
         <form id="connect" class="homepage">
-
+            <h1>BLEKTRE 2081</h1>
             <input type="text" id="username" placeholder="username" />
             <input type="password" placeholder="password" id="password" value="pass"/>
             <input type="submit" id="submit" value="Login" />
@@ -66,8 +66,10 @@ if ($isdev) {
 
             </div>   
             <div id="golodark_box" class="hidden">
-                <button id="effacer" data-command="createchar">Libérer ce personnage</button>
-                <button id="go">GO GO GO AVEC OUI GO</button>
+
+
+                <br/>----><button id="go" class="green">COMMENCER LA SIMULATION</button>
+                <br/><br/>----><button id="effacer" data-command="createchar">Effacer</button> 
             </div>
             <br/><br/>
             <button id="createchar_button" data-command="createchar">Créer un nouveau personnage</button>
@@ -85,8 +87,16 @@ if ($isdev) {
                     }
                     return $randomString;
                 }
+
+                function randomprenom() {
+                    $tab = array('Jacques Mimol', 'OurseDur', 'Josiane', 'Zobeurfou', 'Chirac', 'Miterrand', 'Penien', 'Chichatte', 'Zobeuse', 'Suceux',
+                        "Quentine", "Peniana", "Foufeux", "Loufon", "Giboulard", "Capote", "Simili-Cuir", "Sencha-sanlafrez", "Sambal", "Macroteuse", "Pileur",
+                        "Verdure", "Gislabe", "Falantôme", "Pantine", "Stagalas", "Jenpol", "Luje", "Pleural", "Olivier", "Arrosoir", "PatrickB");
+                    shuffle($tab);
+                    return $tab[0];
+                }
                 ?>
-                Nom : <input type="text" id="nom" value="<?= generateRandomString(8); ?>" />
+                Nom : <input type="text" id="nom" value="<?= randomprenom(); ?>" /> 
                 <br/> Morphologie : <select id="type" name="type">
                     <option value="1">Corps 1</option>
                     <option value="2">Corps 2</option>
@@ -104,26 +114,40 @@ if ($isdev) {
         <div id="game" class="hidden">
 
             <div id="leftgame">
+                <div class="stats">
+                    <div class="statbloc">  <span class="stat" data-stat="nom"></span></div>
+                    <div class="statbloc"> @ <span class="stat" data-stat="place"></span></div>
+                    <div class="statbloc"> <span class="stat" data-stat="job"></span></div>
+                    <div class="statbloc"> LIFE <span class="stat" data-stat="life"></span></div>
+
+                </div>
+                <div class="stats">
+                    <div class="statbloc"> MONEY <span class="stat" data-stat="money"></span>€</div>
+                    <div class="statbloc"> KARMA <span class="stat" data-stat="karma"></span></div>
+                    <div class="statbloc">SEX <span class="stat" data-stat="sex"></span></div>
+                    <div class="statbloc"> SANITY <span class="stat" data-stat="sanity"></span></div>
+                </div>
+                <hr/>
+
                 <div id="text"></div>               
                 <div id="choices"></div>  
             </div>
             <div id="fiche">
 
                 <div id="visuel">
+
+
                     <iframe id="phaserframe" src="Game/index.html?v=<?= $v; ?>" ></iframe>
-                    <div id="place"></div>
-                    <div id="peoplehere"></div>
-                    <div class="stats">
-                        <br/>€ <span class="stat" data-stat="money"></span>
-                        <br/>KARMA <span class="stat" data-stat="karma"></span>
-                        <br/>SEX <span class="stat" data-stat="sex"></span>
-                        <br/>SANITY <span class="stat" data-stat="sanity"></span>
-                    </div>
+                    <div id="notifs"></div>
+
+                    <!-- <div id="peoplehere"></div> -->
+
                 </div>
-                <div id="notifs"></div>
+
                 <div id="json" ></div>
             </div>
             <div id="map">
+
                 <div id="places"></div>
             </div>
         </div>

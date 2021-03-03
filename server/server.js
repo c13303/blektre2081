@@ -173,8 +173,13 @@ serveur.startServer = function () {
                 }
             };
 
+            ws.errorme = function (msg) {
+                if (!msg)
+                    return null;
 
-
+                ws.send(JSON.stringify({error: msg}));
+            }
+ 
 
 
             /*read messages from the client */

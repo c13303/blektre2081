@@ -27,11 +27,15 @@ module.exports = {
 
                 var people = game.gC.getOtherPeopleHere("Metro", perso);
 
-                if (people[0]) {
-                    text += people[0].nom + ' est là et vous regarde d\'un air arrogant.';
-                    choices.push(["Je demande à " + people[0].nom + " quel est son problème", nameChapitre, "embrouille"]);
-                    perso.adversaire = people[0].nom;
+                for (var i = 0; i < people.length; i++) {
+                    if (people[i] && !people[i].horsjeu) {
+                        text += people[i].nom + ' est là et vous regarde d\'un air arrogant. ';
+                        choices.push(["Je demande à " + people[i].nom + " quel est son problème", nameChapitre, "embrouille"]);
+                        perso.adversaire = people[i].nom;
+                        break;
+                    }
                 }
+
 
                 choices.push(["Je sors du métro à destination", perso.dest, "intro"]);
 
@@ -46,14 +50,12 @@ module.exports = {
                 var choices = [];
 
                 var adversaire = game.gC.persos[perso.adversaire];
-                var text = adversaire.nom + ' vous toise des pieds à la tête. Il vous crache au visage.';
-                text += '<br>-Pardon, maugrée-t-il.';
+                var text = adversaire.nom + ' vous toise des pieds à la tête. El vous crache au visage.';
+                text += '<br>-Pardon, maugrée-t-el.';
 
 
-
-
-                choices.push(["Pas de raison de faire une embrouille, il s'est excusé ...", nameChapitre, "embrouille_echec"]);
-                choices.push(["Je lui fais la morale", nameChapitre, "embrouille_sanity"]);
+                choices.push(["Pas de raison de faire une embrouille, el s'est excusé·e ...", nameChapitre, "embrouille_echec"]);
+                choices.push(["Je souligne cette incivilité", nameChapitre, "embrouille_sanity"]);
                 choices.push(["Je lui éclate sa tronche", nameChapitre, "embrouille_physique"]);
 
 
@@ -68,23 +70,48 @@ module.exports = {
                 var choices = [];
 
                 var adversaire = game.gC.persos[perso.adversaire];
-                var text = "Vous vous éloignez, penaud, tandis que " + adversaire.nom + " vous prend en photo avec son iPhone en rigolant";
+                var text = "Vous vous éloignez, penaud, tandis que " + adversaire.nom + " vous prend en photo avec son iPhone en rigolant.";
+                text += '<br/>Le métro arrive à votre destination';
                 game.notif(perso, adversaire.nom + " vous méprise dans le métro");
-                game.updateStat(perso, "sex", -50);
+                game.updateStat(perso, "sex", -1);
 
-                choices.push(["Je sors du métro à destination", perso.dest, "intro"]);
-
-
-
-
-
+                choices.push(["Je sors du métro", perso.dest, "intro"]);
 
                 return {
                     flush: 1,
                     text: text,
                     choices: choices
                 }
-            }
+            },
+
+            "embrouille_sanity": function () {
+                var choices = [];
+
+                var adversaire = game.gC.persos[perso.adversaire];
+                var text = "Vous levez l'index et commencez à expliquer les règles de l'ordre et la morale à " + adversaire.nom;
+
+                if (perso.karma > adversaire.karma) {
+                    text += '<br/>El éclate en sanglots.';
+                    game.updateStat(perso, "sex", +5);
+                    game.updateStat(perso, "karma", -5);
+                } else {
+                    game.updateStat(perso, "sex", -5);
+                    text += '<br/>El éclate de rire.';
+                }
+
+                adversaire.horsjeu = true;
+                delete perso.adversaire;
+
+                text += '<br/>Le métro arrive à votre destination';
+
+                choices.push(["Je sors du métro", perso.dest, "intro"]);
+
+                return {
+                    flush: 1,
+                    text: text,
+                    choices: choices
+                }
+            },
 
         }
 
