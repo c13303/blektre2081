@@ -3,9 +3,9 @@ var game = require('./../../game/game.js');
 var itemTools = require('./../../game/objets/itemsTools.js');
 
 module.exports = {
-    name: "Defense",
+    name: "Editions POT",
     folder: "01_defense",
-    chapitre: "/00_intro",
+    chapitre: "/01_editions",
 
     getPage: function (ws, page = "intro") {
 
@@ -20,30 +20,21 @@ module.exports = {
             "intro": function () {
 
                 var choices = [
-                    ["Je prends le métro", "map"],
+                    ["Je me casse", "map"],
                 ];
-                perso.globalEndChoice = ["D'accord", ppath, "intro"];
 
-                var text = "Vous arrivez à la Défense. Les immeubles designés par Marc Poulet dessinent une ligne de ciel futuriste.";
-
+                var text = "Vous entrez dans le hall de l'immeuble des éditions POT.";
+                
                 var people = game.gC.getOtherPeopleHere("Defense", perso);
                 if (people[0]) {
                     text += '<br/>' + people[0].nom + ' est là et vous regarde d\'un air méprisant.';
-                    choices.push(["Je demande à " + people[0].nom + " quel est son problème", "00_global/embrouille", "embrouille"]);
+                    choices.push(["Je demande à " + people[0].nom + " quel est son problème", ppath, "embrouille"]);
                     perso.adversaire = people[0].nom;
                 }
 
                 if (perso.job === "technicien de surface") {
-                    choices.push(["Je vais travailler comme technicien·ne", ppath, "jobing"]);
+                    choices.push(["Je me mets au travail", ppath, "jobing"]);
                 }
-
-                if (perso.traits.romancier) {
-                    var editrice = game.gC.roles.editrice;
-                    choices.push(["Je vais aux éditions " + editrice, ppath, "jobing"]);
-                }
-
-
-
                 return {
                     flush: 1,
                     text: text,
@@ -53,7 +44,7 @@ module.exports = {
             "jobing": function () {
 
                 var choices = [
-                    ["Super, j'adore", ppath, "intro"],
+                    ["Super, j'adore", "map"],
                 ];
 
                 var text = "Vous enfilez la tenue règlementaire. Vous allez ramasser des détritus à partir de maintenant.";

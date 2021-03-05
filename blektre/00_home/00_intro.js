@@ -91,7 +91,7 @@ Comment nommez-vous votre roman ?";
                 var text2 = "<br/>Fort de ce titre, vous ....";
                 var choices = [
                     ["... puisez votre inspiration dans la sensibilité de vos expériences", ppath, "roman_sensibilite"],
-                    ["... dessinez un organe génital", ppath, "roman_physique"],
+                    /*   ["... dessinez un organe génital", ppath, "roman_physique"],*/
                     ["... laissez tomber toute cette merde, bordel ", ppath, "intro"],
                 ];
                 return {
@@ -105,6 +105,7 @@ Comment nommez-vous votre roman ?";
             , froisse: function () {
                 var text = "Vous froissez le manuscrit.";
                 delete perso.traits.romancier.title;
+                itemTools.removeItem(perso, "roman");
                 return {
                     text: text,
                     choices: [['OK', ppath, "roman"]]
@@ -119,6 +120,8 @@ Comment nommez-vous votre roman ?";
                         title: perso.textarea,
                         level: 1
                     }, "Vous écrivez un roman titré " + perso.textarea);
+                    game.addPlace(perso, "La Défense", "01_defense/00_intro");
+
                 }
 
 

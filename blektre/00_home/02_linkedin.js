@@ -44,7 +44,7 @@ module.exports = {
             "jobs": function () {
                 var text = "Les offres d'emploi sont actualisées régulièrement.";
                 var choices = [
-                    ["Technicien de surface chez Laich&Q", ppath, "technicien"],
+                    ["Technicien de surface à la Défense", ppath, "technicien"],
                     ["J'éteins le tel", folder + "/00_intro", "intro"],
                 ];
 
@@ -56,7 +56,7 @@ module.exports = {
                 }
             },
             "technicien": function () {
-                var text = "Ce travail est payé 1$ de l'heure.";
+                var text = "Ce travail consiste à se promener affublé d'un costume ridicule en ramassant les saletés des gens. C'est payé 1€ de l'heure.";
                 var choices = [
                     ["Je postule", ppath, "technicien_ok"],
                     ["J'éteins le tel", folder + "/00_intro", "intro"],
@@ -70,9 +70,9 @@ module.exports = {
                 }
             },
             "technicien_ok": function () {
-                var text = "Vous voilà officiellement embauché chez Laich&Q, la boîte de nettoyage urbain. Vous devez vous rendre au siège.";
+                var text = "Vous voilà officiellement technicien de surface pour la ville. Vous devez vous rendre à la Défense pour prendre votre balayette et votre costume ridicule.";
+                game.addPlace(perso, "La Défense", "01_defense/00_intro");
 
-                perso.places.push(["The Defense", "01_defense/00_intro"]);
                 perso.job = "technicien de surface";
                 game.notif(perso, "Vous devenez technicien de surface");
 

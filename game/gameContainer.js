@@ -8,9 +8,7 @@ module.exports = {
     onlinePersos: {}, /// les clients WS en stock
     places: {},
     roles: {
-        dj: null,
-        tube: "Double arc en ciel",
-        filosof: null,
+       "editrice" : "Jacques Mimol",
     },
     races: {
         1: "reptilienne",

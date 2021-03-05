@@ -287,6 +287,15 @@ module.exports = {
         } else {
             return "Jacques Mimol";
         }
+    },
+    addPlace: function (perso, label, path) {
+        // place etant un array
+        for (var i = 0; i < perso.places.length; i++) {
+            if (perso.places[i] === [label, path]) {
+                return null;
+            }
+        }
+        perso.places.push([label, path]);
     }
 
 }
