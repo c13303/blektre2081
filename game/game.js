@@ -83,7 +83,7 @@ module.exports = {
     },
 
     onPlayerCommand: function (ws, msg) {
-        tools.report('---------------------------' + ws.name + ' JSON FROM CLIENT ' + JSON.stringify(msg));
+        // tools.report('' + ws.name + ' clijson: ' + JSON.stringify(msg));
 
         /* Load un chapitre page après un choice */
 
@@ -184,6 +184,10 @@ module.exports = {
                 perso.dest = dest;
 
 
+                
+
+
+
             var pageO = require('./../blektre/' + chapitre + '.js');
             if (!pageO) {
                 tools.fatal('Fatal Page O pisssmigpoon');
@@ -196,20 +200,28 @@ module.exports = {
                 return null;
             }
 
+      
+
             perso.chapitre = chapitre;
             perso.page = page;
             perso.step++;
 
-            // go to target place
-            gC.setInPlace(pageO.name, perso);
+
+
+            if (pageO.name)
+                gC.setInPlace(pageO.name, perso);
 
             this.updateChar(perso);
+
+
+            // send data to client
             var data = (pageObject);
-            data.scene = pageO.name;
+            if (pageO.name)
+                data.scene = pageO.name;
 
             ws.send(JSON.stringify(data));
 
-            //  this.updatePersos(ws);
+
 
 
         } catch (e) {
@@ -228,8 +240,8 @@ module.exports = {
                 ws.send(JSON.stringify(data));
                 ws.current_perso.notifications = [];
             } catch (e) {
-                console.log('erreur at update CHAR');
-                // console.log(e);
+                console.log('erreur at update CHAR ' + perso.nom);
+                console.log(e);
 
             }
         } else {
@@ -269,19 +281,19 @@ module.exports = {
         console.log('Update STAT de ' + perso.nom + ' ' + stat + ' ' + value);
         perso.notifications.push("!" + stat + "!" + value + "");
         perso[stat] += value;
-    }
-    /*
-     , updatePersos: function (ws, place = null) {
-     USE SETINPLACE INSTED
-     if (!place) {
-     var data = {
-     persos: gC.persos
-     }
-     ws.send(JSON.stringify(data));
-     }
-     return null;
-     }*/
-    , getRole: function (role) {
+    },
+
+    // ajoute 1 au day time et reset au max
+    upDaytime: function (perso) {
+        console.log('Update heure ' + perso.nom);
+        if (perso.daytime === 2) {
+            perso.daytime = 0;
+        } else {
+            perso.daytime++;
+        }
+    },
+
+    getRole: function (role) {
         if (gC.roles[role]) {
             return gC.roles[role];
         } else {

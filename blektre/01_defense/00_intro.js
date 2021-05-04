@@ -18,6 +18,7 @@ module.exports = {
 
             /* PAGE */
             "intro": function () {
+                delete perso.adversaire;
 
                 var choices = [
                     ["Je prends le métro", "map"],
@@ -39,7 +40,7 @@ module.exports = {
 
                 if (perso.traits.romancier) {
                     var editrice = game.gC.roles.editrice;
-                    choices.push(["Je vais aux éditions " + editrice, ppath, "jobing"]);
+                    choices.push(["Je vais aux éditions " + editrice, "01_defense/01_editions", "intro"]);
                 }
 
 

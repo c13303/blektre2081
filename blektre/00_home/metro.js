@@ -19,8 +19,9 @@ module.exports = {
         var chapitre = {
 
             "intro": function () {
+                game.upDaytime(perso);
                 var choices = [];
-
+                /* le chemin de retour après la global phase */
                 perso.globalEndChoice = ["D'accord", ppath, "fin_embrouille"];
 
                 var text = "Vous êtes dans le métro, en direction de " + dest.name + ". ";
@@ -48,6 +49,7 @@ module.exports = {
             "fin_embrouille": function () {
                 var choices = [];
                 var text = "Le metro arrive à destination";
+
                 choices.push(["Je sors du métro", perso.dest, "intro"]);
                 return {
 

@@ -3,8 +3,8 @@ var game = require('./../../game/game.js');
 var itemTools = require('./../../game/objets/itemsTools.js');
 
 module.exports = {
-    name: "Home",
-    folder: "00_home",
+    name: "",
+    folder: "00_global",
     chapitre: "/01_tinder",
 
     getPage: function (ws, page = "intro") {
@@ -21,15 +21,15 @@ module.exports = {
             "intro": function () {
                 var text = "Vous êtes sur Tinder. La photo de votre profil, qui de l'ange l'antique beauté a, n'est pas représentative de la réalité.";
                 var choices = [
-                    ["Je consulte les profils", "00_home/01_tinder", "swipe"],
-                    ["Je modifie mon profil", "00_home/01_tinder", "myprofil"],
-                    ["Je quitte", folder + "/00_intro", "intro"],
+                    ["Je consulte les profils", ppath, "swipe"],
+                    ["Je modifie mon profil", ppath, "myprofil"],
                 ];
-
+                choices.push(perso.globalEndChoice);
                 return {
                     //   flush: 1,
                     text: text,
-                    choices: choices
+                    choices: choices,
+                    phaserscene: "Portrait",
                 }
             },
             "swipe": function () {
@@ -45,8 +45,8 @@ module.exports = {
 
                 var text = "S'affiche sur l'écran le profil de " + perso.adversaire;
                 var choices = [
-                    ["El est trop mimi, je matche", "00_home/01_tinder", "swipe"],
-                    ["Je swipe", "00_home/01_tinder", "swipe"],
+                    ["Trop sexy, je matche", ppath, "swipe"],
+                    ["Je swipe", ppath, "swipe"],
                 ];
 
                 return {

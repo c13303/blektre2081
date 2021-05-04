@@ -20,6 +20,11 @@ module.exports = {
             "disclaimer": function () {
 
                 var text = "Bienvenue dans Blektre 2081, simulateur de vie du futur. En continuant, vous acceptez la collecte (...) de (...) données, et respectez les règles de la netiquette.";
+                perso.loyer = {
+                    amount: 100,
+                    days: 28,
+                }
+                perso.daytime = 0;
 
                 var choices = [
                     ["J'accepte tout et je respecte la netiquette", ppath, "intro"],
@@ -34,15 +39,37 @@ module.exports = {
 
             /* PAGE */
             "intro": function () {
-                var text = "Nous sommes le 2 mars 2081, il est 8 heures du matin. Vous êtes chez vous, dans la grande tour d'habitation du Blektre. Vous n'avez pas de meubles. Dehors il pleut. Vous ne le savez pas mais vous avez sûrement une maladie grave quelque part. \n\
-Enfin, il faudrait faire quelque chose de votre existence. Mais quoi ? ";
+                var text = "";
+                if (perso.daytime === 0)
+                    text += "C'est le matin.";
+                if (perso.daytime === 1)
+                    text += "C'est l'après-midi.";
+                if (perso.daytime === 2)
+                    text += "C'est la nuit.";
+
+
+                text += "\n\Vous êtes chez vous, dans la grande tour d'habitation du Blektre.";
+
+
+                // loyer
+                var restant = perso.loyer.amount - perso.money;
+                
+                if (restant > 0)
+                    text += "\n\Il vous reste " + perso.loyer.days + " jours pour trouver les " + restant + "€ qui manquent pour payer votre loyer. ";
+
+
+                text += "\n\Que faire ?";
 
                 if (perso.job === "technicien de surface") {
                     text = "Vous êtes chez vous, vêtu de votre habit tâché de technicien de surface. Une odeur nauséabonde plane autour de vous."
                 }
 
+
+                perso.globalEndChoice = ["Je sors des WC", ppath, "intro"];
+                
                 var choices = [
-                    ["J'allume mon téléphone malin", ppath, "telephone"],
+                    ['Je me change', ppath, "change"],
+                    ["Je vais aux WC", "00_global/wc", "intro"],
                     ["J'écris un roman", ppath, "roman"],
                     ["Je prends le métro au rez-de-chaussée", "map"]
                 ];
@@ -53,21 +80,44 @@ Enfin, il faudrait faire quelque chose de votre existence. Mais quoi ? ";
                     choices: choices
                 }
             },
-
-            "telephone": function () {
-
-                var text = "Vous effectuez le geste de déverouillage de l'écran de votre iPhone dernier cri";
+            "change": function () {
+                var text = "Que voulez-vous porter ?";
                 var choices = [
-                    ["Je vais sur Tinder", folder + "/01_tinder", "intro"],
-                    ["Je vais sur LinkedIn", folder + "/02_linkedin", "intro"],
+                    ["Des vêtements normaux", ppath, "change_normal"],
+                    ["Des vêtements ridicules", ppath, "change_ridicule"],
                 ];
                 return {
-                    flush: 1,
+                    flush: null,
                     text: text,
                     choices: choices
                 }
+            },
+            "change_normal": function () {
+                var text = "Vous mettez ces habits tristement banals, que vous mettez depuis toujours.";
+                game.updateTrait(perso, "ridicule", null, "Vous vous habillez normalement.");
 
+                var choices = [
+                    ["La vie est une plage", ppath, "intro"],
+                ];
+                return {
+                    flush: null,
+                    text: text,
+                    choices: choices
+                }
+            },
+            "change_ridicule": function () {
+                var text = "Vous décidez, subitement, de porter un de ces horribles bonnet que portent les jeunes gens aisés de la cité. C'est généralement une bonne garantie pour s'attirer des ennuis.";
+                game.updateTrait(perso, "ridicule", 1, "Vous vous habillez avec ridicule.");
+                var choices = [
+                    ["Il n'auront pas ma liberté de penser", ppath, "intro"],
+                ];
+                return {
+                    flush: null,
+                    text: text,
+                    choices: choices
+                }
             }
+
 
 
 
@@ -133,9 +183,7 @@ Comment nommez-vous votre roman ?";
                         desc: "roman à chier",
                         value: 1
                     });
-                    var text = "En tant que Romancier niveau " + perso.traits.romancier.level + ", vos expériences émotives sont assez plates depuis que vous avez vécu une romance avec un extra-terrestre d'une dimension parallèle dans simulation VR sous drogues psychédéliques, mais si vous pouviez vivre de <i>vraies</i> choses, vous pourriez retrouver l'émotion romantique qui vous caractérise. \n\
- En attendant, vous avez écrit une histoire fade et impersonnelle. \n\
-Vous songer nonobstant à l'apporter à devant votre éditrice, sur un malentendu, vous pourriez la faire publier, et ainsi gagner quelques deniers.";
+                    var text = "En tant que Romancier niveau " + perso.traits.romancier.level + ", vous sentez que votre roman, même s'il pourrait déjà être apporté à votre éditrice, est assez vide. Peut-être que si vous pouviez vivre des expériences émotionnelles intenses, vous pourriez y puiser votre inspiration.";
 
                 } else {
 
@@ -145,7 +193,7 @@ Vous songer nonobstant à l'apporter à devant votre éditrice, sur un malentend
                         desc: "roman moyen",
                         value: 2
                     });
-                    var text = "En tant que Romancier niveau " + perso.traits.romancier.level + ", vous avez vécu des douleurs incomensurables lors de votre piteuse existence. Cet terreau noir nourrit votre plume, et vous redigez un roman enflammé, dans lequel une personne " + game.gC.races[perso.type] + " comme vous se prend de passion pour une personne  " + game.gC.races[game.gC.rules.oppressed] + " racisée et opprimée, avant d'être obligé de l'abandonner dans son pays en guerre pour devenir trader à New York.";
+                    var text = "";
                 }
 
 

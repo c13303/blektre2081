@@ -139,12 +139,13 @@ if ($isdev) {
 
                     <iframe id="phaserframe" src="Game/index.html?v=<?= $v; ?>" ></iframe>
                     <div id="notifs"></div>
-
+                    
+                    <textarea id="json" ></textarea>
                     <!-- <div id="peoplehere"></div> -->
 
                 </div>
 
-                <div id="json" ></div>
+
             </div>
             <div id="map">
 

@@ -44,14 +44,10 @@ function levelCtx() {
 }
 
 function changeScene(name, remove = true) {
-
-
+    console.log('Changing SCENE PHASER to ' + name);
     if (currentScene)
         ctx.scene.stop(currentScene);
-
     ctx.scene.start(name);
-
-
     currentScene = name;
     return ("Switched to " + name);
 }

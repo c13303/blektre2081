@@ -8,7 +8,7 @@ module.exports = {
     onlinePersos: {}, /// les clients WS en stock
     places: {},
     roles: {
-       "editrice" : "Jacques Mimol",
+        "editrice": "Jacques Mimol",
     },
     races: {
         1: "reptilienne",
@@ -49,8 +49,10 @@ module.exports = {
 
         if (!place)
             tools.fatal("set in place no place ? FUCK YOU");
+
+
+        // RESTER AU MEME ENDROIT
         if (place === perso.oldplace && this.places[place][perso.nom] === perso) {
-            // normal quand on reste dans la même pièce
             return null;
         }
 
@@ -70,20 +72,40 @@ module.exports = {
         // set in places index
         this.places[place][perso.nom] = perso;
         perso.place = place;
-        /// update clients 
-        for (const [key, value] of Object.entries(this.places[place])) {
-            var perso = value;
+
+
+
+
+        /// update all clients 
+        for (const [key, value] of Object.entries(this.persos)) {
             if (this.onlinePersos[key]) {
-                try {
-                    var ws = this.onlinePersos[key];
-                    ws.send(JSON.stringify({persos: this.places[place]}));
-                } catch (e) {
-                    delete this.onlinePersos[key]
-                    console.log('missing ws client update palce -> deleting from index');
-                }
-                //  console.log(perso.nom + ' updated place client');
+                var ws = this.onlinePersos[key];
+                ws.send(JSON.stringify({persos: this.persos}));
             }
+
         }
+
+
+
+        /*
+         for (const [keyplace, valueplace] of Object.entries(this.places)) {
+         for (const [key, value] of Object.entries(valueplace)) {
+         var perso = value;
+         if (this.onlinePersos[key]) {
+         try {
+         var ws = this.onlinePersos[key];
+         ws.send(JSON.stringify({persos: this.places[place]}));
+         } catch (e) {
+         delete this.onlinePersos[key]
+         console.log('missing ws client update palce -> deleting from index');
+         }
+         //  console.log(perso.nom + ' updated place client');
+         }
+         }
+         }
+         */
+
+
 
         console.log(perso.nom + ' has moved, --updated places');
     },

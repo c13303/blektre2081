@@ -26,11 +26,9 @@ setTimeout(function () {
 var lastScene = null;
 function phaserHook(d) {
 
-    var scenechanged = false;
+    var scenechanged = null;
 
     if (PS) {
-
-
         if (d.phaserscene && d.phaserscene !== lastScene) {
             PS.changeScene(d.phaserscene);
             lastScene = d.phaserscene;

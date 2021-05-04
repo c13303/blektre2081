@@ -47,6 +47,8 @@ button{
     padding:10px;
     font-size: 20px;
     margin:0 0 20px;
+    width: 400px;
+
 }
 
 .old{
@@ -67,13 +69,14 @@ button{
 
 }
 #json{
-    font-size: 12px;
+    font-size: 16px;
     margin-top: 62Px;
-    position: absolute;
+    /* position: absolute;*/
     bottom: 0;
     left: 0;
     width: 100%;
-    opacity:0;
+    opacity:1;
+    height: 500px;
 }
 
 #json:hover{

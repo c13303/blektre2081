@@ -30,6 +30,11 @@
                 "key": "Defense"
             },
             {
+                "url": "assets/places/Dial.js",
+                "type": "sceneFile",
+                "key": "Dial"
+            },
+            {
                 "url": "assets/png/head_4.png",
                 "frameConfig": {
                     "frameWidth": 320,

@@ -3,7 +3,7 @@ var game = require('./../../game/game.js');
 var itemTools = require('./../../game/objets/itemsTools.js');
 
 module.exports = {
-    name: "Global",
+    name: null,
     folder: "00_global",
     chapitre: "/embrouille",
 
@@ -18,7 +18,7 @@ module.exports = {
 
             /* PAGE */
             "intro": function () {
-
+                return this.embrouille();
 
             },
             "embrouille": function () {
@@ -37,7 +37,9 @@ module.exports = {
                 return {
                     flush: 1,
                     text: text,
-                    choices: choices
+                    choices: choices,
+                    phaserscene: "Dial"
+
                 }
             }
             ,
@@ -52,12 +54,14 @@ module.exports = {
                 perso.globalEndChoice[0] = ":(";
                 choices.push(perso.globalEndChoice);
                 adversaire.horsjeu = true;
-                delete perso.adversaire;
+                
 
                 return {
                     flush: 1,
                     text: text,
-                    choices: choices
+                    choices: choices,
+                    phaserscene: "Dial"
+
                 }
             },
 
@@ -95,7 +99,9 @@ Vous êtes ému et vous sentez que vos talents de romancier s'aimeillorent ! Vou
                 return {
                     flush: 1,
                     text: text,
-                    choices: choices
+                    choices: choices,
+                    phaserscene: "Dial",
+
                 }
             },
 

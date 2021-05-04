@@ -142,8 +142,8 @@ function gameClientHook(d) {
                     $('#notifs').append('<div class="notif">' + d.mychar.notifications[i] + '</div>');
             }
         }
-        var html = "<b class='name'>" + d.mychar.nom + "</b>";
-        html += JSON.stringify(d.mychar);
+        // var html = "<b class='name'>" + d.mychar.nom + "</b>";
+        var html = JSON.stringify(d.mychar, null, 2);
         $('#fiche #json').html(html);
         mychar = d.mychar;
         // $('#place').html(mychar.place);
