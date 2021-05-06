@@ -24,13 +24,18 @@ module.exports = {
             money: 12,
             job: null,
             jobing: null,
+            place: null,
             places: [["Maison", "00_home/00_intro"]],
             disclaimer: true,
-            notifications: [],
+            loglines: [], // les petites notifs type "vous avez .."
+            popups: [], // les popups notifs (plutot pour le farming / incremental)
+            interruptions : [], // bolossages 
             step: 0,
             inventaire: {},
-            toInsertDB: true,           
-            place: null
+            toInsertDB: true,
+            place: null,
+            day: 0,
+            horsjeu: false,
         }
         return perso;
     }

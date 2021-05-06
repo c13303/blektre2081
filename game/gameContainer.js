@@ -38,6 +38,31 @@ module.exports = {
             console.log(Object.keys(that.persos).length + ' personnages loaded');
         });
     },
+    getPackedPerso: function (perso) {
+        var packed = {
+            nom: perso.nom,
+            type: perso.type,
+            //    bio: perso.bio,
+            //    traits: perso.traits,
+            //    life: perso.life,
+            //    karma: perso.karma,
+            //   sex: perso.sex,
+            //   sanity: perso.sanity,
+            //   money: perso.money,
+            place: perso.place
+        };
+        return packed;
+    },
+    getAllPackedPersos: function () {
+        var packedPersos = {};
+        for (const [key, value] of Object.entries(this.persos)) {
+            if (!value.horsjeu)
+                packedPersos[key] = this.getPackedPerso(value);
+        }
+        return packedPersos;
+    },
+
+    /* change a perso de place and notify EVERYBOY */
     setInPlace: function (place, perso) {
 
         // place = new placed :(
@@ -74,36 +99,19 @@ module.exports = {
         perso.place = place;
 
 
-
+        // make a pack with all packed persos //
+        var packedPersos = this.getAllPackedPersos();
 
         /// update all clients 
         for (const [key, value] of Object.entries(this.persos)) {
             if (this.onlinePersos[key]) {
                 var ws = this.onlinePersos[key];
-                ws.send(JSON.stringify({persos: this.persos}));
+                ws.send(JSON.stringify({persos: packedPersos}));
             }
-
         }
 
 
 
-        /*
-         for (const [keyplace, valueplace] of Object.entries(this.places)) {
-         for (const [key, value] of Object.entries(valueplace)) {
-         var perso = value;
-         if (this.onlinePersos[key]) {
-         try {
-         var ws = this.onlinePersos[key];
-         ws.send(JSON.stringify({persos: this.places[place]}));
-         } catch (e) {
-         delete this.onlinePersos[key]
-         console.log('missing ws client update palce -> deleting from index');
-         }
-         //  console.log(perso.nom + ' updated place client');
-         }
-         }
-         }
-         */
 
 
 

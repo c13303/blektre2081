@@ -40,7 +40,25 @@ body{
     padding: 20px;
 }
 #fiche{
+    position: relative;
     width:50%;
+}
+#col_popups{
+    margin-top: 20px;
+
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 400px;
+    /* border: 1px solid black;*/
+}
+.popin{
+    background: white;
+    padding:10px;
+    border:1px solid black;
+    margin:20px;
+    cursor:pointer;
 }
 
 button{
@@ -68,7 +86,7 @@ button{
     margin: 20px auto;
 
 }
-#json{
+#json, #persos{
     font-size: 16px;
     margin-top: 62Px;
     /* position: absolute;*/
@@ -79,9 +97,6 @@ button{
     height: 500px;
 }
 
-#json:hover{
-    opacity:1;
-}
 
 #place{
     font-variant: all-petite-caps;

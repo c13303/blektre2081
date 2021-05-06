@@ -127,9 +127,6 @@ module.exports = {
 
             gC.onlinePersos[perso.nom] = ws;
 
-
-
-
             //  console.log(ws.name + ' starts the game');
             // console.log(ws.current_perso);
 
@@ -141,7 +138,10 @@ module.exports = {
 
             this.loadPage(ws, ws.current_perso.chapitre, pagedepart);
             // forcer update place if not moved
-            ws.send(JSON.stringify({persos: gC.places[perso.place]}));
+            // 
+            // make a pack with all packed persos //
+            var packedPersos = gC.getAllPackedPersos();
+            ws.send(JSON.stringify({persos: packedPersos}));
 
             this.updateChar(perso);
         }
@@ -180,11 +180,19 @@ module.exports = {
 
             // delete perso.adversaire; // dont do that 
 
+
+
+            /// dest is the metro final destination i guess
             if (dest)
                 perso.dest = dest;
 
 
-                
+            // if page = intro then check interrupt
+            if (page === "intro") {
+
+                if (this.checkInterrupt(ws, chapitre, page))
+                    return null;
+            }
 
 
 
@@ -200,7 +208,7 @@ module.exports = {
                 return null;
             }
 
-      
+
 
             perso.chapitre = chapitre;
             perso.page = page;
@@ -213,7 +221,6 @@ module.exports = {
 
             this.updateChar(perso);
 
-
             // send data to client
             var data = (pageObject);
             if (pageO.name)
@@ -221,15 +228,14 @@ module.exports = {
 
             ws.send(JSON.stringify(data));
 
-
-
-
         } catch (e) {
             tools.report('!!!! ERROR at loading page : ' + chapitre + ' page ' + page);
             console.log(e);
         }
         return null;
     },
+
+    /* UPDATE MY OWN CHAR */
     updateChar: function (perso) {
         var data = {
             "mychar": perso
@@ -238,19 +244,64 @@ module.exports = {
         if (ws) {
             try {
                 ws.send(JSON.stringify(data));
-                ws.current_perso.notifications = [];
+                ws.current_perso.loglines = [];
             } catch (e) {
                 console.log('erreur at update CHAR ' + perso.nom);
                 console.log(e);
-
             }
         } else {
             delete gC.onlinePersos[perso.nom];
         }
 
     },
+
+    popup: function (perso, title, popup, adversaire, notif) {
+
+        var popObject = {title: title, adversaire: gC.getPackedPerso(adversaire), stats: notif};
+        // check if online = send , otherwise : stock
+        if (gC.onlinePersos[perso.nom]) {
+            ws = gC.onlinePersos[perso.nom];
+            ws.send(JSON.stringify({
+                popups: [popObject]
+            }));
+        } else {
+            perso.popups.push(popObject);
+        }
+
+    },
+
     notif: function (perso, notif) {
-        perso.notifications.push(gC.date + ':' + notif);
+        perso.loglines.push(gC.date + ':' + notif);
+    },
+    interrupt: function (perso, chapitre, page, adversaire, statnotif) {
+        perso.interruptions.push({
+            chapitre: chapitre,
+            page: page,
+            adversaire: adversaire.nom,
+            statnotif: statnotif}
+        );
+
+    },
+    checkInterrupt: function (ws, chapitre, page) {
+        var perso = ws.current_perso;
+
+        if (perso.interruptions[0]) {
+            perso.returnAfterInterrupt = {
+                chapitre: chapitre,
+                page: page
+            };
+            perso.adversaire = perso.interruptions[0].adversaire;
+
+            this.loadPage(ws, perso.interruptions[0].chapitre, perso.interruptions[0].page);
+
+            return true; // for stop loading current page
+        }
+    },
+    endInterrupt: function (perso, returnlabel) {
+        var returnChoice = [returnlabel, perso.returnAfterInterrupt.chapitre, perso.returnAfterInterrupt.page];
+        perso.interruptions.splice(0, 1);
+        delete perso.returnAfterInterrupt;
+        return returnChoice;
     },
 
     updateTrait: function (perso, trait, value, notif) {
@@ -261,7 +312,8 @@ module.exports = {
             delete perso.traits[trait];
         }
         this.notif(perso, notif);
-    },
+    }
+    ,
     getTrait: function (perso, trait) {
 
         if (!perso.traits[trait])
@@ -279,18 +331,40 @@ module.exports = {
 
     , updateStat: function (perso, stat, value) {
         console.log('Update STAT de ' + perso.nom + ' ' + stat + ' ' + value);
-        perso.notifications.push("!" + stat + "!" + value + "");
+        var texte = "!" + stat + "!" + value + "";
+        perso.loglines.push(texte);
         perso[stat] += value;
+        return texte;
     },
 
     // ajoute 1 au day time et reset au max
     upDaytime: function (perso) {
         console.log('Update heure ' + perso.nom);
         if (perso.daytime === 2) {
+            /* end of day */
             perso.daytime = 0;
+            perso.day++;
+            perso.loyer.days--;
+            if (perso.loyer.days === 0) {
+                perso.loyer.days = 28;
+                console.log('LOYER TIME FOR ' + perso.nom);
+                var loyer = perso.loyer.amount;
+                var diff = perso.money - loyer;
+                if (diff > 0) {
+                    perso.money -= loyer;
+                    this.notif(perso, "Vous payer votre loyer");
+                } else {
+                    perso.money = 0;
+                    this.notif(perso, "Vous échouez à payer votre loyer");
+                }
+            }
+
         } else {
             perso.daytime++;
         }
+
+
+
     },
 
     getRole: function (role) {

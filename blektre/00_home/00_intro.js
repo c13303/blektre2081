@@ -39,6 +39,11 @@ module.exports = {
 
             /* PAGE */
             "intro": function () {
+
+               
+                
+
+
                 var text = "";
                 if (perso.daytime === 0)
                     text += "C'est le matin.";
@@ -53,7 +58,7 @@ module.exports = {
 
                 // loyer
                 var restant = perso.loyer.amount - perso.money;
-                
+
                 if (restant > 0)
                     text += "\n\Il vous reste " + perso.loyer.days + " jours pour trouver les " + restant + "€ qui manquent pour payer votre loyer. ";
 
@@ -66,9 +71,9 @@ module.exports = {
 
 
                 perso.globalEndChoice = ["Je sors des WC", ppath, "intro"];
-                
+
                 var choices = [
-                    ['Je me change', ppath, "change"],
+
                     ["Je vais aux WC", "00_global/wc", "intro"],
                     ["J'écris un roman", ppath, "roman"],
                     ["Je prends le métro au rez-de-chaussée", "map"]
@@ -80,49 +85,7 @@ module.exports = {
                     choices: choices
                 }
             },
-            "change": function () {
-                var text = "Que voulez-vous porter ?";
-                var choices = [
-                    ["Des vêtements normaux", ppath, "change_normal"],
-                    ["Des vêtements ridicules", ppath, "change_ridicule"],
-                ];
-                return {
-                    flush: null,
-                    text: text,
-                    choices: choices
-                }
-            },
-            "change_normal": function () {
-                var text = "Vous mettez ces habits tristement banals, que vous mettez depuis toujours.";
-                game.updateTrait(perso, "ridicule", null, "Vous vous habillez normalement.");
-
-                var choices = [
-                    ["La vie est une plage", ppath, "intro"],
-                ];
-                return {
-                    flush: null,
-                    text: text,
-                    choices: choices
-                }
-            },
-            "change_ridicule": function () {
-                var text = "Vous décidez, subitement, de porter un de ces horribles bonnet que portent les jeunes gens aisés de la cité. C'est généralement une bonne garantie pour s'attirer des ennuis.";
-                game.updateTrait(perso, "ridicule", 1, "Vous vous habillez avec ridicule.");
-                var choices = [
-                    ["Il n'auront pas ma liberté de penser", ppath, "intro"],
-                ];
-                return {
-                    flush: null,
-                    text: text,
-                    choices: choices
-                }
-            }
-
-
-
-
-
-            , roman: function () {
+            roman: function () {
 
                 if (perso.traits.romancier && perso.traits.romancier.title) {
                     var text = "Vous, Romancier niveau " + perso.traits.romancier.level + ", avez déjà un roman en cours de publication, titré <i>" + perso.traits.romancier.title + "</i>";

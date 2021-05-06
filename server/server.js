@@ -86,8 +86,8 @@ serveur.startServer = function () {
         wss.subinit();
         tools.wss = wss;
         gC.recoverPlayersFromDB(connection);
-        var bot1 = game.createCharacter("Jacques Mimol", 2, "IA", "Metro");
-        var bot2 = game.createCharacter("Félicien Robot", 3, "IA", "Metro");
+        //  var bot1 = game.createCharacter("Jacques Mimol", 2, "IA", "Metro");
+        // var bot2 = game.createCharacter("Félicien Robot", 3, "IA", "Metro");
 
 
 
@@ -179,7 +179,7 @@ serveur.startServer = function () {
 
                 ws.send(JSON.stringify({error: msg}));
             }
- 
+
 
 
             /*read messages from the client */

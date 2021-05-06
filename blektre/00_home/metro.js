@@ -29,7 +29,7 @@ module.exports = {
 
                 for (var i = 0; i < people.length; i++) {
                     if (people[i] && !people[i].horsjeu) {
-                        text += people[i].nom + ' est là et vous regarde d\'un air arrogant. ';
+                        text += "[" + people[i].nom + '] est là et vous regarde d\'un air arrogant. ';
                         choices.push(["Je demande à " + people[i].nom + " quel est son problème", "00_global/embrouille", "embrouille"]);
                         perso.adversaire = people[i].nom;
                         break;
@@ -52,7 +52,6 @@ module.exports = {
 
                 choices.push(["Je sors du métro", perso.dest, "intro"]);
                 return {
-
                     text: text,
                     choices: choices
                 }

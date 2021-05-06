@@ -89,7 +89,7 @@ if ($isdev) {
                 }
 
                 function randomprenom() {
-                    $tab = array('Jacques Mimol', 'OurseDur', 'Josiane', 'Zobeurfou', 'Chirac', 'Miterrand', 'Penien', 'Chichatte', 'Zobeuse', 'Suceux',
+                    $tab = array('Henri Midur', 'OurseDur', 'Josiane', 'Zobeurfou', 'Chirac', 'Miterrand', 'Penien', 'Chichatte', 'Zobeuse', 'Suceux',
                         "Quentine", "Peniana", "Foufeux", "Loufon", "Giboulard", "Capote", "Simili-Cuir", "Sencha-sanlafrez", "Sambal", "Macroteuse", "Pileur",
                         "Verdure", "Gislabe", "Falantôme", "Pantine", "Stagalas", "Jenpol", "Luje", "Pleural", "Olivier", "Arrosoir", "PatrickB");
                     shuffle($tab);
@@ -133,24 +133,29 @@ if ($isdev) {
                 <div id="choices"></div>  
             </div>
             <div id="fiche">
+                <div id="col_popups">
 
+                </div>
                 <div id="visuel">
 
 
                     <iframe id="phaserframe" src="Game/index.html?v=<?= $v; ?>" ></iframe>
                     <div id="notifs"></div>
-                    
+
                     <textarea id="json" ></textarea>
+                    <textarea id="persos" ></textarea>
                     <!-- <div id="peoplehere"></div> -->
 
                 </div>
 
 
             </div>
+            <!-- the map overlay -->
             <div id="map">
 
                 <div id="places"></div>
-            </div>
+            </div> 
+
         </div>
 
 

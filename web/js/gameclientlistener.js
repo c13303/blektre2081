@@ -132,14 +132,15 @@ function gameClientHook(d) {
 
 
 
+
     /* end recept a page */
 
 
     if (d.mychar) {
-        if (d.mychar.notifications.length) {
-            for (var i = 0; i < d.mychar.notifications.length; i++) {
-                if (d.mychar.notifications[i][0] !== '!') // symbole update stat
-                    $('#notifs').append('<div class="notif">' + d.mychar.notifications[i] + '</div>');
+        if (d.mychar.loglines.length) {
+            for (var i = 0; i < d.mychar.loglines.length; i++) {
+                if (d.mychar.loglines[i][0] !== '!') // symbole update stat
+                    $('#notifs').append('<div class="notif">' + d.mychar.loglines[i] + '</div>');
             }
         }
         // var html = "<b class='name'>" + d.mychar.nom + "</b>";
@@ -163,16 +164,23 @@ function gameClientHook(d) {
     if (d.persos) {
         var html = '';
         console.log(d.persos);
-
-        /* persos here */
-        for (const [key, value] of Object.entries(d.persos)) {
-            html += ' <div class="persal">' + key + '</div> ';
-        }
-        $('#peoplehere').html(html);
+        $('#persos').html(JSON.stringify(d.persos, null, 2));
 
         persos = d.persos;
 
     }
+
+    if (d.popups) {
+        console.log(d.popups);
+        var html = '';
+        for (var i = 0; i < d.popups.length; i++) {
+            //JSON.stringify(d.popups[i], null, 2)
+            html += '<div class="popin"><span class="title">' + d.popups[i].title + '</span></div>';
+
+        }
+        $('#col_popups').append(html);
+    }
+
 
 
     /* PHASER ANIMATION */
