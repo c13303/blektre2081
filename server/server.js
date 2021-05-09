@@ -86,7 +86,7 @@ serveur.startServer = function () {
         wss.subinit();
         tools.wss = wss;
         gC.recoverPlayersFromDB(connection);
-        //  var bot1 = game.createCharacter("Jacques Mimol", 2, "IA", "Metro");
+        var bot1 = game.createCharacter("Jacques Mimol", 2, "IA", "Home");
         // var bot2 = game.createCharacter("Félicien Robot", 3, "IA", "Metro");
 
 

@@ -20,16 +20,15 @@ module.exports = {
             life: 100,
             karma: 0,
             sex: 0,
+            moral: 0,
             sanity: 0,
             money: 12,
-            job: null,
-            jobing: null,
-            place: null,
-            places: [["Maison", "00_home/00_intro"]],
+            place: null, // current place
+            places: [["Maison", "00_home/00_intro"]], /// les places unlocked dans la map
             disclaimer: true,
             loglines: [], // les petites notifs type "vous avez .."
             popups: [], // les popups notifs (plutot pour le farming / incremental)
-            interruptions : [], // bolossages 
+            interruptions: [], // bolossages 
             step: 0,
             inventaire: {},
             toInsertDB: true,

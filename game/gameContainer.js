@@ -8,7 +8,11 @@ module.exports = {
     onlinePersos: {}, /// les clients WS en stock
     places: {},
     roles: {
-        "editrice": "Jacques Mimol",
+        "default": {
+            "nom": "Jacques Mimol",
+            "earn": 0
+        },
+        /// lots of manche roles
     },
     races: {
         1: "reptilienne",
@@ -42,13 +46,13 @@ module.exports = {
         var packed = {
             nom: perso.nom,
             type: perso.type,
-            //    bio: perso.bio,
-            //    traits: perso.traits,
-            //    life: perso.life,
-            //    karma: perso.karma,
-            //   sex: perso.sex,
-            //   sanity: perso.sanity,
-            //   money: perso.money,
+            //bio: perso.bio,
+            traits: perso.traits,
+            life: perso.life,
+            karma: perso.karma,
+            sex: perso.sex,
+            sanity: perso.sanity,
+            money: perso.money,
             place: perso.place
         };
         return packed;

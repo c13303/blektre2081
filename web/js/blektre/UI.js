@@ -54,7 +54,7 @@ $(document).ready(function () {
             $('#map').show();
             var html = "";
             for (var i = 0; i < mychar.places.length; i++) {
-                html += "<button class='placemap gamechoice' data-target='00_home/metro' data-dest='" + mychar.places[i][1] + "' data-destname='" + mychar.places[i][0] + "'>" + mychar.places[i][0] + "</button>";
+                html += "<button class='placemap gamechoice' data-page='moving' data-target='00_global/metro' data-dest='" + mychar.places[i][1] + "' data-destname='" + mychar.places[i][0] + "'>" + mychar.places[i][0] + "</button>";
             }
             $('#places').html(html);
         } else {

@@ -65,8 +65,12 @@ button{
     padding:10px;
     font-size: 20px;
     margin:0 0 20px;
-    width: 400px;
 
+
+}
+
+.gamechoice_button{
+    width: 400px;
 }
 
 .old{

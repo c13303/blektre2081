@@ -4,14 +4,13 @@ var itemTools = require('./../../game/objets/itemsTools.js');
 
 module.exports = {
     name: null,
-    folder: "00_global",
-    chapitre: "/wc",
+    folder: "00_global/wc",
 
     getPage: function (ws, page = "intro") {
 
-        var ppath = this.folder + "/" + this.chapitre;
-        var folder = this.folder;
+
         var perso = ws.current_perso;
+        var folder = this.folder;
 
         /* CHAPITRE */
         var chapitre = {
@@ -19,16 +18,17 @@ module.exports = {
             /* PAGE */
             "intro": function () {
 
-                var text = "Une fois bien enfermé dans les toilettes, vous contemplez votre téléphone.";
+                var text = "Vous voilà confortablement installé dans les cabinets.";
                 var choices = [
-                    ['Je me change', ppath, "change"],
-                    ["Je vais sur Tinder", folder + "/01_tinder", "intro"],
-                    ["Je vais sur LinkedIn", folder + "/02_linkedin", "intro"],
+                    ['Je me change', folder, "change"],
+                    ['Je regarde mon iPhune', folder, 'phone'],
+                    ["Je procède à un moment d'introspection", folder, "introspection"],
+                    ["Je sors des WC", perso.globalEndChoice.folder, perso.globalEndChoice.page]
+
                 ];
 
-
-                choices.push(perso.globalEndChoice);
                 return {
+                    nointerrupt: true,
                     flush: 1,
                     text: text,
                     choices: choices,
@@ -39,8 +39,8 @@ module.exports = {
             "change": function () {
                 var text = "Que voulez-vous porter ?";
                 var choices = [
-                    ["Des vêtements normaux", ppath, "change_normal"],
-                    ["Des vêtements ridicules", ppath, "change_ridicule"],
+                    ["Des vêtements normaux", folder, "change_normal"],
+                    ["Des vêtements ridicules", folder, "change_ridicule"],
                 ];
                 return {
                     flush: null,
@@ -55,7 +55,7 @@ module.exports = {
                 game.updateTrait(perso, "ridicule", null, "Vous vous habillez normalement.");
 
                 var choices = [
-                    ["La vie est une plage", ppath, "intro"],
+                    ["La vie est une plage", folder, "intro"],
                 ];
                 return {
                     flush: null,
@@ -67,14 +67,30 @@ module.exports = {
                 var text = "Vous décidez, subitement, de porter un de ces horribles bonnet que portent les jeunes gens aisés de la cité. C'est généralement une bonne garantie pour s'attirer des ennuis.";
                 game.updateTrait(perso, "ridicule", 1, "Vous vous habillez avec ridicule.");
                 var choices = [
-                    ["Il n'auront pas ma liberté de penser", ppath, "intro"],
+                    ["Il n'auront pas ma liberté de penser", folder, "intro"],
                 ];
+
+            },
+            "phone": function () {
                 return {
                     flush: null,
-                    text: text,
-                    choices: choices
+                    text: "Quelle application allez vous faire de votre téléphone malin ?",
+                    choices: [
+                        ["Je vais sur Tinder", folder + "/01_tinder", "intro"],
+                        ["Je vais sur LinkedIn", folder + "/02_linkedin", "intro"],
+                        ["J'éteinds le téléphone", perso.globalEndChoice.folder, perso.globalEndChoice.page]
+                    ]
                 }
+
             },
+            "introspection": function () {
+                return {
+                    flush: null,
+                    text: "Quelle application allez vous faire de votre téléphone malin ?",
+                    choices: [["J'éteinds le téléphone", perso.globalEndChoice.folder, perso.globalEndChoice.page]]
+                }
+            }
+
         }
 
 

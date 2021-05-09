@@ -54,10 +54,13 @@ if ($isdev) {
             <input type="text" id="username" placeholder="username" />
             <input type="password" placeholder="password" id="password" value="pass"/>
             <input type="submit" id="submit" value="Login" />
-            <button class="quicklogin" data-name="ours" data-password="ours">QL OURS</button>
             <div id="autoreconnect" class="centered hidden">
                 Reconnexion in progress !
             </div>
+            <br/><br/>
+            <?php if (isset($_GET["devmode"])) : ?>
+                <button class="quicklogin" data-name="ours" data-password="ours">Dev Only</button>
+            <?php endif; ?>
 
         </form>
         <div id="character_menu" class="hidden">

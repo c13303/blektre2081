@@ -4,14 +4,13 @@ var itemTools = require('./../../game/objets/itemsTools.js');
 
 module.exports = {
     name: "Defense",
-    folder: "01_defense",
-    chapitre: "/00_intro",
+    folder: "01_defense/00_intro",
 
     getPage: function (ws, page = "intro") {
 
-        var ppath = this.folder + "/" + this.chapitre;
-        var folder = this.folder;
+
         var perso = ws.current_perso;
+        var folder = this.folder;
 
         /* CHAPITRE */
         var chapitre = {
@@ -23,9 +22,13 @@ module.exports = {
                 var choices = [
                     ["Je prends le métro", "map"],
                 ];
-                perso.globalEndChoice = ["D'accord", ppath, "intro"];
+                // perso.globalEndChoice = ["D'accord", folder, "intro"];
+                perso.globalEndChoice = {
+                    folder: folder,
+                    page: "intro"
+                }
 
-                var text = "Vous arrivez à la Défense. Les immeubles designés par Marc Poulet dessinent une ligne de ciel futuriste.";
+                var text = "Vous arrivez à la Défense. Les immeubles dessinés par Marc Poulet dessinent une ligne de ciel futuriste.";
 
                 var people = game.gC.getOtherPeopleHere("Defense", perso);
                 if (people[0]) {
@@ -34,13 +37,11 @@ module.exports = {
                     perso.adversaire = people[0].nom;
                 }
 
-                if (perso.job === "technicien de surface") {
-                    choices.push(["Je vais travailler comme technicien·ne", ppath, "jobing"]);
-                }
+
 
                 if (perso.traits.romancier) {
                     var editrice = game.gC.roles.editrice;
-                    choices.push(["Je vais aux éditions " + editrice, "01_defense/01_editions", "intro"]);
+                    choices.push(["Je me rends aux aux éditions " + editrice, "01_defense/01_editions", "intro"]);
                 }
 
 
@@ -50,27 +51,7 @@ module.exports = {
                     text: text,
                     choices: choices
                 }
-            },
-            "jobing": function () {
-
-                var choices = [
-                    ["Super, j'adore", ppath, "intro"],
-                ];
-
-                var text = "Vous enfilez la tenue règlementaire. Vous allez ramasser des détritus à partir de maintenant.";
-
-                perso.jobing = {
-                    money: 1,
-                    karma: 1,
-                    sex: -1
-                }
-
-                return {
-                    flush: 1,
-                    text: text,
-                    choices: choices
-                }
-            },
+            }
 
         }
 

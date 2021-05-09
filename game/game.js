@@ -70,6 +70,8 @@ module.exports = {
 
         var persoTool = require('./../game/objets/personnage.js');
         var perso = persoTool.create(nom, type, bio);
+        
+        
         /*
          for (const [key, value] of Object.entries(msg.create_char)) {
          perso[key] = value;
@@ -90,12 +92,10 @@ module.exports = {
         if (msg.textarea) {
             console.log('Recu Textarea' + msg.textarea);
             ws.current_perso.textarea = msg.textarea;
-
         }
 
         if (msg.choice) {
             this.loadPage(ws, msg.choice, msg.page, msg.dest);
-
             /* clear textarea */
             delete ws.current_perso.textarea;
         }
@@ -146,19 +146,12 @@ module.exports = {
             this.updateChar(perso);
         }
     },
+
+    // not sure i want to use real time ?
     tick: function () {
         var that = this;
         for (const [key, value] of Object.entries(gC.persos)) {
-            // jobs 
-            var perso = value;
-            if (perso.jobing) {
-                for (const [key2, value2] of Object.entries(perso.jobing)) {
-                    // console.log('jobing of ' + key2 + ' ' + value2 + ' ' + perso.nom);
-                    perso[key2] += value2;
-                }
-                this.notif(perso, "C'est jour de votre paye " + perso.job + " !");
-                this.updateChar(perso);
-            }
+
 
         }
         setTimeout(function () {
@@ -175,6 +168,7 @@ module.exports = {
         try {
 
             var perso = ws.current_perso;
+            var folder = this.folder;
             delete perso.horsjeu;
 
 
@@ -187,44 +181,51 @@ module.exports = {
                 perso.dest = dest;
 
 
-            // if page = intro then check interrupt
-            if (page === "intro") {
-
-                if (this.checkInterrupt(ws, chapitre, page))
-                    return null;
-            }
 
 
 
-            var pageO = require('./../blektre/' + chapitre + '.js');
-            if (!pageO) {
+            /* load CHAPITRE */
+            var chapitreO = require('./../blektre/' + chapitre + '.js');
+            if (!chapitreO) {
                 tools.fatal('Fatal Page O pisssmigpoon');
             }
 
-
-            var pageObject = pageO.getPage(ws, page);
+            /* load PAGE */
+            var pageObject = chapitreO.getPage(ws, page);
             if (!pageObject) {
                 tools.report('pageOjbect is missing at ' + chapitre + ' ' + page);
                 return null;
             }
 
+            // INTRO SPECIAL LIKE ... IS THERE ANY INTERRUPT SIR ? 
+            if (page === "intro") {
+                if (!pageObject.nointerrupt) {
+                    if (this.checkInterrupt(ws, chapitre, page))
+                        return null;
+                }
 
+                // if intro & station 
+                if (chapitreO.station) {
+                    perso.station = chapitreO.station;
+                }
+            }
+
+            // LET'S GO, THEN
 
             perso.chapitre = chapitre;
             perso.page = page;
             perso.step++;
 
-
-
-            if (pageO.name)
-                gC.setInPlace(pageO.name, perso);
+            // set presence into the chapitre place 
+            if (chapitreO.name)
+                gC.setInPlace(chapitreO.name, perso);
 
             this.updateChar(perso);
 
             // send data to client
             var data = (pageObject);
-            if (pageO.name)
-                data.scene = pageO.name;
+            if (chapitreO.name)
+                data.scene = chapitreO.name;
 
             ws.send(JSON.stringify(data));
 
@@ -270,7 +271,7 @@ module.exports = {
 
     },
 
-    notif: function (perso, notif) {
+    log: function (perso, notif) {
         perso.loglines.push(gC.date + ':' + notif);
     },
     interrupt: function (perso, chapitre, page, adversaire, statnotif) {
@@ -284,6 +285,7 @@ module.exports = {
     },
     checkInterrupt: function (ws, chapitre, page) {
         var perso = ws.current_perso;
+        var folder = this.folder;
 
         if (perso.interruptions[0]) {
             perso.returnAfterInterrupt = {
@@ -311,7 +313,7 @@ module.exports = {
         if (perso.traits[trait] && !value) {
             delete perso.traits[trait];
         }
-        this.notif(perso, notif);
+        this.log(perso, notif);
     }
     ,
     getTrait: function (perso, trait) {
@@ -352,10 +354,10 @@ module.exports = {
                 var diff = perso.money - loyer;
                 if (diff > 0) {
                     perso.money -= loyer;
-                    this.notif(perso, "Vous payer votre loyer");
+                    this.log(perso, "Vous payer votre loyer");
                 } else {
                     perso.money = 0;
-                    this.notif(perso, "Vous échouez à payer votre loyer");
+                    this.log(perso, "Vous échouez à payer votre loyer");
                 }
             }
 
@@ -367,13 +369,28 @@ module.exports = {
 
     },
 
-    getRole: function (role) {
-        if (gC.roles[role]) {
+    // return un nom
+    getRole: function (perso, role, isBlankAllowed = false) {
+        console.log('getRole ' + role);
+        if (gC.roles[role] && gC.roles[role].nom) {
             return gC.roles[role];
         } else {
-            return "Jacques Mimol";
+            if (!isBlankAllowed)
+                return gC.roles.default;
+            else
+                return null;
         }
+        return null;
     },
+    setRole: function (perso, role, extradata = null) {
+        this.gC.roles[role] = {
+            nom: perso.nom,
+            earn: 0,
+            extradata: extradata
+        }
+        return null;
+    },
+
     addPlace: function (perso, label, path) {
         // place etant un array
         for (var i = 0; i < perso.places.length; i++) {

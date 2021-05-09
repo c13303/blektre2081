@@ -37,7 +37,7 @@ function setup() {
     ];
     if (!scriptstoload.length)
         serveur.startServer();
-    
+
     for (scr = 0; scr < scriptstoload.length; scr++) {
         tools.loadFile(scriptstoload[scr][1], scriptstoload[scr][0], fileCompleteLoader);
     }

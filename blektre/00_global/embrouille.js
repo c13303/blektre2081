@@ -4,14 +4,13 @@ var itemTools = require('./../../game/objets/itemsTools.js');
 
 module.exports = {
     name: null,
-    folder: "00_global",
-    chapitre: "/embrouille",
+    folder: "00_global/embrouille",
 
     getPage: function (ws, page = "intro") {
 
-        var ppath = this.folder + "/" + this.chapitre;
-        var folder = this.folder;
+
         var perso = ws.current_perso;
+        var folder = this.folder;
 
         /* CHAPITRE */
         var chapitre = {
@@ -21,6 +20,7 @@ module.exports = {
                 return this.embrouille();
 
             },
+
             "embrouille": function () {
 
 
@@ -30,9 +30,9 @@ module.exports = {
                 text += '<br>-Pardon, maugrée-t-el.';
 
 
-                choices.push(["Pas de raison de faire une embrouille, el s'est excusé·e ...", ppath, "embrouille_echec"]);
-                choices.push(["Je me mets en PLS", ppath, "embrouille_sanity"]);
-                choices.push(["Je gifle [" + adversaire.nom + "]", ppath, "embrouille_physique"]);
+                choices.push(["Pas de raison de faire une embrouille, el s'est excusé·e ...", folder, "embrouille_echec"]);
+                choices.push(["Je me mets en PLS", folder, "embrouille_sanity"]);
+                choices.push(["Je gifle [" + adversaire.nom + "]", folder, "embrouille_karma"]);
 
 
                 return {
@@ -42,21 +42,19 @@ module.exports = {
                     phaserscene: "Dial"
 
                 }
-            }
-            ,
-
-            "embrouille_physique": function () {
+            },
+            "embrouille_karma": function () {
                 var choices = [];
                 var adversaire = game.gC.persos[perso.adversaire];
 
                 if (adversaire.karma >= perso.karma) {
                     /* LOSE */
                     var text = "Vous tentez de gifler [" + adversaire.nom + "] mais el esquive et vous vous étalez sur le sol, sans grâce.";
-                    game.notif(perso, "Vous avez été humilié·e par [" + adversaire.nom + "] ");
+                    game.log(perso, "Vous avez été humilié·e par [" + adversaire.nom + "] ");
                     game.updateStat(perso, "karma", 1);
                     var statnotif = game.updateStat(adversaire, "karma", -1);
-                    perso.globalEndChoice[0] = "Je suis humilié";
                     game.interrupt(adversaire, "00_global/embrouille", "embrouille_passive_win", perso, statnotif);
+                    choices.push(["Quelle humiliation", perso.globalEndChoice.folder, perso.globalEndChoice.page]);
 
 
                     /*
@@ -71,11 +69,12 @@ module.exports = {
                 } else {
                     /* WIN */
                     var text = "Vous adressez une gifle franche sur la joue de [" + adversaire.nom + "], qui se met à pleurer.";
-                    game.notif(perso, "Vous humiliez " + adversaire.nom + " ");
+                    game.log(perso, "Vous humiliez " + adversaire.nom + " ");
                     var statnotif = game.updateStat(adversaire, "karma", 1);
                     game.updateStat(perso, "karma", -1);
-                    perso.globalEndChoice[0] = "El l'a bien mérité";
+
                     game.interrupt(adversaire, "00_global/embrouille", "embrouille_passive_lose", perso, statnotif);
+                    choices.push(["El l'a bien mérité.", perso.globalEndChoice.folder, perso.globalEndChoice.page]);
 
                     /*
                      game.popup(
@@ -97,7 +96,6 @@ module.exports = {
 
 
 
-                choices.push(perso.globalEndChoice);
                 adversaire.horsjeu = true;
 
 
@@ -109,7 +107,6 @@ module.exports = {
 
                 }
             },
-
             "embrouille_sanity": function () {
                 var choices = [];
 
@@ -139,7 +136,7 @@ Vous êtes ému et vous sentez que vos talents de romancier s'aimeillorent ! Vou
 
                 text += '<br/>Le métro arrive à votre destination';
 
-                choices.push(perso.globalEndChoice);
+                choices.push(["Je sors", perso.globalEndChoice.folder, perso.globalEndChoice.page]);
 
                 return {
                     flush: 1,
@@ -149,17 +146,16 @@ Vous êtes ému et vous sentez que vos talents de romancier s'aimeillorent ! Vou
 
                 }
             },
+
             "embrouille_passive_win": function () {
 
 
                 var choices = [];
                 var adversaire = game.gC.persos[perso.adversaire];
-                var text = 'Tandis que vous marchez, [' + adversaire.nom + '] tente de vous agresser, mais tombe lamentablement sur le sol.';
-
-
-
-
-                choices.push(game.endInterrupt(perso, "Lol le con"));
+                var text = 'Soudainement, vous croisez [' + adversaire.nom + '], qui essaie de vous gifler pour une raison mystérieuse. \n\
+\n\
+El rate et tombe lamentablement sur le sol.';
+                choices.push(game.endInterrupt(perso, "Pitoyable ... "));
 
 
                 return {
@@ -168,19 +164,18 @@ Vous êtes ému et vous sentez que vos talents de romancier s'aimeillorent ! Vou
                     choices: choices,
                     phaserscene: "Dial"
                 }
-            }
-            ,
+            },
             "embrouille_passive_lose": function () {
 
 
                 var choices = [];
                 var adversaire = game.gC.persos[perso.adversaire];
-                var text = 'Tandis que vous marchez, [' + adversaire.nom + '] tente de vous agresser, mais tombe lamentablement sur le sol.';
+                var text = 'Soudainement, vous croisez [' + adversaire.nom + ']. El vous gifle. ';
 
 
 
 
-                choices.push(game.endInterrupt(perso, "Lol le con"));
+                choices.push(game.endInterrupt(perso, ":'("));
 
 
                 return {
