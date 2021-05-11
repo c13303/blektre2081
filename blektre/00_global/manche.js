@@ -32,9 +32,9 @@ module.exports = {
                     } else {
                         /// MANCHE MANAGEMENT VIDAGE DE CHAPEAU
                         var amount = mendiant.earn;
-                        game.updateStat(perso, "money", amount);
+                        perso.updateStat("money", amount);
                         game.gC.roles['manche_' + perso.station].earn = 0;
-                        game.log(perso, "Vous récupérez " + amount + "€ dans votre chapeau de mendiant à la station " + perso.station);
+                        perso.log( "Vous récupérez " + amount + "€ dans votre chapeau de mendiant à la station " + perso.station);
                         return {
                             flush: 1,
                             text: "Vous videz les " + amount + "€ contenus dans votre chapeau.",

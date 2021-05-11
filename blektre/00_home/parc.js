@@ -34,12 +34,12 @@ module.exports = {
                 perso.globalEndChoice = {
                     folder: folder,
                     page: "intro"
-                }
+                };
 
 
                 var choices = [
-                    ["Je procède à un moment d'instrospection", folder, "introspection"]
-                    ["Je m'en vais", "00_global/metro", "intro"]
+                    ["Je procède à un moment d'instrospection", folder, "introspection"],
+                    ["J'entre dans la station de métro", "00_global/metro", "intro"]
                 ];
 
                 return {
@@ -50,18 +50,26 @@ module.exports = {
             },
 
             introspection: function () {
-                if (game.iscooled(perso, "introspection_au_parc")) {
-                    
+                if (perso.iscooled("introspection_au_parc")) {
+                    var text = "Vous réalisez qu'il ne vous reste que X années à vivre et que vous n'avez rien accompli de grand. Il serait temps de faire quelque chose, comme devenir riche, ou trouver l'amour.";
+                    perso.updateStat("karma", 1);
+                    perso.log("Vous procédez à un moment d'introspection positif");
+                    perso.cool('introspection_au_parc', 3, "Vous songez au parc");
+                    var choices = [
+                        ["J'ai trop raison, je crois en moi", folder, "intro"],
+                    ];
+                } else {
+                    var text = "Vous marchez dans une crotte de chien et un pigeon vous chie dessus en même temps.";
+                    perso.updateStat("karma", 1);
+                    perso.log("Vous procédez à un moment d'introspection positif");
+                    perso.cool('introspection_au_parc', 3, "Vous songez au parc");
+                    var choices = [
+                        ["J'ai trop raison, je crois en moi", folder, "intro"],
+                    ];
                 }
-                var text = "Vous réalisez qu'il ne vous reste que X années à vivre et que vous n'avez rien accompli de grand. Ou même réussi à survivre. Il serait temps de faire quelque chose.";
-                game.updateStat(perso, "karma", 1);
-                game.log(perso, "Vous procédez à un moment d'introspection positif");
-                game.cooldown(perso, "introspection_au_parc", 5);
 
-                var choices = [
-                    ["J'ai trop raison, je crois en moi", folder, "believe"],
-                    ["Faire quelque chose, mais quoi ? ", "00_home/bureau", "intro"],
-                ];
+
+
 
                 return {
                     flush: 1,

@@ -6,7 +6,7 @@ var tools = require('./../server/tools.js');
 var monitor = require('./../server/console.js');
 var gC = require('./../game/gameContainer.js');
 var itemTools = require('./../game/objets/itemsTools.js');
-
+var Perso = require('./../game/objets/personnage.js');
 
 
 eval(tools.toolbox);
@@ -54,7 +54,7 @@ module.exports = {
     onPlayerLeave: function (ws) {
         if (ws.isOnline) {
             ws.isOnline = false;
-            delete gC.onlinePersos[ws.name];
+            delete gC.WSPersos[ws.name];
             tools.report(ws.name + ' LEFT THE GAME : ' + ws.id);
 
         }
@@ -68,10 +68,10 @@ module.exports = {
             return null;
         }
 
-        var persoTool = require('./../game/objets/personnage.js');
-        var perso = persoTool.create(nom, type, bio);
-        
-        
+
+        var perso = new Perso(nom, type, bio);
+
+
         /*
          for (const [key, value] of Object.entries(msg.create_char)) {
          perso[key] = value;
@@ -81,6 +81,20 @@ module.exports = {
         itemTools.addItem(perso, "vodka", 1);
         gC.persos[perso.nom] = perso;
         gC.setInPlace(startplace, perso);
+
+        perso.loyer = {
+            amount: 880,
+            days: 28,
+        };
+        perso.daytime = 0;
+        // game.addPlace(perso, "La Défense", "01_defense/00_intro");
+        //  game.addPlace(perso, "Parc", "00_home/parc");
+
+        perso.addPlace("La Défense", "01_defense/00_intro");
+        perso.addPlace("Parc", "00_home/parc");
+
+
+        perso.update();
         return (perso);
     },
 
@@ -103,7 +117,8 @@ module.exports = {
 
         /* CREATION DE PERSONNAGE */
         if (msg.create_char) {
-            var perso = this.createCharacter(msg.create_char.nom, msg.create_char.type, msg.create_char.bio)
+            var perso = this.createCharacter(msg.create_char.nom, msg.create_char.type, msg.create_char.bio);
+            //var perso = new Perso(msg.create_char.nom, msg.create_char.type, msg.create_char.bio);
             if (!perso) {
                 ws.errorme("Nom de personnage déjà pris");
                 return null;
@@ -122,10 +137,14 @@ module.exports = {
         /* DEMARRAGE PARTIE */
         if (msg.go) {
             console.log(ws.name + ' CHARACTEUR ONLINE  : ' + ws.char_inventory[msg.char].nom);
-            var perso = ws.char_inventory[msg.char];
+
+            var persodata = ws.char_inventory[msg.char];
+            var perso = new Perso();
+
+            perso.reload(persodata);
             ws.current_perso = perso;
 
-            gC.onlinePersos[perso.nom] = ws;
+            gC.WSPersos[perso.nom] = ws;
 
             //  console.log(ws.name + ' starts the game');
             // console.log(ws.current_perso);
@@ -136,39 +155,43 @@ module.exports = {
             } else
                 pagedepart = "intro";
 
-            this.loadPage(ws, ws.current_perso.chapitre, pagedepart);
+            this.loadPage(ws, "00_home/00_intro", pagedepart);
             // forcer update place if not moved
             // 
             // make a pack with all packed persos //
             var packedPersos = gC.getAllPackedPersos();
             ws.send(JSON.stringify({persos: packedPersos}));
 
-            this.updateChar(perso);
+            //  game.updateChar(perso);
+            perso.update();
         }
     },
 
     // not sure i want to use real time ?
     tick: function () {
-        var that = this;
-        for (const [key, value] of Object.entries(gC.persos)) {
+        // console.log(this.gC.tick);
+        this.gC.tick++;
 
-
+        for (const [key, persal] of Object.entries(gC.persos)) {
+            persal.cooldownsTick();
         }
+
+        var that = this;
         setTimeout(function () {
             gC.date++;
             that.tick();
-        }, 60000);
+        }, 3000);
 
     },
 
     loadPage: function (ws, chapitre, page, dest = null) {
-        // console.log('LoadPage() ' + chapitre + ' page ' + JSON.stringify(page));
+        console.log('LoadPage() ' + chapitre + ' page ' + JSON.stringify(page));
 
 
         try {
 
             var perso = ws.current_perso;
-            var folder = this.folder;
+
             delete perso.horsjeu;
 
 
@@ -200,7 +223,7 @@ module.exports = {
             // INTRO SPECIAL LIKE ... IS THERE ANY INTERRUPT SIR ? 
             if (page === "intro") {
                 if (!pageObject.nointerrupt) {
-                    if (this.checkInterrupt(ws, chapitre, page))
+                    if (perso.checkInterrupt(ws, chapitre, page))
                         return null;
                 }
 
@@ -220,7 +243,8 @@ module.exports = {
             if (chapitreO.name)
                 gC.setInPlace(chapitreO.name, perso);
 
-            this.updateChar(perso);
+            //  game.updateChar(perso);
+            perso.update();
 
             // send data to client
             var data = (pageObject);
@@ -236,142 +260,9 @@ module.exports = {
         return null;
     },
 
-    /* UPDATE MY OWN CHAR */
-    updateChar: function (perso) {
-        var data = {
-            "mychar": perso
-        }
-        var ws = gC.onlinePersos[perso.nom];
-        if (ws) {
-            try {
-                ws.send(JSON.stringify(data));
-                ws.current_perso.loglines = [];
-            } catch (e) {
-                console.log('erreur at update CHAR ' + perso.nom);
-                console.log(e);
-            }
-        } else {
-            delete gC.onlinePersos[perso.nom];
-        }
-
-    },
-
-    popup: function (perso, title, popup, adversaire, notif) {
-
-        var popObject = {title: title, adversaire: gC.getPackedPerso(adversaire), stats: notif};
-        // check if online = send , otherwise : stock
-        if (gC.onlinePersos[perso.nom]) {
-            ws = gC.onlinePersos[perso.nom];
-            ws.send(JSON.stringify({
-                popups: [popObject]
-            }));
-        } else {
-            perso.popups.push(popObject);
-        }
-
-    },
-
-    log: function (perso, notif) {
-        perso.loglines.push(gC.date + ':' + notif);
-    },
-    interrupt: function (perso, chapitre, page, adversaire, statnotif) {
-        perso.interruptions.push({
-            chapitre: chapitre,
-            page: page,
-            adversaire: adversaire.nom,
-            statnotif: statnotif}
-        );
-
-    },
-    checkInterrupt: function (ws, chapitre, page) {
-        var perso = ws.current_perso;
-        var folder = this.folder;
-
-        if (perso.interruptions[0]) {
-            perso.returnAfterInterrupt = {
-                chapitre: chapitre,
-                page: page
-            };
-            perso.adversaire = perso.interruptions[0].adversaire;
-
-            this.loadPage(ws, perso.interruptions[0].chapitre, perso.interruptions[0].page);
-
-            return true; // for stop loading current page
-        }
-    },
-    endInterrupt: function (perso, returnlabel) {
-        var returnChoice = [returnlabel, perso.returnAfterInterrupt.chapitre, perso.returnAfterInterrupt.page];
-        perso.interruptions.splice(0, 1);
-        delete perso.returnAfterInterrupt;
-        return returnChoice;
-    },
-
-    updateTrait: function (perso, trait, value, notif) {
-        if (value)
-            perso.traits[trait] = value;
-
-        if (perso.traits[trait] && !value) {
-            delete perso.traits[trait];
-        }
-        this.log(perso, notif);
-    }
-    ,
-    getTrait: function (perso, trait) {
-
-        if (!perso.traits[trait])
-            return null;
-
-        return perso.traits[trait];
-    }
-
-    , hasTrait: function (perso, trait) {
-        if (perso.traits[trait])
-            return perso.traits[trait];
-        else
-            return false;
-    }
-
-    , updateStat: function (perso, stat, value) {
-        console.log('Update STAT de ' + perso.nom + ' ' + stat + ' ' + value);
-        var texte = "!" + stat + "!" + value + "";
-        perso.loglines.push(texte);
-        perso[stat] += value;
-        return texte;
-    },
-
-    // ajoute 1 au day time et reset au max
-    upDaytime: function (perso) {
-        console.log('Update heure ' + perso.nom);
-        if (perso.daytime === 2) {
-            /* end of day */
-            perso.daytime = 0;
-            perso.day++;
-            perso.loyer.days--;
-            if (perso.loyer.days === 0) {
-                perso.loyer.days = 28;
-                console.log('LOYER TIME FOR ' + perso.nom);
-                var loyer = perso.loyer.amount;
-                var diff = perso.money - loyer;
-                if (diff > 0) {
-                    perso.money -= loyer;
-                    this.log(perso, "Vous payer votre loyer");
-                } else {
-                    perso.money = 0;
-                    this.log(perso, "Vous échouez à payer votre loyer");
-                }
-            }
-
-        } else {
-            perso.daytime++;
-        }
-
-
-
-    },
-
     // return un nom
     getRole: function (perso, role, isBlankAllowed = false) {
-        console.log('getRole ' + role);
+        //console.log('getRole ' + role);
         if (gC.roles[role] && gC.roles[role].nom) {
             return gC.roles[role];
         } else {
@@ -390,16 +281,6 @@ module.exports = {
         }
         return null;
     },
-
-    addPlace: function (perso, label, path) {
-        // place etant un array
-        for (var i = 0; i < perso.places.length; i++) {
-            if (perso.places[i] === [label, path]) {
-                return null;
-            }
-        }
-        perso.places.push([label, path]);
-    }
 
 }
 

@@ -76,11 +76,11 @@ Comment nommez-vous votre roman ?";
 
                 if (!perso.traits.romancier) {
                     /* level romancier */
-                    game.updateTrait(perso, "romancier", {
+                    perso.updateTrait( "romancier", {
                         title: perso.textarea,
                         level: 1
                     }, "Vous écrivez un roman titré " + perso.textarea);
-                    game.addPlace(perso, "La Défense", "01_defense/00_intro");
+                    perso.addPlace("La Défense", "01_defense/00_intro");
 
                 }
 
@@ -120,10 +120,10 @@ Comment nommez-vous votre roman ?";
                 }
             },
             youtube: function () {
-                game.upDaytime(perso);
+                perso.upDaytime();
                 var text = "Vous passez une demi journée à regarder des vidéos de chatons et autres séquences d'ASMR.";
-                game.log(perso, "Vous regardez Youtube pendant des heures");
-                game.updateStat(perso, "sanity", 1);
+                perso.log( "Vous regardez Youtube pendant des heures");
+                perso.updateStat("sanity", 1);
                 var choices = [
                     ["Je me sens détendu et accompli", "00_home/00_intro", "intro"],
                 ];

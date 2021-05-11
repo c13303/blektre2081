@@ -50,10 +50,13 @@ module.exports = {
                 if (adversaire.karma >= perso.karma) {
                     /* LOSE */
                     var text = "Vous tentez de gifler [" + adversaire.nom + "] mais el esquive et vous vous étalez sur le sol, sans grâce.";
-                    game.log(perso, "Vous avez été humilié·e par [" + adversaire.nom + "] ");
-                    game.updateStat(perso, "karma", 1);
-                    var statnotif = game.updateStat(adversaire, "karma", -1);
-                    game.interrupt(adversaire, "00_global/embrouille", "embrouille_passive_win", perso, statnotif);
+                    perso.log("Vous avez été humilié·e par [" + adversaire.nom + "] ");
+                    perso.updateStat("karma", 1);
+                    var statnotif = adversaire.updateStat("karma", -1);
+                    adversaire.interrupt("00_global/embrouille", "embrouille_passive_win", perso, statnotif);
+
+
+
                     choices.push(["Quelle humiliation", perso.globalEndChoice.folder, perso.globalEndChoice.page]);
 
 
@@ -69,11 +72,13 @@ module.exports = {
                 } else {
                     /* WIN */
                     var text = "Vous adressez une gifle franche sur la joue de [" + adversaire.nom + "], qui se met à pleurer.";
-                    game.log(perso, "Vous humiliez " + adversaire.nom + " ");
-                    var statnotif = game.updateStat(adversaire, "karma", 1);
-                    game.updateStat(perso, "karma", -1);
+                    perso.log("Vous humiliez " + adversaire.nom + " ");
 
-                    game.interrupt(adversaire, "00_global/embrouille", "embrouille_passive_lose", perso, statnotif);
+                    var statnotif = adversaire.updateStat("karma", 1);
+
+                    perso.updateStat("karma", -1);
+
+                    adversaire.interrupt("00_global/embrouille", "embrouille_passive_lose", perso, statnotif);
                     choices.push(["El l'a bien mérité.", perso.globalEndChoice.folder, perso.globalEndChoice.page]);
 
                     /*
@@ -116,10 +121,10 @@ module.exports = {
                 if (perso.karma > adversaire.karma) {
                     text += '\n\
 [' + adversaire.nom + '] éclate en sanglots.';
-                    game.updateStat(perso, "sex", +5);
-                    game.updateStat(perso, "karma", -5);
+                    perso.updateStat("sex", +5);
+                    perso.updateStat("karma", -5);
                 } else {
-                    game.updateStat(perso, "sex", -5);
+                    perso.updateStat("sex", -5);
                     text += '\n\
 [' + adversaire.nom + '] éclate de rire.';
                 }
@@ -155,7 +160,7 @@ Vous êtes ému et vous sentez que vos talents de romancier s'aimeillorent ! Vou
                 var text = 'Soudainement, vous croisez [' + adversaire.nom + '], qui essaie de vous gifler pour une raison mystérieuse. \n\
 \n\
 El rate et tombe lamentablement sur le sol.';
-                choices.push(game.endInterrupt(perso, "Pitoyable ... "));
+                choices.push(perso.getChoiceEndInterrupt("Pitoyable ... "));
 
 
                 return {
@@ -175,7 +180,7 @@ El rate et tombe lamentablement sur le sol.';
 
 
 
-                choices.push(game.endInterrupt(perso, ":'("));
+                choices.push(perso.getChoiceEndInterrupt(":'("));
 
 
                 return {

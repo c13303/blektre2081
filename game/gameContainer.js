@@ -3,9 +3,9 @@ var tools = require('./../server/tools.js');
 module.exports = {
     gS: require('../game/gameSettings.js'),
     date: 0,
-    heure: 0,
+    tick: 0,
     persos: {},
-    onlinePersos: {}, /// les clients WS en stock
+    WSPersos: {}, /// les clients WS en stock
     places: {},
     roles: {
         "default": {
@@ -108,9 +108,15 @@ module.exports = {
 
         /// update all clients 
         for (const [key, value] of Object.entries(this.persos)) {
-            if (this.onlinePersos[key]) {
-                var ws = this.onlinePersos[key];
-                ws.send(JSON.stringify({persos: packedPersos}));
+            if (this.WSPersos[key]) {
+                var ws = this.WSPersos[key];
+                try {
+                    ws.send(JSON.stringify({persos: packedPersos}));
+                } catch (e) {
+                    tools.report('Erreur setInPlace WS');
+                    tools.report(e);
+                }
+
             }
         }
 
@@ -119,7 +125,7 @@ module.exports = {
 
 
 
-        console.log(perso.nom + ' has moved, --updated places');
+        //  console.log(perso.nom + ' has moved, --updated places');
     },
     getOtherPeopleHere: function (place, perso) {
 

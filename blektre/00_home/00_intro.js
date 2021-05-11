@@ -17,14 +17,8 @@ module.exports = {
             disclaimer: function () {
 
                 var text = "Bienvenue dans Blektre 2081, simulateur de vie du futur. En continuant, vous acceptez la collecte de vos données, et respectez les règles de la netiquette.";
-                perso.loyer = {
-                    amount: 880,
-                    days: 28,
-                }
-                game.addPlace(perso, "La Défense", "01_defense/00_intro");
-                game.addPlace(perso, "Parc", "00_home/parc");
-
-                perso.daytime = 0;
+                
+                
 
                 var choices = [
                     ["J'accepte tout et je respecte la netiquette", folder, "intro"],
@@ -72,7 +66,7 @@ module.exports = {
 
                     ["Je vais aux WC", "00_global/wc", "intro"],
                     ["Je vais à mon bureau", "00_home/bureau", "intro"],
-                    ["Je sors", "00_global/metro", "intro"]
+                    ["Je sors", "00_home/street", "intro"]
                 ];
 
                 return {

@@ -52,7 +52,7 @@ module.exports = {
 
             "change_normal": function () {
                 var text = "Vous mettez ces habits tristement banals, que vous mettez depuis toujours.";
-                game.updateTrait(perso, "ridicule", null, "Vous vous habillez normalement.");
+                perso.updateTrait("ridicule", null, "Vous vous habillez normalement.");
 
                 var choices = [
                     ["La vie est une plage", folder, "intro"],
@@ -65,7 +65,7 @@ module.exports = {
             },
             "change_ridicule": function () {
                 var text = "Vous décidez, subitement, de porter un de ces horribles bonnet que portent les jeunes gens aisés de la cité. C'est généralement une bonne garantie pour s'attirer des ennuis.";
-                game.updateTrait(perso, "ridicule", 1, "Vous vous habillez avec ridicule.");
+                perso.updateTrait("ridicule", 1, "Vous vous habillez avec ridicule.");
                 var choices = [
                     ["Il n'auront pas ma liberté de penser", folder, "intro"],
                 ];
@@ -76,8 +76,10 @@ module.exports = {
                     flush: null,
                     text: "Quelle application allez vous faire de votre téléphone malin ?",
                     choices: [
+
                         ["Je vais sur Tinder", folder + "/01_tinder", "intro"],
-                        ["Je vais sur LinkedIn", folder + "/02_linkedin", "intro"],
+                        //   ["Je vais sur LinkedIn", folder + "/02_linkedin", "intro"],
+                        ["J'appelle quelqu'un", folder, "call"],
                         ["J'éteinds le téléphone", perso.globalEndChoice.folder, perso.globalEndChoice.page]
                     ]
                 }

@@ -148,17 +148,20 @@ serveur.startServer = function () {
                         tools.report('Saved : ' + ws.name);
 
                         for (var i = 0; i < ws.char_inventory.length; i++) {
-                            var perso = ws.char_inventory[i];
-                            if (ws.char_inventory[i].toInsertDB) {
+
+                            var perso = gC.persos[ws.char_inventory[i].nom];
+
+                            if (perso.toInsertDB) {
                                 perso.toInsertDB = null;
                                 var data = JSON.stringify(perso);
                                 connection.query('INSERT INTO persos(nom,data,player_id) VALUES (?,?,?)', [perso.nom, data, ws.id], function (err) {
-                                    console.log('perso inserted ' + perso.nom);
+                                    console.log('perso BDD INSERTSAVED ' + perso.nom);
                                 });
                             } else {
                                 var data = JSON.stringify(perso);
                                 connection.query('UPDATE persos SET data=? WHERE nom= ?', [data, perso.nom], function (err) {
-                                    console.log('perso updated ' + perso.nom);
+                                    console.log('perso BDD UPDATESAVED ' + perso.nom);
+                                    console.log(data);
                                 });
                             }
                         }
