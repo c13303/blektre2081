@@ -22,8 +22,8 @@ module.exports = {
                 var choices = [
                     ["Je prends le métro", "map"],
                 ];
-                // perso.globalEndChoice = ["D'accord", folder, "intro"];
-                perso.globalEndChoice = {
+                // perso.choiceExit = ["D'accord", folder, "intro"];
+                perso.choiceExit = {
                     folder: folder,
                     page: "intro"
                 }

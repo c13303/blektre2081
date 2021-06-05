@@ -31,7 +31,7 @@ module.exports = {
 
 
 
-                perso.globalEndChoice = {
+                perso.choiceExit = {
                     folder: folder,
                     page: "intro"
                 };
@@ -54,7 +54,7 @@ module.exports = {
                     var text = "Vous réalisez qu'il ne vous reste que X années à vivre et que vous n'avez rien accompli de grand. Il serait temps de faire quelque chose, comme devenir riche, ou trouver l'amour.";
                     perso.updateStat("karma", 1);
                     perso.log("Vous procédez à un moment d'introspection positif");
-                    perso.cool('introspection_au_parc', 3, "Vous songez au parc");
+                    perso.cool('introspection_au_parc', 50, "Vous songez au parc");
                     var choices = [
                         ["J'ai trop raison, je crois en moi", folder, "intro"],
                     ];

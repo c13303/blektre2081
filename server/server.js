@@ -89,7 +89,7 @@ serveur.startServer = function () {
         var bot1 = game.createCharacter("Jacques Mimol", 2, "IA", "Home");
         // var bot2 = game.createCharacter("Félicien Robot", 3, "IA", "Metro");
 
-
+        game.tick();
 
         /* ADD IA PLAYER */
 
@@ -150,7 +150,12 @@ serveur.startServer = function () {
                         for (var i = 0; i < ws.char_inventory.length; i++) {
 
                             var perso = gC.persos[ws.char_inventory[i].nom];
-
+                            if (!perso) {
+                                tools.report('ERROR AT SAVE THE CHARACTER ' + ws.char_inventory[i].nom + 'IS NOT STORED IN GC.PERSOS');
+                                tools.report("GC.PERSOS " + JSON.stringify(gC.persos));
+                                tools.report("CHAR INVENTORY " + JSON.stringify(ws.char_inventory));
+                                continue;
+                            }
                             if (perso.toInsertDB) {
                                 perso.toInsertDB = null;
                                 var data = JSON.stringify(perso);

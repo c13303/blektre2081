@@ -76,6 +76,9 @@ var consoleTools = {
         }
         return null;
     }
+    , roles: function () {
+        console.log(gC.roles);
+    }
 
 
 };

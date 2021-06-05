@@ -23,7 +23,7 @@ module.exports = {
                     ["Je consulte les profils", folder, "swipe"],
                     ["Je modifie mon profil", folder, "myprofil"],
                 ];
-                choices.push(["Je quitte", perso.globalEndChoice.folder, perso.globalEndChoice.page]);
+                choices.push(["Je quitte", perso.choiceExit.folder, perso.choiceExit.page]);
                 return {
                     //   flush: 1,
                     nointerrupt: true,

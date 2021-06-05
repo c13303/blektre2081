@@ -3,7 +3,7 @@ var game = require('./../../game/game.js');
 var itemTools = require('./../../game/objets/itemsTools.js');
 module.exports = {
     name: "Metro",
-    folder: "00_home/metro",
+    folder: "00_global/metro",
 
     getPage: function (ws, page = "intro") {
 
@@ -13,9 +13,17 @@ module.exports = {
         /* CHAPITRE */
         var chapitre = {
             intro: function () {
-                var text = "Vous pénétrez les couloirs du métro, à la station <b>" + perso.station + '</b>';
+
+
+
+                perso.choiceExit.folder = folder;
+                perso.choiceExit.page = "intro";
+
+
+                var text = "Vous êtes dans les couloirs du métro, à la station <b>" + perso.station + '</b>';
                 var choices = [];
 
+                delete perso.adversaire;
 
                 /* manche check */
                 var mendiant = game.getRole(perso, 'manche_' + perso.station, true);
@@ -37,31 +45,41 @@ module.exports = {
                             perso.updateStat('money', -1);
                             mendiant.earn++;
                             perso.log('Vous lâchez 1€ à [' + mendiant.nom + ']');
-                            persoMendiant.log('[' + mendiant.nom + '] vous lâche 1€');
+                            persoMendiant.log('[' + mendiant.nom + '] lâche 1€ dans votre chapeau');
+                            persoMendiant.popup('[' + mendiant.nom + '] lâche 1€ dans votre chapeau');
+
+
                         } else {
                             text += '<br/><br/>Vous résistez et ignorez la créature suppliante.';
                             perso.updateStat('karma', -1);
                         }
+                        perso.adversaire = mendiant.nom;
                         choices.push(["J'agresse [" + mendiant.nom + "]", "00_global/embrouille", "embrouille_karma"]);
                     }
                 }
 
 
                 /* people check */
-                var people = game.gC.getOtherPeopleHere("Metro", perso);
-                for (var i = 0; i < people.length; i++) {
-                    if (people[i] && !people[i].horsjeu) {
-                        text += "<br/><br/>[" + people[i].nom + '] est là et vous regarde d\'un air arrogant. ';
-                        choices.push(["Je demande à " + people[i].nom + " quel est son problème", "00_global/embrouille", "embrouille"]);
-                        perso.adversaire = people[i].nom;
-                        break;
+                if (!perso.adversaire) {
+                    var people = game.gC.getOtherPeopleHere("Metro", perso);
+                    for (var i = 0; i < people.length; i++) {
+                        if (mendiant && people[i].nom !== mendiant.nom)
+                            continue;
+                        if (people[i] && !people[i].horsjeu && people[i].station === perso.station) {
+                            text += "<br/><br/>[" + people[i].nom + '] est là et vous regarde d\'un air arrogant. ';
+                            choices.push(["Je demande à " + people[i].nom + " quel est son problème", "00_global/embrouille", "embrouille"]);
+                            perso.adversaire = people[i].nom;
+                            break;
+                        }
                     }
                 }
 
 
 
-                choices.push(["Je monte dans la rame de métro", "map"]);
-                choices.push(["Je sors (" + perso.station + ") ", perso.globalEndChoice.folder, perso.globalEndChoice.page]);
+
+
+                choices.push([">> Je prends le métro", "map"]);
+                choices.push(["<< Je sors (" + perso.station + ") ", perso.metroExit.folder, perso.metroExit.page]);
 
                 return {
                     flush: 1,
@@ -73,26 +91,25 @@ module.exports = {
                 perso.upDaytime();
                 var choices = [];
                 /* le chemin de retour après la global phase */
-                //  perso.globalEndChoice = ["D'accord", folder, "metro_arrivee"];
+                //  perso.choiceExit = ["D'accord", folder, "metro_arrivee"];
 
-                perso.globalEndChoice = {
-                    folder: folder,
-                    page: "metro_arrivee"
-                }
 
 
 
                 var dest = require('../' + perso.dest + '.js');
                 var text = "Le métro arrive à la station " + dest.name + ". Vous descendez de la rame. Que faites-vous ? ";
 
-                perso.globalEndChoice.folder = perso.dest;
-                perso.globalEndChoice.page = "intro";
+
+                perso.metroExit.folder = perso.dest;
+                perso.metroExit.page = "intro";
+
+
 
                 perso.station = dest.station;
                 delete perso.dest;
 
-                choices.push(["J'ère dans la station", "00_global/metro", "intro"]);
-                choices.push(["Je sors (" + dest.name + ")", perso.globalEndChoice.folder, perso.globalEndChoice.page]);
+                choices.push([">> J'ère dans la station", "00_global/metro", "intro"]);
+                choices.push(["<< Je sors (" + dest.name + ")", perso.metroExit.folder, perso.metroExit.page]);
                 return {
                     flush: 1,
                     text: text,

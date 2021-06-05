@@ -15,6 +15,7 @@ module.exports = {
     gC: gC,
     timerLast: Date.now(),
     age: 0,
+    tools: tools,
     gameInit: function (ws, connection) {
         /* INIT GAME FOR A CLIENT */
 
@@ -24,7 +25,7 @@ module.exports = {
             ws.char_inventory = [];
         }
 
-        this.tick();
+
         // load my characters
 
 
@@ -169,18 +170,29 @@ module.exports = {
 
     // not sure i want to use real time ?
     tick: function () {
-        // console.log(this.gC.tick);
+        console.log(this.gC.tick);
         this.gC.tick++;
 
+/// ticks personnels
         for (const [key, persal] of Object.entries(gC.persos)) {
             persal.cooldownsTick();
+        }
+
+
+        /// les salaires 
+        for (const [nameRole, objectRole] of Object.entries(gC.roles)) {
+            var perso = gC.persos[objectRole.nom];
+            if (perso && objectRole.earnTick) {
+                objectRole.earn += objectRole.earnTick;
+                perso.popup('Vous gagnez ' + objectRole.earnTick + '€ en étant ' + objectRole.label);
+            }
         }
 
         var that = this;
         setTimeout(function () {
             gC.date++;
             that.tick();
-        }, 3000);
+        }, 10000);
 
     },
 
@@ -223,8 +235,11 @@ module.exports = {
             // INTRO SPECIAL LIKE ... IS THERE ANY INTERRUPT SIR ? 
             if (page === "intro") {
                 if (!pageObject.nointerrupt) {
-                    if (perso.checkInterrupt(ws, chapitre, page))
+                    var interruptArrayLoad = perso.checkInterrupt(ws, chapitre, page);
+                    if (interruptArrayLoad) {
+                        this.loadPage(interruptArrayLoad[0], interruptArrayLoad[1], interruptArrayLoad[2]);
                         return null;
+                    }
                 }
 
                 // if intro & station 
@@ -234,7 +249,6 @@ module.exports = {
             }
 
             // LET'S GO, THEN
-
             perso.chapitre = chapitre;
             perso.page = page;
             perso.step++;
@@ -248,6 +262,8 @@ module.exports = {
 
             // send data to client
             var data = (pageObject);
+
+
             if (chapitreO.name)
                 data.scene = chapitreO.name;
 
@@ -273,11 +289,12 @@ module.exports = {
         }
         return null;
     },
-    setRole: function (perso, role, extradata = null) {
+    setRole: function (perso, role, earn, earnTick, label) {
         this.gC.roles[role] = {
             nom: perso.nom,
-            earn: 0,
-            extradata: extradata
+            earn: earn,
+            earnTick: earnTick,
+            label: label
         }
         return null;
     },

@@ -85,9 +85,16 @@ class perso {
         // check if online = send , otherwise : stock
         if (gC.WSPersos[this.nom]) {
             var ws = gC.WSPersos[this.nom];
-            ws.send(JSON.stringify({
-                popups: [popObject]
-            }));
+            try {
+                ws.send(JSON.stringify({
+                    popups: [popObject]
+                }));
+            } catch (e) {
+                /// popup failed bc client disconnected
+                console.log('closing ws for ' + ws.nom + ' (popup)');
+                ws.close();
+                delete gC.WSPersos[this.nom];
+            }
         } else {
             this.popups.push(popObject);
         }
@@ -114,11 +121,10 @@ class perso {
                 page: page
             };
             this.adversaire = this.interruptions[0].adversaire;
-
-            this.loadPage(ws, this.interruptions[0].chapitre, this.interruptions[0].page);
-
-            return true; // for stop loading current page
+            console.log('interrupt triggered for ' + ws.current_perso.nom);
+            return [ws, this.interruptions[0].chapitre, this.interruptions[0].page]; // for stop loading current page
         }
+        return false;
     }
     getChoiceEndInterrupt(returnlabel) {
         var returnChoice = [returnlabel, this.returnAfterInterrupt.chapitre, this.returnAfterInterrupt.page];
@@ -189,7 +195,7 @@ class perso {
             if (dacool.time > 0) {
                 dacool.time--;
                 if (dacool.time <= 0) {
-                    this.popup("Vous pensez à votre balade au parc");
+                    this.popup(this.cools[key].expire_message);
                     delete this.cools[key];
                 }
             }
@@ -198,7 +204,7 @@ class perso {
     }
 
     iscooled(label) {
-        if (this[label] > 0) {
+        if (this[label.time] > 0) {
             return false;
         } else {
             return true;

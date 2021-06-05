@@ -41,7 +41,7 @@ function roughSizeOfObject(object) {
     return bytes;
 }
 
-
+var titrePlace;
 
 
 function gameClientHook(d) {
@@ -79,7 +79,9 @@ function gameClientHook(d) {
 
 
     if (d.text) {
-        var texthtml = nl2br(d.text);
+        if (d.scene)
+            titrePlace = d.scene;
+        var texthtml = nl2br("<br/>" + d.text); // <h2>" + titrePlace + '</h2>' + nl2br(d.text);
 
         if (!d.choices)
             console.log('ERREUR : D.CHOICES MISSING');

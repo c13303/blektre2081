@@ -12,13 +12,25 @@ module.exports = {
         var perso = ws.current_perso;
         var folder = this.folder;
 
+        perso.choiceExit = {
+            folder: folder,
+            page: "intro"
+        }
+
+        perso.metroExit = {
+            folder: folder,
+            page: "intro"
+        }
+        
+        
+
         /* CHAPITRE */
         var chapitre = {
             disclaimer: function () {
 
                 var text = "Bienvenue dans Blektre 2081, simulateur de vie du futur. En continuant, vous acceptez la collecte de vos données, et respectez les règles de la netiquette.";
-                
-                
+
+
 
                 var choices = [
                     ["J'accepte tout et je respecte la netiquette", folder, "intro"],
@@ -56,17 +68,15 @@ module.exports = {
 
 
 
-                perso.globalEndChoice = {
-                    folder: folder,
-                    page: "intro"
-                }
+
+
 
 
                 var choices = [
 
                     ["Je vais aux WC", "00_global/wc", "intro"],
                     ["Je vais à mon bureau", "00_home/bureau", "intro"],
-                    ["Je sors", "00_home/street", "intro"]
+                    [">> Je sors dans la rue", "00_home/street", "intro"]
                 ];
 
                 return {

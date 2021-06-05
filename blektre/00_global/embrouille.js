@@ -46,10 +46,14 @@ module.exports = {
             "embrouille_karma": function () {
                 var choices = [];
                 var adversaire = game.gC.persos[perso.adversaire];
+                if (!adversaire)
+                    game.tools.fatal("EMBROUILLE KARMA NO ADVERSAIRE " + JSON.stringify(perso.adversaire));
 
                 if (adversaire.karma >= perso.karma) {
                     /* LOSE */
-                    var text = "Vous tentez de gifler [" + adversaire.nom + "] mais el esquive et vous vous étalez sur le sol, sans grâce.";
+                    var text = "Vous tentez de gifler [" + adversaire.nom + "] mais el esquive et vous vous étalez sur le sol, sans grâce.\n\
+\n\
+Vous décampez rapidement.";
                     perso.log("Vous avez été humilié·e par [" + adversaire.nom + "] ");
                     perso.updateStat("karma", 1);
                     var statnotif = adversaire.updateStat("karma", -1);
@@ -57,18 +61,10 @@ module.exports = {
 
 
 
-                    choices.push(["Quelle humiliation", perso.globalEndChoice.folder, perso.globalEndChoice.page]);
+                    choices.push(["Quelle humiliation", perso.choiceExit.folder, perso.choiceExit.page]);
 
 
-                    /*
-                     game.popup(
-                     adversaire,
-                     "[" + perso.nom + "] a tenté de vous agresser, mais vous l'avez bolossé.",
-                     
-                     perso,
-                     statnotif
-                     );
-                     */
+
                 } else {
                     /* WIN */
                     var text = "Vous adressez une gifle franche sur la joue de [" + adversaire.nom + "], qui se met à pleurer.";
@@ -79,18 +75,9 @@ module.exports = {
                     perso.updateStat("karma", -1);
 
                     adversaire.interrupt("00_global/embrouille", "embrouille_passive_lose", perso, statnotif);
-                    choices.push(["El l'a bien mérité.", perso.globalEndChoice.folder, perso.globalEndChoice.page]);
+                    choices.push(["El l'a bien mérité.", perso.choiceExit.folder, perso.choiceExit.page]);
 
-                    /*
-                     game.popup(
-                     adversaire,
-                     "Vous vous faites bolosser par [" + perso.nom + "] dans le métro",
-                     
-                     perso,
-                     statnotif
-                     );
-                     
-                     */
+
                 }
 
 
@@ -139,9 +126,8 @@ Vous êtes ému et vous sentez que vos talents de romancier s'aimeillorent ! Vou
                 adversaire.horsjeu = true;
                 delete perso.adversaire;
 
-                text += '<br/>Le métro arrive à votre destination';
 
-                choices.push(["Je sors", perso.globalEndChoice.folder, perso.globalEndChoice.page]);
+                choices.push(["Je sors", perso.choiceExit.folder, perso.choiceExit.page]);
 
                 return {
                     flush: 1,

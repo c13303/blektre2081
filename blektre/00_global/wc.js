@@ -23,7 +23,7 @@ module.exports = {
                     ['Je me change', folder, "change"],
                     ['Je regarde mon iPhune', folder, 'phone'],
                     ["Je procède à un moment d'introspection", folder, "introspection"],
-                    ["Je sors des WC", perso.globalEndChoice.folder, perso.globalEndChoice.page]
+                    ["Je sors des WC", perso.choiceExit.folder, perso.choiceExit.page]
 
                 ];
 
@@ -80,7 +80,7 @@ module.exports = {
                         ["Je vais sur Tinder", folder + "/01_tinder", "intro"],
                         //   ["Je vais sur LinkedIn", folder + "/02_linkedin", "intro"],
                         ["J'appelle quelqu'un", folder, "call"],
-                        ["J'éteinds le téléphone", perso.globalEndChoice.folder, perso.globalEndChoice.page]
+                        ["J'éteinds le téléphone", perso.choiceExit.folder, perso.choiceExit.page]
                     ]
                 }
 
@@ -89,7 +89,7 @@ module.exports = {
                 return {
                     flush: null,
                     text: "Quelle application allez vous faire de votre téléphone malin ?",
-                    choices: [["J'éteinds le téléphone", perso.globalEndChoice.folder, perso.globalEndChoice.page]]
+                    choices: [["J'éteinds le téléphone", perso.choiceExit.folder, perso.choiceExit.page]]
                 }
             }
 

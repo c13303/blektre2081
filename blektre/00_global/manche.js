@@ -27,14 +27,16 @@ module.exports = {
                         return {
                             flush: 0,
                             text: "[" + mendiant.nom + '] fait déjà la manche ici.',
-                            choices: [["baise", "00_global/metro", "intro"]]
+                            choices: [
+                                ["Tant pis", "00_global/metro", "intro"],
+                            ]
                         }
                     } else {
                         /// MANCHE MANAGEMENT VIDAGE DE CHAPEAU
                         var amount = mendiant.earn;
                         perso.updateStat("money", amount);
                         game.gC.roles['manche_' + perso.station].earn = 0;
-                        perso.log( "Vous récupérez " + amount + "€ dans votre chapeau de mendiant à la station " + perso.station);
+                        perso.log("Vous récupérez " + amount + "€ dans votre chapeau de mendiant à la station " + perso.station);
                         return {
                             flush: 1,
                             text: "Vous videz les " + amount + "€ contenus dans votre chapeau.",
@@ -43,8 +45,10 @@ module.exports = {
                     }
                 } else {
                     // become the mendiant
-                    var text = "Vous décidez de faire la manche dans cette station. Vous posez votre chapeau par terre et tentez d'accrocher le regard des gens, avec un air tantôt misérable, tantôt agressif.";
-                    game.setRole(perso, 'manche_' + perso.station);
+                    var text = "Vous décidez de faire la manche dans la station <" + perso.station + ">. Vous posez votre chapeau par terre et tentez d'accrocher le regard des gens, avec un air tantôt misérable, tantôt agressif.\n\
+\n\
+Vous pourrez régulièrement venir ici pour récupérer le contenu de votre chapeau.";
+                    game.setRole(perso, 'manche_' + perso.station, 0, 1, "mendiant à la station <" + perso.station + ">");
 
                     var choices = [
                         ["byzance", "00_global/metro", "intro"]

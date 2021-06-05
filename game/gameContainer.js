@@ -10,8 +10,15 @@ module.exports = {
     roles: {
         "default": {
             "nom": "Jacques Mimol",
-            "earn": 0
+            "earn": 0,
+            "earnTick": 0,
         },
+        "manche_Rue des Peupliers": {
+            nom: 'Jacques Mimol',
+            earn: 4,
+            earnTick: 1,
+            label: 'mendiant à la station <Rue des Peupliers>'
+        }
         /// lots of manche roles
     },
     races: {
@@ -67,7 +74,7 @@ module.exports = {
     },
 
     /* change a perso de place and notify EVERYBOY */
-    setInPlace: function (place, perso) {
+    setInPlace: function (place, perso, old_place_check = true) {
 
         // place = new placed :(
         perso.oldplace = perso.place;
@@ -88,8 +95,9 @@ module.exports = {
 
 
         /* remove old place from index */
-        if (perso.oldplace) {
-            if (!this.places[perso.oldplace][perso.nom]) {
+
+        if (perso.oldplace && old_place_check) {
+            if (!this.places[perso.oldplace] || !this.places[perso.oldplace][perso.nom]) {
                 tools.report('SetOutPlace error ' + perso.nom + ' was not in ' + perso.oldplace);
             } else {
                 //   console.log('Deleted ' + perso.nom + ' from ' + perso.oldplace);
@@ -97,6 +105,7 @@ module.exports = {
                 delete perso.oldplace;
             }
         }
+
 
         // set in places index
         this.places[place][perso.nom] = perso;
@@ -118,14 +127,14 @@ module.exports = {
                 }
 
             }
-        }
+    }
 
 
 
 
 
 
-        //  console.log(perso.nom + ' has moved, --updated places');
+    //  console.log(perso.nom + ' has moved, --updated places');
     },
     getOtherPeopleHere: function (place, perso) {
 
@@ -141,9 +150,8 @@ module.exports = {
                 tablo.push(value);
             }
         }
-        //  console.log('people in ' + place);
-        //  console.log(tablo);
-        // console.log(this.places[place]);
+        console.log('check people in ' + place + ' = ' + tablo.length);
+
 
 
         return tablo;
