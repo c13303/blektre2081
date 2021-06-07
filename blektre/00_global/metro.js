@@ -14,7 +14,9 @@ module.exports = {
         var chapitre = {
             intro: function () {
 
-
+                if(!perso.station) {
+                    console.log('PERSO.STATION IS MISSING !!!!!!!!!!!!! ERRROOOOOOOOOOOR');
+                }
 
                 perso.choiceExit.folder = folder;
                 perso.choiceExit.page = "intro";
@@ -24,6 +26,7 @@ module.exports = {
                 var choices = [];
 
                 delete perso.adversaire;
+                delete perso.adversaire_replace_mendiant_opportunity;
 
                 /* manche check */
                 var mendiant = game.getRole(perso, 'manche_' + perso.station, true);
@@ -54,6 +57,7 @@ module.exports = {
                             perso.updateStat('karma', -1);
                         }
                         perso.adversaire = mendiant.nom;
+                        perso.adversaire_replace_mendiant_opportunity = mendiant.nom;
                         choices.push(["J'agresse [" + mendiant.nom + "]", "00_global/embrouille", "embrouille_karma"]);
                     }
                 }
@@ -67,7 +71,7 @@ module.exports = {
                             continue;
                         if (people[i] && !people[i].horsjeu && people[i].station === perso.station) {
                             text += "<br/><br/>[" + people[i].nom + '] est là et vous regarde d\'un air arrogant. ';
-                            choices.push(["Je demande à " + people[i].nom + " quel est son problème", "00_global/embrouille", "embrouille"]);
+                            choices.push(["J'aborde " + people[i].nom + "", "00_global/embrouille", "contact"]);
                             perso.adversaire = people[i].nom;
                             break;
                         }

@@ -34,6 +34,7 @@ class perso {
         this.day = 0;
         this.horsjeu = false;
         this.cools = {};
+        this.relationships = {};
     }
     reload(persodata) {
 
@@ -89,6 +90,7 @@ class perso {
                 ws.send(JSON.stringify({
                     popups: [popObject]
                 }));
+                this.popups = [];
             } catch (e) {
                 /// popup failed bc client disconnected
                 console.log('closing ws for ' + ws.nom + ' (popup)');
@@ -104,12 +106,15 @@ class perso {
     log(notif) {
         this.loglines.push(gC.date + ':' + notif);
     }
-    interrupt(chapitre, page, adversaire, statnotif) {
+    interrupt(chapitre, page, adversaire, statnotif, data = null) {
         this.interruptions.push({
             chapitre: chapitre,
             page: page,
             adversaire: adversaire.nom,
-            statnotif: statnotif}
+            statnotif: statnotif,
+            data: data
+        }
+
         );
 
     }
@@ -121,6 +126,7 @@ class perso {
                 page: page
             };
             this.adversaire = this.interruptions[0].adversaire;
+            this.lastInterruptData = this.interruptions[0];
             console.log('interrupt triggered for ' + ws.current_perso.nom);
             return [ws, this.interruptions[0].chapitre, this.interruptions[0].page]; // for stop loading current page
         }
@@ -209,6 +215,33 @@ class perso {
         } else {
             return true;
         }
+    }
+
+    getRelationship(adversaireName) {
+        if (!this.relationships[adversaireName] || this.relationships[adversaireName] === 0) {
+            return 0;
+        } else {
+            return this.relationships[adversaireName];
+        }
+    }
+
+    updateRelationship(adversaire, qt) {
+        if (!this.relationships[adversaire.nom]) {
+            this.relationships[adversaire.nom] = qt;
+        } else {
+            this.relationships[adversaire.nom] += qt;
+        }
+        this.log('Votre relation avec [' + adversaire.nom + '] évolue (' + qt + ')');
+
+        if (!adversaire.relationships[this.nom]) {
+            adversaire.relationships[this.nom] = qt;
+        } else {
+            adversaire.relationships[this.nom] += qt;
+        }
+        this.log('Votre relation avec [' + this.nom + '] s\'ameillore (' + qt + ')');
+
+
+
     }
 }
 

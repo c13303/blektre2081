@@ -184,7 +184,7 @@ module.exports = {
             var perso = gC.persos[objectRole.nom];
             if (perso && objectRole.earnTick) {
                 objectRole.earn += objectRole.earnTick;
-                perso.popup('Vous gagnez ' + objectRole.earnTick + '€ en étant ' + objectRole.label);
+                perso.popup('' + objectRole.earnTick + '€ reçu ' + objectRole.label);
             }
         }
 

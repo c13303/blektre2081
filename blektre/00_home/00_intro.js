@@ -5,7 +5,6 @@ var itemTools = require('./../../game/objets/itemsTools.js');
 module.exports = {
     name: "Home",
     folder: "00_home/00_intro",
-    station: "Maison",
 
     getPage: function (ws, page = "intro") {
 

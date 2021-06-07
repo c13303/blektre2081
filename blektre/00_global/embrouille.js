@@ -20,17 +20,36 @@ module.exports = {
                 return this.embrouille();
 
             },
+            "contact": function () {
+                var choices = [];
+                var adversaire = game.gC.persos[perso.adversaire];
+                var text = 'Vous approchez de [' + adversaire.nom + ']. Son allure est arrogante et réveille le complexe d\'inférioté que vous traînez depuis la fois où votre mère vous a oublié sur le parking du super U.';
+                //text += '<br>-Pardon, maugrée-t-el.';
+
+
+                choices.push(["Je fais une remarque désobligeante", folder, "embrouille"]);
+                choices.push(["Je lui fais un compliment", folder, "compliment"]);
+
+
+                return {
+                    flush: 1,
+                    text: text,
+                    choices: choices,
+                    phaserscene: "Dial"
+
+                }
+            },
 
             "embrouille": function () {
 
 
                 var choices = [];
                 var adversaire = game.gC.persos[perso.adversaire];
-                var text = '[' + adversaire.nom + '] vous toise des pieds à la tête. El vous crache au visage.';
-                text += '<br>-Pardon, maugrée-t-el.';
+                var text = '[' + adversaire.nom + '] vous toise des pieds à la tête. Il vous crache au visage.';
+                text += '<br>-Oops, pardon, dit-il.';
 
 
-                choices.push(["Pas de raison de faire une embrouille, el s'est excusé·e ...", folder, "embrouille_echec"]);
+                choices.push(["Pas de raison de faire une embrouille, il s'est excusé ...", folder, "embrouille_echec"]);
                 choices.push(["Je me mets en PLS", folder, "embrouille_sanity"]);
                 choices.push(["Je gifle [" + adversaire.nom + "]", folder, "embrouille_karma"]);
 
@@ -51,16 +70,11 @@ module.exports = {
 
                 if (adversaire.karma >= perso.karma) {
                     /* LOSE */
-                    var text = "Vous tentez de gifler [" + adversaire.nom + "] mais el esquive et vous vous étalez sur le sol, sans grâce.\n\
-\n\
-Vous décampez rapidement.";
+                    var text = "Vous tentez de gifler [" + adversaire.nom + "], mais el intercepte votre geste, et en profite pour vous botter le derrière.";
                     perso.log("Vous avez été humilié·e par [" + adversaire.nom + "] ");
                     perso.updateStat("karma", 1);
                     var statnotif = adversaire.updateStat("karma", -1);
                     adversaire.interrupt("00_global/embrouille", "embrouille_passive_win", perso, statnotif);
-
-
-
                     choices.push(["Quelle humiliation", perso.choiceExit.folder, perso.choiceExit.page]);
 
 
@@ -75,19 +89,18 @@ Vous décampez rapidement.";
                     perso.updateStat("karma", -1);
 
                     adversaire.interrupt("00_global/embrouille", "embrouille_passive_lose", perso, statnotif);
-                    choices.push(["El l'a bien mérité.", perso.choiceExit.folder, perso.choiceExit.page]);
 
+
+
+                    choices.push(["C'est bien mérité.", perso.choiceExit.folder, perso.choiceExit.page]);
+
+                    if (perso.adversaire_replace_mendiant_opportunity === adversaire.nom) {
+
+
+                        choices.push(["Je prends sa place de mendiant", "00_global/manche", "replace_mendiant"]);
+                    }
 
                 }
-
-
-
-
-
-
-
-
-
                 adversaire.horsjeu = true;
 
 
@@ -137,16 +150,14 @@ Vous êtes ému et vous sentez que vos talents de romancier s'aimeillorent ! Vou
 
                 }
             },
-
-            "embrouille_passive_win": function () {
-
-
+            "embrouille_echec": function () {
                 var choices = [];
+
                 var adversaire = game.gC.persos[perso.adversaire];
-                var text = 'Soudainement, vous croisez [' + adversaire.nom + '], qui essaie de vous gifler pour une raison mystérieuse. \n\
-\n\
-El rate et tombe lamentablement sur le sol.';
-                choices.push(perso.getChoiceEndInterrupt("Pitoyable ... "));
+                var text = "Vous essuyez le glaviot de votre veston, en bredouillant quelque chose autour du fait que c'est un accident, que ça arrivez, puis vous saluez poliment [" + adversaire.nom + "] avant de vous éloigner.";
+
+
+                choices.push(["Je sors", perso.choiceExit.folder, perso.choiceExit.page]);
 
 
                 return {
@@ -156,25 +167,38 @@ El rate et tombe lamentablement sur le sol.';
                     phaserscene: "Dial"
                 }
             },
-            "embrouille_passive_lose": function () {
+            
 
-
+            , "compliment": function () {
                 var choices = [];
                 var adversaire = game.gC.persos[perso.adversaire];
-                var text = 'Soudainement, vous croisez [' + adversaire.nom + ']. El vous gifle. ';
-
-
-
-
-                choices.push(perso.getChoiceEndInterrupt(":'("));
-
-
-                return {
-                    flush: 1,
-                    text: text,
-                    choices: choices,
-                    phaserscene: "Dial"
+                var text = 'Vous souriez à [' + adversaire.nom + '], et le recoiffez négligemment. \n\
+\n\
+';
+                if (perso.relationships[adversaire.nom] && perso.relationships[adversaire.nom] < 0) {
+                    perso.log("[" + adversaire.nom + "] vous déteste !");
+                    return this.embrouille();
                 }
+
+                if (perso.sex >= adversaire.sex) {
+                    text += "Il soupire, puis vous donne son 06.";
+                    text += "<br/><br/>- Appelle-moi bientôt, dit-il d'un air blasé.";
+                    perso.updateRelationship(adversaire, 1);
+                choices.push(["On dirait bien que je vais pécho", perso.choiceExit.folder, perso.choiceExit.page]);
+                    return {
+                        flush: 1,
+                        text: text,
+                        choices: choices,
+                        phaserscene: "Dial"
+                    }
+                } else {
+                    perso.log("Vous échouez à séduire [" + adversaire.nom + "]");
+                    return this.embrouille();
+                }
+
+
+
+
             }
 
         }

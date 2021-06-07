@@ -5,7 +5,7 @@ var itemTools = require('./../../game/objets/itemsTools.js');
 module.exports = {
     name: "Street",
     folder: "00_home/street",
-    station: "Rue des Peupliers",
+    station: "Maison",
 
     getPage: function (ws, page = "intro") {
 
@@ -47,11 +47,11 @@ module.exports = {
 
                 /* people check */
                 if (!perso.adversaire) {
-                    var people = game.gC.getOtherPeopleHere(namePlace, perso);
+                    var people = game.gC.getOtherPeopleHere(namePlace, perso, 0, 1);
                     for (var i = 0; i < people.length; i++) {
                         if (people[i] && !people[i].horsjeu) {
                             text += "<br/><br/>[" + people[i].nom + '] est là et vous regarde d\'un air arrogant. ';
-                            choices.push(["Je demande à " + people[i].nom + " quel est son problème", "00_global/embrouille", "embrouille"]);
+                            choices.push(["J'aborde " + people[i].nom + "", "00_global/embrouille", "contact"]);
                             perso.adversaire = people[i].nom;
                             break;
                         }

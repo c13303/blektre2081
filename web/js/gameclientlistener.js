@@ -176,9 +176,18 @@ function gameClientHook(d) {
         console.log(d.popups);
         var html = '';
         for (var i = 0; i < d.popups.length; i++) {
+            var t = Date.now();
             //JSON.stringify(d.popups[i], null, 2)
-            html += '<div class="popin"><span class="title">' + d.popups[i].title + '</span></div>';
+            var id = t + i;
+            html += '<div class="popin" id="popin' + id + '"><span class="title">' + d.popups[i].title + '</span></div>';
+            setTimeout(function () {
 
+                console.log('remove ' + id);
+                $('#col_popups').find("#popin" + id).fadeOut(300, function () {
+                    $(this).remove();
+                });
+
+            }, 5000);
         }
         $('#col_popups').append(html);
     }

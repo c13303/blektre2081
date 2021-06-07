@@ -13,11 +13,30 @@ module.exports = {
             "earn": 0,
             "earnTick": 0,
         },
-        "manche_Rue des Peupliers": {
+        "manche_Maison": {
             nom: 'Jacques Mimol',
             earn: 4,
             earnTick: 1,
             label: 'mendiant à la station <Rue des Peupliers>'
+        },
+        "newsreader": {
+            nom: 'Jacques Mimol',
+            earn: 0,
+            earnTick: 0,
+            label: 'présentateur des actualités'
+        }
+        ,
+        "vigile_boulanger": {
+            nom: 'Jacques Mimol',
+            earn: 0,
+            earnTick: 0,
+            label: 'vigile chez Boulanger'
+        },
+        "flic": {
+            nom: 'Jacques Mimol',
+            earn: 0,
+            earnTick: 0,
+            label: 'policier'
         }
         /// lots of manche roles
     },
@@ -136,7 +155,7 @@ module.exports = {
 
     //  console.log(perso.nom + ' has moved, --updated places');
     },
-    getOtherPeopleHere: function (place, perso) {
+    getOtherPeopleHere: function (place, perso, relationshipMin = - 1, relationshipMax = - 1) {
 
         if (!place)
             tools.fatal('getOtherPeopleHere() MISSING PLACE');
@@ -147,7 +166,15 @@ module.exports = {
         var tablo = [];
         for (const [key, value] of Object.entries(this.places[place])) {
             if (value.nom !== perso.nom) {
-                tablo.push(value);
+                if (relationshipMin >= 0) {// test if relationshiplol
+                    var relationship = perso.getRelationship(value.nom);
+                    if (relationship >= relationshipMin && relationship <= relationshipMax) {
+                        tablo.push(value);
+                    }
+                } else {
+                    tablo.push(value);
+                }
+
             }
         }
         console.log('check people in ' + place + ' = ' + tablo.length);

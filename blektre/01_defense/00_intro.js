@@ -4,7 +4,8 @@ var itemTools = require('./../../game/objets/itemsTools.js');
 
 module.exports = {
     name: "Defense",
-    folder: "01_defense/00_intro",
+    folder: "01_defense/00_intro",    
+    station: "La Defense",
 
     getPage: function (ws, page = "intro") {
 
@@ -33,7 +34,7 @@ module.exports = {
                 var people = game.gC.getOtherPeopleHere("Defense", perso);
                 if (people[0]) {
                     text += '<br/>' + people[0].nom + ' est là et vous regarde d\'un air méprisant.';
-                    choices.push(["Je demande à " + people[0].nom + " quel est son problème", "00_global/embrouille", "embrouille"]);
+                            choices.push(["J'aborde " + people[i].nom + "", "00_global/embrouille", "contact"]);
                     perso.adversaire = people[0].nom;
                 }
 
