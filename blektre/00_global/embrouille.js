@@ -74,7 +74,7 @@ module.exports = {
                     perso.log("Vous avez été humilié·e par [" + adversaire.nom + "] ");
                     perso.updateStat("karma", 1);
                     var statnotif = adversaire.updateStat("karma", -1);
-                    adversaire.interrupt("00_global/embrouille", "embrouille_passive_win", perso, statnotif);
+                    adversaire.interrupt("00_global/interruptions", "embrouille_passive_win", perso, statnotif);
                     choices.push(["Quelle humiliation", perso.choiceExit.folder, perso.choiceExit.page]);
 
 
@@ -88,7 +88,7 @@ module.exports = {
 
                     perso.updateStat("karma", -1);
 
-                    adversaire.interrupt("00_global/embrouille", "embrouille_passive_lose", perso, statnotif);
+                    adversaire.interrupt("00_global/interruptions", "embrouille_passive_lose", perso, statnotif);
 
 
 
@@ -166,8 +166,8 @@ Vous êtes ému et vous sentez que vos talents de romancier s'aimeillorent ! Vou
                     choices: choices,
                     phaserscene: "Dial"
                 }
-            },
-            
+            }
+
 
             , "compliment": function () {
                 var choices = [];
@@ -177,14 +177,18 @@ Vous êtes ému et vous sentez que vos talents de romancier s'aimeillorent ! Vou
 ';
                 if (perso.relationships[adversaire.nom] && perso.relationships[adversaire.nom] < 0) {
                     perso.log("[" + adversaire.nom + "] vous déteste !");
+                    adversaire.interrupt("00_global/interruptions", "seduce_passive_lose", perso);
+
                     return this.embrouille();
                 }
 
                 if (perso.sex >= adversaire.sex) {
                     text += "Il soupire, puis vous donne son 06.";
                     text += "<br/><br/>- Appelle-moi bientôt, dit-il d'un air blasé.";
+                    adversaire.interrupt("00_global/interruptions", "seduce_passive_win", perso);
+                    adversaire.log("Vous lâchez votre 06 à [" + adversaire.nom + "]");
                     perso.updateRelationship(adversaire, 1);
-                choices.push(["On dirait bien que je vais pécho", perso.choiceExit.folder, perso.choiceExit.page]);
+                    choices.push(["On dirait bien que je vais pécho", perso.choiceExit.folder, perso.choiceExit.page]);
                     return {
                         flush: 1,
                         text: text,
@@ -193,6 +197,8 @@ Vous êtes ému et vous sentez que vos talents de romancier s'aimeillorent ! Vou
                     }
                 } else {
                     perso.log("Vous échouez à séduire [" + adversaire.nom + "]");
+                    adversaire.interrupt("00_global/interruptions", "seduce_passive_lose", perso);
+
                     return this.embrouille();
                 }
 
