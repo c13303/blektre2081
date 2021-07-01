@@ -67,10 +67,9 @@ El rate et tombe lamentablement sur le sol.';
             },
             "seduce_passive_win": function () {
 
-
                 var choices = [];
                 var adversaire = game.gC.persos[perso.adversaire];
-                var text = 'Soudain,  [' + adversaire.nom + '] vous  aborde. Son charme puissant vous laisse sans défense, et vous lui lâchez votre 06.';
+                var text = 'Soudain,  [' + adversaire.nom + '] vous aborde. Son charme puissant vous laisse sans défense, et vous lui lâchez votre 06.';
                 choices.push(perso.getChoiceEndInterrupt("J'espère que je n'ai pas fait une connerie ... "));
 
 

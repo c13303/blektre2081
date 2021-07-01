@@ -77,7 +77,6 @@ function gameClientHook(d) {
 
 
 
-
     if (d.text) {
         if (d.scene)
             titrePlace = d.scene;
@@ -92,6 +91,9 @@ function gameClientHook(d) {
             $('#text').find(".content").addClass('old').fadeTo(500, 0);
         }
 
+
+
+
         $('#choices').find('.gamechoice').fadeTo(500, 0).delay(50).remove();
 
         /* is there textarea */
@@ -103,6 +105,22 @@ function gameClientHook(d) {
             texthtml += '<br/><div class="fragebox"><textarea id="frage"></textarea><button id="frageok">OK</button></div>';
             $(document).find('#choices').hide();
         }
+
+        if (d.dynamic_selection) {
+            var options = '';
+            for (var i = 0; i < d.dynamic_selection.length; i++) {
+                options += '<option value="' + d.dynamic_selection[i][1] + '">' + d.dynamic_selection[i][0] + '</option>';
+            }
+            texthtml += '<br/><div class="fragebox"><select id="frage">' + options + '</select><button id="frageok">OK</button></div>';
+            $(document).find('#choices').hide();
+        }
+
+
+
+
+
+
+
 
         if (d.text2) {
             texthtml += '<div class="hidden text2">' + nl2br(d.text2) + '</div>';

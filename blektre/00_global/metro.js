@@ -14,7 +14,7 @@ module.exports = {
         var chapitre = {
             intro: function () {
 
-                if(!perso.station) {
+                if (!perso.station) {
                     console.log('PERSO.STATION IS MISSING !!!!!!!!!!!!! ERRROOOOOOOOOOOR');
                 }
 
@@ -58,7 +58,7 @@ module.exports = {
                         }
                         perso.adversaire = mendiant.nom;
                         perso.adversaire_replace_mendiant_opportunity = mendiant.nom;
-                        choices.push(["J'agresse [" + mendiant.nom + "]", "00_global/embrouille", "embrouille_karma"]);
+                        choices.push([game.emojis.agression + " J'agresse [" + mendiant.nom + "]", "00_global/embrouille", "embrouille_karma"]);
                     }
                 }
 
@@ -71,7 +71,7 @@ module.exports = {
                             continue;
                         if (people[i] && !people[i].horsjeu && people[i].station === perso.station) {
                             text += "<br/><br/>[" + people[i].nom + '] est là et vous regarde d\'un air arrogant. ';
-                            choices.push(["J'aborde " + people[i].nom + "", "00_global/embrouille", "contact"]);
+                            choices.push([game.emojis.aborde + "J'aborde " + people[i].nom + "", "00_global/embrouille", "contact"]);
                             perso.adversaire = people[i].nom;
                             break;
                         }
@@ -82,8 +82,8 @@ module.exports = {
 
 
 
-                choices.push([">> Je prends le métro", "map"]);
-                choices.push(["<< Je sors (" + perso.station + ") ", perso.metroExit.folder, perso.metroExit.page]);
+                choices.push([">> " + game.emojis.world_map + " Je prends le métro", "map"]);
+                choices.push([" " + game.emojis.street + "<< Je sors (" + perso.station + ") ", perso.metroExit.folder, perso.metroExit.page]);
 
                 return {
                     flush: 1,
@@ -112,8 +112,8 @@ module.exports = {
                 perso.station = dest.station;
                 delete perso.dest;
 
-                choices.push([">> J'ère dans la station", "00_global/metro", "intro"]);
-                choices.push(["<< Je sors (" + dest.name + ")", perso.metroExit.folder, perso.metroExit.page]);
+                choices.push([">> " + game.emojis.metro_couloirs + " J'ère dans la station", "00_global/metro", "intro"]);
+                choices.push([">> " + game.emojis.street + "  Je sors dans la rue de " + dest.name + " ", perso.metroExit.folder, perso.metroExit.page]);
                 return {
                     flush: 1,
                     text: text,

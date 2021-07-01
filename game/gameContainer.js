@@ -51,18 +51,17 @@ module.exports = {
     },
     recoverPlayersFromDB: function (connection) {
         var that = this;
-        connection.query('SELECT * FROM players', function (err, rows, fields) {
+        connection.query('SELECT * FROM persos', function (err, rows, fields) {
             for (var i = 0; i < rows.length; i++) {
+
                 var data = JSON.parse(rows[i].data);
-                if (data.char_inventory) {
-                    for (var j = 0; j < data.char_inventory.length; j++) {
-                        var perso = data.char_inventory[j];
-                        that.persos[perso.nom] = perso;
-                        if (perso.place) {
-                            that.setInPlace(perso.place, perso);
-                        }
-                    }
-                }
+                var nom = rows[i].nom;
+                console.log('DB reload ' + nom);
+                var Perso = require('./objets/personnage.js');
+                var newperso = new Perso();
+                newperso.reload(data);
+                that.persos[nom] = newperso;
+                console.log(that.persos[nom]);
             }
 
             console.log(Object.keys(that.persos).length + ' personnages loaded');
@@ -141,8 +140,8 @@ module.exports = {
                 try {
                     ws.send(JSON.stringify({persos: packedPersos}));
                 } catch (e) {
-                    tools.report('Erreur setInPlace WS');
-                    tools.report(e);
+                    tools.report('Erreur setInPlace WS : client has closed');
+                    //tools.report(e);
                 }
 
             }

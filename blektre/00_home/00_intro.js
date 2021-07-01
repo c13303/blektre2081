@@ -73,8 +73,8 @@ module.exports = {
 
                 var choices = [
 
-                    ["Je vais aux WC", "00_global/wc", "intro"],
-                    ["Je vais à mon bureau", "00_home/bureau", "intro"],
+                    ["Je vais aux WC &#128241;", "00_global/wc", "intro"],
+                    ["Je vais à mon bureau &#128187; &#128086;", "00_home/bureau", "intro"],
                     [">> Je sors dans la rue", "00_home/street", "intro"]
                 ];
 

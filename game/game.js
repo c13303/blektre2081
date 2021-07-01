@@ -16,6 +16,23 @@ module.exports = {
     timerLast: Date.now(),
     age: 0,
     tools: tools,
+
+    emojis: {
+        world_map: "&#128506;&#65039;",
+        metro_couloirs: "&#128647;",
+        maison: "&#127962;&#65039;",
+        agression: "&#128695;",
+        street: "",
+        aborde: "",
+        money: "&#128178;",
+        karma: "&#127808;",
+        sex: "&#127799;",
+        sanity: "&#128030;",
+        relationship: "&#128151;",
+        relationship_negative: "&#128148;",
+        exit: "&#128682;",
+    },
+
     gameInit: function (ws, connection) {
         /* INIT GAME FOR A CLIENT */
 
@@ -137,14 +154,17 @@ module.exports = {
 
         /* DEMARRAGE PARTIE */
         if (msg.go) {
-            console.log(ws.name + ' CHARACTEUR ONLINE  : ' + ws.char_inventory[msg.char].nom);
+            var nom = ws.char_inventory[msg.char].nom;
+            console.log(ws.name + ' CHARACTEUR ONLINE  : ' + nom);
 
-            var persodata = ws.char_inventory[msg.char];
-            var perso = new Perso();
-
-            perso.reload(persodata);
+            /*
+             var persodata = ws.char_inventory[msg.char];
+             var perso = new Perso();
+             perso.reload(persodata);
+             */
+            var perso = gC.persos[nom];
+            
             ws.current_perso = perso;
-
             gC.WSPersos[perso.nom] = ws;
 
             //  console.log(ws.name + ' starts the game');

@@ -23,7 +23,7 @@ module.exports = {
                 var text = "Vous êtes à votre bureau, constitué d'un vieux Maque et de piles de papiers de différentes tailles. Vous allumez le Maque."
                 var choices = [
                     ["J'écris un roman", folder, "roman"],
-                    //   ["Je consulte mes comptes bancaires", folder, "banque"],
+                    ["Je me change", folder, "change"],
                     ['Je regarde des vidéos sur internet', folder, "youtube"],
                     ["J'éteinds le Maque ", "00_home/00_intro", "intro"],
                 ];
@@ -33,6 +33,72 @@ module.exports = {
                     choices: choices
                 }
             },
+            
+            
+            
+            
+            
+            /* CHANGE */
+            
+            "change": function () {
+                var text = "Que voulez-vous porter ?";
+                var choices = [
+                    ["Des vêtements normaux", folder, "change_normal"],
+                    ["Des vêtements ridicules", folder, "change_ridicule"],
+                ];
+                return {
+                    flush: null,
+                    text: text,
+                    choices: choices,
+                    phaserscene: "Portrait",
+                }
+            },
+
+            "change_normal": function () {
+                var text = "Vous mettez ces habits tristement banals, que vous mettez depuis toujours.";
+                perso.updateTrait("ridicule", null, "Vous vous habillez normalement.");
+
+                var choices = [
+                    ["La vie est une plage", folder, "intro"],
+                ];
+                return {
+                    flush: null,
+                    text: text,
+                    choices: choices
+                }
+            },
+            "change_ridicule": function () {
+                var text = "Vous décidez, subitement, de porter un de ces horribles bonnet que portent les jeunes gens aisés de la cité. C'est généralement une bonne garantie pour s'attirer des ennuis.";
+                perso.updateTrait("ridicule", 1, "Vous vous habillez avec ridicule.");
+                var choices = [
+                    ["Il n'auront pas ma liberté de penser", folder, "intro"],
+                ];
+                return {
+                    flush: null,
+                    text: text,
+                    choices: choices
+                }
+            },
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            /*
+             *  ROMAN
+             */
             roman: function () {
 
                 if (perso.traits.romancier && perso.traits.romancier.title) {

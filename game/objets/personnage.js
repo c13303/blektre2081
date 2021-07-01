@@ -34,7 +34,9 @@ class perso {
         this.day = 0;
         this.horsjeu = false;
         this.cools = {};
-        this.relationships = {};
+        this.relationships = {
+            "Jacques Mimol": 0,
+        };
     }
     reload(persodata) {
 
@@ -107,6 +109,7 @@ class perso {
         this.loglines.push(gC.date + ':' + notif);
     }
     interrupt(chapitre, page, adversaire, statnotif, data = null) {
+        
         this.interruptions.push({
             chapitre: chapitre,
             page: page,
