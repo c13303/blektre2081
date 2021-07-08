@@ -76,6 +76,8 @@ if ($isdev) {
             </div>
             <br/><br/>
             <button id="createchar_button" data-command="createchar">Créer un nouveau personnage</button>
+            
+            <button id="quickstart" >QUICK START</button>
         </div>
         <div id="createchar" class="hidden">
             <div id="creaturecharform">

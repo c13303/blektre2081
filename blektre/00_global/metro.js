@@ -33,6 +33,12 @@ module.exports = {
                 if (!mendiant) {
                     choices.push(["Je fais la manche", "00_global/manche", "manche"]);
                 } else {
+
+                    if (perso.relationships[mendiant.nom] > -1) {
+                        perso.adversaire = mendiant.nom;
+                        return this.mendiant_is_a_relation();
+                    }
+
                     if (mendiant.nom === perso.nom) {
                         text += '<br/><br/>Vous faites dans la manche dans cette station de métro. Il y a ' + mendiant.earn + '€ dans votre chapeau\n\
 \n\
@@ -42,10 +48,13 @@ module.exports = {
                         text += '<br/><br/>[' + mendiant.nom + '] fait la manche ici. En passant devant lui, vous sentez son regard culpabilisant se poser sur vous.';
                         var persoMendiant = game.gC.persos[mendiant.nom];
 
+
+
+
                         if (persoMendiant.karma > perso.karma) {
                             text += '<br/><br/>Vous cédez et lâchez 1€ dans son chapeau. El regarde la pièce avec un peu de dédain, et se met à ignorer votre présence.';
-                            perso.updateStat('karma', 1);
-                            perso.updateStat('money', -1);
+                            text+= perso.updateStat('karma', 1);
+                            text+= perso.updateStat('money', -1);
                             mendiant.earn++;
                             perso.log('Vous lâchez 1€ à [' + mendiant.nom + ']');
                             persoMendiant.log('[' + mendiant.nom + '] lâche 1€ dans votre chapeau');
@@ -54,7 +63,7 @@ module.exports = {
 
                         } else {
                             text += '<br/><br/>Vous résistez et ignorez la créature suppliante.';
-                            perso.updateStat('karma', -1);
+                            text+= perso.updateStat('karma', -1);
                         }
                         perso.adversaire = mendiant.nom;
                         perso.adversaire_replace_mendiant_opportunity = mendiant.nom;
@@ -91,6 +100,21 @@ module.exports = {
                     choices: choices
                 }
             },
+
+            mendiant_is_a_relation: function () {
+                var choices = [];
+                choices.push([">> " + game.emojis.world_map + " Je prends le métro", "map"]);
+                choices.push([" " + game.emojis.street + "<< Je sors (" + perso.station + ") ", perso.metroExit.folder, perso.metroExit.page]);
+
+                var text = "Vous croyez apercevoir " + game.gC.persos[perso.adversaire].bnom + " qui fait la manche. En vous apercevant, el vous fait un sourire gêné et monte dans la rame de métro. Vous vous sentez gêné.";
+                text+= perso.updateStat("karma", -1);
+                return {
+                    flush: 1,
+                    text: text,
+                    choices: choices
+                }
+            },
+
             "moving": function () {
                 perso.upDaytime();
                 var choices = [];

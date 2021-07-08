@@ -4,7 +4,7 @@ var itemTools = require('./../../game/objets/itemsTools.js');
 
 module.exports = {
     name: "Defense",
-    folder: "01_defense/00_intro",    
+    folder: "01_defense/00_intro",
     station: "La Defense",
 
     getPage: function (ws, page = "intro") {
@@ -21,7 +21,7 @@ module.exports = {
                 delete perso.adversaire;
 
                 var choices = [
-                    ["Je prends le métro", "map"],
+
                 ];
                 // perso.choiceExit = ["D'accord", folder, "intro"];
                 perso.choiceExit = {
@@ -34,7 +34,7 @@ module.exports = {
                 var people = game.gC.getOtherPeopleHere("Defense", perso);
                 if (people[0]) {
                     text += '<br/>' + people[0].nom + ' est là et vous regarde d\'un air méprisant.';
-                            choices.push(["J'aborde " + people[i].nom + "", "00_global/embrouille", "contact"]);
+                    choices.push(["J'aborde " + people[i].nom + "", "00_global/embrouille", "contact"]);
                     perso.adversaire = people[0].nom;
                 }
 
@@ -45,6 +45,9 @@ module.exports = {
                     choices.push(["Je me rends aux aux éditions " + editrice, "01_defense/01_editions", "intro"]);
                 }
 
+
+                choices.push(["Je vais au Black Bar", "01_defense/blackbar", "intro"]);
+                choices.push(["Je prends le métro", "map"]);
 
 
                 return {

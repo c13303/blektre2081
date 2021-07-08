@@ -6,10 +6,16 @@
 
 var game = require('./../game.js');
 var gC = require('./../gameContainer.js');
+
+
+
+
 process.chdir("/home/blektre2081/blektre2081/");
 class perso {
     constructor(nom = null, type = null, bio = null) {
-        this.nom = nom;
+        if (nom)
+            this.nom = this.slugify(nom); // slug
+        this.bnom = nom;
         this.type = type;
         this.bio = bio;
         this.chapitre = '00_home/00_intro';
@@ -35,12 +41,33 @@ class perso {
         this.horsjeu = false;
         this.cools = {};
         this.relationships = {
-            "Jacques Mimol": 0,
+            "jacques-mimol": 0,
         };
+        this.rdvblackbar = {};
+        this.sensibilite = null;
+    }
+    slugify(str) {
+
+        str = str.replace(/^\s+|\s+$/g, ''); // trim
+        str = str.toLowerCase();
+
+        // remove accents, swap ñ for n, etc
+        var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
+        var to = "aaaaeeeeiiiioooouuuunc------";
+        for (var i = 0, l = from.length; i < l; i++) {
+            str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+        }
+
+        str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+                .replace(/\s+/g, '-') // collapse whitespace and replace by -
+                .replace(/-+/g, '-'); // collapse dashes
+
+        return str;
+
     }
     reload(persodata) {
 
-        for (const[key, value] of Object.entries(persodata)) {
+        for (const [key, value] of Object.entries(persodata)) {
             this[key] = value;
         }
         console.log('Reloaded data for ' + this.nom);
@@ -109,7 +136,7 @@ class perso {
         this.loglines.push(gC.date + ':' + notif);
     }
     interrupt(chapitre, page, adversaire, statnotif, data = null) {
-        
+
         this.interruptions.push({
             chapitre: chapitre,
             page: page,
@@ -150,14 +177,24 @@ class perso {
             delete this.traits[trait];
         }
         this.log(notif);
+        return '<div class="updatetrait">' + notif + '</div>';
     }
 
     updateStat(stat, value) {
         console.log('Update STAT de ' + this.nom + ' ' + stat + ' ' + value);
-        var texte = "!" + stat + "!" + value + "";
+
+
+        var newstat = this[stat] + value;
+        if (newstat > this[stat]) {
+            var texte = "Vous gagnez " + value + " de " + stat;
+        } else {
+            var texte = "Vous perdez " + value + " de " + stat;
+        }
+
+        this[stat] = newstat;
         this.loglines.push(texte);
-        this[stat] += value;
-        return texte;
+
+        return "<div class='updatestat'>" + texte + "</div>";
     }
 
     // ajoute 1 au day time et reset au max

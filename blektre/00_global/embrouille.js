@@ -72,7 +72,7 @@ module.exports = {
                     /* LOSE */
                     var text = "Vous tentez de gifler [" + adversaire.nom + "], mais el intercepte votre geste, et en profite pour vous botter le derrière.";
                     perso.log("Vous avez été humilié·e par [" + adversaire.nom + "] ");
-                    perso.updateStat("karma", 1);
+                    text+= perso.updateStat("karma", 1);
                     var statnotif = adversaire.updateStat("karma", -1);
                     adversaire.interrupt("00_global/interruptions", "embrouille_passive_win", perso, statnotif);
                     choices.push(["Quelle humiliation", perso.choiceExit.folder, perso.choiceExit.page]);
@@ -86,7 +86,7 @@ module.exports = {
 
                     var statnotif = adversaire.updateStat("karma", 1);
 
-                    perso.updateStat("karma", -1);
+                    text+= perso.updateStat("karma", -1);
 
                     adversaire.interrupt("00_global/interruptions", "embrouille_passive_lose", perso, statnotif);
 
@@ -121,10 +121,10 @@ module.exports = {
                 if (perso.karma > adversaire.karma) {
                     text += '\n\
 [' + adversaire.nom + '] éclate en sanglots.';
-                    perso.updateStat("sex", +5);
-                    perso.updateStat("karma", -5);
+                    text+= perso.updateStat("sex", +5);
+                    text+= perso.updateStat("karma", -5);
                 } else {
-                    perso.updateStat("sex", -5);
+                    text+= perso.updateStat("sex", -5);
                     text += '\n\
 [' + adversaire.nom + '] éclate de rire.';
                 }

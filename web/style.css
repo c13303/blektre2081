@@ -19,9 +19,21 @@ body{
 }
 
 #text{
-    font-size: 150%;
-    line-height: 26px;
+    font-size: 18px;
+    /*  line-height: 26px;*/
 }
+
+button{
+    padding:14px;
+    font-size: 16px;
+    margin:0 0 20px;
+
+
+}
+
+
+
+
 .selected{
     border:2px solid red;
 }
@@ -61,13 +73,6 @@ body{
     cursor:pointer;
 }
 
-button{
-    padding:10px;
-    font-size: 20px;
-    margin:0 0 20px;
-
-
-}
 
 .gamechoice_button{
     width: 400px;
@@ -163,4 +168,14 @@ iframe{
 #visuel{
     margin-top: 62px;
 
+}
+
+.updatestat{
+    font-style:italic;
+    color:orange;
+}
+
+.updatetrait{
+    font-style:italic;
+    color:green;
 }

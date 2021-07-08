@@ -52,7 +52,7 @@ module.exports = {
             introspection: function () {
                 if (perso.iscooled("introspection_au_parc")) {
                     var text = "Vous réalisez qu'il ne vous reste que X années à vivre et que vous n'avez rien accompli de grand. Il serait temps de faire quelque chose, comme devenir riche, ou trouver l'amour.";
-                    perso.updateStat("karma", 1);
+                    text+= perso.updateStat("karma", 1);
                     perso.log("Vous procédez à un moment d'introspection positif");
                     perso.cool('introspection_au_parc', 50, "Vous songez au parc");
                     var choices = [
@@ -60,7 +60,7 @@ module.exports = {
                     ];
                 } else {
                     var text = "Vous marchez dans une crotte de chien et un pigeon vous chie dessus en même temps.";
-                    perso.updateStat("karma", 1);
+                    text+= perso.updateStat("karma", 1);
                     perso.log("Vous procédez à un moment d'introspection positif");
                     perso.cool('introspection_au_parc', 3, "Vous songez au parc");
                     var choices = [

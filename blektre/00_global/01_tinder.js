@@ -11,14 +11,14 @@ module.exports = {
 
         var perso = ws.current_perso;
         var folder = this.folder;
+  
 
 
-
-        /* CHAPITRE */
+        /* CHAPITRE */ 
         var chapitre = {
 
-            "intro": function () {
-                var text = "Vous êtes sur Tinder. La photo de votre profil, qui de l'ange l'antique beauté a, n'est pas représentative de la réalité.";
+            "intro": function () {   
+                var text = "Vous êtes sur Tendeur. La photo de votre profil, qui de l'ange l'antique beauté a, n'est pas représentative de la réalité.";
                 var choices = [
                     ["Je consulte les profils", folder, "swipe"],
                     ["Je modifie mon profil", folder, "myprofil"],
@@ -33,7 +33,6 @@ module.exports = {
                 }
             },
             "swipe": function () {
-                var people = game.gC.people;
                 var browsing = [];
                 console.log(game.gC.persos);
                 for (const[key, value] of Object.entries(game.gC.persos)) {

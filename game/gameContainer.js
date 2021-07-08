@@ -2,6 +2,7 @@
 var tools = require('./../server/tools.js');
 module.exports = {
     gS: require('../game/gameSettings.js'),
+    tools: tools,
     date: 0,
     tick: 0,
     persos: {},
@@ -9,34 +10,46 @@ module.exports = {
     places: {},
     roles: {
         "default": {
-            "nom": "Jacques Mimol",
+            "nom": "jacques-mimol",
             "earn": 0,
             "earnTick": 0,
         },
         "manche_Maison": {
-            nom: 'Jacques Mimol',
+            nom: 'jacques-mimol',
             earn: 4,
             earnTick: 1,
             label: 'mendiant à la station <Rue des Peupliers>'
         },
         "newsreader": {
-            nom: 'Jacques Mimol',
+            nom: 'jacques-mimol',
             earn: 0,
             earnTick: 0,
             label: 'présentateur des actualités'
         }
         ,
         "vigile_boulanger": {
-            nom: 'Jacques Mimol',
+            nom: 'jacques-mimol',
             earn: 0,
             earnTick: 0,
             label: 'vigile chez Boulanger'
         },
         "flic": {
-            nom: 'Jacques Mimol',
+            nom: 'jacques-mimol',
             earn: 0,
             earnTick: 0,
             label: 'policier'
+        },
+        "editrice": {
+            nom: 'jacques-mimol',
+            earn: 0,
+            earnTick: 0,
+            label: 'editrice'
+        },
+        "serveur": {
+            nom: 'jacques-mimol',
+            earn: 0,
+            earnTick: 0,
+            label: 'serveur'
         }
         /// lots of manche roles
     },
@@ -138,21 +151,21 @@ module.exports = {
             if (this.WSPersos[key]) {
                 var ws = this.WSPersos[key];
                 try {
-                    ws.send(JSON.stringify({persos: packedPersos}));
+                    ws.send(JSON.stringify({ persos: packedPersos }));
                 } catch (e) {
                     tools.report('Erreur setInPlace WS : client has closed');
                     //tools.report(e);
                 }
 
             }
-    }
+        }
 
 
 
 
 
 
-    //  console.log(perso.nom + ' has moved, --updated places');
+        //  console.log(perso.nom + ' has moved, --updated places');
     },
     getOtherPeopleHere: function (place, perso, relationshipMin = - 1, relationshipMax = - 1) {
 

@@ -112,5 +112,25 @@ $(document).ready(function () {
 
 
 
+    $("#quickstart").click(function () {
+        setTimeout(quickstart1, 100);
+    });
+    function quickstart1() {
+        $('#createchar_button').trigger('click');
+        setTimeout(quickstart2, 100);
+    }
+    function quickstart2() {
+        $('#submitbio').trigger('click');
+        setTimeout(quickstart3, 100);
+    }
+    function quickstart3() {
+        $('#charbox button').trigger('click');
+        setTimeout(quickstart4, 100);
+    }
+    function quickstart4() {
+        $('#go').trigger('click');
+    }
+
+
 
 });

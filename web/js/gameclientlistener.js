@@ -106,16 +106,17 @@ function gameClientHook(d) {
             $(document).find('#choices').hide();
         }
 
-        if (d.dynamic_selection) {
-            var options = '';
-            for (var i = 0; i < d.dynamic_selection.length; i++) {
-                options += '<option value="' + d.dynamic_selection[i][1] + '">' + d.dynamic_selection[i][0] + '</option>';
-            }
-            texthtml += '<br/><div class="fragebox"><select id="frage">' + options + '</select><button id="frageok">OK</button></div>';
-            $(document).find('#choices').hide();
-        }
-
-
+        /*
+         if (d.dynamic_selection) {
+         var options = '';
+         for (var i = 0; i < d.dynamic_selection.length; i++) {
+         options += '<option value="' + d.dynamic_selection[i][1] + '">' + d.dynamic_selection[i][0] + '</option>';
+         }
+         texthtml += '<br/><div class="fragebox"><select id="frage">' + options + '</select><button id="frageok">OK</button></div>';
+         $(document).find('#choices').hide();
+         }
+         
+         */
 
 
 

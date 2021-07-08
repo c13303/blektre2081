@@ -33,18 +33,14 @@ module.exports = {
                     choices: choices
                 }
             },
-            
-            
-            
-            
-            
+
             /* CHANGE */
-            
+
             "change": function () {
                 var text = "Que voulez-vous porter ?";
                 var choices = [
-                    ["Des vêtements normaux", folder, "change_normal"],
-                    ["Des vêtements ridicules", folder, "change_ridicule"],
+                    ["Un costailleur multicolore", folder, "change_costard"],
+                    ["Un justocou noir moulant", folder, "change_sensible"],
                 ];
                 return {
                     flush: null,
@@ -54,9 +50,9 @@ module.exports = {
                 }
             },
 
-            "change_normal": function () {
-                var text = "Vous mettez ces habits tristement banals, que vous mettez depuis toujours.";
-                perso.updateTrait("ridicule", null, "Vous vous habillez normalement.");
+            "change_costard": function () {
+                var text = "Le costailleur est un vêtement très épais, particulièrement en vogue cette année dans les milieux corporate. ";
+                text += perso.updateTrait("sensibilite", "epais", "Vous êtes épais.");
 
                 var choices = [
                     ["La vie est une plage", folder, "intro"],
@@ -67,11 +63,12 @@ module.exports = {
                     choices: choices
                 }
             },
-            "change_ridicule": function () {
-                var text = "Vous décidez, subitement, de porter un de ces horribles bonnet que portent les jeunes gens aisés de la cité. C'est généralement une bonne garantie pour s'attirer des ennuis.";
-                perso.updateTrait("ridicule", 1, "Vous vous habillez avec ridicule.");
+            "change_sensible": function () {
+                var text = "Le justo est un vêtement près du corps, sombre comme les entrailles. ";
+                text += perso.updateTrait("sensibilite", "sensible", "Vous êtes sensible.");
+
                 var choices = [
-                    ["Il n'auront pas ma liberté de penser", folder, "intro"],
+                    ["La vie est une plage", folder, "intro"],
                 ];
                 return {
                     flush: null,
@@ -79,23 +76,7 @@ module.exports = {
                     choices: choices
                 }
             },
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+
             /*
              *  ROMAN
              */
@@ -142,7 +123,7 @@ Comment nommez-vous votre roman ?";
 
                 if (!perso.traits.romancier) {
                     /* level romancier */
-                    perso.updateTrait( "romancier", {
+                    perso.updateTrait("romancier", {
                         title: perso.textarea,
                         level: 1
                     }, "Vous écrivez un roman titré " + perso.textarea);
@@ -188,8 +169,8 @@ Comment nommez-vous votre roman ?";
             youtube: function () {
                 perso.upDaytime();
                 var text = "Vous passez une demi journée à regarder des vidéos de chatons et autres séquences d'ASMR.";
-                perso.log( "Vous regardez Youtube pendant des heures");
-                perso.updateStat("sanity", 1);
+                perso.log("Vous regardez Youtube pendant des heures");
+                text += perso.updateStat("sanity", 1);
                 var choices = [
                     ["Je me sens détendu et accompli", "00_home/00_intro", "intro"],
                 ];

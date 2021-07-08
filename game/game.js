@@ -163,7 +163,7 @@ module.exports = {
              perso.reload(persodata);
              */
             var perso = gC.persos[nom];
-            
+
             ws.current_perso = perso;
             gC.WSPersos[perso.nom] = ws;
 
@@ -216,8 +216,19 @@ module.exports = {
 
     },
 
-    loadPage: function (ws, chapitre, page, dest = null) {
+    loadPage: function (ws, chapitre, page, dest = null, param = null) {
+
+
         console.log('LoadPage() ' + chapitre + ' page ' + JSON.stringify(page));
+
+        console.log(page.indexOf('__'));
+        // PAGE WITH PARAMETER /// 
+        if (page.indexOf('__') !== -1) {   // separator = __    example : calling__1  
+            var paramArray = page.split('__');
+            var param = paramArray[1];
+            page = paramArray[0];
+            console.log('Param called for ' + page + ' : ' + param);
+        }
 
 
         try {
@@ -246,7 +257,7 @@ module.exports = {
             }
 
             /* load PAGE */
-            var pageObject = chapitreO.getPage(ws, page);
+            var pageObject = chapitreO.getPage(ws, page, param);
             if (!pageObject) {
                 tools.report('pageOjbect is missing at ' + chapitre + ' ' + page);
                 return null;
@@ -273,6 +284,11 @@ module.exports = {
             perso.page = page;
             perso.step++;
 
+
+
+
+
+
             // set presence into the chapitre place 
             if (chapitreO.name)
                 gC.setInPlace(chapitreO.name, perso);
@@ -290,7 +306,7 @@ module.exports = {
             ws.send(JSON.stringify(data));
 
         } catch (e) {
-            tools.report('!!!! ERROR at loading page : ' + chapitre + ' page ' + page);
+            tools.report('!!!! MISSING LOADPAGE :  ' + chapitre + ' -> ' + page);
             console.log(e);
         }
         return null;

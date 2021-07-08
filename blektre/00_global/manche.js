@@ -70,7 +70,7 @@ module.exports = {
                     } else {
                         /// MANCHE MANAGEMENT VIDAGE DE CHAPEAU
                         var amount = mendiant.earn;
-                        perso.updateStat("money", amount);
+                        text+= perso.updateStat("money", amount);
                         game.gC.roles['manche_' + perso.station].earn = 0;
                         perso.log("Vous récupérez " + amount + "€ dans votre chapeau de mendiant à la station " + perso.station);
                         return {
