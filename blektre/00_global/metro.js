@@ -125,7 +125,7 @@ module.exports = {
 
 
                 var dest = require('../' + perso.dest + '.js');
-                var text = "Le métro arrive à la station " + dest.name + ". Vous descendez de la rame. Que faites-vous ? ";
+                var text = "Le métro arrive à la station " + dest.name + ". Vous descendez de la rame.";
 
 
                 perso.metroExit.folder = perso.dest;
@@ -136,10 +136,10 @@ module.exports = {
                 perso.station = dest.station;
                 delete perso.dest;
 
-                choices.push([">> " + game.emojis.metro_couloirs + " J'ère dans la station", "00_global/metro", "intro"]);
-                choices.push([">> " + game.emojis.street + "  Je sors dans la rue de " + dest.name + " ", perso.metroExit.folder, perso.metroExit.page]);
+              //  choices.push([">> " + game.emojis.metro_couloirs + " J'ère dans la station", "00_global/metro", "intro"]);
+                choices.push(["" + game.emojis.street + "  Je sors dans la rue de " + dest.name + " ", perso.metroExit.folder, perso.metroExit.page]);
                 return {
-                    flush: 1,
+                    flush: 0,
                     text: text,
                     choices: choices
                 }

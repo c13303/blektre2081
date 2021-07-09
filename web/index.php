@@ -76,7 +76,7 @@ if ($isdev) {
             </div>
             <br/><br/>
             <button id="createchar_button" data-command="createchar">Créer un nouveau personnage</button>
-            
+
             <button id="quickstart" >QUICK START</button>
         </div>
         <div id="createchar" class="hidden">
@@ -94,9 +94,11 @@ if ($isdev) {
                 }
 
                 function randomprenom() {
-                    $tab = array('Henri Midur', 'OurseDur', 'Josiane', 'Zobeurfou', 'Chirac', 'Miterrand', 'Penien', 'Chichatte', 'Zobeuse', 'Suceux',
-                        "Quentine", "Peniana", "Foufeux", "Loufon", "Giboulard", "Capote", "Simili-Cuir", "Sencha-sanlafrez", "Sambal", "Macroteuse", "Pileur",
-                        "Verdure", "Gislabe", "Falantôme", "Pantine", "Stagalas", "Jenpol", "Luje", "Pleural", "Olivier", "Arrosoir", "PatrickB");
+                    $tab = array('Henri Midur', 'OurseDur', 'Josiane', 'Onvie', 'Chirac', 'Miterrand', 'Alabate', 'Chichatte', 'Doreuse', 'Muceux',
+                        "Quentine", "Seniana", "Coufeux", "Loufon", "Giboulard", "Copate", "Simili-Cuir", "Sencha-sanlafrez", "Sambal", "Macreuse", "Pileur",
+                        "Verdure", "Gislabe", "Falantôme", "Pantine", "Stagalas", "Jenpol", "Luje", "Pleural", "Olivier",
+                        "Arrosoir", "PatrickB", "Sectorin", "Sabeum", "Zigomas", "Alandru", "Pilopé", "Enfalme",
+                        "Zobstance", "Peulan", "Peducelle", "Avantage", "Dego-Sabanthème");
                     shuffle($tab);
                     return $tab[0];
                 }

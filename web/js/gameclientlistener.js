@@ -80,7 +80,13 @@ function gameClientHook(d) {
     if (d.text) {
         if (d.scene)
             titrePlace = d.scene;
+
+
+        /* TEXT FILTERS */
         var texthtml = nl2br("<br/>" + d.text); // <h2>" + titrePlace + '</h2>' + nl2br(d.text);
+
+
+        texthtml = texthtml.replaceAll('__', '<br/><br/>');
 
         if (!d.choices)
             console.log('ERREUR : D.CHOICES MISSING');

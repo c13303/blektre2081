@@ -20,8 +20,8 @@ module.exports = {
             folder: folder,
             page: "intro"
         }
-        
-        
+
+
 
         /* CHAPITRE */
         var chapitre = {
@@ -45,6 +45,7 @@ module.exports = {
             intro: function () {
 
                 var text = "";
+                
                 if (perso.daytime === 0)
                     text += "C'est <b>le matin</b>.";
                 if (perso.daytime === 1)
@@ -53,17 +54,17 @@ module.exports = {
                     text += "C'est <b>la nuit</b>.";
 
 
-                text += "\n\Vous êtes chez vous, dans la grande tour d'habitation du Blektre.";
+                text += "__Vous êtes chez vous, dans la grande tour d'habitation du Blektre.";
 
-                text += "<br/><br/>Vous vivez seul. Vous êtes pauvre.";
+                text += "__Vous vivez seul. Vous êtes pauvre.";
                 // loyer
                 var restant = perso.loyer.amount - perso.money;
 
                 if (restant > 0)
-                    text += "\n\Il vous reste par ailleurs " + perso.loyer.days + " jours pour trouver les " + restant + "€ qui manquent pour payer votre loyer. ";
+                    text += "__Il vous reste par ailleurs " + perso.loyer.days + " jours pour trouver les " + restant + "€ qui manquent pour payer votre loyer. ";
 
 
-                text += "\n\Que faire ?";
+                text += "__Que faire ?";
 
 
 

@@ -15,7 +15,7 @@ class perso {
     constructor(nom = null, type = null, bio = null) {
         if (nom)
             this.nom = this.slugify(nom); // slug
-        this.bnom = nom;
+        this.bnom = "<span class='perso_' data-n='" + this.nom + "'>" + nom + "</span>";
         this.type = type;
         this.bio = bio;
         this.chapitre = '00_home/00_intro';
@@ -176,8 +176,16 @@ class perso {
         if (this.traits[trait] && !value) {
             delete this.traits[trait];
         }
-        this.log(notif);
-        return '<div class="updatetrait">' + notif + '</div>';
+        // this.log(notif);
+        return '<div class="updatetrait intxt">' + notif + '</div>';
+    }
+
+    getTrait(trait) {
+        if (this.traits[trait]) {
+            return this.traits[trait];
+        } else {
+            return null;
+        }
     }
 
     updateStat(stat, value) {
@@ -185,16 +193,19 @@ class perso {
 
 
         var newstat = this[stat] + value;
+
+
+
         if (newstat > this[stat]) {
             var texte = "Vous gagnez " + value + " de " + stat;
         } else {
-            var texte = "Vous perdez " + value + " de " + stat;
+            var texte = "Vous perdez " + (value * -1) + " de " + stat;
         }
 
         this[stat] = newstat;
-        this.loglines.push(texte);
+        //  this.loglines.push(texte);
 
-        return "<div class='updatestat'>" + texte + "</div>";
+        return "<div class='updatestat intxt'>" + texte + "</div>";
     }
 
     // ajoute 1 au day time et reset au max
@@ -271,16 +282,20 @@ class perso {
         } else {
             this.relationships[adversaire.nom] += qt;
         }
-        this.log('Votre relation avec [' + adversaire.nom + '] évolue (' + qt + ')');
+        this.log('Votre relation avec ' + adversaire.bnom + ' évolue (' + qt + ')');
+
 
         if (!adversaire.relationships[this.nom]) {
             adversaire.relationships[this.nom] = qt;
         } else {
             adversaire.relationships[this.nom] += qt;
         }
-        this.log('Votre relation avec [' + this.nom + '] s\'ameillore (' + qt + ')');
+        adversaire.log('Votre relation avec ' + this.bnom + ' évolue (' + qt + ')');
 
-
+        if (qt > 0)
+            return "<div class='updatestat intxt'>Votre relation avec " + adversaire.bnom + " s'ameillore</div>";
+        else
+            return "<div class='updatestat intxt'>Votre relation avec " + adversaire.bnom + " se dégrade</div>";
 
     }
 }

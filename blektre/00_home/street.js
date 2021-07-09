@@ -62,7 +62,7 @@ module.exports = {
 
 
                 choices.push([game.emojis.maison + "  << Je rentre à la maison", "00_home/00_intro", "intro"]);
-                choices.push([">> " + game.emojis.metro_couloirs + " Je descends dans les couloirs du métro", "00_global/metro", "intro"]);
+                choices.push([">> " + game.emojis.metro_couloirs + " Je descends dans le métro", "00_global/metro", "intro"]);
 
 
                 return {

@@ -262,6 +262,10 @@ module.exports = {
                 tools.report('pageOjbect is missing at ' + chapitre + ' ' + page);
                 return null;
             }
+            
+            
+            
+            
 
             // INTRO SPECIAL LIKE ... IS THERE ANY INTERRUPT SIR ? 
             if (page === "intro") {
@@ -285,7 +289,7 @@ module.exports = {
             perso.step++;
 
 
-
+            
 
 
 
@@ -302,6 +306,12 @@ module.exports = {
 
             if (chapitreO.name)
                 data.scene = chapitreO.name;
+            
+            
+        
+            
+            
+            
 
             ws.send(JSON.stringify(data));
 
@@ -334,6 +344,12 @@ module.exports = {
         }
         return null;
     },
+    
+    
+    
+    txt: function(text){
+        
+    }
 
 }
 

@@ -18,7 +18,19 @@ module.exports = {
 
             /* PAGE */
             "intro": function () {
+
+                /* Clear stuff */
                 delete perso.adversaire;
+                var text = "Vous arrivez à la Défense. Les immeubles dessinés par Marc Poulet dessinent une ligne de ciel futuriste.";
+
+                if (perso.currentRDV) {
+                    var rdv = game.gC.persos[perso.currentRDV];
+                    var text = "Vous êtes sur le parvis de la Défense et méditez sur ce qui fut votre rendez-vous avec " + rdv.bnom;
+                    delete perso.currentRDV;
+                }
+
+
+
 
                 var choices = [
 
@@ -29,11 +41,10 @@ module.exports = {
                     page: "intro"
                 }
 
-                var text = "Vous arrivez à la Défense. Les immeubles dessinés par Marc Poulet dessinent une ligne de ciel futuriste.";
 
                 var people = game.gC.getOtherPeopleHere("Defense", perso);
                 if (people[0]) {
-                    text += '<br/>' + people[0].nom + ' est là et vous regarde d\'un air méprisant.';
+                    text += '__' + people[0].nom + ' est là et vous regarde d\'un air méprisant.';
                     choices.push(["J'aborde " + people[i].nom + "", "00_global/embrouille", "contact"]);
                     perso.adversaire = people[0].nom;
                 }
@@ -47,7 +58,8 @@ module.exports = {
 
 
                 choices.push(["Je vais au Black Bar", "01_defense/blackbar", "intro"]);
-                choices.push(["Je prends le métro", "map"]);
+                choices.push([">> " + game.emojis.metro_couloirs + " Je descends dans le métro", "00_global/metro", "intro"]);
+
 
 
                 return {

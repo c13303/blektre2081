@@ -20,7 +20,10 @@ body{
 
 #text{
     font-size: 18px;
-    /*  line-height: 26px;*/
+    line-height: 18px;
+}
+br{
+    line-height:36px;
 }
 
 button{
@@ -31,6 +34,9 @@ button{
 
 }
 
+.intxt{
+    margin:10px 0;
+}
 
 
 
@@ -160,6 +166,7 @@ iframe{
     opacity:0;
     display:flex;
     color: pink;
+    
 }
 .statbloc{
     width:25%;
@@ -178,4 +185,8 @@ iframe{
 .updatetrait{
     font-style:italic;
     color:green;
+}
+
+.perso_{
+    color:blue;
 }
