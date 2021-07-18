@@ -133,4 +133,24 @@ $(document).ready(function () {
 
 
 
+    $(document).on('mouseover', '.perso_', function () {
+        var persoKey = $(this).data('n');
+        var perso = persos[persoKey];
+        console.log('over people ' + persoKey);
+
+        $(this).append('<div class="hoverpeople">'
+                + '<b>' + perso.bnom + '</b>'
+                + '<br/>Relation avec vous : ' + mychar.relationships[perso.nom]
+                + '<br/>Karma : ' + perso.karma
+                + '<br/>Sex-appeal : ' + perso.sex
+                + '<br/>Santé mentale : ' + perso.sanity
+                + '<br/>Money : ' + perso.money
+                + '</div>')
+    });
+
+    $(document).on('mouseout', '.perso_', function () {
+        console.log('out people');
+
+        $(document).find('.hoverpeople').remove();
+    });
 });

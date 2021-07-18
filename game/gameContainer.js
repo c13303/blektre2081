@@ -10,48 +10,51 @@ module.exports = {
     places: {},
     roles: {
         "default": {
-            "nom": "jacques-mimol",
+            "nom": "jacques_mimol",
             "earn": 0,
             "earnTick": 0,
         },
         "manche_Maison": {
-            nom: 'jacques-mimol',
+            nom: 'jacques_mimol',
             earn: 4,
             earnTick: 1,
             label: 'mendiant à la station <Rue des Peupliers>'
         },
         "newsreader": {
-            nom: 'jacques-mimol',
+            nom: 'jacques_mimol',
             earn: 0,
             earnTick: 0,
             label: 'présentateur des actualités'
         }
         ,
         "vigile_boulanger": {
-            nom: 'jacques-mimol',
+            nom: 'jacques_mimol',
             earn: 0,
             earnTick: 0,
             label: 'vigile chez Boulanger'
         },
         "flic": {
-            nom: 'jacques-mimol',
+            nom: 'jacques_mimol',
             earn: 0,
             earnTick: 0,
             label: 'policier'
         },
         "editrice": {
-            nom: 'jacques-mimol',
+            nom: 'jacques_mimol',
             earn: 0,
             earnTick: 0,
             label: 'editrice'
         },
         "serveur": {
-            nom: 'jacques-mimol',
+            nom: 'jacques_mimol',
             earn: 0,
             earnTick: 0,
             label: 'serveur'
         }
         /// lots of manche roles
+    },
+    setRole: function (role, nom) {
+        this.roles[role].nom = nom;
     },
     races: {
         1: "reptilienne",
@@ -83,6 +86,7 @@ module.exports = {
     getPackedPerso: function (perso) {
         var packed = {
             nom: perso.nom,
+            bnom: perso.bnom,
             type: perso.type,
             //bio: perso.bio,
             traits: perso.traits,
@@ -91,7 +95,8 @@ module.exports = {
             sex: perso.sex,
             sanity: perso.sanity,
             money: perso.money,
-            place: perso.place
+            place: perso.place,
+            relationships: perso.relationships
         };
         return packed;
     },
@@ -103,7 +108,6 @@ module.exports = {
         }
         return packedPersos;
     },
-
     /* change a perso de place and notify EVERYBOY */
     setInPlace: function (place, perso, old_place_check = true) {
 
@@ -116,8 +120,6 @@ module.exports = {
 
         if (!place)
             tools.fatal("set in place no place ? FUCK YOU");
-
-
         // RESTER AU MEME ENDROIT
         if (place === perso.oldplace && this.places[place][perso.nom] === perso) {
             return null;
@@ -141,31 +143,28 @@ module.exports = {
         // set in places index
         this.places[place][perso.nom] = perso;
         perso.place = place;
-
-
         // make a pack with all packed persos //
         var packedPersos = this.getAllPackedPersos();
-
         /// update all clients 
         for (const [key, value] of Object.entries(this.persos)) {
             if (this.WSPersos[key]) {
                 var ws = this.WSPersos[key];
                 try {
-                    ws.send(JSON.stringify({ persos: packedPersos }));
+                    ws.send(JSON.stringify({persos: packedPersos}));
                 } catch (e) {
                     tools.report('Erreur setInPlace WS : client has closed');
                     //tools.report(e);
                 }
 
             }
-        }
+    }
 
 
 
 
 
 
-        //  console.log(perso.nom + ' has moved, --updated places');
+    //  console.log(perso.nom + ' has moved, --updated places');
     },
     getOtherPeopleHere: function (place, perso, relationshipMin = - 1, relationshipMax = - 1) {
 
@@ -190,9 +189,6 @@ module.exports = {
             }
         }
         console.log('check people in ' + place + ' = ' + tablo.length);
-
-
-
         return tablo;
     }
 };

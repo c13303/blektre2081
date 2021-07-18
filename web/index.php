@@ -152,7 +152,6 @@ if ($isdev) {
                     <textarea id="json" ></textarea>
                     <textarea id="persos" ></textarea>
                     <!-- <div id="peoplehere"></div> -->
-
                 </div>
 
 

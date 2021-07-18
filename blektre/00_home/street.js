@@ -50,8 +50,8 @@ module.exports = {
                     var people = game.gC.getOtherPeopleHere(namePlace, perso, 0, 1);
                     for (var i = 0; i < people.length; i++) {
                         if (people[i] && !people[i].horsjeu) {
-                            text += "<br/><br/>[" + people[i].nom + '] est là et vous regarde d\'un air arrogant. ';
-                            choices.push(["J'aborde " + people[i].nom + "", "00_global/embrouille", "contact"]);
+                            text += "<br/><br/>[" + people[i].bnom + '] est là et vous regarde d\'un air arrogant. ';
+                            choices.push(["J'aborde " + people[i].bnom + "", "00_global/embrouille", "contact"]);
                             perso.adversaire = people[i].nom;
                             break;
                         }

@@ -41,7 +41,7 @@ class perso {
         this.horsjeu = false;
         this.cools = {};
         this.relationships = {
-            "jacques-mimol": 0,
+            "jacques_mimol": 0,
         };
         this.rdvblackbar = {};
         this.sensibilite = null;
@@ -52,15 +52,15 @@ class perso {
         str = str.toLowerCase();
 
         // remove accents, swap ñ for n, etc
-        var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
-        var to = "aaaaeeeeiiiioooouuuunc------";
+        var from = "àáäâèéëêìíïîòóöôùúüûñç·/-,:;";
+        var to = "aaaaeeeeiiiioooouuuunc______";
         for (var i = 0, l = from.length; i < l; i++) {
             str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
         }
 
         str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
-                .replace(/\s+/g, '-') // collapse whitespace and replace by -
-                .replace(/-+/g, '-'); // collapse dashes
+                .replace(/\s+/g, '_') // collapse whitespace and replace by -
+                .replace(/-+/g, '_'); // collapse dashes
 
         return str;
 

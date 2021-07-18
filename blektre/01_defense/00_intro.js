@@ -44,8 +44,8 @@ module.exports = {
 
                 var people = game.gC.getOtherPeopleHere("Defense", perso);
                 if (people[0]) {
-                    text += '__' + people[0].nom + ' est là et vous regarde d\'un air méprisant.';
-                    choices.push(["J'aborde " + people[i].nom + "", "00_global/embrouille", "contact"]);
+                    text += '__' + people[0].bnom + ' est là et vous regarde d\'un air méprisant.';
+                    choices.push(["J'aborde " + people[i].bnom + "", "00_global/embrouille", "contact"]);
                     perso.adversaire = people[0].nom;
                 }
 

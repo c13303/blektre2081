@@ -29,7 +29,7 @@ module.exports = {
                 delete perso.adversaire;
 
                 var text = "Vous êtes au Black Bar.";
-
+                var choices = [];
                 var rdvs = 0;
 
                 var serveurSlug = game.gC.roles.serveur.nom;
@@ -49,10 +49,20 @@ module.exports = {
                 if (rdvs > 1) {
                     return this.multimeeting();
                 }
-                var choices = [
-                    ["Je commande à boire", folder, "commander"],
-                    ["Je vais aux WC &#128241;", "00_global/wc", "intro"],
-                ];
+
+
+                /* ARE YOU OWNER OF TTHE BAR */
+                if (serveur.nom === perso.nom) {
+                    text += "En tant que gérant, vous veillez au bon roulement des affaires.";
+                    choices.push(["Je vide la caisse", folder, "caisse"]);
+
+                } else {
+                    choices.push(["Je commande à boire", folder, "commander"]);
+
+                }
+
+
+                choices.push(["Je vais aux WC &#128241;", "00_global/wc", "intro"]);
                 choices.push(["Je sors", "01_defense/00_intro", "intro"]);
 
 
@@ -64,6 +74,73 @@ module.exports = {
 
 
             },
+
+            "fume_serveur": function () {
+
+                var text = "";
+                var choices = [];
+                var serveurSlug = game.gC.roles.serveur.nom;
+                var serveur = game.gC.persos[serveurSlug];
+
+                if (perso.karma > serveur.karma) {
+                    text += "Vous saisissez " + serveur.bnom + " par le col avec votre main gauche, ainsi qu'une bouteille de Jack avec la droite, et la fracassez sur son crâne. ";
+
+                    text += perso.updateRelationship(serveur, -50);
+                    text += perso.updateStat('karma', -10);
+
+                    perso.log('Vous rossez ' + serveur.bnom + ' au Black Bar');
+                    serveur.log('Vous prenez une raclée au Black Bar');
+
+                    choices.push(["Je prends le job de serveur", folder, "job_serveur"]);
+                    choices.push(["Je m'excuse poliment et je m'en vais.", "01_defense/00_intro", "intro"]);
+
+
+
+                } else {
+                    text += "Vous levez l'index pour annoncer à " + serveur.bnom + " que vous allez le fumer, mais à peine avez-vous ouvert la bouche que vous êtes déjà dehors à ramasser vos dents.";
+                    serveur.updateStat('karma', 5);
+                    perso.udpateStat('karma', -5);
+                    perso.updateRelationship(serveur, -50);
+                    perso.log('Vous prenez une raclée au Black Bar');
+                }
+
+
+
+
+                choices.push(["Je m'excuse poliment et je m'en vais.", "01_defense/00_intro", "intro"]);
+
+
+                return {
+                    flush: 1,
+                    text: text,
+                    choices: choices
+                }
+            },
+
+            "job_serveur": function () {
+
+                var text = "";
+                var choices = [];
+
+
+                text += "Vous décidez de prendre les choses et main et vous vous postez derrière le comptoir. Vous voilà serveur du Black Bar, et les recettes iront dans votre poche.";
+
+                perso.log('Vous devenez gérant du Black Bar');
+
+                game.gC.setRole("serveur", perso.nom);
+
+
+
+                choices.push(["Excellent", folder, "intro"]);
+
+
+                return {
+                    flush: 1,
+                    text: text,
+                    choices: choices
+                }
+            },
+
             "commander": function () {
 
                 var text = "";
@@ -76,6 +153,7 @@ module.exports = {
                     ["Une boisson douce", folder, "drink__soft"],
                     ["Une bière bon marché", folder, "drink__biere"],
                     ["Un whisky 200 ans d'âge", folder, "drink__whisky"],
+                    [game.emojis.karma + " Je le fume", folder, "fume_serveur"],
                 ];
 
                 choices.push(["Je m'excuse poliment et je m'en vais.", "01_defense/00_intro", "intro"]);
