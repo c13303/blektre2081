@@ -10,52 +10,36 @@ module.exports = {
     places: {},
     roles: {
         "default": {
-            "nom": "jacques_mimol",
-            "earn": 0,
-            "earnTick": 0,
+            "nom": "jacques_mimol"
         },
-        "manche_Maison": {
-            nom: 'jacques_mimol',
-            earn: 4,
-            earnTick: 1,
-            label: 'mendiant à la station <Rue des Peupliers>'
+        "DIRECTOR": {
+            nom: 'selbst'
         },
-        "newsreader": {
-            nom: 'jacques_mimol',
-            earn: 0,
-            earnTick: 0,
-            label: 'présentateur des actualités'
-        }
-        ,
-        "vigile_boulanger": {
-            nom: 'jacques_mimol',
-            earn: 0,
-            earnTick: 0,
-            label: 'vigile chez Boulanger'
+        "STAGIAIRE": {
+            nom: 'mux'
         },
-        "flic": {
-            nom: 'jacques_mimol',
-            earn: 0,
-            earnTick: 0,
-            label: 'policier'
+        "INFLUENCE": {
+            nom: 'mux'
         },
-        "editrice": {
-            nom: 'jacques_mimol',
-            earn: 0,
-            earnTick: 0,
-            label: 'editrice'
+        "DJ": {
+            nom: "titebulle",
+            tube: "<em><b>Incouple, involontairement en couple, yeah yeah</b></em>"
         },
-        "serveur": {
-            nom: 'jacques_mimol',
-            earn: 0,
-            earnTick: 0,
-            label: 'serveur'
+        "COCHON": {
+            nom: "selbst"
+        },
+        "SERVEUR": {
+            nom: "mux"
+        },
+        "SECRETAIRE": {
+            nom: "titebulle"
         }
         /// lots of manche roles
     },
-    setRole: function (role, nom) {
-        this.roles[role].nom = nom;
-    },
+    /*
+     setRole: function (role, nom) {
+     this.roles[role].nom = nom;
+     }, */
     races: {
         1: "reptilienne",
         2: "marbreuse",
@@ -157,14 +141,14 @@ module.exports = {
                 }
 
             }
-    }
+        }
 
 
 
 
 
 
-    //  console.log(perso.nom + ' has moved, --updated places');
+        console.log(perso.nom + ' has moved, --updated places');
     },
     getOtherPeopleHere: function (place, perso, relationshipMin = - 1, relationshipMax = - 1) {
 
@@ -190,5 +174,7 @@ module.exports = {
         }
         console.log('check people in ' + place + ' = ' + tablo.length);
         return tablo;
-    }
+    },
+    
+    
 };

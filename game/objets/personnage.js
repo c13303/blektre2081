@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+const tools = require('../../server/tools.js');
 var game = require('./../game.js');
 var gC = require('./../gameContainer.js');
 
@@ -12,14 +13,17 @@ var gC = require('./../gameContainer.js');
 
 process.chdir("/home/blektre2081/blektre2081/");
 class perso {
-    constructor(nom = null, type = null, bio = null) {
+    constructor(nom = null, type = null, bio = null, gender = 'nb') {
         if (nom)
             this.nom = this.slugify(nom); // slug
         this.bnom = "<span class='perso_' data-n='" + this.nom + "'>" + nom + "</span>";
         this.type = type;
         this.bio = bio;
-        this.chapitre = '00_home/00_intro';
+        this.chapitre = '00_home/01_defense';
+        this.scene = 'defense1';
+        this.place = 'uterus';
         this.page = "disclaimer";
+        this.gender = gender;
         this.traits = {};
         this.life = 100;
         this.karma = 0;
@@ -27,8 +31,9 @@ class perso {
         this.moral = 0;
         this.sanity = 0;
         this.money = 12;
+        this.reac = 0;
         this.place = null; // current place
-        this.places = [["Maison", "00_home/00_intro"]]; /// les places unlocked dans la map
+        this.places = [["Zonmai", "00_home/00_street"]]; /// les places unlocked dans la map
         this.disclaimer = false;
         this.loglines = []; // les petites notifs type "vous avez .."
         this.popups = []; // les popups notifs (plutot pour le farming / incremental)
@@ -45,6 +50,9 @@ class perso {
         };
         this.rdvblackbar = {};
         this.sensibilite = null;
+        this.salaires = {};
+        this.steps = {};
+        this.milestones = {};
     }
     slugify(str) {
 
@@ -246,8 +254,9 @@ class perso {
     }
 
     cooldownsTick() {
-        // console.log(this.nom + ' cooltick');
-        //  console.log(this.cools);
+        //console.log(this.nom + ' cooltick');
+        //  console.log(this.cools);      
+
         for (const [key, dacool] of Object.entries(this.cools)) {
             if (dacool.time > 0) {
                 dacool.time--;
@@ -260,11 +269,16 @@ class perso {
         }
     }
 
-    iscooled(label) {
-        if (this[label.time] > 0) {
+    iscooling(label) {
+
+        if (!this.cools[label])
             return false;
+
+
+        if (this.cools[label].time > 0) {
+            return this.cools[label].time;
         } else {
-            return true;
+            return false;
         }
     }
 
@@ -297,6 +311,83 @@ class perso {
         else
             return "<div class='updatestat intxt'>Votre relation avec " + adversaire.bnom + " se dégrade</div>";
 
+    }
+
+    addSalaire(label, stats, daily_text) {
+        console.log('adding salaire for ' + this.nom);
+        this.salaires[label] = {
+            label: label,
+            stats: stats,
+            daily_text: daily_text
+        }
+    }
+
+    mySalaires() {
+        /// les salaires des roles
+        for (const [label, salaireObj] of Object.entries(this.salaires)) {
+
+            var days = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
+            var day = days[gC.tick];
+            var popuped = day + ": " + salaireObj.daily_text;
+            var haspopuped = null;
+            if (gC.tick > days.length)
+                gC.tick = 0;
+
+
+            if (salaireObj.stats) {
+                for (const [statkey, statval] of Object.entries(salaireObj.stats)) {
+                    popuped += this.updateStat(statkey, statval);
+                }
+                haspopuped = true;
+            }
+
+            if (haspopuped)
+                return (popuped);
+            else
+                return null;
+        }
+    }
+
+    hasInventaire(key, qt = 1) {
+        if (this.inventaire[key].qt >= qt) {
+            return this.inventaire[key].qt;
+        } else {
+            return null;
+        }
+        return null;
+    }
+
+    addInventaire(key, qt = 1, stats = {}) {
+
+        if (qt > this.inventaire[key]) {
+            tools.report('ERROR ADDINVETAIRE NOT ENOUGHT POUR BOULE G');
+            return null;
+        }
+
+        if (this.inventaire[key]) {
+            this.inventaire[key].qt += qt;
+
+
+        } else {
+            this.inventaire[key] = {
+                qt: qt,
+                stats: stats
+            }
+        }
+        return true;
+    }
+
+    removeInventaire(key, qt = 1) {
+        if (this.inventaire[key].qt >= qt) {
+            this.inventaire[key].qt -= qt;
+            if (!this.inventaire[key].qt) {
+                delete this.inventaire[key];
+                return 0;
+            }
+            return this.inventaire[key].qt;
+        } else {
+            return null;
+    }
     }
 }
 

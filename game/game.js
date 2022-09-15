@@ -16,7 +16,6 @@ module.exports = {
     timerLast: Date.now(),
     age: 0,
     tools: tools,
-
     emojis: {
         world_map: "&#128506;&#65039;",
         metro_couloirs: "&#128647;",
@@ -32,12 +31,10 @@ module.exports = {
         relationship_negative: "&#128148;",
         exit: "&#128682;",
     },
-
     gameInit: function (ws, connection) {
         /* INIT GAME FOR A CLIENT */
 
         tools.clearLog();
-
         if (!ws.char_inventory) {
             ws.char_inventory = [];
         }
@@ -62,23 +59,19 @@ module.exports = {
             }));
             return null;
         });
-
     },
-
     onPlayerConnect: function (ws) {
         tools.report(ws.name + ' is connected ');
-
     },
     onPlayerLeave: function (ws) {
         if (ws.isOnline) {
             ws.isOnline = false;
             delete gC.WSPersos[ws.name];
             tools.report(ws.name + ' LEFT THE GAME : ' + ws.id);
-
         }
     },
-    createCharacter: function (nom, type, bio, startplace = "Home") {
-//var perso = msg.create_char;
+    createCharacter: function (nom, type, bio, gender = 'nb', startplace = "Home") {
+        //var perso = msg.create_char;
 
 
         if (gC.persos[nom]) {
@@ -87,19 +80,23 @@ module.exports = {
         }
 
 
-        var perso = new Perso(nom, type, bio);
-
-
+        var perso = new Perso(nom, type, bio, gender);
         /*
          for (const [key, value] of Object.entries(msg.create_char)) {
          perso[key] = value;
          }
          */
-        itemTools.addItem(perso, "joint", 1);
-        itemTools.addItem(perso, "vodka", 1);
+        // itemTools.addItem(perso, "joint", 1);
+        //  itemTools.addItem(perso, "vodka", 1);
+        perso.addInventaire("carte bleue");
+        perso.addInventaire("test");
+        perso.removeInventaire("test");
+        perso.addInventaire("Slip", 1, {
+            "sex": 1
+        });
+
         gC.persos[perso.nom] = perso;
         gC.setInPlace(startplace, perso);
-
         perso.loyer = {
             amount: 880,
             days: 28,
@@ -107,15 +104,11 @@ module.exports = {
         perso.daytime = 0;
         // game.addPlace(perso, "La Défense", "01_defense/00_intro");
         //  game.addPlace(perso, "Parc", "00_home/parc");
-
-        perso.addPlace("La Défense", "01_defense/00_intro");
-        perso.addPlace("Parc", "00_home/parc");
-
-
+        // perso.addPlace("La Défense", "01_defense/00_in\n\tro");
+        //  perso.addPlace("Parc", "00_home/parc");
         perso.update();
         return (perso);
     },
-
     onPlayerCommand: function (ws, msg) {
         // tools.report('' + ws.name + ' clijson: ' + JSON.stringify(msg));
 
@@ -156,71 +149,57 @@ module.exports = {
         if (msg.go) {
             var nom = ws.char_inventory[msg.char].nom;
             console.log(ws.name + ' CHARACTEUR ONLINE  : ' + nom);
-
             /*
              var persodata = ws.char_inventory[msg.char];
              var perso = new Perso();
              perso.reload(persodata);
              */
             var perso = gC.persos[nom];
-
             ws.current_perso = perso;
             gC.WSPersos[perso.nom] = ws;
-
             //  console.log(ws.name + ' starts the game');
             // console.log(ws.current_perso);
 
-            if (perso.disclaimer) {
-                var pagedepart = "disclaimer";
-                delete perso.disclaimer;
-            } else
-                pagedepart = "intro";
+            var scene = 'intro';
+            if (perso.scene) {
+                scene = perso.scene;
+            }
+            this.loadPage(ws, perso.chapitre, scene);
+            perso.scene = null;
 
-            this.loadPage(ws, "00_home/00_intro", pagedepart);
+
             // forcer update place if not moved
             // 
             // make a pack with all packed persos //
             var packedPersos = gC.getAllPackedPersos();
             ws.send(JSON.stringify({persos: packedPersos}));
-
             //  game.updateChar(perso);
             perso.update();
         }
     },
-
     // not sure i want to use real time ?
+    /* REAL TIME NOT COOL */
+
+
+
     tick: function () {
         console.log(this.gC.tick);
         this.gC.tick++;
-
-/// ticks personnels
+        /// ticks personnels
         for (const [key, persal] of Object.entries(gC.persos)) {
             persal.cooldownsTick();
         }
-
-
-        /// les salaires 
-        for (const [nameRole, objectRole] of Object.entries(gC.roles)) {
-            var perso = gC.persos[objectRole.nom];
-            if (perso && objectRole.earnTick) {
-                objectRole.earn += objectRole.earnTick;
-                perso.popup('' + objectRole.earnTick + '€ reçu ' + objectRole.label);
-            }
-        }
-
         var that = this;
         setTimeout(function () {
             gC.date++;
             that.tick();
-        }, 10000);
-
+        }, 60000);
     },
 
     loadPage: function (ws, chapitre, page, dest = null, param = null) {
 
 
         console.log('LoadPage() ' + chapitre + ' page ' + JSON.stringify(page));
-
         console.log(page.indexOf('__'));
         // PAGE WITH PARAMETER /// 
         if (page.indexOf('__') !== -1) {   // separator = __    example : calling__1  
@@ -234,10 +213,7 @@ module.exports = {
         try {
 
             var perso = ws.current_perso;
-
             delete perso.horsjeu;
-
-
             // delete perso.adversaire; // dont do that 
 
 
@@ -245,11 +221,6 @@ module.exports = {
             /// dest is the metro final destination i guess
             if (dest)
                 perso.dest = dest;
-
-
-
-
-
             /* load CHAPITRE */
             var chapitreO = require('./../blektre/' + chapitre + '.js');
             if (!chapitreO) {
@@ -257,15 +228,19 @@ module.exports = {
             }
 
             /* load PAGE */
+            console.log(param);
             var pageObject = chapitreO.getPage(ws, page, param);
             if (!pageObject) {
                 tools.report('pageOjbect is missing at ' + chapitre + ' ' + page);
                 return null;
             }
-            
-            
-            
-            
+
+            pageObject.text = this.filterText(pageObject.text, perso);
+            for (var i = 0; i < pageObject.choices.length; i++) {
+                if (pageObject.choices[i])
+                    pageObject.choices[i][0] = this.filterText(pageObject.choices[i][0], perso);
+            }
+
 
             // INTRO SPECIAL LIKE ... IS THERE ANY INTERRUPT SIR ? 
             if (page === "intro") {
@@ -288,67 +263,140 @@ module.exports = {
             perso.page = page;
             perso.step++;
 
-
-            
-
-
-
-            // set presence into the chapitre place 
-            if (chapitreO.name)
-                gC.setInPlace(chapitreO.name, perso);
-
             //  game.updateChar(perso);
             perso.update();
-
             // send data to client
             var data = (pageObject);
-
-
             if (chapitreO.name)
                 data.scene = chapitreO.name;
-            
-            
-        
-            
-            
-            
-
             ws.send(JSON.stringify(data));
-
         } catch (e) {
-            tools.report('!!!! MISSING LOADPAGE :  ' + chapitre + ' -> ' + page);
+            tools.report('!!!! ERROR LOADPAGE :  ' + chapitre + ' -> ' + page);
             console.log(e);
         }
         return null;
     },
-
     // return un nom
-    getRole: function (perso, role, isBlankAllowed = false) {
+    getRole: function (role) {
         //console.log('getRole ' + role);
         if (gC.roles[role] && gC.roles[role].nom) {
             return gC.roles[role];
         } else {
-            if (!isBlankAllowed)
-                return gC.roles.default;
-            else
-                return null;
+            console.log('ERROR GET ROLE : NOT FOUND : ' + role);
         }
-        return null;
     },
-    setRole: function (perso, role, earn, earnTick, label) {
+    getPersoByRole: function (role) {
+        console.log('getting role ' + role);
+        return this.gC.persos[this.gC.roles[role].nom];
+    },
+    setRole: function (perso, role) {
         this.gC.roles[role] = {
-            nom: perso.nom,
-            earn: earn,
-            earnTick: earnTick,
-            label: label
+            nom: perso.nom
         }
         return null;
     },
-    
-    
-    
-    txt: function(text){
-        
+    txt: function (text) {
+        return null;
+    },
+
+    filterText: function (text, perso) { //// GENDERIZE DA TEXT
+
+        var arrStr = text.split(/[<>]/);
+        try {
+            console.log(arrStr.length + " codes found in this page");
+
+            for (var i = 0; i < arrStr.length; i++) {
+
+
+
+                var daCode = arrStr[i];
+
+                if (daCode.indexOf('~') !== -1 && daCode.indexOf('/') === -1) {
+                    var attr = null;
+                    if (daCode.indexOf('_') !== -1) {
+                        var roleArray = daCode.split('_');
+                        var attr = roleArray[1];
+                        var role = roleArray[0];
+                    } else {
+                        var role = daCode;
+                    }
+
+                    role = role.replace('~', '');
+
+
+                    if (role === 'SELF')
+                        var daPerso = perso;
+
+                    if (role === 'ADVERSAIRE')
+                        var daPerso = perso.adversaire;
+
+                    if (!daPerso)
+                        var daPerso = this.getPersoByRole(role);
+
+
+                    var display = daPerso.bnom;
+                    if (attr) {
+                        var daRole = this.getRole(role);
+                        var display = daRole[attr];
+                    }
+                    text = text.replace("<" + daCode + ">", display);
+                }
+
+                if (daCode.indexOf('/') !== -1) {
+
+                    var genderArray = daCode.split('/');
+                    var daGender;
+                    if (!genderArray[3]) {
+                        console.log('ErEROr GneRARDayRARRA3 mISSinG');
+                        console.log(genderArray);
+                    }
+
+                    if (genderArray[3] === 'SELF')
+                        var daPerso = perso;
+
+                    if (genderArray[3] === 'ADVERSAIRE') {
+                        console.log('Filtering with adversaire');
+                        var daPerso = perso.adversaire;
+                    }
+
+                    if (!daPerso) {
+                        if (genderArray[3].indexOf('~') !== -1) {
+                            var daName = genderArray[3].replace('~', '');
+                            var daPerso = this.gC.persos[daName];
+                        } else
+                            var daPerso = this.getPersoByRole(genderArray[3]);
+                    }
+                    
+                    if (!daPerso) {
+                        console.log('FILTER ERROR PERSO NOT FOUND');
+                        console.log(genderArray);
+                    }
+                    if (!daPerso || !daPerso.gender) {
+                        console.log('FILTER ERROR daPerso.gender is missing');
+                        console.log(daPerso);
+                    }
+                    if (daPerso.gender === 'h') {
+                        daGender = genderArray[0];
+                    }
+                    if (daPerso.gender === 'f') {
+                        daGender = genderArray[1];
+                    }
+                    if (daPerso.gender === 'nb') {
+                        daGender = genderArray[2];
+                    }
+
+                    text = text.replace("<" + daCode + ">", "<span class='gendered'>" + daGender + "</span>");
+
+                }
+            }
+            return text;
+        } catch (e) {
+            console.log('ERROR IN FILTER');
+            console.log(e);
+            console.log('ERROR IN FILTER--->text : ');
+            console.log(text);
+
+        }
     }
 
 }

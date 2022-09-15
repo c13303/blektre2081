@@ -20,7 +20,7 @@ body{
 
 #text{
     font-size: 18px;
-    line-height: 18px;
+    line-height: 25px;
 }
 br{
     line-height:36px;
@@ -193,6 +193,9 @@ iframe{
     position:relative;
     cursor :pointer;
 }
+.place{
+    color:darkcyan;
+}
 
 .hoverpeople{
     position:absolute;
@@ -203,4 +206,8 @@ iframe{
     left:0;
     top:30px;
     width:300px;    
+}
+
+.gendered{
+    font-style: italic;
 }
