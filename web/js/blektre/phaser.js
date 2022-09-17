@@ -31,26 +31,52 @@ function phaserHook(d) {
     if (PS) {
         if (d.phaserscene && d.phaserscene !== lastScene) {
             PS.changeScene(d.phaserscene);
-            lastScene = d.phaserscene;
+            // lastScene = d.phaserscene;
             scenechanged = true;
         } else {
-            if (d.scene && d.scene !== lastScene) {
-                PS.changeScene(d.scene);
-                lastScene = d.scene;
-                scenechanged = true;
-            }
+            /* Disabled autoscene
+             if (d.scene && d.scene !== lastScene) {
+             PS.changeScene(d.scene);
+             lastScene = d.scene;
+             scenechanged = true;
+             }
+             * 
+             */
         }
 
+
+
+
         if (scenechanged) {
+
+            jQuery('#phaserframe').fadeOut(0);
+            var persals = persos;
             setTimeout(function () {
-                PS.changeHead(1, mychar.type);
-                if (mychar.adversaire) {
-                    var man = persos[mychar.adversaire];
-                    if (man && man.type)
-                        PS.changeHead(2, man.type);
+                // PS.changeSprite(1, mychar.type);
+                /*
+                 if (mychar.adversaire) {
+                 var man = persos[mychar.adversaire];
+                 if (man && man.type)
+                 PS.changeSprite(2, man.type);
+                 }
+                 */
+                if (d.phaseranimation) {
+                    PS.animateHead(d.phaseranimation, persals);
                 }
-            }, 100);
+                jQuery('#phaserframe').fadeIn(100);
+
+
+            }, 50);
         }
+
+
+
+
+
+
+
+
+
     }
 
 }

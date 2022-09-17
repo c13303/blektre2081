@@ -43,7 +43,7 @@ Vous pénétrez dans le restaurant. <Le serveur/La serveuse/Le serveuses/~SERVEU
                 var choices = [
                     ["J'essaie d'attirer poliment l'attention <du serveur/de la serveuse/du serveuses/~SERVEUR> ", folder, "attention"],
                     ["Je me chie dessus et désire m'en aller> ", folder, "quit"],
-                    ["Je <le/la/lea/~SERVEUR> fume", folder, "fume"]
+                    ["Je <le/la/lae/~SERVEUR> fume", folder, "fume"]
                 ];
                 return {
                     flush: 1,

@@ -43,7 +43,7 @@ module.exports = {
                     perso.adversaire.updateStat('karma', +5);
                     perso.log("Vous adressez un prompt coup de boule à " + perso.adversaire.bnom);
                     perso.adversaire.log(perso.bnom + " vous adresse un prompt coup de boule");
-                    perso.cool("cochon_indispo", 10, "Le cochon est de nouveau dispo");
+                    perso.cool("cochon_indispo", 1, "Le cochon est de nouveau dispo");
 
                     var choices = [
                         ["Ca lui apprendra", perso.choiceExit.folder, perso.choiceExit.page]
@@ -51,7 +51,7 @@ module.exports = {
 
                     // perso interruption
                 } else {
-                    var text = "Vous approchez de <~ADVERSAIRE> et tentez de <le/la/lea/~ADVERSAIRE> frapper, mais <Il/Elle/Elles/~ADVERSAIRE> esquive tel le pigeon dans l'enfer des villes; en retour, <Il/Elle/Elles/~ADVERSAIRE> vous adresse un prompt coup de boule sur le nez. \n\
+                    var text = "Vous approchez de <~ADVERSAIRE> et tentez de <le/la/lae/~ADVERSAIRE> frapper, mais <Il/Elle/Elles/~ADVERSAIRE> esquive tel le pigeon dans l'enfer des villes; en retour, <Il/Elle/Elles/~ADVERSAIRE> vous adresse un prompt coup de boule sur le nez. \n\
 Vous vous écroulez sur le sol, en sang. <~ADVERSAIRE> vous urine dessus en riant, avant de s'éloigner.";
 
                     perso.updateStat('karma', +5);

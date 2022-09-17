@@ -4,32 +4,36 @@
 /* START OF COMPILED CODE */
 
 class Home extends Phaser.Scene {
-	
+
 	constructor() {
 		super("Home");
-		
-		/** @type {Phaser.GameObjects.Image} */
-		this.head1;
-		
+
 		/* START-USER-CTR-CODE */
 
         /* END-USER-CTR-CODE */
 	}
-	
+
+	/** @returns {void} */
 	create() {
-		
+
 		// home
-		this.add.image(320, 240, "home");
-		
-		// head1
-		const head1 = this.add.image(251, 240, "head_4", 0);
-		
-		this.head1 = head1;
+		this.add.image(75, 50, "home");
+
+		// player1
+		const player1 = this.add.sprite(49, 52, "perso1", 0);
+
+		this.player1 = player1;
+
+		this.events.emit("scene-awake");
 	}
-	
+
+	/** @type {Phaser.GameObjects.Sprite} */
+	player1;
+
 	/* START-USER-CODE */
     init() {
         levelctx = this;
+
     }
     // Write your code here.
 

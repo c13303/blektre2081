@@ -8,8 +8,6 @@ $message = filter_input(INPUT_GET, "message", FILTER_SANITIZE_STRING);
 $reconnect = filter_input(INPUT_GET, "reconnect", FILTER_SANITIZE_STRING);
 $disablereconnect = filter_input(INPUT_GET, "disablereconnect", FILTER_SANITIZE_STRING);
 
-
-
 if ($disablereconnect) {
     $reconnect = 0;
 }
@@ -34,6 +32,7 @@ if ($isdev) {
         <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
         <link rel="icon" type="image/png" href="favicon.png" />
         <link href="https://fonts.googleapis.com/css?family=VT323&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="font/sharetech.css?v=<?= $v; ?>" />
         <link rel="stylesheet" type="text/css" href="style.css?v=<?= $v; ?>" />
 
         <script src="/js/toolbox.js?v=<?= $v; ?>"></script>
@@ -145,12 +144,13 @@ if ($isdev) {
                 </div>
                 <div id="visuel">
 
-
-                    <iframe id="phaserframe" src="Game/index.html?v=<?= $v; ?>" ></iframe>
+                    <div id="cadrephaser"></div>
+                    <iframe id="phaserframe" src="Game/index.html?v=<?= $v; ?>" ></iframe> 
+                    <!-- <img src="newwave_img/DEMO.PNG" class="demopic" style=""/> 
                     <div id="notifs"></div>
 
-                    <textarea id="json" ></textarea>
-                    <textarea id="persos" ></textarea>
+                    <textarea id="json" class="onhide"></textarea>
+                    <textarea id="persos" class="onhide"></textarea>
                     <!-- <div id="peoplehere"></div> -->
                 </div>
 

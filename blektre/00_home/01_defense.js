@@ -29,7 +29,7 @@ module.exports = {
          *   */
         var chapitre = {
 
-            "defense1": function () {
+            "intro": function () {
                 game.gC.setInPlace("La Défense", perso);
                 var text = "La Défense. Ville lumière où tout est permis, où les costards côtoient les clochards.\n\
 Une bande de cochons transgéniques manifestent sur le parvis, devant le siège de Charal.";
@@ -57,7 +57,7 @@ Une bande de cochons transgéniques manifestent sur le parvis, devant le siège 
                 var text = "Vous êtes à la Défense. La réclame géante appliquée aux parois des buildings brille et fait reluire les carrosseries dans les bouchons.";
 
                 var choices = [
-                    ["Je vais sur le parvis", "00_home/01_defense", "defense1"],
+                    ["Je vais sur le parvis", "00_home/01_defense", "intro"],
                     ["Je vais sur le périphérique extérieur", folder, "periph"],
                     ["Je retourne vers chez moi", "00_home/00_street", "HUBstreet"],
                 ];
@@ -80,7 +80,7 @@ L'une d'entre eux s'approchent de vous et vous tend un formulaire avec un stylo.
                     ["Je signe avec le sourire", folder, "manifsigne__sourire"],
                     ["Je lance le débat", folder, "manifdebat"],
                     ["Enculés de véganistes !", folder, "manifnovegan"],
-                    ["Je m'éloigne sans mot dire", folder, "defense1"]
+                    ["Je m'éloigne sans mot dire", folder, "intro"]
                 ];
                 return {
                     flush: 1,
@@ -100,8 +100,8 @@ Vous avez l'impression que <~COCHON> va vous en coller une, mais <il/elle/elles/
 
                 var choices = [
                     ["Je l'invite à boire un verre", folder, "cochon_drague"],
-                    ["Je <le/la/lea/COCHON> fume", "00_home/00_fume", "fume"],
-                    ["Je souris poliment et je m'éloigne", folder, "defense1"]
+                    ["Je <le/la/lae/COCHON> fume", "00_home/00_fume", "fume"],
+                    ["Je souris poliment et je m'éloigne", folder, "intro"]
                 ];
                 return {
                     flush: 1,
@@ -127,7 +127,7 @@ Vous commencez à discuter amicalement.";
                 var choices = [
                     ["Je lance le débat", folder, "manifdebat"],
                     ["Je l'invite à boire un verre", folder, "cochon_drague"],
-                    ["Je souris poliment et je m'éloigne", folder, "defense1"]
+                    ["Je souris poliment et je m'éloigne", folder, "intro"]
                 ];
                 return {
                     flush: 1,
@@ -157,7 +157,7 @@ Vous commencez à discuter amicalement.";
                     perso.adversaire.updateStat('sex', +5);
                     perso.log("Vous obtenez un rencard avec " + perso.adversaire.bnom);
                     perso.adversaire.log(perso.bnom + " vous rencarde");
-                    perso.cool("cochon_indispo", 10, "Le cochon est de nouveau dispo");
+                    perso.cool("cochon_indispo", 1, "Le cochon est de nouveau dispo");
 
                     var choices = [
                         ["Je m'habille", "00_home/02_date", "habillage"]
@@ -173,12 +173,12 @@ Vous commencez à discuter amicalement.";
                     perso.updateStat('sex', -25);
                     perso.adversaire.log("Vous recasez ce thon de " + perso.adversaire.bnom);
                     perso.log(perso.bnom + " vous recase");
-                    perso.cool("cochon_indispo", 10, "Le cochon est de nouveau dispo");
+                    perso.cool("cochon_indispo", 1, "Le cochon est de nouveau dispo");
 
                     // perso interruption
 
                     var choices = [
-                        ["J'ai la haine ... je m'éloigne", folder, "defense1"]
+                        ["J'ai la haine ... je m'éloigne", folder, "intro"]
                     ];
                 }
 
@@ -210,14 +210,14 @@ Vous commencez à discuter amicalement.";
 
                 perso.choiceExit = {
                     folder: folder,
-                    page: "defense1",
+                    page: "intro",
                     coolDownLabel: "cochon_indispo",
-                    coolDownTime: 3
+                    coolDownTime: 1
                 };
 
                 var choices = [
                     ["Je présente mes excuses", folder, "excuse"],
-                    ["Je <le/la/lea/ADVERSAIRE> fume", "00_home/00_fume", "fume"]
+                    ["Je <le/la/lae/ADVERSAIRE> fume", "00_home/00_fume", "fume"]
                 ];
 
                 return {
@@ -242,7 +242,7 @@ Vous commencez à discuter amicalement.";
                 perso.adversaire.log(perso.bnom + " vous présente ses excuses");
                 perso.adversaire.updateStat('karma', +5);
                 var choices = [
-                    ["J'ai la haine ... je m'éloigne", folder, "defense1"]
+                    ["J'ai la haine ... je m'éloigne", folder, "intro"]
 
                 ];
 

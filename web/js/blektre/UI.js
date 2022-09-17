@@ -35,7 +35,7 @@ $(document).ready(function () {
     $('#go').click(function () {
 
         var selectedperso = $(document).find('#charbox .selected').data('i');
-        console.log('launch with ' + selectedperso);
+       // console.log('launch with ' + selectedperso);
         ws.send(JSON.stringify({
             go: 1,
             char: selectedperso
@@ -45,7 +45,7 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '.gamechoice', function (e) {
-        console.log('Choice : ' + $(this).data('target'));
+       // console.log('Choice : ' + $(this).data('target'));
         $("#map").hide();
         $("#places").html("");
 
@@ -136,7 +136,7 @@ $(document).ready(function () {
     $(document).on('mouseover', '.perso_', function () {
         var persoKey = $(this).data('n');
         var perso = persos[persoKey];
-        console.log('over people ' + persoKey);
+      //  console.log('over people ' + persoKey);
 
         $(this).append('<div class="hoverpeople">'
                 + '<b>' + perso.bnom + '</b>'
@@ -149,7 +149,7 @@ $(document).ready(function () {
     });
 
     $(document).on('mouseout', '.perso_', function () {
-        console.log('out people');
+      //  console.log('out people');
 
         $(document).find('.hoverpeople').remove();
     });

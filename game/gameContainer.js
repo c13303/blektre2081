@@ -174,7 +174,7 @@ module.exports = {
         }
         console.log('check people in ' + place + ' = ' + tablo.length);
         return tablo;
-    },
+    }
     
     
 };

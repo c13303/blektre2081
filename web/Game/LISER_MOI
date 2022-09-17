@@ -1,0 +1,15 @@
+CE DOSSIER est bien le dossier PHASER
+
+
+Phaser Editor :
+
+
+AJOUTER UNE SCENE :
+
+-Creer le fichier scene dans le repertoire
+-Importer la scene au json-asset-pack
+-Rajouter au js : 
+	init() {
+		levelctx = this;
+
+	}

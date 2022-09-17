@@ -2,50 +2,9 @@
     "section1": {
         "files": [
             {
-                "url": "assets/png/anim1.png",
-                "frameConfig": {
-                    "frameWidth": 320,
-                    "frameHeight": 480,
-                    "startFrame": 0,
-                    "endFrame": -1,
-                    "spacing": 0,
-                    "margin": 0
-                },
-                "type": "spritesheet",
-                "key": "anim1"
-            },
-            {
                 "url": "assets/animations.json",
                 "type": "animation",
                 "key": "animations"
-            },
-            {
-                "url": "assets/png/Defense.png",
-                "type": "image",
-                "key": "Defense"
-            },
-            {
-                "url": "assets/places/Defense.js",
-                "type": "sceneFile",
-                "key": "Defense"
-            },
-            {
-                "url": "assets/places/Dial.js",
-                "type": "sceneFile",
-                "key": "Dial"
-            },
-            {
-                "url": "assets/png/head_4.png",
-                "frameConfig": {
-                    "frameWidth": 320,
-                    "frameHeight": 480,
-                    "startFrame": 0,
-                    "endFrame": -1,
-                    "spacing": 0,
-                    "margin": 0
-                },
-                "type": "spritesheet",
-                "key": "head_4"
             },
             {
                 "url": "assets/png/home.png",
@@ -58,24 +17,35 @@
                 "key": "Home"
             },
             {
-                "url": "assets/Level.js",
-                "type": "sceneFile",
-                "key": "Level"
-            },
-            {
-                "url": "assets/man.png",
+                "url": "assets/png/INTRO.png",
                 "type": "image",
-                "key": "man"
+                "key": "INTRO"
             },
             {
-                "url": "assets/places/Metro.js",
-                "type": "sceneFile",
-                "key": "Metro"
+                "url": "assets/png/fullPersos/pngs/perso1.png",
+                "frameConfig": {
+                    "frameWidth": 32,
+                    "frameHeight": 64,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "perso1"
             },
             {
-                "url": "assets/png/phone.png",
-                "type": "image",
-                "key": "phone"
+                "url": "assets/png/fullPersos/pngs/persoB.png",
+                "frameConfig": {
+                    "frameWidth": 32,
+                    "frameHeight": 64,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "persoB"
             },
             {
                 "url": "assets/places/Portrait.js",
@@ -83,14 +53,14 @@
                 "key": "Portrait"
             },
             {
-                "url": "assets/raindrop.png",
+                "url": "assets/png/street.png",
                 "type": "image",
-                "key": "raindrop"
+                "key": "street_1"
             },
             {
-                "url": "assets/png/metro.png",
-                "type": "image",
-                "key": "win"
+                "url": "assets/places/StreetHub.js",
+                "type": "sceneFile",
+                "key": "StreetHub"
             }
         ]
     },
@@ -98,6 +68,7 @@
         "app": "Phaser Editor 2D - Asset Pack Editor",
         "contentType": "phasereditor2d.pack.core.AssetContentType",
         "url": "https://phasereditor2d.com",
-        "version": 2
+        "version": 2,
+        "showAllFilesInBlocks": false
     }
 }

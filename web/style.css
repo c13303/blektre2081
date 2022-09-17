@@ -1,16 +1,56 @@
+*{
+    background:none;
+}
+
 .hidden{
     display:none;
 }
+
+button{
+    font-family:  'Share Tech Mono';
+    border:none;
+    background:none;
+    border-top:1px solid #d77355;
+    border-right:1px solid #d77355;
+    border-left:4px solid #d77355;
+    border-bottom:4px solid #d77355;
+    font-size: 25px;
+    color: #d77355;
+    padding:14px;
+
+    margin:0 0 20px;
+
+}
+
+.onhide{
+    /*display:none;*/
+
+}
+
+.demopic{
+
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+
+    width: 100%;
+
+
+}
+
 body{
     max-width: 1280px;
     margin: auto;
-
+    background:#e6c86e;
+    font-family:  'Share Tech Mono';
 
 }
 #character_menu,#createchar{
     position: absolute;
     margin-top: 110px;
     margin-left: 20px;
+    max-width: 580px;
+
 }
 #connect{
     position: absolute;
@@ -19,20 +59,17 @@ body{
 }
 
 #text{
-    font-size: 18px;
-    line-height: 25px;
+    font-size: 25px;
+    letter-spacing: -2px;
+    color: #646964;
+    margin-top: 50px;
+
 }
 br{
     line-height:36px;
 }
 
-button{
-    padding:14px;
-    font-size: 16px;
-    margin:0 0 20px;
 
-
-}
 
 .intxt{
     margin:10px 0;
@@ -132,7 +169,8 @@ button{
     height:320px;
 }
 #peoplehere{
-    border:1px solid blue; padding:20px;
+    border:1px solid blue;
+    padding:20px;
 }
 
 #map{
@@ -152,21 +190,35 @@ button{
     display:inline-block;
     cursor: pointer;
 }
+hr{
+    border: 1px solid #d77355;
+
+}
 
 iframe{
     border:none !important;
-    background:white;
-    width:640px;
-    height:480px;
+    background:#55415f;
+    width:600px;
+    height:400px;
 }
-
+#cadrephaser{
+    width: 650px;
+    height: 433px;
+    position: absolute;
+    background-image: url(newwave_img/FRAME.PNG);
+    z-index: -1;
+    left: -16px;
+    background-size: contain;
+    top: -18px;
+    background-repeat: no-repeat;
+}
 .green{
     background-color:#cefbd8;
 }
 .stats{
     opacity:0;
     display:flex;
-    color: pink;
+    color:#d77355;
 
 }
 .statbloc{
@@ -174,8 +226,9 @@ iframe{
 }
 
 #visuel{
-    margin-top: 62px;
-
+    margin-left: 40px;
+    margin-top: 85px;
+    position:relative;
 }
 
 .updatestat{
@@ -205,7 +258,7 @@ iframe{
     padding:20px;
     left:0;
     top:30px;
-    width:300px;    
+    width:300px;
 }
 
 .gendered{

@@ -47,9 +47,9 @@ var titrePlace;
 function gameClientHook(d) {
     /* d = data from serveur message */
 
-    console.log(d);
+    //  console.log(d);
 
-    phaserHook(d);
+
 
     if (d.error) {
         alert(d.error);
@@ -66,7 +66,7 @@ function gameClientHook(d) {
     if (d.char_inventory) {
         var chars = '';
         for (var i = 0; i < d.char_inventory.length; i++) {
-            console.log('Inventorian Personnsnnges ' + d.char_inventory[i].nom);
+//            console.log('Inventorian Personnsnnges ' + d.char_inventory[i].nom);
             chars += '<button class="perso_selector" data-i="' + i + '">' + d.char_inventory[i].nom + '</button>';
         }
         $("#charbox").html(chars);
@@ -190,7 +190,7 @@ function gameClientHook(d) {
 
     if (d.persos) {
         var html = '';
-        console.log(d.persos);
+//        console.log(d.persos);
         $('#persos').html(JSON.stringify(d.persos, null, 2));
 
         persos = d.persos;
@@ -220,9 +220,7 @@ function gameClientHook(d) {
 
 
     /* PHASER ANIMATION */
-    if (d.phasercommand) {
-
-    }
+    phaserHook(d);
 
 }
 
