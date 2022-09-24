@@ -31,11 +31,12 @@ module.exports = {
 
             "intro": function () {
                 game.gC.setInPlace("La Défense", perso);
-                var text = "La Défense. Ville lumière où tout est permis, où les costards côtoient les clochards.\n\
-Une bande de cochons transgéniques manifestent sur le parvis, devant le siège de Charal.";
+                var text = "Parvis de la Défense.\n\
+Des cochons manifestent au milieux des tours.";
                 var choices = [
-                    ["Je fonce au bureau", "00_home/03_bureau", "bureau"],
-                    ["Je vais voir les manifestants", folder, "manif"],
+                    ["Je pénètre dans les bureaux", "00_home/03_bureau", "bureau"],
+                    ["Je vais aux 4 temps", folder, "quatre"],
+                    ["Je vais voir les cochons", folder, "manif"],
                     ["Je crisse mon camp", folder, "HUBdefense"]
                 ];
 
@@ -48,23 +49,28 @@ Une bande de cochons transgéniques manifestent sur le parvis, devant le siège 
                 return {
                     flush: 1,
                     text: text,
-                    choices: choices
+                    choices: choices,
+                    phaserscene: "Parvis",
+                    phaseranimation: [[1, perso.nom, "idle", [0, 0]]]
                 };
 
             } //endscene()---------------------------------------------------------------------------
             , "HUBdefense": function () {
-                game.gC.setInPlace("Périphérique Intra Est Nord 4ème parallèle", perso);
-                var text = "Vous êtes à la Défense. La réclame géante appliquée aux parois des buildings brille et fait reluire les carrosseries dans les bouchons.";
+                game.gC.setInPlace("La défense", perso);
+                var text = "La Défense.";
+                var random = game.gC.getSomeoneRandom(perso);
 
                 var choices = [
-                    ["Je vais sur le parvis", "00_home/01_defense", "intro"],
-                    ["Je vais sur le périphérique extérieur", folder, "periph"],
-                    ["Je retourne vers chez moi", "00_home/00_street", "HUBstreet"],
+                    ["Je descend sur le parvis", "00_home/01_defense", "intro"],
+                    ["Je pars sur le périphérique extérieur", "00_home/06_periphext", "intro"],
+                    ["Je vais au square Manuel Valls", "00_home/00_street", "TheSquare"],
                 ];
                 return {
                     flush: 1,
                     text: text,
-                    choices: choices
+                    choices: choices,
+                    phaserscene: "Defense",
+                    phaseranimation: [[1, perso.nom, "idle", [0, 0]]]
                 };
 
             } //endscene()---------------------------------------------------------------------------
@@ -72,10 +78,10 @@ Une bande de cochons transgéniques manifestent sur le parvis, devant le siège 
 
             , "manif": function () {
                 perso.adversaire = game.getPersoByRole("COCHON");
-                var text = "Vous approchez du groupe de cochons transgéniques, qui manifestent amèrement.\n\
-- STOP ! On ne veut plus finir en saucisses ! On veut une vraie valorisation ! \n\
-L'une d'entre eux s'approchent de vous et vous tend un formulaire avec un stylo.\n\
-- Bonjour <monsieur/madame/madieur/SELF>, une petite signature pour faire interdire la viande de cochon, s'il vous plaît.";
+                var text = "La manifestation, constituée de <~COCHON>, bat son plein. \n\
+- STOP ! Valorisation de nos emplois ! On ne veut plus finir en saucisses !  \n\
+<Il/Elle/Ielle/COCHON> s'approche de vous.\n\
+- Bonjour <monsieur/madame/mademonsieur/SELF>, une petite signature pour faire interdire la viande de cochon, s'il vous plaît.";
                 var choices = [
                     ["Je signe avec le sourire", folder, "manifsigne__sourire"],
                     ["Je lance le débat", folder, "manifdebat"],
@@ -85,17 +91,22 @@ L'une d'entre eux s'approchent de vous et vous tend un formulaire avec un stylo.
                 return {
                     flush: 1,
                     text: text,
-                    choices: choices
+                    choices: choices,
+                    phaserscene: "Parvis",
+                    phaseranimation: [
+                        [1, perso.nom, "idle"],
+                        [2, perso.adversaire.nom, "idle"],
+                    ]
                 };
 
             } //endscene()---------------------------------------------------------------------------
             , "manifdebat": function () {
 
-                perso.adversaire = game.getPersoByRole("COCHON");
 
 
-                var text = "- Eh, quoi, on vous donne des emplois, vous n'avez pas l'impression de cracher dans la soupe ? demandez-vous en toute franchise.\n\
-Vous avez l'impression que <~COCHON> va vous en coller une, mais <il/elle/elles/COCHON> se contente de vous traiter de <boomer/boomeuse/boomeurses/SELF>.";
+
+                var text = "- Quand même, ce sont des emplois ... Vous n'avez pas l'impression de cracher dans la soupe ? demandez-vous.\n\
+<~COCHON> vous traite de <boomer/boomeuse/boomeurses/SELF>.";
                 perso.log('Vous êtes humilier');
 
                 var choices = [
@@ -115,18 +126,17 @@ Vous avez l'impression que <~COCHON> va vous en coller une, mais <il/elle/elles/
 
             , "manifsigne": function () {
 
-                perso.adversaire = game.getPersoByRole("COCHON");
 
                 if (param === 'sourire')
                     var text = "Vous signez en souriant <au cochon/à la cochonne/au cochonnes/COCHON>\n\
-- Merci. Et <ravi/ravie/ravis/COCHON> de te rencontrer. Je m'appelle <~COCHON>, et toi ?\n\
-Vous commencez à discuter amicalement.";
+- Merci. Et <ravi/ravie/ravis/COCHON> de te rencontrer. Je m'appelle <~COCHON>.\n\
+Cette personne est belle. Sa cause est noble. Vous ressentez quelque chose d'étrange : se pourrait-il qu'il s'agisse d'attraction ?";
 
 
                 perso.log('Vous signez la pétition anti-viande de ' + perso.adversaire.bnom);
                 var choices = [
-                    ["Je lance le débat", folder, "manifdebat"],
-                    ["Je l'invite à boire un verre", folder, "cochon_drague"],
+                    ["Je craque sur cette personne <~COCHON>", folder, "cochon_drague"],
+                    ["Je lance un débat sur le véganisme", folder, "manifdebat"],
                     ["Je souris poliment et je m'éloigne", folder, "intro"]
                 ];
                 return {
@@ -143,14 +153,13 @@ Vous commencez à discuter amicalement.";
 
 
             , "cochon_drague": function () {
-                var text = "-Ca te dirait, une petite choucroute végétarienne au McSushi ? Demandez vous à <~ADVERSAIRE> ";
+                var text = "Vous souriez avec un zeste d'arrogance, comme vous l'avez appris dans une vidéo Youtube, et vous proposez une bière à <~ADVERSAIRE>.";
 
 
 
                 if (perso.sex > perso.adversaire.sex) {
-                    text += "<Il/Elle/Ielle/~ADVERSAIRE> hésite un moment et finit par vous lâcher son 06.\n\
-- A ce soir, dit-<il/elle/ielle/~ADVERSAIRE>\n\
-<Guilleret/Guillerette/Guilleretes/~SELF>, vous rentrez chez vous pour vous préparer pour le McSushi... \n\
+                    text += "<Il/Elle/Ielle/~ADVERSAIRE> hésite une seconde, puis vous lâche son 06.\n\
+Vous rentrez chez vous, <guilleret/guillerette/guilleretes/~SELF>. \n\
 ";
 
                     perso.updateStat('sex', -10);
@@ -167,7 +176,7 @@ Vous commencez à discuter amicalement.";
                 } else {
                     text += "\
 \n\
-- <Désolé/Désolée/Désolées/~ADVERSAIRE> ... C'est pas que je te trouve moche, mais tu pues vraiment la merde. On reste amis ? ";
+- <Désolé/Désolée/Désolées/~ADVERSAIRE> ... dit-<il/elle/ielle/~ADVERSAIRE>. Je te trouve trop laid. Peut-on rester amis ? ";
 
                     perso.updateStat('karma', +5);
                     perso.updateStat('sex', -25);
@@ -178,7 +187,7 @@ Vous commencez à discuter amicalement.";
                     // perso interruption
 
                     var choices = [
-                        ["J'ai la haine ... je m'éloigne", folder, "intro"]
+                        ["Je suis <penaud/penaude/penaudes/~SELF>", folder, "intro"]
                     ];
                 }
 
@@ -202,9 +211,9 @@ Vous commencez à discuter amicalement.";
             , "manifnovegan": function () {
 
 
-                var text = "Vous manifestez violemment votre opposition à leur politique.\n\
-- Affameurs ! Véginazis ! Communistes ! \n\
-<~ADVERSAIRE> vous regarde d'un oeil torve.";
+                var text = "Vous manifestez agressivement votre opposition à leur point de vue politique.\n\
+- Mais si on ne mange plus de viande, on va manger quoi ? Affameurs ! Véginazis !\n\
+<~ADVERSAIRE> décide de vous ignorer. Vous pensez l'avoir bien <remis/remise/remises/~ADVERSAIRE> en place.";
                 perso.updateStat('karma', -50);
                 perso.log('Vous agressez les manifestants anti-viande');
 
@@ -216,7 +225,8 @@ Vous commencez à discuter amicalement.";
                 };
 
                 var choices = [
-                    ["Je présente mes excuses", folder, "excuse"],
+                    ["J'avance des arguments politiques", folder, "manifdebat"],
+                    ["Je m'éloigne", folder, "intro"],
                     ["Je <le/la/lae/ADVERSAIRE> fume", "00_home/00_fume", "fume"]
                 ];
 
@@ -231,28 +241,9 @@ Vous commencez à discuter amicalement.";
 
 
 
+          
 
 
-            , "excuse": function () {
-                var text = "Vous vous confondez en excuses.\n\
-- Je ne sais pas ce qui m'a pris, dites-vous, <penaud/penaude/penaudes/~SELF>";
-                perso.updateStat('karma', +25);
-                perso.updateStat('sex', +2);
-                perso.log('Vous vous excusez auprès de ' + perso.adversaire.bnom);
-                perso.adversaire.log(perso.bnom + " vous présente ses excuses");
-                perso.adversaire.updateStat('karma', +5);
-                var choices = [
-                    ["J'ai la haine ... je m'éloigne", folder, "intro"]
-
-                ];
-
-                return {
-                    flush: 0,
-                    text: text,
-                    choices: choices
-                };
-
-            } //endscene()---------------------------------------------------------------------------
 
 
 

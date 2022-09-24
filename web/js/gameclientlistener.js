@@ -43,7 +43,6 @@ function roughSizeOfObject(object) {
 
 var titrePlace;
 
-
 function gameClientHook(d) {
     /* d = data from serveur message */
 
@@ -167,7 +166,7 @@ function gameClientHook(d) {
         if (d.mychar.loglines.length) {
             for (var i = 0; i < d.mychar.loglines.length; i++) {
                 if (d.mychar.loglines[i][0] !== '!') // symbole update stat
-                    $('#notifs').append('<div class="notif">' + d.mychar.loglines[i] + '</div>');
+                    $('#notifs').html('<div class="notif">' + d.mychar.loglines[i] + '</div>');
             }
         }
         // var html = "<b class='name'>" + d.mychar.nom + "</b>";

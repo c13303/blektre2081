@@ -26,13 +26,19 @@ module.exports = {
             tube: "<em><b>Incouple, involontairement en couple, yeah yeah</b></em>"
         },
         "COCHON": {
-            nom: "selbst"
+            nom: "mux"
         },
         "SERVEUR": {
             nom: "mux"
         },
         "SECRETAIRE": {
             nom: "titebulle"
+        },
+        "RAEL": {
+            nom: "mux"
+        }
+        , "PHARMACIEN": {
+            nom: "mux"
         }
         /// lots of manche roles
     },
@@ -175,6 +181,10 @@ module.exports = {
         console.log('check people in ' + place + ' = ' + tablo.length);
         return tablo;
     }
-    
-    
+    , getSomeoneRandom(perso) {
+        var random = this.getOtherPeopleHere(perso.place, perso);
+        return random[0];
+    }
+
+
 };

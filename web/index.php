@@ -35,6 +35,10 @@ if ($isdev) {
         <link rel="stylesheet" type="text/css" href="font/sharetech.css?v=<?= $v; ?>" />
         <link rel="stylesheet" type="text/css" href="style.css?v=<?= $v; ?>" />
 
+
+
+
+
         <script src="/js/toolbox.js?v=<?= $v; ?>"></script>
         <script src="/js/dial.js?v=<?= $v; ?>"></script>
         <script src="/js/gameclientlistener.js?v=<?= $v; ?>"></script>
@@ -43,12 +47,69 @@ if ($isdev) {
         <script src="/js/blektre/phaser.js?v=<?= $v; ?>"></script>
 
 
+
     </head>
 
     <body class="<?= $isdev ? " dev " : " "; ?>">
 
 
-        <form id="connect" class="homepage">
+
+
+
+
+        <div id="game" class="">
+            <div id="notifs"></div>
+
+            <div id="leftgame">
+                <div id="fiche">
+                    <div class="showonstart">
+                        <div id="gheader">
+                            <div class="stats stats1">
+                                <div class="statbloc s33">  <span class="stat" data-stat="nom"></span>@<span class="stat" data-stat="place"></span><div id="music">♪<span id="musictitle"></span>♪</div></div>
+
+
+
+
+                            </div>
+                            <div class="stats stats2">
+                                <div class="statbloc"> LIFE<span class="stat" data-stat="life"></span></div>
+                                <div class="statbloc"> KARMA<span class="stat" data-stat="karma"></span></div>
+                                <div class="statbloc">SEX<span class="stat" data-stat="sex"></span></div>
+                                <div class="statbloc"> SANITY<span class="stat" data-stat="sanity"></span></div>
+                                <div class="statbloc"> €<span class="stat" data-stat="money"></span></div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div id="visuel">
+
+                        <div id="cadrephaser"></div>
+                        <iframe id="phaserframe" src="Game/index.html?v=<?= $v; ?>" ></iframe> 
+
+
+                    <!--  <textarea id="json" class="onhide"></textarea>
+                    <textarea id="persos" class="onhide"></textarea>
+                        <!-- <div id="peoplehere"></div> -->
+                    </div>
+
+
+                </div>
+
+                <div class="textzone showonstart">
+                    <div id="text"></div>               
+                    <div id="choices"></div>  
+                </div>
+            </div>
+
+            <!-- 
+            <div id="map">
+
+                <div id="places"></div>
+            </div> 
+the map overlay -->
+        </div>
+        <form id="connect" class="homepage hidden textzone">
             <h1>BLEKTRE 2081</h1>
             <input type="text" id="username" placeholder="username" />
             <input type="password" placeholder="password" id="password" value="pass"/>
@@ -62,7 +123,8 @@ if ($isdev) {
             <?php endif; ?>
 
         </form>
-        <div id="character_menu" class="hidden">
+
+        <div id="character_menu" class="hidden textzone">
             <h2>Selection personnage</h2>
             <div id="charbox">
 
@@ -78,7 +140,7 @@ if ($isdev) {
 
             <button id="quickstart" >QUICK START</button>
         </div>
-        <div id="createchar" class="hidden">
+        <div id="createchar" class="hidden textzone">
             <div id="creaturecharform">
                 <?php
 
@@ -101,70 +163,25 @@ if ($isdev) {
                     shuffle($tab);
                     return $tab[0];
                 }
-                ?>
-                Nom : <input type="text" id="nom" value="<?= randomprenom(); ?>" /> 
-                <br/> Morphologie : <select id="type" name="type">
-                    <option value="1">Reptilienne</option>
-                    <option value="2">Marbreuse</option>
-                    <option value="3">Végétale</option>
-                    <option value="4">Tête Large</option>
-                </select>
 
-                <br/> Biographie<textarea id="bio">Coucouille</textarea>
+                $de = round(rand(1, 3));
+                ?>
+                Nom <br/> <input type="text" id="nom" value="<?= randomprenom(); ?>" /> 
+                <br/><br/> Morphologie <br/>
+                <img src="img/persos_presentation.png" /><br/>
+
+
+                <div id="type" class="genrebox"><input name="genderselect" type="radio" value="1" <?php if ($de == 1) : ?>checked="checked"<?php endif; ?> /> 
+                    <input name="genderselect" type="radio" value="2" <?php if ($de == 2) : ?>checked="checked"<?php endif; ?> /> 
+                    <input name="genderselect" type="radio" value="3" <?php if ($de == 3) : ?>checked="checked"<?php endif; ?> /> 
+                </div>
+
+
+                <br/><br/> Biographie<br/><textarea id="bio">Moi, tout simplement.</textarea>
                 <br/> <button id="submitbio">Incarner ce merveilleux personnage</button> <button id="cancelbio">Annuler</button> 
             </div>
 
         </div>
-
-
-        <div id="game" class="hidden">
-
-            <div id="leftgame">
-                <div class="stats">
-                    <div class="statbloc">  <span class="stat" data-stat="nom"></span></div>
-                    <div class="statbloc"> @ <span class="stat" data-stat="place"></span></div>
-                    <div class="statbloc"> <span class="stat" data-stat="job"></span></div>
-                    <div class="statbloc"> LIFE <span class="stat" data-stat="life"></span></div>
-
-                </div>
-                <div class="stats">
-                    <div class="statbloc"> MONEY <span class="stat" data-stat="money"></span>€</div>
-                    <div class="statbloc"> KARMA <span class="stat" data-stat="karma"></span></div>
-                    <div class="statbloc">SEX <span class="stat" data-stat="sex"></span></div>
-                    <div class="statbloc"> SANITY <span class="stat" data-stat="sanity"></span></div>
-                </div>
-                <hr/>
-
-                <div id="text"></div>               
-                <div id="choices"></div>  
-            </div>
-            <div id="fiche">
-                <div id="col_popups">
-
-                </div>
-                <div id="visuel">
-
-                    <div id="cadrephaser"></div>
-                    <iframe id="phaserframe" src="Game/index.html?v=<?= $v; ?>" ></iframe> 
-                    <!-- <img src="newwave_img/DEMO.PNG" class="demopic" style=""/> 
-                    <div id="notifs"></div>
-
-                    <textarea id="json" class="onhide"></textarea>
-                    <textarea id="persos" class="onhide"></textarea>
-                    <!-- <div id="peoplehere"></div> -->
-                </div>
-
-
-            </div>
-            <!-- the map overlay -->
-            <div id="map">
-
-                <div id="places"></div>
-            </div> 
-
-        </div>
-
-
 
         <input type="hidden" id="reconnect" value="<?= $disablereconnect ? 0 : $reconnect; ?>" data-username="<?= $_GET['username'] ? $_GET['username'] : ''; ?>" />
 
@@ -173,8 +190,9 @@ if ($isdev) {
 
 
 
-
+        <div id="col_popups">                        </div>
 
     </body>
+
 
 </html>

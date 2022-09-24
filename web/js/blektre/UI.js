@@ -8,6 +8,9 @@
 
 
 $(document).ready(function () {
+
+
+
     $(document).on('click', '.command', function (e) {
         var command = $(this).data('command');
         ws.send(JSON.stringify({
@@ -25,6 +28,8 @@ $(document).ready(function () {
         $('#createchar').addClass('hidden');
         $('#character_menu').removeClass('hidden');
     });
+    
+
 
     $(document).on('click', '.perso_selector', function (e) {
         $('#charbox').find('button').removeClass("selected");
@@ -35,19 +40,20 @@ $(document).ready(function () {
     $('#go').click(function () {
 
         var selectedperso = $(document).find('#charbox .selected').data('i');
-       // console.log('launch with ' + selectedperso);
+        // console.log('launch with ' + selectedperso);
         ws.send(JSON.stringify({
             go: 1,
             char: selectedperso
         }));
         $('#character_menu').remove();
-
+        $('.showonstart').show();
     });
 
     $(document).on('click', '.gamechoice', function (e) {
-       // console.log('Choice : ' + $(this).data('target'));
+        // console.log('Choice : ' + $(this).data('target'));
         $("#map").hide();
         $("#places").html("");
+        $("#notifs").html("");
 
         /* AFFICHAGE MAP DE METRO */
         if ($(this).data('target') === 'map') {
@@ -78,19 +84,23 @@ $(document).ready(function () {
             }
             ws.send(JSON.stringify(msg));
         }
+
+
+
+        $("#game").scrollTop(0);
     });
 
     $("#submitbio").click(function () {
         var nom = $('#nom').val().replace(/(<([^>]+)>)/gi, "");
-        var type = $('#type').val().replace(/(<([^>]+)>)/gi, "");
+        var type = parseInt($("input[type='radio'][name='genderselect']:checked").val());
         var bio = $('#bio').val().replace(/(<([^>]+)>)/gi, "");
-
+        //  console.log('Type ' + type + ' selected');
         if (nom && type && bio) {
             ws.send(JSON.stringify({
                 create_char: {
-                    nom: $('#nom').val(),
-                    type: $('#type').val(),
-                    bio: $('#bio').val()
+                    nom: nom,
+                    type: type,
+                    bio: bio
                 }
             }));
 
@@ -104,10 +114,10 @@ $(document).ready(function () {
     /* lors du textarea en pleine page */
     $(document).on('click', '#frageok', function (e) {
         var data = $(document).find('#frage').val();
-        console.log(' YEAH ' + data);
+
         $(document).find('.fragebox').hide();
         $(document).find(".text2").removeClass('hidden');
-        $(document).find('#choices').show()
+        $(document).find('#choices').show();
     });
 
 
@@ -117,15 +127,15 @@ $(document).ready(function () {
     });
     function quickstart1() {
         $('#createchar_button').trigger('click');
-        setTimeout(quickstart2, 100);
+        setTimeout(quickstart2, 200);
     }
     function quickstart2() {
         $('#submitbio').trigger('click');
-        setTimeout(quickstart3, 100);
+        setTimeout(quickstart3, 200);
     }
     function quickstart3() {
         $('#charbox button').trigger('click');
-        setTimeout(quickstart4, 100);
+        setTimeout(quickstart4, 200);
     }
     function quickstart4() {
         $('#go').trigger('click');
@@ -136,7 +146,7 @@ $(document).ready(function () {
     $(document).on('mouseover', '.perso_', function () {
         var persoKey = $(this).data('n');
         var perso = persos[persoKey];
-      //  console.log('over people ' + persoKey);
+        //  console.log('over people ' + persoKey);
 
         $(this).append('<div class="hoverpeople">'
                 + '<b>' + perso.bnom + '</b>'
@@ -145,11 +155,11 @@ $(document).ready(function () {
                 + '<br/>Sex-appeal : ' + perso.sex
                 + '<br/>Santé mentale : ' + perso.sanity
                 + '<br/>Money : ' + perso.money
-                + '</div>')
+                + '</div>');
     });
 
     $(document).on('mouseout', '.perso_', function () {
-      //  console.log('out people');
+        //  console.log('out people');
 
         $(document).find('.hoverpeople').remove();
     });

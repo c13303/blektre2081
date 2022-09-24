@@ -21,7 +21,7 @@ module.exports = {
 
             "habillage": function () {
                 game.gC.setInPlace("Zonmai", perso);
-                var text = "Vous n'avez rien dans votre garde robe. Vous allez donc porter votre tenue normcore usée habituelle.";
+                var text = "Vous vous préparez à aller boire une bière.";
                 var choices = [
                     ["Je vais à mon rencard", folder, "rencard"]
                 ];
@@ -33,17 +33,16 @@ module.exports = {
             } //endscene()---------------------------------------------------------------------------
 
 
-            , "rencard": function () {
-                game.gC.setInPlace("Domaque", perso);
+            , "intro": function () {
+                game.gC.setInPlace("Bar Noir", perso);
 
-                var text = "Vous arrivez au McSushi, avec une petite boule dans la gorge.\n\
-A peine 47 minutes après, <~ADVERSAIRE> arrive, l'air <saoulé/saoulée/saoulés/~ADVERSAIRE>\n\
-- Bon, on y va ? dit-<il/elle/iel/~ADVERSAIRE>\n\
-Vous pénétrez dans le restaurant. <Le serveur/La serveuse/Le serveuses/~SERVEUR> semble vous ignorer.";
+                var text = "Vous êtes au Bar Noir. <~ADVERSAIRE> est en retard.\n\
+Que boire pour oublier que personne ne vous respecte ?  ";
+
                 var choices = [
-                    ["J'essaie d'attirer poliment l'attention <du serveur/de la serveuse/du serveuses/~SERVEUR> ", folder, "attention"],
-                    ["Je me chie dessus et désire m'en aller> ", folder, "quit"],
-                    ["Je <le/la/lae/~SERVEUR> fume", folder, "fume"]
+                    ["Une bière ", folder, "boire__biere"],
+                    ["Un mètre de téquila", folder, "boire__tequila"],
+                    ["Je me tire de cet endroit puant", "01_defense", "intro"]
                 ];
                 return {
                     flush: 1,
@@ -55,8 +54,149 @@ Vous pénétrez dans le restaurant. <Le serveur/La serveuse/Le serveuses/~SERVEU
 
 
 
+            , "boire": function (param) {
+
+                if (param === "biere") {
+                    var text = "La bière est amère, comme vous l'aimez, mais votre vessie se remplit rapidement. ";
+                }
+
+                if (param === "tequila") {
+                    var text = "Un mètre de tequila, c'est énorme, et ça coûte cher. Maintenant il faut tout boire. ";
+                }
+
+                var choices = [
+                    ["Je rote", folder, "cochon"],
+                ];
+                return {
+                    flush: 1,
+                    text: text,
+                    choices: choices
+                };
+            } //endscene()---------------------------------------------------------------------------
 
 
+
+            , "cochon": function () {
+
+                perso.adversaire = game.getPersoByRole("COCHON");
+
+
+
+                var text = "<~COCHON> finit par débarquer. <Il/Elle/Ielle/COCHON> commande un triple jack et vous sourit.";
+
+
+                var choices = [
+                    //    ["Je fais le timide", folder, "timide"],
+                    ["Je la cruise outrageusement", folder, "cruise"],
+                    ["J'apprends à la connaître", folder, "intro"]
+                ];
+                return {
+                    flush: 1,
+                    text: text,
+                    choices: choices
+                };
+
+            } //endscene()---------------------------------------------------------------------------
+
+
+            , "cruise": function () {
+
+                perso.adversaire = game.getPersoByRole("COCHON");
+
+
+
+                var text = "- Je suis <sûr/sûre/sûrs/~SELF> que t'es sur Tinsdergram, dites-vous avec audace.\n\
+- Tu parles sans savoir, hé bouffon ...";
+
+                var choices = [
+                    ["Je devine son Tinsdergram", folder, "devine"],
+                    ["J'essaie de la pécho", folder, "pecho"],
+                    ["Je pars en pleurant", "00_street", "nuit"]
+                ];
+                return {
+                    flush: 1,
+                    text: text,
+                    choices: choices
+                };
+
+            } //endscene()---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+            , "devine": function () {
+
+                perso.adversaire = game.getPersoByRole("COCHON");
+
+
+
+                var text = "<~COCHON> rougit car vous avez trouvé juste.\n\
+<Il/Elle/Ielle/COCHON> commande un nouveau triple jack, et vous sourit de nouveau.\n\
+- OK, retrouvre-moi au Bergail cette nuit.";
+
+                var choices = [
+
+                    ["Bien joué Smarties", "00_street", "nuit"],
+                ];
+                return {
+                    flush: 1,
+                    text: text,
+                    choices: choices
+                };
+
+            } //endscene()---------------------------------------------------------------------------
+
+
+
+            , "bergail": function () {
+
+                perso.adversaire = game.getPersoByRole("COCHON");
+
+
+
+                var text = "Vous entamez une profonde discussion, au détour de laquelle <~COCHON> vous explique qu'elle n'est pas l'aise avec la séduction.\n\
+- Moi, mon secret pour pécho, c'est la MDMA.";
+
+                var choices = [
+                    ["Bonne idée", folder, "bergail_end"],
+                    ["C'est l'heure d'y aller", "00_street", "nuit"]
+
+                ];
+                return {
+                    flush: 1,
+                    text: text,
+                    choices: choices
+                };
+
+            } //endscene()---------------------------------------------------------------------------
+
+
+            , "pecho": function () {
+
+                perso.adversaire = game.getPersoByRole("COCHON");
+
+
+
+                var text = "<~COCHON> vous gifle. \n\
+- Désolé mais t'es loin d'être assez chaud pour moi.\n\
+Vous êtes dégoûté.";
+
+                var choices = [
+                    ["Je le fume", folder, "fume"],
+                    ["C'est l'heure d'y aller", "00_fume", "nuit"]
+
+                ];
+                return {
+                    flush: 1,
+                    text: text,
+                    choices: choices
+                };
+
+            } //endscene()---------------------------------------------------------------------------
 
 
 

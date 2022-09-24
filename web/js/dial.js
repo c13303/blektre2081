@@ -1,3 +1,17 @@
+
+function showmelove() {
+    $('#connect').show();
+    setTimeout(function () {
+        $("iframe").css('pointer-events', 'none');
+    }, 100);
+}
+
+function resizeIframeOnCanvas() {
+    console.log('resized iframe');
+    $("iframe").height($("iframe").contents().find("canvas").height());
+}
+
+
 function send(json) {
 
     if ($(".nogameclick:hover").length === 0) {
@@ -158,7 +172,7 @@ $(document).ready(function () {
 
 
 
-    
+
 
 
 

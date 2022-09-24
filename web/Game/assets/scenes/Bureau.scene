@@ -1,0 +1,97 @@
+{
+    "id": "0d35cfd7-6346-4ee5-af95-4e45a3b6ffe1",
+    "sceneType": "SCENE",
+    "settings": {
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "sceneKey": "Bureau",
+        "borderWidth": 150,
+        "borderHeight": 100
+    },
+    "displayList": [
+        {
+            "type": "Image",
+            "id": "18422ba7-870d-428f-b18f-3bc1ddf0316b",
+            "label": "bureau",
+            "components": [],
+            "texture": {
+                "key": "bureau"
+            },
+            "x": 75,
+            "y": 50
+        },
+        {
+            "type": "Sprite",
+            "id": "b0bc7afd-d310-4fae-9fa9-f0e721edd065",
+            "label": "player1",
+            "scope": "PUBLIC",
+            "components": [],
+            "texture": {
+                "key": "perso1",
+                "frame": 0
+            },
+            "x": 48,
+            "y": 65
+        },
+        {
+            "type": "Sprite",
+            "id": "8d7d9fb4-1a0f-46fb-b74d-89092c51fc0b",
+            "label": "player2",
+            "scope": "PUBLIC",
+            "components": [],
+            "texture": {
+                "key": "perso1",
+                "frame": 0
+            },
+            "x": 106,
+            "y": 45,
+            "scaleX": -1
+        },
+        {
+            "type": "Sprite",
+            "id": "1925453c-0398-4e84-a7bd-64133d22fb31",
+            "label": "player4",
+            "scope": "PUBLIC",
+            "components": [],
+            "texture": {
+                "key": "perso1",
+                "frame": 0
+            },
+            "x": 67,
+            "y": 46,
+            "scaleX": -1
+        },
+        {
+            "type": "Image",
+            "id": "5677a0ac-aa84-41ba-b3dc-80fd11ab07c2",
+            "label": "office",
+            "components": [],
+            "texture": {
+                "key": "office"
+            },
+            "x": 106,
+            "y": 62
+        },
+        {
+            "type": "Sprite",
+            "id": "9d227227-c8d3-4e91-82ad-3a14174a3233",
+            "label": "player3",
+            "scope": "PUBLIC",
+            "components": [],
+            "texture": {
+                "key": "perso1",
+                "frame": 0
+            },
+            "x": 135,
+            "y": 68,
+            "scaleX": -1
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 3
+    }
+}

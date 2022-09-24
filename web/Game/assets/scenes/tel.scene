@@ -1,0 +1,31 @@
+{
+    "id": "e55dd05b-f18a-4582-aff3-0cfc19a0607b",
+    "sceneType": "SCENE",
+    "settings": {
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "sceneKey": "tel",
+        "borderWidth": 150,
+        "borderHeight": 100
+    },
+    "displayList": [
+        {
+            "type": "Image",
+            "id": "ed854de1-be79-46a8-82f7-ab9e9a8df320",
+            "label": "tel",
+            "components": [],
+            "texture": {
+                "key": "tel"
+            },
+            "x": 75,
+            "y": 50
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 3
+    }
+}

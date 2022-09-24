@@ -1,0 +1,80 @@
+{
+    "id": "11f2b2db-69ed-4ee2-bb2b-1ad745ac09b7",
+    "sceneType": "SCENE",
+    "settings": {
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "sceneKey": "Pharmacie",
+        "borderWidth": 150,
+        "borderHeight": 100
+    },
+    "displayList": [
+        {
+            "type": "Image",
+            "id": "93285b6d-e43e-4fa2-9fbd-c5cb90947de6",
+            "label": "pharmacie",
+            "components": [],
+            "texture": {
+                "key": "pharmacie"
+            },
+            "x": 75,
+            "y": 50
+        },
+        {
+            "type": "Sprite",
+            "id": "408edace-ae89-42e2-a3dc-6dc588d0014d",
+            "label": "player1",
+            "scope": "PUBLIC",
+            "components": [],
+            "texture": {
+                "key": "perso1",
+                "frame": 0
+            },
+            "x": 45,
+            "y": 36
+        },
+        {
+            "type": "Sprite",
+            "id": "fcf59080-0b97-4609-a71c-9d6dfa2de089",
+            "label": "player2",
+            "scope": "PUBLIC",
+            "components": [],
+            "texture": {
+                "key": "perso1",
+                "frame": 0
+            },
+            "x": 106,
+            "y": 36,
+            "scaleX": -1
+        },
+        {
+            "type": "Image",
+            "id": "4236af20-6ceb-4ae0-9d7e-8b5fe75c042d",
+            "label": "desk_bleu",
+            "components": [],
+            "texture": {
+                "key": "desk_bleu"
+            },
+            "x": 109,
+            "y": 54
+        },
+        {
+            "type": "Image",
+            "id": "4ad5a6b9-908f-4b60-907b-7b00b3103acb",
+            "label": "pharma",
+            "components": [],
+            "texture": {
+                "key": "pharma"
+            },
+            "x": 106,
+            "y": 16
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 3
+    }
+}

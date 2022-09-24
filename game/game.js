@@ -228,7 +228,7 @@ module.exports = {
             }
 
             /* load PAGE */
-            console.log(param);
+           // console.log(param);
             var pageObject = chapitreO.getPage(ws, page, param);
             if (!pageObject) {
                 tools.report('pageOjbect is missing at ' + chapitre + ' ' + page);
@@ -303,7 +303,7 @@ module.exports = {
 
         var arrStr = text.split(/[<>]/);
         try {
-            console.log(arrStr.length + " codes found in this page");
+          //  console.log(arrStr.length + " codes found in this page");
 
             for (var i = 0; i < arrStr.length; i++) {
 

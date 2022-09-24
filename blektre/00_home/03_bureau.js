@@ -25,28 +25,36 @@ module.exports = {
          * 
          *   */
         var chapitre = {
-
+            "intro": function () {
+                this.bureau();
+            },
+            
+            
+            
+            
+            
+            
             "bureau": function () {
                 game.gC.setInPlace("Bureau", perso);
-                var text = "Vous êtes dans le hall des bureaux de McSushi. <~SECRETAIRE>, <le secrétaire/la secrétaire/lea secrétaires/SECRETAIRE> a un petit sourire en coin.\n\
-- Je crois qu'ils n'ont pas terminé la réunion ... \n\
-Comme à chaque fois que vous vous trouvez dans ces locaux, vous vous mettez à suer abondamment, de cette sueur de stress âcre et très odorante.";
-                perso.log('Vous suez');
+                var text = "- Bonjour, vous avez rendez-vous ? \n\
+La question vous stressez, et vous suez abondamment.";
+                perso.log('Vous suez au travail');
                 perso.updateStat('sanity', -2);
 
                 perso.adversaire = game.getPersoByRole('SECRETAIRE');
 
                 perso.choiceExit = {
                     folder: folder,
-                    page: "bureau",
+                    page: "reunionkicked",
                     coolDownLabel: "fuming_de_secretaire",
                     coolDownTime: 1
                 };
 
                 var choices = [
-                    ["Je fonce en réunion", folder, "reunion"],
-                    ["Je vais à la machine à café", folder, "cafe"],
                     ["Je <le/la/lae/SECRETAIRE> fume", "00_home/00_fume", "fume"],
+                    ["Je fonce en réunion", folder, "reunion"],
+                    //   ["Je vais à la machine à café", folder, "cafe"],
+
                     ["Je me tire", "00_home/01_defense", "intro"]
                 ];
 
@@ -57,7 +65,12 @@ Comme à chaque fois que vous vous trouvez dans ces locaux, vous vous mettez à 
                 return {
                     flush: 1,
                     text: text,
-                    choices: choices
+                    choices: choices,
+                    phaserscene: "Bureau",
+                    phaseranimation: [
+                        [1, perso.nom, "idle", [0, 0]],
+                        [2, perso.adversaire.nom, "idle", [0, 0]],
+                    ]
                 };
 
             } //endscene()---------------------------------------------------------------------------
@@ -66,18 +79,20 @@ Comme à chaque fois que vous vous trouvez dans ces locaux, vous vous mettez à 
 
             , "reunion": function () {
                 game.gC.setInPlace("Bureau", perso);
-                var text = "Vous débarquez, suant, en salle de réunion. <~DIRECTOR>. Elle a spécialement été conçue pour être la pièce la plus anxiogène de tout le batiment. \n\
-<Le directeur/La directrice/Le directrices/DIRECTOR>, vous regarde d'un air furieux.\n\
-- Hé beh. C'est pas trop tôt.\n\
-De son côté, <~STAGIAIRE>, <le stagiaire/la stagiaire/lea stagiaires/STAGIAIRE>, vous regarde également d'un air peu amène.\n\
-Que dites-vous ? ";
+                var text = "Vous débarquez, suant, en salle de réunion. <~DIRECTOR> vous regarde à peine.\n\
+- Ca suffit, <~SELF>, ce n'est plus la peine de revenir.";
 
-
+                perso.choiceExit = {
+                    folder: folder,
+                    page: "reunionkicked",
+                    coolDownLabel: "fuming_de_patron",
+                    coolDownTime: 1
+                };
 
                 var choices = [
-                    ["Je fais une blague en lorrain pour détendre l'atmosphère", folder, "reunion_sanity"],
-                    ["Désolé, j'ai eu du retard ...", folder, "reunion_karma"],
-                    ["Je décoiffe négligemment <le directeur/la directrice/le directrices/DIRECTOR>", folder, "reunion_sex"]
+                    ["Je ris", folder, "reunionkicked__sanity"],
+                    ["Je pleure", folder, "reunionkicked__karma"],
+                    ["Je <le/la/lae/DIRECTOR> fume", "00_home/00_fume", "fume"],
                 ];
 
 
@@ -91,33 +106,14 @@ Que dites-vous ? ";
             } //endscene()---------------------------------------------------------------------------
 
 
+            , "reunionkicked": function () {
 
+                var text = "Vous êtes viré.";
 
-
-
-
-
-
-            , "reunion_sex": function () {
-                game.gC.setInPlace("Bureau", perso);
-                var text = "<Le directeur/La directrice/Le directrices/DIRECTOR> <DIRECTOR> vous regarde fixement. \n\
-De son côté, <~STAGIAIRE>, <le stagiaire/la stagiaire/lea stagiaires/STAGIAIRE>, vous regarde avec jalousie. \n\
-";
-
-                if (perso.sex > 100) {
-                    text += "- Je n'avais jamais prêté attention à votre style, " + perso.bnom + ". Il cisaille.\n\
-<Flatté/Flattée/Flattés/~SELF>, vous rougissez comme une tomate. ";
-                } else {
-                    text += "- C'est vous qui avez pété, " + perso.bnom + " ?\n\
-<Gêné/Gênée/Gênés/~SELF>, vous rougissez comme une tomate. ";
-                    perso.updateStat('sex', -5);
-                    perso.log('Vous avez des gazs');
-                }
-
+                perso.log('Vous vous êtes fait virer');
 
                 var choices = [
-                    ["Je bosse sérieusement", folder, "bosse"],
-                    ["Je m'éclipse au WC", folder, "wc"]
+                    ["Bye", "00_home/01_defense", "intro"]
                 ];
 
 
@@ -129,48 +125,6 @@ De son côté, <~STAGIAIRE>, <le stagiaire/la stagiaire/lea stagiaires/STAGIAIRE
                 };
 
             } //endscene()---------------------------------------------------------------------------
-
-
-
-            , "reunion_sanity": function () {
-                game.gC.setInPlace("Bureau", perso);
-                var text = "- Salut les feuts, sa gets mol ? dites-vous avec votre plus bel accent spinalien. \n\
-";
-
-                if (perso.sanity > 100) {
-                    text += "<Le directeur/La directrice/Le directrices/DIRECTOR> <DIRECTOR> semble troublé.\n\
-- <~SELF>, vous passerez me voir dans mon bureau après la réunion.\n\
-<il/elle/ielle/~DIRECTOR> sort.";
-                } else {
-                    text += "<Le directeur/La directrice/Le directrices/DIRECTOR> <DIRECTOR> vous regarde fixement. Puis <il/elle/ielle/~DIRECTOR> regarde se montre, et dit enfin : \n\
-- La réunion est terminée. <~SELF> ... non, rien. Les autres : on fait comme on a dit. Bonne journée.";
-                    perso.updateStat('sex', -5);
-                    perso.log('Vous avez des gazs');
-                }
-
-
-                var choices = [
-                    ["Je bosse sérieusement", folder, "bosse"],
-                    ["Je m'éclipse au WC", folder, "wc"]
-                ];
-
-
-
-                return {
-                    flush: 1,
-                    text: text,
-                    choices: choices
-                };
-
-            } //endscene()---------------------------------------------------------------------------
-
-
-
-
-
-
-
-
 
 
 

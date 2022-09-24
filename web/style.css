@@ -1,6 +1,9 @@
 *{
     background:none;
 }
+canvas{
+    background:#55415f !important;
+}
 
 .hidden{
     display:none;
@@ -17,9 +20,35 @@ button{
     font-size: 25px;
     color: #d77355;
     padding:14px;
-
     margin:0 0 20px;
 
+}
+button:hover{
+    background:#d77355;
+    color: #e6c86e;
+}
+
+input,textarea,select{
+    font-family:  'Share Tech Mono';
+    border:none;
+    background:none;
+    border-top:1px solid #d77355;
+    border-right:1px solid #d77355;
+    border-left:4px solid #d77355;
+    border-bottom:4px solid #d77355;
+    font-size: 25px;
+    color: #d77355;
+    padding:14px;
+    margin:0 0 20px;
+
+}
+
+.genrebox{
+    margin-left: 25px;
+
+}
+.genrebox input{
+    margin-right:38px;
 }
 
 .onhide{
@@ -43,26 +72,33 @@ body{
     margin: auto;
     background:#e6c86e;
     font-family:  'Share Tech Mono';
+    font-size: 25px;
+    color: #3c618e;
 
 }
+h1,h2,h3,h4,h5{
+    color:#d77355;
+}
 #character_menu,#createchar{
-    position: absolute;
-    margin-top: 110px;
-    margin-left: 20px;
-    max-width: 580px;
+
+    width: 600px;
+    margin-top: 50px;
+
+    margin: auto;
 
 }
 #connect{
-    position: absolute;
+    max-width:600px;
+    margin:auto;
     /* margin-top: 110px; */
-    margin-left: 20px;
+
 }
 
 #text{
     font-size: 25px;
     letter-spacing: -2px;
     color: #646964;
-    margin-top: 50px;
+
 
 }
 br{
@@ -80,32 +116,68 @@ br{
 .selected{
     border:2px solid red;
 }
-
+#notifs{
+    position: absolute;
+    margin-top: 75px;
+    background: white;
+    z-index: 33;
+    font-size: 20px;
+}
 .notif{
+
     margin:5px;
     font-style: italic;
 }
 
 #game{
-    display:flex;
+    width: 600px;
+    margin: auto;
+    /* margin-top: 5%; */
+
 }
+
+
+canvas {
+    pointer-events:none
+}
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent /* #d77355*/;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #d77355;
+    /* border-radius: 20px;*/
+    border: 3px solid transparent;
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #508cd7;
+}
+
+
 #leftgame {
-    min-width: 600px;
-    width: 30%;
-    padding: 20px;
+
+    width: 100%;
+
 }
 #fiche{
     position: relative;
-    width:50%;
+    width:100%;
 }
 #col_popups{
     margin-top: 20px;
-
-    position: absolute;
+    position: relative;
     right: 0;
     top: 0;
-    height: 100%;
-    width: 400px;
+
+    width: 100%;
     /* border: 1px solid black;*/
 }
 .popin{
@@ -118,7 +190,7 @@ br{
 
 
 .gamechoice_button{
-    width: 400px;
+
     cursor : pointer;
 }
 
@@ -139,6 +211,9 @@ br{
     margin: 20px auto;
 
 }
+
+
+
 #json, #persos{
     font-size: 16px;
     margin-top: 62Px;
@@ -184,16 +259,15 @@ br{
     left: 50px;
     display:none;
 }
-
+.showonstart{
+    display:none;
+}
 .placemap{
     width:100px;
     display:inline-block;
     cursor: pointer;
 }
-hr{
-    border: 1px solid #d77355;
 
-}
 
 iframe{
     border:none !important;
@@ -201,11 +275,16 @@ iframe{
     width:600px;
     height:400px;
 }
+
+
+
+
 #cadrephaser{
-    width: 650px;
-    height: 433px;
+
+    width: 650px !important;
+    height: 433px !important;
     position: absolute;
-    background-image: url(newwave_img/FRAME.PNG);
+    background-image: url(img/FRAME.PNG);
     z-index: -1;
     left: -16px;
     background-size: contain;
@@ -215,19 +294,25 @@ iframe{
 .green{
     background-color:#cefbd8;
 }
+
+
 .stats{
     opacity:0;
     display:flex;
     color:#d77355;
 
 }
+.stats1{
+    font-size: 19px;
+    padding: 10px;
+}
 .statbloc{
-    width:25%;
+    width:20%;
 }
 
 #visuel{
-    margin-left: 40px;
-    margin-top: 85px;
+
+    margin-top: 20px;
     position:relative;
 }
 
@@ -263,4 +348,56 @@ iframe{
 
 .gendered{
     font-style: italic;
+}
+.stat{
+    text-align:right;
+}
+.stat[data-stat=place]{
+    color: #3c618e;
+}
+
+.stats2 .statbloc .stat{
+    color:#d77355 !important;
+}
+.s33{
+    width:100%;
+}
+.stats2{
+    color:#64b964;
+    text-align:center;
+}
+button{
+    max-width: calc(100% - 40px);
+
+}
+@media screen and (max-width:600px){
+    #gheader{
+        font-size: 70%;
+
+    }
+    #cadrephaser{
+        display:none;
+    }
+    #game,#character_menu,iframe{
+        width:100%;
+    }
+    iframe{
+        height:300px;
+    }
+
+    .textzone{
+        padding:20px
+    }
+
+}
+
+
+#music{
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 10px;
+
+    font-size: 19px;
+
 }

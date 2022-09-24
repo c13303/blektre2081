@@ -2,10 +2,13 @@ process.chdir("/home/blektre2081/blektre2081/");
 var game = require('./../../game/game.js');
 var itemTools = require('./../../game/objets/itemsTools.js');
 
-
+/*
+ * 
+ *  Minimaliste version
+ */
 
 module.exports = {
-    name: "StreetUNIX",
+
     folder: "00_home/00_street",
 
     getPage: function (ws, page = "intro", param = null) {
@@ -31,32 +34,25 @@ module.exports = {
         var chapitre = {
 
             intro: function () {
-
                 game.gC.setInPlace("Zonmai", perso);
                 if (!perso.milestones.number_of_times_I_went_home) {
                     perso.milestones.number_of_times_I_went_home = 0;
                 }
                 perso.milestones.number_of_times_I_went_home++;
-
-
-
-                var text = "Lundi 29 mars 2081. 44ème étage de la tour B du square Manuel Valls, dans le 796ème arrondissement de Parly 3. Fin de matinée. \n\
-Assis sur le lit, vous contemplez par la fenêtre le périphérique interieur aérien supérieur, et son balet de voitures.\n\
-_PRESS_\n\
-Vous repensez au pot de célébration de la signature de votre CDI, hier soir. Peut-être auriez-vous dû éviter de vous faire gifler par <~STAGIAIRE>, <le/la/lae/STAGIAIRE> <stagiaire/stagiaire/stagiaires/STAGIAIRE>. A moins qu'il ne s'agissait d'une maladroite manifestation de son intérêt pour vous.\n\
-Vous êtes en retard. Que faites-vous ?";
-
+                var text = "Vous êtes dans votre nouvel appartement. \n\
+Vous contemplez par la fenêtre le périphérique interieur aérien supérieur, et son balet de voitures.\n\
+Si vous ne vous dépêchez pas, vous serez en retard au travail.";
                 var choices = [
                     ["Je vérifie mes likes sur Instagram", folder, "instagram"],
                     //    ["Je décroche le téléphone", folder, "tel_permis"],
-                    ["Je m'habille rapidement, et je fonce au travail", folder, "HUBstreet"],
+                    ["Je m'habille  et j'y vais", folder, "TheSquare"],
                 ];
                 return {
                     flush: 1,
                     text: text,
                     choices: choices,
                     phaserscene: "Home",
-                    phaseranimation: [[1, perso.nom, "idle", [0, 0]]]
+                    phaseranimation: [[1, perso.nom, "lay", [0, 0]]]
 
                 };
             }//endscene()---------------------------------------------------------------------------
@@ -67,23 +63,90 @@ Vous êtes en retard. Que faites-vous ?";
                 if (perso.milestones.number_of_times_I_went_home === 3) {
 
                 }
-                var text = " Vous êtes dans votre salon. Dehors, c'est l'heure de pointe et ça empeste le biodiesel.\n\
-Le quartier est devenu très en vogue, car cela fait bien deux ou trois ans que l'heure de pointe dure de façon ininterrompue. \n\
-Le téléphone, qui s'était tû quelques instants, se met à rejouer l'air agaçant qui vous sert de sonnerie, <~DJ_tube>, de <~DJ>. ";
+                var text = " Vous êtes dans votre salon. Ca sent très fort le biodiesel. <~DJ_tube>, le dernier tube de <~DJ>, se fait entendre par la fenêtre. ";
 
                 var choices = [
+                    ["Je me couche", folder, "dodo"],
                     ["Je vérifie mes likes sur Instagram", folder, "instagram"],
                     //   ["Je décroche le téléphone", folder, "tel_permis"],
-                    ["Je sors de chez moi", folder, "HUBstreet"]
+                    ["Je sors de chez moi", folder, "TheSquare"]
                 ];
+
+                var phaserAnimation = [
+                    [1, perso.nom, "idle", [0, 0]]
+                ];
+
                 return {
                     flush: 1,
                     text: text,
                     choices: choices,
                     phaserscene: "Home",
-                    phaseranimation: [[1, "idle", [0, 0]]]
+                    phaseranimation: phaserAnimation
                 };
             }//endscene()---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+            , "TheSquare": function () {
+                var place = "Square Manuel Valls";
+                game.gC.setInPlace(place, perso);
+                perso.choiceExit = {
+                    folder: "00_home/00_street",
+                    page: "TheSquare"
+                };
+
+
+
+
+                perso.updateStat('life', -1);
+
+                var random = game.gC.getSomeoneRandom(perso);
+
+                var text = "Square Manuel Valls. Dehors, le bruit des voitures rend la communication avec les autres assez difficile. ";
+
+                var choices = [
+                    ["Je prends le periph intérieur", "00_home/01_defense", "HUBdefense"],
+                    //   ["Je vais à Beverly Hills", folder, "HUBbeverly"],
+                    ["Périph extérieur", "00_home/06_periphext", "intro"],
+                    ["Go Home", folder, "intro2"]
+                ];
+
+                var phaserAnimation = [
+                    [1, perso.nom, "walk", [0, 0]]
+                ];
+                if (random && random.nom) {
+                    perso.adversaire = random;
+                    phaserAnimation.push([2, random.nom, "walk", [0, 0]]);
+                    choices.push(["J'embrouille  <~ADVERSAIRE>", "00_home/00_fume", "embrouille"]);
+                }
+
+
+                return {
+                    flush: 1,
+                    text: text,
+                    choices: choices,
+                    phaserscene: "Square",
+                    phaseranimation: phaserAnimation
+
+                };
+
+            } //endscene()---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
             , "tel": function () {
                 var text = "L'écran de votre Iphone TDC 455 s'illumine. En fond d'écran, une photo de vous de quand vous aviez encore des cheveux. ";
 
@@ -96,18 +159,16 @@ Le téléphone, qui s'était tû quelques instants, se met à rejouer l'air aga�
                 return {
                     flush: 1,
                     text: text,
-                    choices: choices
+                    choices: choices,
+                    phaserscene: "tel",
                 };
 
             }//endscene()---------------------------------------------------------------------------
             , "instagram": function () {
-                var text = "Après avoir retrouvé votre téléphone au fond de votre lit, vous scrollez fièvreusement vers le haut du fil pour découvrir une seule et unique petite notification de like. \n\
-Un unique like en 24 heures, c'est peu, mais c'est déjà ça.\n\
-Vous cliquez nerveusement sur la notif', et découvrez qu'elle vient d'<un/une/uns/INFLUENCE> <certain/certaine/certaines/INFLUENCE> <~INFLUENCE> \n\
-Vous ressentez quelque chose de l'ordre de la satisfaction, mêlée à un goût de merde. ";
+                var text = "Vous avez un like. <Un/Une/Uns/INFLUENCE> <certain/certaine/certaines/INFLUENCE> <~INFLUENCE>";
 
                 var choices = [
-                    ["Je contacte <cet inconnu/cette inconnue/cettes inconnus/INFLUENCE>", folder, "instacontact"],
+                    ["Je visite son profil", folder, "instacontact"],
                     ["Je poste un selfie", folder, "selfie"],
                     ["Je range ce maudit téléphone", folder, "intro2"]
 
@@ -115,25 +176,26 @@ Vous ressentez quelque chose de l'ordre de la satisfaction, mêlée à un goût 
                 return {
                     flush: 1,
                     text: text,
-                    choices: choices
+                    choices: choices,
+                    phaserscene: "tel",
                 };
 
             }//endscene()---------------------------------------------------------------------------
 
             , "instacontact": function () {
                 var text = "Vous parcourez rapidement son flux de photos, habilement habillé de selfies dans lesquelles <~INFLUENCE> se met en valeur dans des poses suggestives.  \n\
-Vous sentez le pouvoir de l'attraction appliquer lentement ses gros pouces grumeleux tout autour de votre gorge.\n\
-Vous vous lancez et commencez à pianoter un message. Quelle teneur souhaitez-vous lui susursufler ? ";
+Soudain, votre pouce dérape et vous likez une photo sans faire exprès. ";
 
                 var choices = [
-                    ["Supplication menaçante", folder, "instacontact2__menace"],
-                    ["Soumission totale", folder, "instacontact2__soumi"],
-                    ["Rentre-dedans", folder, "instacontact2__rentre"],
+                    ["Je retire le like", folder, "instacontact2__retire"],
+                    ["Je laisse le like", folder, "instacontact2__like"],
+                    ["Je lui envoie un message privé", folder, "instacontact2__pm"],
                 ];
                 return {
                     flush: 1,
                     text: text,
-                    choices: choices
+                    choices: choices,
+                    phaserscene: "tel",
                 };
 
             } //endscene()---------------------------------------------------------------------------
@@ -147,7 +209,8 @@ Vous vous lancez et commencez à pianoter un message. Quelle teneur souhaitez-vo
                     return {
                         flush: 1,
                         text: text,
-                        choices: choices
+                        choices: choices,
+                        phaserscene: "tel",
                     };
                 }
 
@@ -175,33 +238,42 @@ Le résultat est abominable.  ";
                 return {
                     flush: 1,
                     text: text,
-                    choices: choices
+                    choices: choices,
+                    phaserscene: "tel",
                 };
 
             } //endscene()---------------------------------------------------------------------------
+
+
+
+
+
+
+
             , "instacontact2": function (param) {
 
-                if (param === 'menace') {
-                    var text = "- Salut beauté/beautée/beauté, bien vu ton like ! Dis donc, j'avais justement prévu de passer dans le 77ème, j'espère que tu vas bien m'y accueillir ! LOL";
+                if (param === 'retire') {
+                    var text = "Vous ôtez le like. Mais vous songez au fait qu'<il/elle/ielle/INFLUENCE> aurait pu vu la notification malgré tout. ";
                 }
-                if (param === 'soumi') {
-                    var text = "- Bonjour, merci infiniment pour ton petit like qui fait tellement du bien ... Je pensais passer dans le 77ème justement, tu crois que je pourrais t'y croiser ?";
+                if (param === 'like') {
+                    var text = "Vous laissez le like, tel un signe du destin.";
                 }
-                if (param === 'rentre') {
-                    var text = "- Yop";
+                if (param === 'pm') {
+                    var text = "- Yop.\n\
+Le message passe immédiatement en vu.";
+
                 }
 
-                text += "\
-\n\
-Le message est rapidement mis en vu, et reste sans réponse. Vous prenez cela pour une invitation.";
+
 
                 var choices = [
-                    ["Excellent", folder, "intro2"]
+                    ["OK ...", folder, "intro2"]
                 ];
                 return {
                     flush: 1,
                     text: text,
-                    choices: choices
+                    choices: choices,
+                    phaserscene: "tel",
                 };
 
             }//endscene()---------------------------------------------------------------------------
@@ -212,49 +284,53 @@ Le message est rapidement mis en vu, et reste sans réponse. Vous prenez cela po
 
 
 
+            , "dodo": function () {
 
+                if (perso.life > 50) {
+                    var text = "Vous n'êtes pas assez fatigué pour vous endormir ...";
+                    var choices = [
+                        ["OK ...", folder, "intro2"]
+                    ];
+                    return {
+                        flush: 1,
+                        text: text,
+                        choices: choices,
+                        phaserscene: "tel"
+                    };
+                } else {
 
+                    var text = "Vous dormez.";
 
+                    perso.updateStat("life", +50);
+                    perso.updateStat("sex", +10);
+                    perso.updateStat("karma", +10);
+                    perso.updateStat("sanity", +10);
+                    perso.log('Vous dormez');
 
-
-
-
-            , "HUBstreet": function () {
-                var place = "Square Manuel Valls";
-                game.gC.setInPlace(place, perso);
-
-
-                var peopleHere = game.gC.getOtherPeopleHere(place, perso);
-
-                var random = peopleHere[0];
-
-                var text = "Dehors, le bruit des voitures rend la communication difficile. Vous montez dans votre micro-Ford violette.";
-
-                var choices = [
-                    ["Je vais à la Défense", "00_home/01_defense", "HUBdefense"],
-                    //   ["Je vais à Beverly Hills", folder, "HUBbeverly"],
-                    ["Je vais sur le périphérique extérieur", folder, "HUBperiph"],
-                    ["Je rentre chez moi", folder, "intro2"]
-                ];
-
-                var phaserAnimation = [
-                    [1, perso.nom, "walk", [0, 0]]
-                ];
-                if (random && random.nom) {
-                    phaserAnimation.push([2, random.nom, "walk", [0, 0]]);
+                    var choices = [
+                        ["OK ...", folder, "intro2"]
+                    ];
+                    return {
+                        flush: 1,
+                        text: text,
+                        choices: choices,
+                        phaserscene: "tel"
+                    };
                 }
 
 
-                return {
-                    flush: 1,
-                    text: text,
-                    choices: choices,
-                    phaserscene: "StreetHub",
-                    phaseranimation: phaserAnimation
 
-                };
 
-            } //endscene()---------------------------------------------------------------------------
+
+            }//endscene()---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
 
 
 

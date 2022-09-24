@@ -18,6 +18,7 @@ function phaseranim() {
     PS = document.getElementById('phaserframe').contentWindow;
     ctx = PS.Ctx();
     levelctx = PS.levelCtx();
+
 }
 setTimeout(function () {
     phaseranim();
@@ -29,54 +30,36 @@ function phaserHook(d) {
     var scenechanged = null;
 
     if (PS) {
-        if (d.phaserscene && d.phaserscene !== lastScene) {
+        if (d.phaserscene) {
             PS.changeScene(d.phaserscene);
-            // lastScene = d.phaserscene;
             scenechanged = true;
-        } else {
-            /* Disabled autoscene
-             if (d.scene && d.scene !== lastScene) {
-             PS.changeScene(d.scene);
-             lastScene = d.scene;
-             scenechanged = true;
-             }
-             * 
-             */
         }
 
 
 
 
-        if (scenechanged) {
-
+        if (scenechanged) { // si scene a changé, on change les têtes peu après
             jQuery('#phaserframe').fadeOut(0);
-            var persals = persos;
             setTimeout(function () {
-                // PS.changeSprite(1, mychar.type);
-                /*
-                 if (mychar.adversaire) {
-                 var man = persos[mychar.adversaire];
-                 if (man && man.type)
-                 PS.changeSprite(2, man.type);
-                 }
-                 */
+                var persals = persos;
                 if (d.phaseranimation) {
                     PS.animateHead(d.phaseranimation, persals);
                 }
-                jQuery('#phaserframe').fadeIn(100);
-
-
-            }, 50);
+                jQuery('#phaserframe').fadeIn(0);
+            }, 10);
+        } else { // sinon sans attendre
+            if (d.phaseranimation) {
+                PS.animateHead(d.phaseranimation, persals);
+            }
         }
-
-
-
-
-
-
-
 
 
     }
 
 }
+$(document).ready(function () {
+    $('#music').click(function () {
+        console.log('stopmusic');
+        PS.stopMusic();
+    });
+});

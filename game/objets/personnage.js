@@ -19,8 +19,9 @@ class perso {
         this.bnom = "<span class='perso_' data-n='" + this.nom + "'>" + nom + "</span>";
         this.type = type;
         this.bio = bio;
-        this.chapitre = '00_home/00_street';        this.scene = 'intro';
-       // this.chapitre = '00_home/01_defense';        this.scene = 'intro';
+        this.chapitre = '00_home/00_street';
+        this.scene = 'intro';
+        // this.chapitre = '00_home/01_defense';        this.scene = 'intro';
         this.place = 'uterus';
         this.page = "disclaimer";
         this.gender = gender;
@@ -195,13 +196,17 @@ class perso {
             return null;
         }
     }
-
+    us(stat, value) {
+        updateStat(stat, value);
+    }
     updateStat(stat, value) {
         console.log('Update STAT de ' + this.nom + ' ' + stat + ' ' + value);
 
 
         var newstat = this[stat] + value;
 
+        if (newstat > 100)
+            newstat = 100;
 
 
         if (newstat > this[stat]) {

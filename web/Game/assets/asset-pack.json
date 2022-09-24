@@ -7,12 +7,77 @@
                 "key": "animations"
             },
             {
+                "url": "assets/png/bureau.png",
+                "type": "image",
+                "key": "bureau"
+            },
+            {
+                "url": "assets/scenes/Bureau.js",
+                "type": "sceneFile",
+                "key": "Bureau"
+            },
+            {
+                "url": "assets/places/click.png",
+                "type": "image",
+                "key": "click"
+            },
+            {
+                "url": "assets/png/meubles/corner_pharma_desk.png",
+                "type": "image",
+                "key": "corner_pharma_desk"
+            },
+            {
+                "url": "assets/png/cybercafe.png",
+                "type": "image",
+                "key": "cybercafe"
+            },
+            {
+                "url": "assets/png/meubles/cyberdesk.png",
+                "type": "image",
+                "key": "cyberdesk"
+            },
+            {
+                "url": "assets/png/defense_hot.png",
+                "type": "image",
+                "key": "defense"
+            },
+            {
+                "url": "assets/scenes/Defense.js",
+                "type": "sceneFile",
+                "key": "Defense"
+            },
+            {
+                "url": "assets/png/meubles/desk_bleu.png",
+                "type": "image",
+                "key": "desk_bleu"
+            },
+            {
+                "url": "assets/png/meubles/desk_jaune.png",
+                "type": "image",
+                "key": "desk_jaune"
+            },
+            {
+                "url": "assets/png/meubles/desk_vert.png",
+                "type": "image",
+                "key": "desk_vert"
+            },
+            {
+                "url": "assets/places/duel.png",
+                "type": "image",
+                "key": "duel"
+            },
+            {
+                "url": "assets/scenes/Duel.js",
+                "type": "sceneFile",
+                "key": "Duel"
+            },
+            {
                 "url": "assets/png/home.png",
                 "type": "image",
                 "key": "home"
             },
             {
-                "url": "assets/places/Home.js",
+                "url": "assets/scenes/Home.js",
                 "type": "sceneFile",
                 "key": "Home"
             },
@@ -22,7 +87,50 @@
                 "key": "INTRO"
             },
             {
-                "url": "assets/png/fullPersos/pngs/perso1.png",
+                "url": "assets/places/introscreen.png",
+                "type": "image",
+                "key": "introscreen"
+            },
+            {
+                "url": "assets/persos/LAYDOWNBIBLE.PNG",
+                "frameConfig": {
+                    "frameWidth": 64,
+                    "frameHeight": 32,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "LAYDOWNBIBLE"
+            },
+            {
+                "url": "assets/png/meubles/office.png",
+                "type": "image",
+                "key": "office"
+            },
+            {
+                "url": "assets/png/parvis.png",
+                "type": "image",
+                "key": "parvis"
+            },
+            {
+                "url": "assets/scenes/Parvis.js",
+                "type": "sceneFile",
+                "key": "Parvis"
+            },
+            {
+                "url": "assets/places/periph.png",
+                "type": "image",
+                "key": "periph"
+            },
+            {
+                "url": "assets/scenes/Periph.js",
+                "type": "sceneFile",
+                "key": "Periph"
+            },
+            {
+                "url": "assets/persos/perso1.png",
                 "frameConfig": {
                     "frameWidth": 32,
                     "frameHeight": 64,
@@ -35,7 +143,7 @@
                 "key": "perso1"
             },
             {
-                "url": "assets/png/fullPersos/pngs/persoB.png",
+                "url": "assets/persos/persoB.png",
                 "frameConfig": {
                     "frameWidth": 32,
                     "frameHeight": 64,
@@ -48,9 +156,52 @@
                 "key": "persoB"
             },
             {
-                "url": "assets/places/Portrait.js",
+                "url": "assets/persos/persoC.png",
+                "frameConfig": {
+                    "frameWidth": 32,
+                    "frameHeight": 64,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "persoC"
+            },
+            {
+                "url": "assets/png/hats/pharma.png",
+                "type": "image",
+                "key": "pharma"
+            },
+            {
+                "url": "assets/png/pharmacie.png",
+                "type": "image",
+                "key": "pharmacie"
+            },
+            {
+                "url": "assets/scenes/Pharmacie.js",
+                "type": "sceneFile",
+                "key": "Pharmacie"
+            },
+            {
+                "url": "assets/scenes/Portrait.js",
                 "type": "sceneFile",
                 "key": "Portrait"
+            },
+            {
+                "url": "assets/scenes/Preloader.js",
+                "type": "sceneFile",
+                "key": "Preloader"
+            },
+            {
+                "url": "assets/places/square.png",
+                "type": "image",
+                "key": "square"
+            },
+            {
+                "url": "assets/scenes/Square.js",
+                "type": "sceneFile",
+                "key": "Square"
             },
             {
                 "url": "assets/png/street.png",
@@ -58,9 +209,19 @@
                 "key": "street_1"
             },
             {
-                "url": "assets/places/StreetHub.js",
+                "url": "assets/scenes/StreetHub.js",
                 "type": "sceneFile",
                 "key": "StreetHub"
+            },
+            {
+                "url": "assets/png/tel.png",
+                "type": "image",
+                "key": "tel"
+            },
+            {
+                "url": "assets/scenes/tel.js",
+                "type": "sceneFile",
+                "key": "tel"
             }
         ]
     },

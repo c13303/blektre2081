@@ -83,7 +83,7 @@
                     "keyframe": false
                 }
             ],
-            "frameRate": 24,
+            "frameRate": 3,
             "skipMissedFrames": true,
             "repeat": -1
         },
@@ -105,6 +105,135 @@
                 }
             ],
             "frameRate": 3,
+            "skipMissedFrames": true,
+            "repeat": -1
+        },
+        {
+            "key": "layP2",
+            "type": "frame",
+            "frames": [
+                {
+                    "key": "LAYDOWNBIBLE",
+                    "frame": 0,
+                    "duration": 0,
+                    "keyframe": false
+                }
+            ],
+            "frameRate": 3,
+            "skipMissedFrames": true,
+            "repeat": -1
+        },
+        {
+            "key": "layP1",
+            "type": "frame",
+            "frames": [
+                {
+                    "key": "LAYDOWNBIBLE",
+                    "frame": 1,
+                    "duration": 0,
+                    "keyframe": false
+                }
+            ],
+            "frameRate": 3,
+            "skipMissedFrames": true,
+            "repeat": -1
+        },
+        {
+            "key": "idleP3",
+            "type": "frame",
+            "frames": [
+                {
+                    "key": "persoC",
+                    "frame": 0,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoC",
+                    "frame": 1,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoC",
+                    "frame": 2,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoC",
+                    "frame": 3,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoC",
+                    "frame": 5,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoC",
+                    "frame": 6,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoC",
+                    "frame": 7,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoC",
+                    "frame": 8,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoC",
+                    "frame": 9,
+                    "duration": 0,
+                    "keyframe": false
+                }
+            ],
+            "frameRate": 3,
+            "skipMissedFrames": true,
+            "repeat": -1
+        },
+        {
+            "key": "walkP3",
+            "type": "frame",
+            "frames": [
+                {
+                    "key": "persoC",
+                    "frame": 3,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoC",
+                    "frame": 4,
+                    "duration": 0,
+                    "keyframe": false
+                }
+            ],
+            "frameRate": 3,
+            "skipMissedFrames": true,
+            "repeat": -1
+        },
+        {
+            "key": "layP3",
+            "type": "frame",
+            "frames": [
+                {
+                    "key": "LAYDOWNBIBLE",
+                    "frame": 2,
+                    "duration": 0,
+                    "keyframe": false
+                }
+            ],
+            "frameRate": 24,
             "skipMissedFrames": true,
             "repeat": -1
         }

@@ -6,7 +6,11 @@ Phaser Editor :
 
 AJOUTER UNE SCENE :
 
+
+
+- Ajouter l'image dans les fichiere
 -Creer le fichier scene dans le repertoire
+- Fabriquer la scene avec la premiere image
 -Importer la scene au json-asset-pack
 -Rajouter au js : 
 	init() {
