@@ -198,14 +198,32 @@ module.exports = {
                     ];
 
 
-                    var phaseranimation = [[1, perso.nom, "punch", [0, 0]]];
-                    phaseranimation.push([2, adversaire.nom, "takecher", [0, 0]]);
+                    var phaseranimation = [
+                        [1, perso.nom, "punch"],
+                        [2, adversaire.nom, "takecher"]
+                    ];
 
 
                     // perso interruption
                 } else {
-                    var text = "Vous approchez de <~ADVERSAIRE> et tentez de <le/la/lae/ADVERSAIRE> frapper, mais <Il/Elle/Elles/ADVERSAIRE> esquive tel le pigeon dans l'enfer des villes; en retour, <Il/Elle/Elles/ADVERSAIRE> vous adresse un prompt coup de boule sur le nez. \n\
-Vous vous écroulez sur le sol, en sang. <~ADVERSAIRE> vous urine dessus en riant, avant de s'éloigner.";
+                    var text = "Tel le pigeon dans l'enfer des villes, <~ADVERSAIRE> esquive votre coup et vous allume en retour. ";
+
+                    if (adversaire.sex > perso.sex) {
+                        text += "<~ADVERSAIRE> vous urine dessus en riant, avant de s'éloigner.";
+                        perso.updateStat('sex', 1);
+                        perso.updateStat('sex', 1);
+                        perso.updateStat('sex', 1);
+                        perso.updateStat('sex', 1);
+                        perso.updateStat('sex', 1);
+                        perso.updateStat('sex', 1);
+                        perso.updateStat('sex', 1);
+                        perso.updateStat('sex', 1);
+                        perso.updateStat('sex', 1);
+                        perso.updateStat('sex', 1);
+                        perso.updateStat('sex', 1);
+                        perso.updateStat('sex', 1);
+
+                    }
 
                     perso.updateStat('life', -25);
                     adversaire.log("Vous adressez un prompt coup de boule à " + adversaire.bnom);
@@ -214,8 +232,11 @@ Vous vous écroulez sur le sol, en sang. <~ADVERSAIRE> vous urine dessus en rian
                     perso.log(perso.bnom + " vous adresse un prompt coup de boule");
                     // perso interruption
 
-                    var phaseranimation = [[1, perso.nom, "takecher", [0, 0]]];
-                    phaseranimation.push([2, adversaire.nom, "punch," [0, 0]]);
+                    var phaseranimation = [
+                        [1, perso.nom, "takecher"],
+                        [2, adversaire.nom, "punch"]
+                    ];
+
 
 
                     var choices = [
@@ -250,11 +271,16 @@ Vous vous écroulez sur le sol, en sang. <~ADVERSAIRE> vous urine dessus en rian
                 if (perso.sanity > adversaire.sanity) {
                     var text = "Vous urinez sur <~ADVERSAIRE>.\n\
 ";
-                    perso.updateStat('sanity', -10);
-                    adversaire.updateStat('sanity', +10, perso);
-                    perso.log("Vous adressez un prompt coup de boule à " + adversaire.bnom);
-                    adversaire.log(perso.bnom + " vous adresse un prompt coup de boule");
-                    perso.cool("cochon_indispo", 1, "Le cochon est de nouveau dispo");
+                    perso.updateStat('sex', -10);
+
+                    adversaire.updateStat('sex', 1);
+                    adversaire.updateStat('sex', 1);
+                    adversaire.updateStat('sex', 1);
+                    adversaire.updateStat('sex', 1);
+                    adversaire.updateStat('sex', 1);
+                    adversaire.updateStat('sex', 1);
+                    perso.log("Vous urinez sur " + adversaire.bnom);
+                    adversaire.log(perso.bnom + " vous urine dessus");
                     var choices = [
 
                         ["Je m'en vais", perso.choiceExit.folder, perso.choiceExit.page]
@@ -264,13 +290,15 @@ Vous vous écroulez sur le sol, en sang. <~ADVERSAIRE> vous urine dessus en rian
                     var text = "Vous essayez d'uriner mais vous n'y parvenez pas. ";
                     perso.updateStat('karma', -25);
                     perso.updateStat('sanity', -25);
-                    adversaire.log("Vous adressez un prompt coup de boule à " + adversaire.bnom);
-                    perso.log(perso.bnom + " vous adresse un prompt coup de boule");
+                    perso.log("Vous essayez d'uriner sur " + perso.bnom + " sans y parvenir");
                     // perso interruption
 
                     var choices = [
-                        ["Je ramasse ma dignité", perso.choiceExit.folder, perso.choiceExit.page]
+                        ["Je ramasse ma dignité", perso.choiceExit.folder, perso.choiceExit.page],
+                        ["Je me suicide", folder, "suicide"]
                     ];
+
+
                 }
 
 
