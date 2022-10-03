@@ -79,8 +79,15 @@ var consoleTools = {
     , roles: function () {
         console.log(gC.roles);
     }
-
-
+    , perso: function (param) {
+        console.log(gC.persos[param]);
+    }
+     , whosonline: function () {
+        console.log(gC.WSPersos);
+    },
+    us: function(){
+        
+    }
 };
 
 
@@ -154,7 +161,7 @@ function handleDisconnect() {
     // If you're also serving http, display a 503 error.
     connection.on('error', function (err) {
         tools.report('db error', err);
-        if (err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
+        if (err.code === 'PROTOCOL_CONNECTION_LOST' || err.code === 'ECONNRESET') { // Connection to the MySQL server is usually
             handleDisconnect(); // lost due to either server restart, or a
         } else { // connnection idle timeout (the wait_timeout
             throw err; // server variable configures this)

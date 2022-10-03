@@ -28,20 +28,17 @@ module.exports = {
             "intro": function () {
                 this.bureau();
             },
-            
-            
-            
-            
-            
-            
+
             "bureau": function () {
+                perso.updateStat('life', -1);
                 game.gC.setInPlace("Bureau", perso);
                 var text = "- Bonjour, vous avez rendez-vous ? \n\
 La question vous stressez, et vous suez abondamment.";
                 perso.log('Vous suez au travail');
                 perso.updateStat('sanity', -2);
 
-                perso.adversaire = game.getPersoByRole('SECRETAIRE');
+                var SECRETAIRE = game.getPersoByRole("SECRETAIRE");
+                perso.adversaire = SECRETAIRE.nom;
 
                 perso.choiceExit = {
                     folder: folder,
@@ -62,6 +59,9 @@ La question vous stressez, et vous suez abondamment.";
                     choices[2] = ["(" + perso.iscooling(perso.choiceExit.coolDownLabel) + "m)", folder, "disabled"];
                 }
 
+                var adversaire = perso.getAdversaire();
+
+
                 return {
                     flush: 1,
                     text: text,
@@ -69,7 +69,7 @@ La question vous stressez, et vous suez abondamment.";
                     phaserscene: "Bureau",
                     phaseranimation: [
                         [1, perso.nom, "idle", [0, 0]],
-                        [2, perso.adversaire.nom, "idle", [0, 0]],
+                        [2, adversaire.nom, "idle", [0, 0]],
                     ]
                 };
 

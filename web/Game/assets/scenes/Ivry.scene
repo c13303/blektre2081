@@ -1,0 +1,58 @@
+{
+    "id": "e0a15212-caa4-4304-96ec-8e2fba2ee26c",
+    "sceneType": "SCENE",
+    "settings": {
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "sceneKey": "Ivry",
+        "borderWidth": 150,
+        "borderHeight": 100
+    },
+    "displayList": [
+        {
+            "type": "Image",
+            "id": "343cfe59-2b5f-4bd0-960c-8490c5a67ce4",
+            "label": "ivry",
+            "components": [],
+            "texture": {
+                "key": "ivry"
+            },
+            "x": 75,
+            "y": 50
+        },
+        {
+            "type": "Sprite",
+            "id": "84ac09c1-b12a-49de-a2cb-56d5f2bb1b90",
+            "label": "player1",
+            "scope": "PUBLIC",
+            "components": [],
+            "texture": {
+                "key": "perso1",
+                "frame": 0
+            },
+            "x": 56,
+            "y": 53
+        },
+        {
+            "type": "Sprite",
+            "id": "5464a39d-9ff0-4fc9-86fc-dd33f946f92f",
+            "label": "player2",
+            "scope": "PUBLIC",
+            "components": [],
+            "texture": {
+                "key": "perso1",
+                "frame": 0
+            },
+            "x": 106,
+            "y": 52,
+            "scaleX": -1
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 3
+    }
+}

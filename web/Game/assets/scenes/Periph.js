@@ -20,24 +20,26 @@ class Periph extends Phaser.Scene {
 		this.add.image(75, 50, "periph");
 
 		// player4
-		const player4 = this.add.sprite(109, 63, "perso1", 0);
+		const player4 = this.add.sprite(225, 55, "perso1", 0);
 		player4.scaleX = -1;
 
-		// player3
-		const player3 = this.add.sprite(132, 53, "perso1", 0);
-		player3.scaleX = -1;
-
 		// player1
-		const player1 = this.add.sprite(31, 54, "perso1", 0);
+		const player1 = this.add.sprite(64, 45, "HEADS_", 0);
 
 		// player2
-		const player2 = this.add.sprite(90, 53, "perso1", 0);
+		const player2 = this.add.sprite(130, 64, "perso1", 0);
 		player2.scaleX = -1;
 
+		// cartop1
+		this.add.image(53, 55, "cartop1");
+
+		// player3
+		const player3 = this.add.sprite(103, 64, "perso1", 0);
+
 		this.player4 = player4;
-		this.player3 = player3;
 		this.player1 = player1;
 		this.player2 = player2;
+		this.player3 = player3;
 
 		this.events.emit("scene-awake");
 	}
@@ -45,11 +47,11 @@ class Periph extends Phaser.Scene {
 	/** @type {Phaser.GameObjects.Sprite} */
 	player4;
 	/** @type {Phaser.GameObjects.Sprite} */
-	player3;
-	/** @type {Phaser.GameObjects.Sprite} */
 	player1;
 	/** @type {Phaser.GameObjects.Sprite} */
 	player2;
+	/** @type {Phaser.GameObjects.Sprite} */
+	player3;
 
 	/* START-USER-CODE */
 

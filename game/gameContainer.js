@@ -39,6 +39,12 @@ module.exports = {
         }
         , "PHARMACIEN": {
             nom: "mux"
+        },
+        "VIGILE": {
+            nom: "mux"
+        },
+        "MENDIANT": {
+            nom: "mux"
         }
         /// lots of manche roles
     },
@@ -86,7 +92,8 @@ module.exports = {
             sanity: perso.sanity,
             money: perso.money,
             place: perso.place,
-            relationships: perso.relationships
+            relationships: perso.relationships,
+            usNotice: perso.usNotice
         };
         return packed;
     },
@@ -98,6 +105,15 @@ module.exports = {
         }
         return packedPersos;
     },
+    getPackedPersosFromPlace: function (place, exclude = null) {
+        var packedPersos = {};
+        for (const [key, value] of Object.entries(this.persos)) {
+            if (!value.horsjeu && value.place === place)
+                packedPersos[key] = this.getPackedPerso(value);
+        }
+        return packedPersos;
+    },
+
     /* change a perso de place and notify EVERYBOY */
     setInPlace: function (place, perso, old_place_check = true) {
 
@@ -140,7 +156,14 @@ module.exports = {
             if (this.WSPersos[key]) {
                 var ws = this.WSPersos[key];
                 try {
-                    ws.send(JSON.stringify({persos: packedPersos}));
+
+                    ws.send(JSON.stringify(
+                            {
+                                persos: packedPersos,
+                                whoMoved: perso.nom
+
+                            }
+                    ));
                 } catch (e) {
                     tools.report('Erreur setInPlace WS : client has closed');
                     //tools.report(e);

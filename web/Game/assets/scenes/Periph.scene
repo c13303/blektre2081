@@ -30,22 +30,8 @@
                 "key": "perso1",
                 "frame": 0
             },
-            "x": 109,
-            "y": 63,
-            "scaleX": -1
-        },
-        {
-            "type": "Sprite",
-            "id": "49806b72-df48-4364-9683-7783a554620a",
-            "label": "player3",
-            "scope": "PUBLIC",
-            "components": [],
-            "texture": {
-                "key": "perso1",
-                "frame": 0
-            },
-            "x": 132,
-            "y": 53,
+            "x": 225,
+            "y": 55,
             "scaleX": -1
         },
         {
@@ -55,11 +41,11 @@
             "scope": "PUBLIC",
             "components": [],
             "texture": {
-                "key": "perso1",
+                "key": "HEADS_",
                 "frame": 0
             },
-            "x": 31,
-            "y": 54
+            "x": 64,
+            "y": 45
         },
         {
             "type": "Sprite",
@@ -71,9 +57,33 @@
                 "key": "perso1",
                 "frame": 0
             },
-            "x": 90,
-            "y": 53,
+            "x": 130,
+            "y": 64,
             "scaleX": -1
+        },
+        {
+            "type": "Image",
+            "id": "cc05fa0e-3e8d-4284-b34d-144bc18c9baf",
+            "label": "cartop1",
+            "components": [],
+            "texture": {
+                "key": "cartop1"
+            },
+            "x": 53,
+            "y": 55
+        },
+        {
+            "type": "Sprite",
+            "id": "49806b72-df48-4364-9683-7783a554620a",
+            "label": "player3",
+            "scope": "PUBLIC",
+            "components": [],
+            "texture": {
+                "key": "perso1",
+                "frame": 0
+            },
+            "x": 103,
+            "y": 64
         }
     ],
     "plainObjects": [],

@@ -5,53 +5,55 @@
 
 class Parvis extends Phaser.Scene {
 
-    constructor() {
-        super("Parvis");
+	constructor() {
+		super("Parvis");
 
-        /* START-USER-CTR-CODE */
+		/* START-USER-CTR-CODE */
         // Write your code here.
         /* END-USER-CTR-CODE */
-    }
+	}
 
-    /** @returns {void} */
-    editorCreate() {
+	/** @returns {void} */
+	editorCreate() {
 
-        // parvis
-        this.add.image(75, 50, "parvis");
+		// parvis
+		this.add.image(75, 50, "parvis");
 
-        // player2
-        const player2 = this.add.sprite(108, 54, "perso1", 0);
-        player2.scaleX = -1;
+		// player2
+		const player2 = this.add.sprite(81, 24, "perso1", 0);
+		player2.scaleX = -1;
 
-        // player1
-        const player1 = this.add.sprite(49, 55, "perso1", 0);
+		// player1
+		const player1 = this.add.sprite(26, 56, "perso1", 0);
 
-        // player3
-        const player3 = this.add.sprite(133, 47, "perso1", 0);
-        player3.scaleX = -1;
+		// player3
+		const player3 = this.add.sprite(127, 56, "perso1", 0);
+		player3.scaleX = -1;
 
-        // player4
-        const player4 = this.add.sprite(127, 64, "perso1", 0);
-        player4.scaleX = -1;
+		// player4
+		const player4 = this.add.sprite(54, 29, "perso1", 0);
 
-        this.player2 = player2;
-        this.player1 = player1;
-        this.player3 = player3;
-        this.player4 = player4;
+		// stop
+		this.add.image(98, 41, "stop");
 
-        this.events.emit("scene-awake");
-    }
+		this.player2 = player2;
+		this.player1 = player1;
+		this.player3 = player3;
+		this.player4 = player4;
 
-    /** @type {Phaser.GameObjects.Sprite} */
-    player2;
-    /** @type {Phaser.GameObjects.Sprite} */
-    player1;
-    /** @type {Phaser.GameObjects.Sprite} */
-    player3;
-    /** @type {Phaser.GameObjects.Sprite} */
-    player4;
+		this.events.emit("scene-awake");
+	}
 
-    /* START-USER-CODE */
+	/** @type {Phaser.GameObjects.Sprite} */
+	player2;
+	/** @type {Phaser.GameObjects.Sprite} */
+	player1;
+	/** @type {Phaser.GameObjects.Sprite} */
+	player3;
+	/** @type {Phaser.GameObjects.Sprite} */
+	player4;
+
+	/* START-USER-CODE */
     init() {
         levelctx = this;
 

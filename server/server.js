@@ -132,6 +132,8 @@ serveur.startServer = function () {
                         "connected": 1,
                         "mydata": ws.data
                     }));
+
+
                     game.gameInit(ws, connection);
 
 
@@ -155,23 +157,34 @@ serveur.startServer = function () {
                         for (var i = 0; i < ws.char_inventory.length; i++) {
 
                             var perso = gC.persos[ws.char_inventory[i].nom];
+
+
+
                             if (!perso) {
                                 tools.report('ERROR AT SAVE THE CHARACTER ' + ws.char_inventory[i].nom + 'IS NOT STORED IN GC.PERSOS');
                                 tools.report("GC.PERSOS " + JSON.stringify(gC.persos));
                                 tools.report("CHAR INVENTORY " + JSON.stringify(ws.char_inventory));
                                 continue;
                             }
+
+
+
+
+
+
                             if (perso.toInsertDB) {
                                 perso.toInsertDB = null;
                                 var data = JSON.stringify(perso);
+                                console.log('BDD INSERT : ' + perso.nom);
                                 connection.query('INSERT INTO persos(nom,data,player_id) VALUES (?,?,?)', [perso.nom, data, ws.id], function (err) {
-                                    console.log('perso BDD INSERTSAVED ' + perso.nom);
+
                                 });
                             } else {
                                 var data = JSON.stringify(perso);
+                                console.log('BDD UPDATE : ' + perso.nom);
                                 connection.query('UPDATE persos SET data=? WHERE nom= ?', [data, perso.nom], function (err) {
-                                    console.log('perso BDD UPDATESAVED ' + perso.nom);
-                                    console.log(data);
+
+                                    //  console.log(data);
                                 });
                             }
                         }

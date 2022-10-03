@@ -35,8 +35,8 @@ module.exports = {
                 var text = "Vous êtes dans le lieu de culte. <Le Râhel/La Râhelle/Lae Rähelles/RAEL>, <affairé/affairée/affairés/RAEL> dans le bénitier, s'interrompt pour vous accueillir.\n\
 - Bienvenue à toi, petite brebis mal garée. Que pouvons-nous faire pour toi ? ";
 
-                perso.adversaire = game.getPersoByRole('RAEL');
-
+                var RAEL = game.getPersoByRole("RAEL");
+                perso.adversaire = RAEL.nom;
 
                 var choices = [
 
@@ -46,6 +46,9 @@ module.exports = {
                     ["Je <le/la/lae/RAEL> fume", "00_home/00_fume", "fume"],
                     ["Je me tire", "00_home/01_defense", "intro"]
                 ];
+
+                var adversaire = perso.getAdversaire();
+
                 return {
                     flush: 1,
                     text: text,
@@ -53,7 +56,7 @@ module.exports = {
                     phaserscene: "Eglise",
                     phaseranimation: [
                         [1, perso.nom, "idle", [0, 0]],
-                        [2, perso.adversaire.nom, "idle", [0, 0]],
+                        [2, adversaire.nom, "idle", [0, 0]],
                     ]
                 };
             } //endscene()---------------------------------------------------------------------------
@@ -76,14 +79,13 @@ Vous avez l'impression que c'est une arnaque. \n\
 __PAUSE__\n\
 Cependant, le Rahelle ajoute quelque chose : \n\
 - Ce n'est pas une arnaque, si vous vous venez me réclamer votre argent dans une prochaine vie, je vous le rendrais intégralement. Vous me faites confiance, désormais, n'est-ce-pas ? ";
-                perso.adversaire = game.getPersoByRole('RAEL');
 
                 var choices = [
 
                     ["J'accepte", folder, "suicide"],
                     ["Je suis venu chercher l'argent d'une personnée décédée", folder, "argent"],
                     ["Je refuse poliment et je m'en vais", "00_home/06_periphext", "intro"],
-                    ["Je <le/la/lae/RAEL> fume", "00_home/00_fume", "fume"],
+                    ["Je <le/la/lae/RAEL> fume", "00_home/00_fume", "fume"]
                 ];
                 return {
                     flush: 1,

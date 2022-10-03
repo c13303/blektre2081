@@ -7,6 +7,7 @@ module.exports = {
     getPage: function (ws, page = "intro", param = null) {
 
         var perso = ws.current_perso;
+        var adversaire = perso.getAdversaire();
         var folder = this.folder;
         /* 
          * 
@@ -32,11 +33,14 @@ module.exports = {
             , "embrouille": function () {
 
 
-                if (!perso.adversaire)
-                    console.log('Enorme erreur à embrouille');
+
+
+                adversaire = perso.getAdversaire();
+                console.log(adversaire);
+
                 var phaseranimation = [[1, perso.nom, "idle", [0, 0]]];
 
-                phaseranimation.push([2, perso.adversaire.nom, "idle", [0, 0]]);
+                phaseranimation.push([2, adversaire.nom, "idle", [0, 0]]);
                 perso.phaseranimation = phaseranimation;
 
                 var text = "Vous approchez de <~ADVERSAIRE>";
@@ -81,18 +85,18 @@ module.exports = {
 
 
                 if (1) {
-                    if (perso.adversaire.sex > perso.sex) {
+                    if (adversaire.sex > perso.sex) {
                         var text = "<~ADVERSAIRE> vous rit au nez.\n\
-- Les tarifs ont augmenté chez les mendiants, dites-donc ! dit-<il/elle/iel/~ADVERSAIRE>";
+- Les tarifs ont augmenté chez les mendiants, dites-donc ! dit-<il/elle/iel/ADVERSAIRE>";
                         perso.us('sex', -param);
                     } else {
                         var text = "<~ADVERSAIRE> vous regarde fixement.\n\
-- Mais, certainement, certainement ! dit-<il/elle/iel/~ADVERSAIRE>\n\
-<Il/Elle/Iel/~ADVERSAIRE> vous fait un Paypal sans tarder.";
+- Mais, certainement, certainement ! dit-<il/elle/iel/ADVERSAIRE>\n\
+<Il/Elle/Iel/ADVERSAIRE> vous fait un Paypal sans tarder.";
                         perso.us('money', param);
-                        perso.adversaire.us('money', -param);
-                        perso.log('Vous tapez ' + param + '€ à ' + perso.adversaire.bnom);
-                        perso.adversaire.log(perso.bnom + 'vous tape ' + param + '€');
+                        adversaire.us('money', -param);
+                        perso.log('Vous tapez ' + param + '€ à ' + adversaire.bnom);
+                        adversaire.log(perso.bnom + 'vous tape ' + param + '€');
                     }
 
                 }
@@ -120,27 +124,29 @@ module.exports = {
 
             , "insta": function () {
 
-                if (perso.adversaire.sex > perso.sex) {
-                    var text = "Vous montrez votre Insta à <~ADVERSAIRE>, qui se montre guère <impressionné/impressionnée/impressionnes/~ADVERSAIRE>. Vous pouvez être sûr qu'ielle vous ignorera, désormais.";
-                    perso.adversaire.updateStat('sex', +10);
+
+
+                if (adversaire.sex > perso.sex) {
+                    var text = "Vous montrez votre Insta à <~ADVERSAIRE>, qui se montre guère <impressionné/impressionnée/impressionnes/ADVERSAIRE>. Vous pouvez être sûr qu'ielle vous ignorera, désormais.";
+                    adversaire.updateStat('sex', +10, perso);
                     perso.updateStat('sex', -10);
-                    perso.log('Vous gagnez un nouveau follower nommé ' + perso.adversaire.bnom);
-                    perso.adversaire.log("Vous commencez à follow " + perso.bnom);
+                    perso.log('Vous gagnez un nouveau follower nommé ' + adversaire.bnom);
+                    adversaire.log("Vous commencez à follow " + perso.bnom);
                     var choices = [
                         ["Je <le/la/l'/COCHON> fume", "00_home/00_fume", "fume"],
                         ["Je m'en vais", perso.choiceExit.folder, perso.choiceExit.page]
                     ];
                 } else {
-                    perso.adversaire.updateStat('sex', +10);
+                    adversaire.updateStat('sex', +10, perso);
                     perso.updateStat('sex', -10);
-                    perso.log('Vous gagnez un nouveau follower nommé ' + perso.adversaire.bnom);
-                    perso.adversaire.log("Vous commencez à follow " + perso.bnom);
+                    perso.log('Vous gagnez un nouveau follower nommé ' + adversaire.bnom);
+                    adversaire.log("Vous commencez à follow " + perso.bnom);
                     var choices = [
                         ["Je <le/la/l'/COCHON> fume", "00_home/00_fume", "fume"],
                         ["Je m'en vais", perso.choiceExit.folder, perso.choiceExit.page]
                     ];
                     var text = "Peu après avoir montré votre Insta à <~ADVERSAIRE>, vous recevez une notification de following.\n\
-- Gavé stylé, commente-t-<il/elle/ielle/~ADVERSAIRE>";
+- Gavé stylé, commente-t-<il/elle/ielle/ADVERSAIRE>";
                     var choices = [
                         ["Je m'en vais", perso.choiceExit.folder, perso.choiceExit.page]
                     ];
@@ -165,8 +171,9 @@ module.exports = {
 
 
             , "fume": function () {
+                adversaire = perso.getAdversaire();
 
-                if (!perso.adversaire) {
+                if (!adversaire) {
                     console.log(perso.nom + 'MAINFUME ERROR NO ADVERSAIRE');
                 }
 
@@ -175,27 +182,41 @@ module.exports = {
                 }
 
 
-                if (perso.karma > perso.adversaire.karma) {
-                    var text = "Vous approchez de <~ADVERSAIRE> et lui adressez un prompt coup de boule sur le nez. <Il/Elle/Elles/~ADVERSAIRE> s'écroule sur le sol, en sang.\n\
+                if (perso.karma > adversaire.karma) {
+                    var text = "Vous approchez de <~ADVERSAIRE> et lui adressez un prompt coup de boule sur le nez. <Il/Elle/Elles/ADVERSAIRE> s'écroule sur le sol, en sang.\n\
 ";
+                    adversaire.updateStat('life', -25, perso);
+                    adversaire.updateStat('karma', +10, perso);
                     perso.updateStat('karma', -10);
-                    perso.adversaire.updateStat('karma', +5);
-                    perso.log("Vous adressez un prompt coup de boule à " + perso.adversaire.bnom);
-                    perso.adversaire.log(perso.bnom + " vous adresse un prompt coup de boule");
+
+                    perso.log("Vous adressez un prompt coup de boule à " + adversaire.bnom);
+                    adversaire.log(perso.bnom + " vous adresse un prompt coup de boule");
                     perso.cool("cochon_indispo", 1, "Le cochon est de nouveau dispo");
                     var choices = [
                         ["Je lui pisse dessus", folder, "pisse"],
                         ["Je m'en vais", perso.choiceExit.folder, perso.choiceExit.page]
                     ];
+
+
+                    var phaseranimation = [[1, perso.nom, "punch", [0, 0]]];
+                    phaseranimation.push([2, adversaire.nom, "takecher", [0, 0]]);
+
+
                     // perso interruption
                 } else {
-                    var text = "Vous approchez de <~ADVERSAIRE> et tentez de <le/la/lae/~ADVERSAIRE> frapper, mais <Il/Elle/Elles/~ADVERSAIRE> esquive tel le pigeon dans l'enfer des villes; en retour, <Il/Elle/Elles/~ADVERSAIRE> vous adresse un prompt coup de boule sur le nez. \n\
+                    var text = "Vous approchez de <~ADVERSAIRE> et tentez de <le/la/lae/ADVERSAIRE> frapper, mais <Il/Elle/Elles/ADVERSAIRE> esquive tel le pigeon dans l'enfer des villes; en retour, <Il/Elle/Elles/ADVERSAIRE> vous adresse un prompt coup de boule sur le nez. \n\
 Vous vous écroulez sur le sol, en sang. <~ADVERSAIRE> vous urine dessus en riant, avant de s'éloigner.";
-                    perso.updateStat('karma', +5);
+
                     perso.updateStat('life', -25);
-                    perso.adversaire.log("Vous adressez un prompt coup de boule à " + perso.adversaire.bnom);
+                    adversaire.log("Vous adressez un prompt coup de boule à " + adversaire.bnom);
+                    adversaire.updateStat('karma', +10, perso);
+
                     perso.log(perso.bnom + " vous adresse un prompt coup de boule");
                     // perso interruption
+
+                    var phaseranimation = [[1, perso.nom, "takecher", [0, 0]]];
+                    phaseranimation.push([2, adversaire.nom, "punch," [0, 0]]);
+
 
                     var choices = [
                         ["Je ramasse mes dents", perso.choiceExit.folder, perso.choiceExit.page]
@@ -211,9 +232,10 @@ Vous vous écroulez sur le sol, en sang. <~ADVERSAIRE> vous urine dessus en rian
                 }
 
                 return {
+                    phaseranimation: phaseranimation,
                     flush: 1,
                     text: text,
-                    choices: choices
+                    choices: choices,
                 };
             } //endscene()---------------------------------------------------------------------------
 
@@ -225,13 +247,13 @@ Vous vous écroulez sur le sol, en sang. <~ADVERSAIRE> vous urine dessus en rian
             , "pisse": function () {
 
 
-                if (perso.sanity > perso.adversaire.sanity) {
+                if (perso.sanity > adversaire.sanity) {
                     var text = "Vous urinez sur <~ADVERSAIRE>.\n\
 ";
                     perso.updateStat('sanity', -10);
-                    perso.adversaire.updateStat('sanity', +10);
-                    perso.log("Vous adressez un prompt coup de boule à " + perso.adversaire.bnom);
-                    perso.adversaire.log(perso.bnom + " vous adresse un prompt coup de boule");
+                    adversaire.updateStat('sanity', +10, perso);
+                    perso.log("Vous adressez un prompt coup de boule à " + adversaire.bnom);
+                    adversaire.log(perso.bnom + " vous adresse un prompt coup de boule");
                     perso.cool("cochon_indispo", 1, "Le cochon est de nouveau dispo");
                     var choices = [
 
@@ -242,7 +264,7 @@ Vous vous écroulez sur le sol, en sang. <~ADVERSAIRE> vous urine dessus en rian
                     var text = "Vous essayez d'uriner mais vous n'y parvenez pas. ";
                     perso.updateStat('karma', -25);
                     perso.updateStat('sanity', -25);
-                    perso.adversaire.log("Vous adressez un prompt coup de boule à " + perso.adversaire.bnom);
+                    adversaire.log("Vous adressez un prompt coup de boule à " + adversaire.bnom);
                     perso.log(perso.bnom + " vous adresse un prompt coup de boule");
                     // perso interruption
 

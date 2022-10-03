@@ -1,0 +1,76 @@
+{
+    "id": "397672ce-e58c-40c8-9f72-9794101e0ed6",
+    "sceneType": "SCENE",
+    "settings": {
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "sceneKey": "Cochon",
+        "borderWidth": 150,
+        "borderHeight": 100
+    },
+    "displayList": [
+        {
+            "type": "Image",
+            "id": "ef06df02-22fa-4753-bc5d-c8e67603f6eb",
+            "label": "parvis",
+            "components": [],
+            "texture": {
+                "key": "parvis"
+            },
+            "x": 75,
+            "y": 50,
+            "scaleX": 2,
+            "scaleY": 2
+        },
+        {
+            "type": "Sprite",
+            "id": "10b778b5-2f58-40ef-a024-b13ab3d1e362",
+            "label": "player2",
+            "scope": "PUBLIC",
+            "components": [],
+            "texture": {
+                "key": "perso1",
+                "frame": 0
+            },
+            "x": 114,
+            "y": 45,
+            "scaleX": -2,
+            "scaleY": 2
+        },
+        {
+            "type": "Sprite",
+            "id": "979f0f22-85a8-48d1-ab04-8f7f181411d5",
+            "label": "player1",
+            "scope": "PUBLIC",
+            "components": [],
+            "texture": {
+                "key": "perso1",
+                "frame": 0
+            },
+            "x": 37,
+            "y": 46,
+            "scaleX": 2,
+            "scaleY": 2
+        },
+        {
+            "type": "Image",
+            "id": "db1b40e2-a59d-452e-bacc-5eb241bf4fe8",
+            "label": "stop",
+            "components": [],
+            "texture": {
+                "key": "stop"
+            },
+            "x": 68,
+            "y": 89,
+            "scaleX": 2,
+            "scaleY": 2
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 3
+    }
+}

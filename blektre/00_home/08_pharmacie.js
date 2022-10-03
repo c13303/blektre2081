@@ -35,8 +35,10 @@ module.exports = {
 
                 var text = "La pharmacie est tenue par PHARMACIEN.";
 
-                perso.adversaire = game.getPersoByRole('PHARMACIEN');
-
+                var PHARMACIEN = game.getPersoByRole("PHARMACIEN");
+                perso.adversaire = PHARMACIEN.nom;
+                
+                
                 var choices = [
 
                     ["Je <le/la/lae/PHARMACIEN> fume", "00_home/00_fume", "fume"],

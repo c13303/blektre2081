@@ -28,7 +28,7 @@ $(document).ready(function () {
         $('#createchar').addClass('hidden');
         $('#character_menu').removeClass('hidden');
     });
-    
+
 
 
     $(document).on('click', '.perso_selector', function (e) {
@@ -164,3 +164,18 @@ $(document).ready(function () {
         $(document).find('.hoverpeople').remove();
     });
 });
+
+
+
+
+function tweenNotice() {
+    var notices = $("body").find(".usNotice");
+    if (notices && notices.length) {
+
+        notices.each(function () {
+            var elem = $(this);
+            if (elem.hasClass('acvite'))
+                elem.addClass('usNotice_active');
+        });
+    }
+}

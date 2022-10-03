@@ -34,8 +34,12 @@ if ($isdev) {
         <link href="https://fonts.googleapis.com/css?family=VT323&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="font/sharetech.css?v=<?= $v; ?>" />
         <link rel="stylesheet" type="text/css" href="style.css?v=<?= $v; ?>" />
+        <link rel="stylesheet" type="text/css" href="stylewide.css?v=<?= $v; ?>" />
 
-
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+            />
 
 
 
@@ -73,9 +77,9 @@ if ($isdev) {
                             </div>
                             <div class="stats stats2">
                                 <div class="statbloc"> LIFE<span class="stat" data-stat="life"></span></div>
-                                <div class="statbloc"> KARMA<span class="stat" data-stat="karma"></span></div>
+                                <div class="statbloc"> KAR<span class="stat" data-stat="karma"></span></div>
                                 <div class="statbloc">SEX<span class="stat" data-stat="sex"></span></div>
-                                <div class="statbloc"> SANITY<span class="stat" data-stat="sanity"></span></div>
+                                <div class="statbloc"> SAN<span class="stat" data-stat="sanity"></span></div>
                                 <div class="statbloc"> €<span class="stat" data-stat="money"></span></div>
                             </div>
 
@@ -86,7 +90,20 @@ if ($isdev) {
 
                         <div id="cadrephaser"></div>
                         <iframe id="phaserframe" src="Game/index.html?v=<?= $v; ?>" ></iframe> 
+                        <div id="loadingtext"></div>
+                        <div id="assettext"></div>
+                        <div class="playername" id="p1"></div>
+                        <div class="playername" id="p2"></div>
+                        <div class="playername" id="p3"></div>
+                        <div class="playername" id="p4"></div>
 
+
+                        <div class="updateStat" id="us_P1"></div>
+                        <div class="updateStat" id="us_P2"></div>
+                        <div class="updateStat" id="us_P3"></div>
+                        <div class="updateStat" id="us_P4"></div>
+
+                        <div id="peopleOnScreen"></div>
 
                     <!--  <textarea id="json" class="onhide"></textarea>
                     <textarea id="persos" class="onhide"></textarea>
@@ -96,7 +113,7 @@ if ($isdev) {
 
                 </div>
 
-                <div class="textzone showonstart">
+                <div class="textzone gametextzone showonstart">
                     <div id="text"></div>               
                     <div id="choices"></div>  
                 </div>

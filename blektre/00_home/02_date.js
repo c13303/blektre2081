@@ -23,7 +23,8 @@ module.exports = {
                 game.gC.setInPlace("Zonmai", perso);
                 var text = "Vous vous préparez à aller boire une bière.";
                 var choices = [
-                    ["Je vais à mon rencard", folder, "rencard"]
+                    ["Je vais à mon rencard", folder, "intro"],
+                    ["Je vais me coucher", "00_home/00_street", "dodo"]
                 ];
                 return {
                     flush: 1,
@@ -57,11 +58,12 @@ Que boire pour oublier que personne ne vous respecte ?  ";
             , "boire": function (param) {
 
                 if (param === "biere") {
-                    var text = "La bière est amère, comme vous l'aimez, mais votre vessie se remplit rapidement. ";
+                    var text = "La bière est amère. Votre vessie se remplit.";
                 }
 
                 if (param === "tequila") {
                     var text = "Un mètre de tequila, c'est énorme, et ça coûte cher. Maintenant il faut tout boire. ";
+                    perso.updateStat('sanity', -50);
                 }
 
                 var choices = [
@@ -78,11 +80,11 @@ Que boire pour oublier que personne ne vous respecte ?  ";
 
             , "cochon": function () {
 
-                perso.adversaire = game.getPersoByRole("COCHON");
+                var cochon = game.getPersoByRole("COCHON");
+                perso.adversaire = cochon.nom;
 
 
-
-                var text = "<~COCHON> finit par débarquer. <Il/Elle/Ielle/COCHON> commande un triple jack et vous sourit.";
+                var text = "<~COCHON> finit par débarquer. <Il/Elle/Ielle/COCHON> commande un mojito et vous sourit.";
 
 
                 var choices = [
@@ -101,16 +103,14 @@ Que boire pour oublier que personne ne vous respecte ?  ";
 
             , "cruise": function () {
 
-                perso.adversaire = game.getPersoByRole("COCHON");
+            
 
-
-
-                var text = "- Je suis <sûr/sûre/sûrs/~SELF> que t'es sur Tinsdergram, dites-vous avec audace.\n\
-- Tu parles sans savoir, hé bouffon ...";
+                var text = "<~COCHON> vous met au défi.\n\
+- Tu connais mon Instagram, au moins ?";
 
                 var choices = [
-                    ["Je devine son Tinsdergram", folder, "devine"],
-                    ["J'essaie de la pécho", folder, "pecho"],
+                    ["Bien sûr", folder, "devine", "input"],
+                    ["Peu importe, mes sentiments sont réels", folder, "pecho"],
                     ["Je pars en pleurant", "00_street", "nuit"]
                 ];
                 return {
@@ -130,8 +130,7 @@ Que boire pour oublier que personne ne vous respecte ?  ";
 
             , "devine": function () {
 
-                perso.adversaire = game.getPersoByRole("COCHON");
-
+             
 
 
                 var text = "<~COCHON> rougit car vous avez trouvé juste.\n\
@@ -154,8 +153,6 @@ Que boire pour oublier que personne ne vous respecte ?  ";
 
             , "bergail": function () {
 
-                perso.adversaire = game.getPersoByRole("COCHON");
-
 
 
                 var text = "Vous entamez une profonde discussion, au détour de laquelle <~COCHON> vous explique qu'elle n'est pas l'aise avec la séduction.\n\
@@ -177,7 +174,7 @@ Que boire pour oublier que personne ne vous respecte ?  ";
 
             , "pecho": function () {
 
-                perso.adversaire = game.getPersoByRole("COCHON");
+               
 
 
 

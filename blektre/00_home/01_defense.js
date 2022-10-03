@@ -31,13 +31,13 @@ module.exports = {
 
             "intro": function () {
                 game.gC.setInPlace("La Défense", perso);
-                var text = "Parvis de la Défense.\n\
-Des cochons manifestent au milieux des tours.";
+                var text = "La Défense.\n\
+Il y a une manifestation devant les bureaux.";
                 var choices = [
-                    ["Je pénètre dans les bureaux", "00_home/03_bureau", "bureau"],
-                    ["Je vais aux 4 temps", folder, "quatre"],
-                    ["Je vais voir les cochons", folder, "manif"],
-                    ["Je crisse mon camp", folder, "HUBdefense"]
+                    ["Je vais au bureau", "00_home/03_bureau", "bureau"],
+                    ["Je m'approche de la manifestation", folder, "manif"],
+                    ["Je continue aux 4 temps", folder, "quatre"],
+                    ["Je remonte sur le periph", "00_home/01_periphint", "intro"]
                 ];
 
                 if (perso.iscooling("cochon_indispo")) {
@@ -46,41 +46,29 @@ Des cochons manifestent au milieux des tours.";
                 }
 
 
+                var cochon = game.getPersoByRole("COCHON");
+
+
                 return {
                     flush: 1,
                     text: text,
                     choices: choices,
                     phaserscene: "Parvis",
-                    phaseranimation: [[1, perso.nom, "idle", [0, 0]]]
-                };
-
-            } //endscene()---------------------------------------------------------------------------
-            , "HUBdefense": function () {
-                game.gC.setInPlace("La défense", perso);
-                var text = "La Défense.";
-                var random = game.gC.getSomeoneRandom(perso);
-
-                var choices = [
-                    ["Je descend sur le parvis", "00_home/01_defense", "intro"],
-                    ["Je pars sur le périphérique extérieur", "00_home/06_periphext", "intro"],
-                    ["Je vais au square Manuel Valls", "00_home/00_street", "TheSquare"],
-                ];
-                return {
-                    flush: 1,
-                    text: text,
-                    choices: choices,
-                    phaserscene: "Defense",
-                    phaseranimation: [[1, perso.nom, "idle", [0, 0]]]
+                    phaseranimation: [
+                        [1, perso.nom, "idle", [0, 0]],
+                        [2, cochon.nom, "idle", [0, 0]],
+                    ]
                 };
 
             } //endscene()---------------------------------------------------------------------------
 
 
             , "manif": function () {
-                perso.adversaire = game.getPersoByRole("COCHON");
+                var cochon = game.getPersoByRole("COCHON");
+                perso.adversaire = cochon.nom;
+                adversaire = perso.getAdversaire();
+
                 var text = "La manifestation, constituée de <~COCHON>, bat son plein. \n\
-- STOP ! Valorisation de nos emplois ! On ne veut plus finir en saucisses !  \n\
-<Il/Elle/Ielle/COCHON> s'approche de vous.\n\
 - Bonjour <monsieur/madame/mademonsieur/SELF>, une petite signature pour faire interdire la viande de cochon, s'il vous plaît.";
                 var choices = [
                     ["Je signe avec le sourire", folder, "manifsigne__sourire"],
@@ -92,10 +80,10 @@ Des cochons manifestent au milieux des tours.";
                     flush: 1,
                     text: text,
                     choices: choices,
-                    phaserscene: "Parvis",
+                    phaserscene: "Cochon",
                     phaseranimation: [
-                        [1, perso.nom, "idle"],
-                        [2, perso.adversaire.nom, "idle"],
+                        [1, perso.nom, "idle", [0, 0]],
+                        [2, cochon.nom, "idle", [0, 0]],
                     ]
                 };
 
@@ -103,11 +91,14 @@ Des cochons manifestent au milieux des tours.";
             , "manifdebat": function () {
 
 
+                var cochon = game.getPersoByRole("COCHON");
+                perso.adversaire = cochon.nom;
+                adversaire = perso.getAdversaire();
 
 
                 var text = "- Quand même, ce sont des emplois ... Vous n'avez pas l'impression de cracher dans la soupe ? demandez-vous.\n\
-<~COCHON> vous traite de <boomer/boomeuse/boomeurses/SELF>.";
-                perso.log('Vous êtes humilier');
+- OK <boomer/boomeuse/boomeurses/SELF>, dit <~COCHON> en soupirant.";
+                perso.log('Vous vous faites recadrer par ' + adversaire.bnom);
 
                 var choices = [
                     ["Je l'invite à boire un verre", folder, "cochon_drague"],
@@ -126,16 +117,27 @@ Des cochons manifestent au milieux des tours.";
 
             , "manifsigne": function () {
 
-
-                if (param === 'sourire')
-                    var text = "Vous signez en souriant <au cochon/à la cochonne/au cochonnes/COCHON>\n\
-- Merci. Et <ravi/ravie/ravis/COCHON> de te rencontrer. Je m'appelle <~COCHON>.\n\
-Cette personne est belle. Sa cause est noble. Vous ressentez quelque chose d'étrange : se pourrait-il qu'il s'agisse d'attraction ?";
+                adversaire = perso.getAdversaire();
 
 
-                perso.log('Vous signez la pétition anti-viande de ' + perso.adversaire.bnom);
+                if (perso.steps.petition) {
+                    var text = "<~COCHON> vous regarde fixement.\n\
+- C'est gentil, mais tu as déjà signé la pétition.";
+
+                } else {
+                    var text = "Vous signez la pétition avec le sourire. <~COCHON> sourit également.";
+                    perso.updateStat("life", +10);
+                    perso.steps.petition = true;
+                    adversaire.updateStat("sex", +1, perso);
+                    adversaire.log(perso.bnom + 'signe votre pétition');
+                    perso.log('Vous signez la pétition de ' + adversaire.bnom);
+
+                }
+
+
+
                 var choices = [
-                    ["Je craque sur cette personne <~COCHON>", folder, "cochon_drague"],
+                    ["Je l'invite à boire un verre", folder, "cochon_drague"],
                     ["Je lance un débat sur le véganisme", folder, "manifdebat"],
                     ["Je souris poliment et je m'éloigne", folder, "intro"]
                 ];
@@ -153,41 +155,40 @@ Cette personne est belle. Sa cause est noble. Vous ressentez quelque chose d'ét
 
 
             , "cochon_drague": function () {
-                var text = "Vous souriez avec un zeste d'arrogance, comme vous l'avez appris dans une vidéo Youtube, et vous proposez une bière à <~ADVERSAIRE>.";
 
 
+                adversaire = perso.getAdversaire();
 
-                if (perso.sex > perso.adversaire.sex) {
-                    text += "<Il/Elle/Ielle/~ADVERSAIRE> hésite une seconde, puis vous lâche son 06.\n\
-Vous rentrez chez vous, <guilleret/guillerette/guilleretes/~SELF>. \n\
+                var text = "Vous prenez une voix sexy et proposez une bière à <~ADVERSAIRE>.\n\
 ";
 
-                    perso.updateStat('sex', -10);
-                    perso.adversaire.updateStat('sex', +5);
-                    perso.log("Vous obtenez un rencard avec " + perso.adversaire.bnom);
-                    perso.adversaire.log(perso.bnom + " vous rencarde");
-                    perso.cool("cochon_indispo", 1, "Le cochon est de nouveau dispo");
+
+                if (perso.sex > adversaire.sex) {
+                    text += "<Il/Elle/Ielle/ADVERSAIRE> accepte.";
+                    perso.updateStat('sex', +5);
+                    adversaire.updateStat('sex', +5, perso);
+                    perso.log("Vous obtenez un rencard avec " + adversaire.bnom);
+                    adversaire.log(perso.bnom + " vous rencarde");
+                   // perso.cool("cochon_indispo", 1, "Le cochon est de nouveau dispo");
 
                     var choices = [
-                        ["Je m'habille", "00_home/02_date", "habillage"]
+                        ["Je rentre me préparer", "00_home/02_date", "habillage"]
                     ];
 
                     // perso interruption
                 } else {
-                    text += "\
-\n\
-- <Désolé/Désolée/Désolées/~ADVERSAIRE> ... dit-<il/elle/ielle/~ADVERSAIRE>. Je te trouve trop laid. Peut-on rester amis ? ";
+                    text += "<Il/Elle/Ielle/ADVERSAIRE> refuse.";
 
                     perso.updateStat('karma', +5);
-                    perso.updateStat('sex', -25);
-                    perso.adversaire.log("Vous recasez ce thon de " + perso.adversaire.bnom);
-                    perso.log(perso.bnom + " vous recase");
-                    perso.cool("cochon_indispo", 1, "Le cochon est de nouveau dispo");
+                    perso.updateStat('sanity', -5);
+                    adversaire.log("Vous mettez un rateau à " + adversaire.bnom);
+                    perso.log(perso.bnom + " vous met un rateau");
+                   // perso.cool("cochon_indispo", 1, "Le cochon est de nouveau dispo");
 
                     // perso interruption
 
                     var choices = [
-                        ["Je suis <penaud/penaude/penaudes/~SELF>", folder, "intro"]
+                        ["Je suis <penaud/penaude/penaudes/SELF>", folder, "intro"]
                     ];
                 }
 
@@ -213,7 +214,7 @@ Vous rentrez chez vous, <guilleret/guillerette/guilleretes/~SELF>. \n\
 
                 var text = "Vous manifestez agressivement votre opposition à leur point de vue politique.\n\
 - Mais si on ne mange plus de viande, on va manger quoi ? Affameurs ! Véginazis !\n\
-<~ADVERSAIRE> décide de vous ignorer. Vous pensez l'avoir bien <remis/remise/remises/~ADVERSAIRE> en place.";
+<~ADVERSAIRE> décide de vous ignorer. Vous pensez l'avoir bien <remis/remise/remises/ADVERSAIRE> en place.";
                 perso.updateStat('karma', -50);
                 perso.log('Vous agressez les manifestants anti-viande');
 
@@ -241,7 +242,7 @@ Vous rentrez chez vous, <guilleret/guillerette/guilleretes/~SELF>. \n\
 
 
 
-          
+
 
 
 

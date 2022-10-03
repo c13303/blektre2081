@@ -42,7 +42,6 @@ function roughSizeOfObject(object) {
 }
 
 var titrePlace;
-
 function gameClientHook(d) {
     /* d = data from serveur message */
 
@@ -50,8 +49,9 @@ function gameClientHook(d) {
 
 
 
-    if (d.error) {
-        alert(d.error);
+    if (d.erreur) {
+        alert(d.erreur);
+        console.log(d.erreur);
     }
 
     if (d.connected) {
@@ -79,14 +79,11 @@ function gameClientHook(d) {
     if (d.text) {
         if (d.scene)
             titrePlace = d.scene;
-
-
         /* TEXT FILTERS */
         var texthtml = nl2br("<br/>" + d.text); // <h2>" + titrePlace + '</h2>' + nl2br(d.text);
 
 
         texthtml = texthtml.replaceAll('__', '<br/><br/>');
-
         if (!d.choices)
             console.log('ERREUR : D.CHOICES MISSING');
         if (d.flush) {
@@ -100,7 +97,6 @@ function gameClientHook(d) {
 
 
         $('#choices').find('.gamechoice').fadeTo(500, 0).delay(50).remove();
-
         /* is there textarea */
 
 
@@ -137,7 +133,6 @@ function gameClientHook(d) {
 
 
         $('#text').append("<div class='content'>" + texthtml + "<br/><br/></div>");
-
         var choices = '';
         for (var i = 0; i < d.choices.length; i++) {
             var line = d.choices[i];
@@ -175,14 +170,12 @@ function gameClientHook(d) {
         mychar = d.mychar;
         // $('#place').html(mychar.place);
         $('.stats').css("opacity", 1);
-
         //$('#sprite_mychar').css('background', 'url(/img-persos/type' + mychar.type + '.png?v=');
 
         $(".stat").each(function () {
             var stat = $(this).data('stat');
             $(this).html(mychar[stat]);
         });
-
     }
 
 
@@ -190,11 +183,42 @@ function gameClientHook(d) {
     if (d.persos) {
         var html = '';
 //        console.log(d.persos);
-        $('#persos').html(JSON.stringify(d.persos, null, 2));
-
+        // $('#persos').html(JSON.stringify(d.persos, null, 2));
+        /* update des stats*/
         persos = d.persos;
 
+
+        // ATTEMPT usNotice mais on va le faire dans animateHeadz
+        
+        /*
+         for (const [key, persal] of Object.entries(persos)) {
+         if (persal.usNotice && persal.usNotice.length > 0) {
+         
+         for (var i = 0; i < persal.usNotice.length; i++) {
+         var daNotz = persal.usNotice[i];
+         var sign;
+         if (daNotz.value > 0)
+         sign = "+";
+         else
+         sign = "";
+         var texte = "<span class='usNotice' data-nom='" + persal.nom + "'>" + daNotz.stat + sign + daNotz.value + '</span>';
+         
+         // look for persal.nom
+         console.log(texte);
+         }
+         }
+         }
+         */
     }
+
+    if (d.whoMoved) {
+        //  console.log('WhoMoved');
+        //  console.log(d);
+    }
+
+
+
+
 
     if (d.popups) {
         console.log(d.popups);
@@ -210,7 +234,6 @@ function gameClientHook(d) {
                 $('#col_popups').find("#popin" + id).fadeOut(300, function () {
                     $(this).remove();
                 });
-
             }, 5000);
         }
         $('#col_popups').append(html);
@@ -218,9 +241,12 @@ function gameClientHook(d) {
 
 
 
+
+
+
+
     /* PHASER ANIMATION */
     phaserHook(d);
-
 }
 
 

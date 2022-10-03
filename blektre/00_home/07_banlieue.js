@@ -72,7 +72,6 @@ Vous avez l'impression que c'est une arnaque. \n\
 __PAUSE__\n\
 Cependant, le Rahelle ajoute quelque chose : \n\
 - Ce n'est pas une arnaque, si vous vous venez me réclamer votre argent dans une prochaine vie, je vous le rendrais intégralement. Vous me faites confiance, désormais, n'est-ce-pas ? ";
-                perso.adversaire = game.getPersoByRole('RAEL');
 
                 var choices = [
 

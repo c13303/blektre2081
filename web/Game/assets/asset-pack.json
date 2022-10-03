@@ -2,12 +2,17 @@
     "section1": {
         "files": [
             {
+                "url": "assets/places/4temps_front.png",
+                "type": "image",
+                "key": "4temps_front"
+            },
+            {
                 "url": "assets/animations.json",
                 "type": "animation",
                 "key": "animations"
             },
             {
-                "url": "assets/png/bureau.png",
+                "url": "assets/places/bureau.png",
                 "type": "image",
                 "key": "bureau"
             },
@@ -17,47 +22,57 @@
                 "key": "Bureau"
             },
             {
+                "url": "assets/objets/carbot.png",
+                "type": "image",
+                "key": "carbot"
+            },
+            {
+                "url": "assets/objets/cartop1.png",
+                "type": "image",
+                "key": "cartop1"
+            },
+            {
                 "url": "assets/places/click.png",
                 "type": "image",
                 "key": "click"
             },
             {
-                "url": "assets/png/meubles/corner_pharma_desk.png",
+                "url": "assets/scenes/Cochon.js",
+                "type": "sceneFile",
+                "key": "Cochon"
+            },
+            {
+                "url": "assets/objets/corner_pharma_desk.png",
                 "type": "image",
                 "key": "corner_pharma_desk"
             },
             {
-                "url": "assets/png/cybercafe.png",
+                "url": "assets/places/cybercafe.png",
                 "type": "image",
                 "key": "cybercafe"
             },
             {
-                "url": "assets/png/meubles/cyberdesk.png",
+                "url": "assets/objets/cyberdesk.png",
                 "type": "image",
                 "key": "cyberdesk"
             },
             {
-                "url": "assets/png/defense_hot.png",
+                "url": "assets/places/defense_hot.png",
                 "type": "image",
                 "key": "defense"
             },
             {
-                "url": "assets/scenes/Defense.js",
-                "type": "sceneFile",
-                "key": "Defense"
-            },
-            {
-                "url": "assets/png/meubles/desk_bleu.png",
+                "url": "assets/objets/desk_bleu.png",
                 "type": "image",
                 "key": "desk_bleu"
             },
             {
-                "url": "assets/png/meubles/desk_jaune.png",
+                "url": "assets/objets/desk_jaune.png",
                 "type": "image",
                 "key": "desk_jaune"
             },
             {
-                "url": "assets/png/meubles/desk_vert.png",
+                "url": "assets/objets/desk_vert.png",
                 "type": "image",
                 "key": "desk_vert"
             },
@@ -72,7 +87,25 @@
                 "key": "Duel"
             },
             {
-                "url": "assets/png/home.png",
+                "url": "assets/places/eglise.png",
+                "type": "image",
+                "key": "eglise"
+            },
+            {
+                "url": "assets/persos/HEADS_.png",
+                "frameConfig": {
+                    "frameWidth": 32,
+                    "frameHeight": 32,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "HEADS_"
+            },
+            {
+                "url": "assets/places/home.png",
                 "type": "image",
                 "key": "home"
             },
@@ -82,7 +115,7 @@
                 "key": "Home"
             },
             {
-                "url": "assets/png/INTRO.png",
+                "url": "assets/places/INTRO.png",
                 "type": "image",
                 "key": "INTRO"
             },
@@ -90,6 +123,16 @@
                 "url": "assets/places/introscreen.png",
                 "type": "image",
                 "key": "introscreen"
+            },
+            {
+                "url": "assets/places/ivry.png",
+                "type": "image",
+                "key": "ivry"
+            },
+            {
+                "url": "assets/scenes/Ivry.js",
+                "type": "sceneFile",
+                "key": "Ivry"
             },
             {
                 "url": "assets/persos/LAYDOWNBIBLE.PNG",
@@ -105,12 +148,22 @@
                 "key": "LAYDOWNBIBLE"
             },
             {
-                "url": "assets/png/meubles/office.png",
+                "url": "assets/places/nuit.png",
+                "type": "image",
+                "key": "nuit"
+            },
+            {
+                "url": "assets/scenes/Nuit.js",
+                "type": "sceneFile",
+                "key": "Nuit"
+            },
+            {
+                "url": "assets/objets/office.png",
                 "type": "image",
                 "key": "office"
             },
             {
-                "url": "assets/png/parvis.png",
+                "url": "assets/places/parvis2.png",
                 "type": "image",
                 "key": "parvis"
             },
@@ -130,6 +183,24 @@
                 "key": "Periph"
             },
             {
+                "url": "assets/places/periph_int_spritesheet.png",
+                "frameConfig": {
+                    "frameWidth": 150,
+                    "frameHeight": 100,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "periph_int_spritesheet"
+            },
+            {
+                "url": "assets/scenes/PeriphInterieur.js",
+                "type": "sceneFile",
+                "key": "PeriphInterieur"
+            },
+            {
                 "url": "assets/persos/perso1.png",
                 "frameConfig": {
                     "frameWidth": 32,
@@ -141,6 +212,19 @@
                 },
                 "type": "spritesheet",
                 "key": "perso1"
+            },
+            {
+                "url": "assets/persos/persoA_FIGHT.png",
+                "frameConfig": {
+                    "frameWidth": 32,
+                    "frameHeight": 64,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "persoA_FIGHT"
             },
             {
                 "url": "assets/persos/persoB.png",
@@ -156,6 +240,19 @@
                 "key": "persoB"
             },
             {
+                "url": "assets/persos/persoB_FIGHT.png",
+                "frameConfig": {
+                    "frameWidth": 32,
+                    "frameHeight": 64,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "persoB_FIGHT"
+            },
+            {
                 "url": "assets/persos/persoC.png",
                 "frameConfig": {
                     "frameWidth": 32,
@@ -169,12 +266,25 @@
                 "key": "persoC"
             },
             {
-                "url": "assets/png/hats/pharma.png",
+                "url": "assets/persos/persoC_FIGHT.png",
+                "frameConfig": {
+                    "frameWidth": 32,
+                    "frameHeight": 64,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "persoC_FIGHT"
+            },
+            {
+                "url": "assets/hats/pharma.png",
                 "type": "image",
                 "key": "pharma"
             },
             {
-                "url": "assets/png/pharmacie.png",
+                "url": "assets/places/pharmacie.png",
                 "type": "image",
                 "key": "pharmacie"
             },
@@ -204,17 +314,12 @@
                 "key": "Square"
             },
             {
-                "url": "assets/png/street.png",
+                "url": "assets/objets/stop.png",
                 "type": "image",
-                "key": "street_1"
+                "key": "stop"
             },
             {
-                "url": "assets/scenes/StreetHub.js",
-                "type": "sceneFile",
-                "key": "StreetHub"
-            },
-            {
-                "url": "assets/png/tel.png",
+                "url": "assets/places/tel.png",
                 "type": "image",
                 "key": "tel"
             },

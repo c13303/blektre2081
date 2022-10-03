@@ -43,18 +43,20 @@ function phaserHook(d) {
             setTimeout(function () {
                 var persals = persos;
                 if (d.phaseranimation) {
-                    PS.animateHead(d.phaseranimation, persals);
+                    PS.animateHeadz(d.phaseranimation, persals);
                 }
                 jQuery('#phaserframe').fadeIn(0);
             }, 10);
         } else { // sinon sans attendre
             if (d.phaseranimation) {
-                PS.animateHead(d.phaseranimation, persals);
+                var persals = persos;
+                PS.animateHeadz(d.phaseranimation, persals);
             }
         }
 
 
     }
+  
 
 }
 $(document).ready(function () {

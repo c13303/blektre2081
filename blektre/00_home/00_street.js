@@ -35,6 +35,8 @@ module.exports = {
 
             intro: function () {
                 game.gC.setInPlace("Zonmai", perso);
+
+
                 if (!perso.milestones.number_of_times_I_went_home) {
                     perso.milestones.number_of_times_I_went_home = 0;
                 }
@@ -58,6 +60,7 @@ Si vous ne vous dépêchez pas, vous serez en retard au travail.";
             }//endscene()---------------------------------------------------------------------------
 
             , intro2: function () {
+                game.gC.setInPlace("Zonmai", perso);
 
                 perso.milestones.number_of_times_I_went_home++;
                 if (perso.milestones.number_of_times_I_went_home === 3) {
@@ -105,22 +108,22 @@ Si vous ne vous dépêchez pas, vous serez en retard au travail.";
 
                 perso.updateStat('life', -1);
 
+
                 var random = game.gC.getSomeoneRandom(perso);
 
-                var text = "Square Manuel Valls. Dehors, le bruit des voitures rend la communication avec les autres assez difficile. ";
+                var text = "Square Manuel Valls. Dehors, le bruit des voitures rend la communication avec les autres assez difficile.\n\
+Où allez-vous ?";
 
                 var choices = [
-                    ["Je prends le periph intérieur", "00_home/01_defense", "HUBdefense"],
-                    //   ["Je vais à Beverly Hills", folder, "HUBbeverly"],
-                    ["Périph extérieur", "00_home/06_periphext", "intro"],
-                    ["Go Home", folder, "intro2"]
+                    ["Je monte sur le périph", "00_home/01_periphint", "intro"],
+                    ["Je rentre à la zonmai", folder, "intro2"]
                 ];
 
                 var phaserAnimation = [
                     [1, perso.nom, "walk", [0, 0]]
                 ];
                 if (random && random.nom) {
-                    perso.adversaire = random;
+                    perso.adversaire = random.nom;
                     phaserAnimation.push([2, random.nom, "walk", [0, 0]]);
                     choices.push(["J'embrouille  <~ADVERSAIRE>", "00_home/00_fume", "embrouille"]);
                 }
@@ -136,8 +139,6 @@ Si vous ne vous dépêchez pas, vous serez en retard au travail.";
                 };
 
             } //endscene()---------------------------------------------------------------------------
-
-
 
 
 
@@ -286,8 +287,8 @@ Le message passe immédiatement en vu.";
 
             , "dodo": function () {
 
-                if (perso.life > 50) {
-                    var text = "Vous n'êtes pas assez fatigué pour vous endormir ...";
+                if (perso.life < 0) {
+                    var text = "Vous êtes mort, du coup vous n'arrivez pas à dormir.";
                     var choices = [
                         ["OK ...", folder, "intro2"]
                     ];
@@ -305,17 +306,21 @@ Le message passe immédiatement en vu.";
                     perso.updateStat("sex", +10);
                     perso.updateStat("karma", +10);
                     perso.updateStat("sanity", +10);
+                    perso.updateStat("jour", +1);
+
                     perso.log('Vous dormez');
 
                     var choices = [
                         ["OK ...", folder, "intro2"]
                     ];
+
+
                     return {
                         flush: 1,
                         text: text,
                         choices: choices,
-                        phaserscene: "tel"
-                    };
+                        phaserscene: "Nuit",
+                        phaseranimation: [[1, perso.nom, "lay", [0, 0]]]};
                 }
 
 

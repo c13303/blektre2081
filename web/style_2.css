@@ -1,0 +1,438 @@
+*{
+    background:none;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}
+canvas{
+    background:#55415f !important;
+}
+
+.hidden{
+    display:none;
+}
+
+button{
+    font-family:  'Share Tech Mono';
+    border:none;
+    background:none;
+    border-top:1px solid #d77355;
+    border-right:1px solid #d77355;
+    border-left:4px solid #d77355;
+    border-bottom:4px solid #d77355;
+    font-size: 25px;
+    color: #d77355;
+    padding:14px;
+    margin:0 0 20px;
+
+}
+button:hover{
+    background:#d77355;
+    color: #e6c86e;
+}
+
+input,textarea,select{
+    font-family:  'Share Tech Mono';
+    border:none;
+    background:none;
+    border-top:1px solid #d77355;
+    border-right:1px solid #d77355;
+    border-left:4px solid #d77355;
+    border-bottom:4px solid #d77355;
+    font-size: 25px;
+    color: #d77355;
+    padding:14px;
+    margin:0 0 20px;
+
+}
+
+.genrebox{
+    margin-left: 25px;
+
+}
+.genrebox input{
+    margin-right:38px;
+}
+
+.onhide{
+    /*display:none;*/
+
+}
+
+.demopic{
+
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+
+    width: 100%;
+
+
+}
+
+body{
+    max-width: 1280px;
+    margin: auto;
+    background:#e6c86e;
+    font-family:  'Share Tech Mono';
+    font-size: 25px;
+    color: #3c618e;
+
+}
+h1,h2,h3,h4,h5{
+    color:#d77355;
+}
+#character_menu,#createchar{
+
+    width: 600px;
+    margin-top: 50px;
+
+    margin: auto;
+
+}
+#connect{
+    max-width:600px;
+    margin:auto;
+    /* margin-top: 110px; */
+
+}
+
+#text{
+    font-size: 25px;
+    letter-spacing: -2px;
+    color: #646964;
+
+
+}
+br{
+    line-height:36px;
+}
+
+
+
+.intxt{
+    margin:10px 0;
+}
+
+
+
+.selected{
+    border:2px solid red;
+}
+#notifs{
+    position: absolute;
+    margin-top: 75px;
+    background: white;
+    z-index: 33;
+    font-size: 20px;
+}
+.notif{
+
+    margin:5px;
+    font-style: italic;
+}
+
+#game{
+    width: 600px;
+    margin: auto;
+    /* margin-top: 5%; */
+
+}
+
+
+canvas {
+    pointer-events:none
+}
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent /* #d77355*/;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #d77355;
+    /* border-radius: 20px;*/
+    border: 3px solid transparent;
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #508cd7;
+}
+
+
+#leftgame {
+
+    width: 100%;
+
+}
+#fiche{
+    position: relative;
+    width:100%;
+}
+#col_popups{
+    margin-top: 20px;
+    position: relative;
+    right: 0;
+    top: 0;
+
+    width: 100%;
+    /* border: 1px solid black;*/
+}
+.popin{
+    background: white;
+    padding:10px;
+    border:1px solid black;
+    margin:20px;
+    cursor:pointer;
+}
+
+
+.gamechoice_button{
+
+    cursor : pointer;
+}
+
+.old{
+
+}
+.removing{
+    position:absolute;
+}
+
+
+#choices{
+    text-align:center;
+}
+
+.gamechoice_button{
+    display:block;
+    margin: 20px auto;
+
+}
+
+
+
+#json, #persos{
+    font-size: 16px;
+    margin-top: 62Px;
+    /* position: absolute;*/
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    opacity:1;
+    height: 500px;
+}
+
+
+#place{
+    font-variant: all-petite-caps;
+
+}
+
+#thecanvas{
+    position:relative;
+    width: 640px;
+    height: 480px;
+}
+
+#sprite_mychar{
+    position:absolute;
+    margin-top:160px;
+    width:320px;
+    height:320px;
+}
+#peoplehere{
+    border:1px solid blue;
+    padding:20px;
+}
+
+#map{
+    position: absolute;
+    background: white;
+    width: 90%;
+    min-height: 320px;
+    padding: 30px;
+    border: 1px solid black;
+    top: 50px;
+    left: 50px;
+    display:none;
+}
+.showonstart{
+    display:none;
+}
+.placemap{
+    width:100px;
+    display:inline-block;
+    cursor: pointer;
+}
+
+
+iframe{
+    border:none !important;
+    background:#55415f;
+    width:600px;
+    height:400px;
+}
+
+
+
+
+#cadrephaser{
+
+    width: 650px !important;
+    height: 433px !important;
+    position: absolute;
+    background-image: url(img/FRAME.PNG);
+    z-index: -1;
+    left: -16px;
+    background-size: contain;
+    top: -18px;
+    background-repeat: no-repeat;
+}
+.green{
+    background-color:#cefbd8;
+}
+
+
+.stats{
+    opacity:0;
+    display:flex;
+    color:#d77355;
+
+}
+.stats1{
+    font-size: 19px;
+    padding: 10px;
+}
+.statbloc{
+    width:20%;
+}
+
+#visuel{
+
+    margin-top: 20px;
+    position:relative;
+}
+
+.updatestat{
+    font-style:italic;
+    color:orange;
+}
+
+.updatetrait{
+    font-style:italic;
+    color:green;
+}
+
+.perso_{
+    color: #048dc1;
+    position:relative;
+    cursor :pointer;
+}
+.place{
+    color:darkcyan;
+}
+
+.hoverpeople{
+    position:absolute;
+    z-index:500;
+    background:white;
+    border:1px solid #048dc1;
+    padding:20px;
+    left:0;
+    top:30px;
+    width:300px;
+}
+
+.gendered{
+    font-style: italic;
+}
+.stat{
+    text-align:right;
+}
+.stat[data-stat=place]{
+    color: #3c618e;
+}
+
+.stats2 .statbloc .stat{
+    color:#d77355 !important;
+}
+.s33{
+    width:100%;
+}
+.stats2{
+    color:#64b964;
+    text-align:center;
+}
+button{
+    max-width: calc(100% - 40px);
+
+}
+@media screen and (max-width:600px){
+    #gheader{
+        font-size: 70%;
+
+    }
+    #cadrephaser{
+        display:none;
+    }
+    #game,#character_menu,iframe{
+        width:100%;
+    }
+    iframe{
+        height:300px;
+    }
+
+    .textzone{
+        padding:20px
+    }
+
+}
+
+
+#music{
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 10px;
+
+    font-size: 19px;
+
+}
+#loadingtext{
+    position: absolute;
+    top: 200px;
+    left: 0;
+    text-align: center;
+    font-size: 30px;
+    color: #e6c86e;
+    width:600px;
+
+
+}
+#assettext{
+    position: absolute;
+    top: 240px;
+    left: 0;
+    text-align: center;
+    font-size: 10px;
+    color: #e6c86e;
+    width:600px;
+}
+
+.playername{
+    position:absolute;
+    top: calc(80px * 4);
+    left: calc(32px * 4);
+    /* border: 1px red; */
+    z-index: 333333;
+    width: 120px;
+    height: 30px;
+    color:#dcf5ff;
+}

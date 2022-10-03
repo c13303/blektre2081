@@ -32,6 +32,7 @@ class perso {
         this.moral = 0;
         this.sanity = 0;
         this.money = 12;
+        this.jour = 1;
         this.reac = 0;
         this.place = null; // current place
         this.places = [["Zonmai", "00_home/00_street"]]; /// les places unlocked dans la map
@@ -54,6 +55,9 @@ class perso {
         this.salaires = {};
         this.steps = {};
         this.milestones = {};
+
+
+        this.usNotice = []; // updateStat notices such as karma+5, life-1 etc
     }
     slugify(str) {
 
@@ -83,15 +87,27 @@ class perso {
     }
 
     update() {
+        var packedPersos = gC.getAllPackedPersos();
+
+
+
         var data = {
-            "mychar": this
-        }
+            "mychar": this,
+            "persos": packedPersos
+        };
+
+
+
         gC.persos[this.nom] = this;
         var ws = gC.WSPersos[this.nom];
         if (ws) {
             try {
+                if (this.adversaire instanceof Object) {
+                    fatal('PERSO ' + this.nom + ' HAS A OBJECT ADVERSAIRE');
+                }
                 ws.send(JSON.stringify(data));
                 this.loglines = [];
+                this.usNotice = [];
             } catch (e) {
                 console.log('erreur at update CHAR ' + this.nom);
                 console.log(e);
@@ -140,10 +156,28 @@ class perso {
         }
 
     }
+    send(ki, data) {
+
+        var popObject = {};
+        popObject[ki] = data;
+        // check if online = send , otherwise : stock
+        if (gC.WSPersos[this.nom]) {
+            var ws = gC.WSPersos[this.nom];
+            try {
+                ws.send(JSON.stringify(popObject));
+            } catch (e) {
+                /// popup failed bc client disconnected
+                console.log('closing ws for ' + ws.nom + ' (send du cul)');
+                ws.close();
+                delete gC.WSPersos[this.nom];
+            }
+        }
+    }
 
     log(notif) {
         this.loglines.push(gC.date + ':' + notif);
     }
+
     interrupt(chapitre, page, adversaire, statnotif, data = null) {
 
         this.interruptions.push({
@@ -199,8 +233,8 @@ class perso {
     us(stat, value) {
         updateStat(stat, value);
     }
-    updateStat(stat, value) {
-        console.log('Update STAT de ' + this.nom + ' ' + stat + ' ' + value);
+    updateStat(stat, value, persoToNotice = this) {
+        //console.log('Update STAT de ' + this.nom + ' ' + stat + ' ' + value);
 
 
         var newstat = this[stat] + value;
@@ -209,16 +243,24 @@ class perso {
             newstat = 100;
 
 
-        if (newstat > this[stat]) {
-            var texte = "Vous gagnez " + value + " de " + stat;
-        } else {
-            var texte = "Vous perdez " + (value * -1) + " de " + stat;
-        }
+
+
+        persoToNotice.usNotice.push({
+            "nom": this.nom,
+            "stat": stat,
+            "value": value
+        });
+
 
         this[stat] = newstat;
         //  this.loglines.push(texte);
 
-        return "<div class='updatestat intxt'>" + texte + "</div>";
+
+
+        return {
+            "stat": stat,
+            "value": value
+        };
     }
 
     // ajoute 1 au day time et reset au max
@@ -393,6 +435,23 @@ class perso {
         } else {
             return null;
     }
+    }
+
+    getAdversaire() {
+        console.log("getAdversaire");
+        console.log(this.adversaire);
+        if (this.adversaire) {
+            if (this.adversaire instanceof Object) {
+                console.log('EEEEEEURUUUR ADVERSAIRE IS AN OBJECT ' + this.nom);
+            }
+            if (!gC.persos[this.adversaire]) {
+                console.log('ERREOR GET ADVERSAIRE NOT FOUND ' + this.adversaire + ' frmo perso ' + this.nom);
+            }
+            return gC.persos[this.adversaire];
+        } else {
+            console.log('Erreuer Get Adversaire ' + this.nom);
+            return null;
+        }
     }
 }
 

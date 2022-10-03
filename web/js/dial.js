@@ -57,7 +57,8 @@ $(document).ready(function () {
         connect();
     });
 
-    /* auto Reconnection */
+    /* auto Reconnection */  
+    /* NO TRIPLE === OR IT FAILS (??) */
     if ($('#reconnect').val() == 1) {
 
         if ($('#reconnect').data('username')) {

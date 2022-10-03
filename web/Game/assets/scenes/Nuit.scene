@@ -1,0 +1,58 @@
+{
+    "id": "2e495bcb-69aa-44b6-9730-47a94d9ffaf8",
+    "sceneType": "SCENE",
+    "settings": {
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "sceneKey": "Nuit",
+        "borderWidth": 150,
+        "borderHeight": 100
+    },
+    "displayList": [
+        {
+            "type": "Image",
+            "id": "d2cf72e2-b4cf-4be9-9796-9eeb0bd2c8f3",
+            "label": "nuit",
+            "components": [],
+            "texture": {
+                "key": "nuit"
+            },
+            "x": 75,
+            "y": 50
+        },
+        {
+            "type": "Sprite",
+            "id": "f68f5054-5d51-43b1-ae5b-24634e6d5ba6",
+            "label": "player1",
+            "scope": "PUBLIC",
+            "components": [],
+            "texture": {
+                "key": "LAYDOWNBIBLE",
+                "frame": 1
+            },
+            "x": 78,
+            "y": 72
+        },
+        {
+            "type": "Sprite",
+            "id": "a1410fea-5f08-42bb-8883-52e5cb6f5826",
+            "label": "player2",
+            "scope": "PUBLIC",
+            "components": [],
+            "texture": {
+                "key": "perso1",
+                "frame": 0
+            },
+            "x": 130,
+            "y": 53,
+            "scaleX": -1
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 3
+    }
+}

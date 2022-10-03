@@ -30,8 +30,8 @@
                 "key": "perso1",
                 "frame": 0
             },
-            "x": 108,
-            "y": 54,
+            "x": 81,
+            "y": 24,
             "scaleX": -1
         },
         {
@@ -44,8 +44,8 @@
                 "key": "perso1",
                 "frame": 0
             },
-            "x": 49,
-            "y": 55
+            "x": 26,
+            "y": 56
         },
         {
             "type": "Sprite",
@@ -57,8 +57,8 @@
                 "key": "perso1",
                 "frame": 0
             },
-            "x": 133,
-            "y": 47,
+            "x": 127,
+            "y": 56,
             "scaleX": -1
         },
         {
@@ -71,9 +71,19 @@
                 "key": "perso1",
                 "frame": 0
             },
-            "x": 127,
-            "y": 64,
-            "scaleX": -1
+            "x": 54,
+            "y": 29
+        },
+        {
+            "type": "Image",
+            "id": "3c2d40eb-cb05-4555-ab4f-95d4d7f36a51",
+            "label": "stop",
+            "components": [],
+            "texture": {
+                "key": "stop"
+            },
+            "x": 98,
+            "y": 41
         }
     ],
     "plainObjects": [],

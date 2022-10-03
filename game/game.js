@@ -120,7 +120,7 @@ module.exports = {
         }
 
         if (msg.choice) {
-            this.loadPage(ws, msg.choice, msg.page, msg.dest);
+            this.loadPage(ws, msg.choice, msg.page);
             /* clear textarea */
             delete ws.current_perso.textarea;
         }
@@ -148,13 +148,20 @@ module.exports = {
         /* DEMARRAGE PARTIE */
         if (msg.go) {
             var nom = ws.char_inventory[msg.char].nom;
+
             console.log(ws.name + ' CHARACTEUR ONLINE  : ' + nom);
+
             /*
              var persodata = ws.char_inventory[msg.char];
              var perso = new Perso();
              perso.reload(persodata);
              */
             var perso = gC.persos[nom];
+
+            perso.awake = true;
+            perso.account = ws.name;
+
+
             ws.current_perso = perso;
             gC.WSPersos[perso.nom] = ws;
             //  console.log(ws.name + ' starts the game');
@@ -218,9 +225,10 @@ module.exports = {
 
 
 
-            /// dest is the metro final destination i guess
-            if (dest)
-                perso.dest = dest;
+            
+            
+            
+            
             /* load CHAPITRE */
             var chapitreO = require('./../blektre/' + chapitre + '.js');
             if (!chapitreO) {
@@ -228,7 +236,7 @@ module.exports = {
             }
 
             /* load PAGE */
-           // console.log(param);
+           //  console.log(param);
             var pageObject = chapitreO.getPage(ws, page, param);
             if (!pageObject) {
                 tools.report('pageOjbect is missing at ' + chapitre + ' ' + page);
@@ -272,6 +280,7 @@ module.exports = {
             ws.send(JSON.stringify(data));
         } catch (e) {
             tools.report('!!!! ERROR LOADPAGE :  ' + chapitre + ' -> ' + page);
+            perso.popup('!!!! ERROR LOADPAGE :  ' + chapitre + ' -> ' + page);
             console.log(e);
         }
         return null;
@@ -303,15 +312,15 @@ module.exports = {
 
         var arrStr = text.split(/[<>]/);
         try {
-          //  console.log(arrStr.length + " codes found in this page");
+            //  console.log(arrStr.length + " codes found in this page");
 
             for (var i = 0; i < arrStr.length; i++) {
-
-
+                var role = null;
+                var daPerso = null;
 
                 var daCode = arrStr[i];
 
-                if (daCode.indexOf('~') !== -1 && daCode.indexOf('/') === -1) {
+                if (daCode.indexOf('~') !== -1 && daCode.indexOf('/') === -1) {   /// SI LE TAG CONTIENT ~  SELF,ADVERSAIRE,ROLE
                     var attr = null;
                     if (daCode.indexOf('_') !== -1) {
                         var roleArray = daCode.split('_');
@@ -322,18 +331,12 @@ module.exports = {
                     }
 
                     role = role.replace('~', '');
-
-
                     if (role === 'SELF')
                         var daPerso = perso;
-
                     if (role === 'ADVERSAIRE')
-                        var daPerso = perso.adversaire;
-
+                        var daPerso = perso.getAdversaire();
                     if (!daPerso)
                         var daPerso = this.getPersoByRole(role);
-
-
                     var display = daPerso.bnom;
                     if (attr) {
                         var daRole = this.getRole(role);
@@ -356,20 +359,23 @@ module.exports = {
 
                     if (genderArray[3] === 'ADVERSAIRE') {
                         console.log('Filtering with adversaire');
-                        var daPerso = perso.adversaire;
+                        var daPerso = perso.getAdversaire();
+                        console.log(daPerso);
                     }
 
                     if (!daPerso) {
+                        console.log('filterText : using name replacement ???');
                         if (genderArray[3].indexOf('~') !== -1) {
                             var daName = genderArray[3].replace('~', '');
                             var daPerso = this.gC.persos[daName];
                         } else
                             var daPerso = this.getPersoByRole(genderArray[3]);
                     }
-                    
+
                     if (!daPerso) {
                         console.log('FILTER ERROR PERSO NOT FOUND');
                         console.log(genderArray);
+                        return null;
                     }
                     if (!daPerso || !daPerso.gender) {
                         console.log('FILTER ERROR daPerso.gender is missing');
