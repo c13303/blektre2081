@@ -56,34 +56,29 @@ $(document).ready(function () {
         $("#notifs").html("");
 
         /* AFFICHAGE MAP DE METRO */
-        if ($(this).data('target') === 'map') {
-            $('#map').show();
-            var html = "";
-            for (var i = 0; i < mychar.places.length; i++) {
-                html += "<button class='placemap gamechoice' data-page='moving' data-target='00_global/metro' data-dest='" + mychar.places[i][1] + "' data-destname='" + mychar.places[i][0] + "'>" + mychar.places[i][0] + "</button>";
-            }
-            $('#places').html(html);
-        } else {
 
-            /* VALIDATION DES CHOIX */
 
-            var msg = {
-                choice: $(this).data('target'),
-                page: $(this).data('page')
-            };
+        /* VALIDATION DES CHOIX */
 
-            /* textarea*/
+        var msg = {
+            choice: $(this).data('target'),
+            page: $(this).data('page')
+        };
 
-            if ($(document).find('#frage').length) {
-                msg.textarea = $(document).find('#frage').val();
-            }
+       
 
-            if ($(this).data('dest')) {
-                msg.dest = $(this).data('dest');
-                msg.destname = $(this).data('destname');
-            }
-            ws.send(JSON.stringify(msg));
+        /* textarea*/
+
+        if ($(document).find('#frage').length) {
+            msg.textarea = $(document).find('#frage').val();
         }
+
+        if ($(this).data('dest')) {
+            msg.dest = $(this).data('dest');
+            msg.destname = $(this).data('destname');
+        }
+        ws.send(JSON.stringify(msg));
+
 
 
 

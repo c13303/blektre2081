@@ -89,25 +89,27 @@ if ($isdev) {
                     <div id="visuel">
 
                         <div id="cadrephaser"></div>
-                        <iframe id="phaserframe" src="Game/index.html?v=<?= $v; ?>" ></iframe> 
-                        <div id="loadingtext"></div>
-                        <div id="assettext"></div>
-                        <div class="playername" id="p1"></div>
-                        <div class="playername" id="p2"></div>
-                        <div class="playername" id="p3"></div>
-                        <div class="playername" id="p4"></div>
+                        <div id="visuelcache">
+                            <iframe id="phaserframe" src="Game/index.html?v=<?= $v; ?>" ></iframe> 
+                            <div id="loadingtext"></div>
+                            <div id="assettext"></div>
+                            <div class="playername" id="p1"></div>
+                            <div class="playername" id="p2"></div>
+                            <div class="playername" id="p3"></div>
+                            <div class="playername" id="p4"></div>
 
 
-                        <div class="updateStat" id="us_P1"></div>
-                        <div class="updateStat" id="us_P2"></div>
-                        <div class="updateStat" id="us_P3"></div>
-                        <div class="updateStat" id="us_P4"></div>
+                            <div class="updateStat" id="us_P1"></div>
+                            <div class="updateStat" id="us_P2"></div>
+                            <div class="updateStat" id="us_P3"></div>
+                            <div class="updateStat" id="us_P4"></div>
 
-                        <div id="peopleOnScreen"></div>
+                            <div id="peopleOnScreen"></div>
 
                     <!--  <textarea id="json" class="onhide"></textarea>
                     <textarea id="persos" class="onhide"></textarea>
-                        <!-- <div id="peoplehere"></div> -->
+                            <!-- <div id="peoplehere"></div> -->
+                        </div>
                     </div>
 
 

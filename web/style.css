@@ -31,7 +31,9 @@ button:hover{
     background:#d77355;
     color: #e6c86e;
 }
-#musictitle{display:none}
+#musictitle{
+    display:none
+}
 input,textarea,select{
     font-family:  'Share Tech Mono';
     border:none;
@@ -320,6 +322,9 @@ iframe{
     margin-top: 20px;
     position:relative;
 }
+#visuelcache{
+    overflow:hidden;
+}
 
 .updatestat{
     font-style:italic;
@@ -448,7 +453,7 @@ button{
     position:absolute;
     top:0;
     background: #dcf5ff;
-    
+
     -webkit-transition: all 2s ease-out;
     -moz-transition: all 2s ease-out;
     -ms-transition: all 2s ease-out;

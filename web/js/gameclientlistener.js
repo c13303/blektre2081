@@ -52,6 +52,7 @@ function gameClientHook(d) {
     if (d.erreur) {
         alert(d.erreur);
         console.log(d.erreur);
+        location.reload();
     }
 
     if (d.connected) {
@@ -92,6 +93,8 @@ function gameClientHook(d) {
         } else {
             $('#text').find(".content").addClass('old').fadeTo(500, 0);
         }
+
+    
 
 
 
@@ -136,7 +139,12 @@ function gameClientHook(d) {
         var choices = '';
         for (var i = 0; i < d.choices.length; i++) {
             var line = d.choices[i];
-            var buton = "<button id='#tutu" + i + "' class='gamechoice gamechoice_button' data-target='" + line[1] + "' style='opacity:0' data-page='" + line[2] + "'>" + line[0] + "</button>";
+            if (line[3])
+                var from = "data-from='" + line[3] + "'";
+            else
+                var from = "";
+
+            var buton = "<button id='#tutu" + i + "' class='gamechoice gamechoice_button' data-target='" + line[1] + "' style='opacity:0' data-page='" + line[2] + "' " + from + ">" + line[0] + "</button>";
             choices += buton;
         }
 
@@ -189,7 +197,7 @@ function gameClientHook(d) {
 
 
         // ATTEMPT usNotice mais on va le faire dans animateHeadz
-        
+
         /*
          for (const [key, persal] of Object.entries(persos)) {
          if (persal.usNotice && persal.usNotice.length > 0) {

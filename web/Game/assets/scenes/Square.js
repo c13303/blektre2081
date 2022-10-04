@@ -24,7 +24,7 @@ class Square extends Phaser.Scene {
         player2.scaleX = -1;
 
         // player1
-        const player1 = this.add.sprite(48, 56, "perso1", 0);
+        const player1 = this.add.sprite(16, 59, "perso1", 0);
 
         this.player2 = player2;
         this.player1 = player1;
@@ -47,6 +47,19 @@ class Square extends Phaser.Scene {
     create() {
 
         this.editorCreate();
+        this.player1.on(Phaser.Animations.Events.ANIMATION_UPDATE, function (anim, frame, gameObject, frameKey) {
+
+
+            if (this.x < 60) {
+                this.x += 4;
+            } else {
+                this.play('idleP' + this.daPerso.type);
+            }
+        });
+    }
+
+    update() {
+
     }
 
     /* END-USER-CODE */

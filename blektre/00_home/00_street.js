@@ -95,7 +95,7 @@ Si vous ne vous dépêchez pas, vous serez en retard au travail.";
 
 
 
-            , "TheSquare": function () {
+            , "TheSquare": function (param = null) {
                 var place = "Square Manuel Valls";
                 game.gC.setInPlace(place, perso);
                 perso.choiceExit = {
@@ -122,6 +122,15 @@ Où allez-vous ?";
                 var phaserAnimation = [
                     [1, perso.nom, "walk", [0, 0]]
                 ];
+
+                if (param === 'right') {
+                    var phaserAnimation = [
+                        [1, perso.nom, "walk", 'right']
+                    ];
+                    console.log('righting the p1');
+                }
+
+
                 if (random && random.nom) {
                     perso.adversaire = random.nom;
                     phaserAnimation.push([2, random.nom, "idle", [0, 0]]);

@@ -2,6 +2,8 @@ var game;
 var ctx;
 var levelctx, scenery;
 var currentScene;
+var persosOnScreen;
+
 var music;
 var musicPlayed;
 var musicMuted = false;
@@ -92,9 +94,25 @@ class Boot extends Phaser.Scene {
         musicPlayed = false;
         that = this;
         changeScene("Preloader", false);
+        setInterval(this.update, 500);
+    }
+
+    update() {
+
+        if (persosOnScreen)
+            for (const [nom, spritePlayer] of Object.entries(persosOnScreen)) {
+
+                var label = spritePlayer.label;
+                label.css("left", (spritePlayer.x - 16) * ZOOM);
+                label.css("margin-top", (spritePlayer.y - (28 * ZOOM)) * ZOOM);
+            }
     }
 
 }
+
+
+
+
 ;
 function Ctx() {
     return ctx;
@@ -192,7 +210,7 @@ function noticeHeads() {
 
 function animateHeadz(phaseranimationArray, persos, d = null) {
 
-    var persosOnScreen = {};
+    persosOnScreen = {};
     var nbNotice = 0;
     var html = "";
     //   console.log(phaseranimation);
@@ -211,15 +229,19 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
     for (var i = 0; i < phaseranimationArray.length; i++) {
 
         var phaseranimation = phaseranimationArray[i];
-        var phaserObj_player = levelctx["player" + phaseranimation[0]];
-        if (!phaserObj_player) {
+        var spritePlayer = levelctx["player" + phaseranimation[0]];
+
+
+
+
+        if (!spritePlayer) {
             console.log('ERROR SPRITE NOT FOUND');
             console.log(phaseranimation);
             continue;
         }
 
 
-        phaserObj_player.visible = true;
+        spritePlayer.visible = true;
         var nom = phaseranimation[1];
         if (!persos) {
             console.log('Lost Persos ... reloading scene');
@@ -231,8 +253,11 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
             console.log('ERROR PERSAL NOT FOUND ' + nom);
         }
 
-        phaserObj_player.perso = nom;
-        persosOnScreen[nom] = phaserObj_player;
+        spritePlayer.perso = nom;
+
+        spritePlayer.daPerso = daPerso;
+
+        persosOnScreen[nom] = spritePlayer;
         // console.log(daPerso.type);
         var type = phaseranimation[2];
         if (phaseranimation[3]) {
@@ -243,11 +268,11 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
 
         var animeName = type + 'P' + daPerso.type;
         //   console.log("animateHeadz de " + nom + " : P" + phaseranimation[0] + " -> " + animeName);
-//        console.log(phaserObj_player);
+//        console.log(spritePlayer);
         //      console.log(animeName);
         try {
 
-            phaserObj_player.play(animeName);
+            spritePlayer.play(animeName);
         } catch (e) {
             console.log(e);
         }
@@ -255,7 +280,7 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
 
 
 
-        var coord = [phaserObj_player.x - 16, phaserObj_player.y + 24];
+        var coord = [spritePlayer.x - 16, spritePlayer.y + 24];
         var j = i + 1;
         var label = window.parent.$("#p" + j);
         var yOFFSET = 0;
@@ -264,11 +289,16 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
         if (ZOOM === 2)
             yOFFSET = -156;
         var stil = "margin-top: " + yOFFSET + "px";
+
+        spritePlayer.label = label;
         label.show();
         label.html("<div class='etikette etikette_" + nom + "'   style='" + stil + "'>" + nom + "</div>");
-        label.css("left", (phaserObj_player.x - 16) * ZOOM);
-        label.css("margin-top", (phaserObj_player.y - (28 * ZOOM)) * ZOOM);
-        // this.levelctx.add.dynamicBitmapText(phaserObj_player.x - 16, phaserObj_player.y + 24, 'CIOFONT', nom, 9);
+        label.css("left", (spritePlayer.x - 16) * ZOOM);
+        label.css("margin-top", (spritePlayer.y - (28 * ZOOM)) * ZOOM);
+
+
+
+        // this.levelctx.add.dynamicBitmapText(spritePlayer.x - 16, spritePlayer.y + 24, 'CIOFONT', nom, 9);
 
         if (daPerso.nom === window.parent.mychar.nom) {
             var noticeOrder = 1;

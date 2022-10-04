@@ -51,7 +51,7 @@ module.exports = {
                 var choices = [
                     ["Je descends sur la Défense", "00_home/01_defense", "intro"],
                     ["Périph extérieur", "00_home/06_periphext", "intro"],
-                    ["Je retourne vers la zonmai", "00_home/00_street", "TheSquare"]
+                    ["Je retourne vers la zonmai", "00_home/00_street", "TheSquare__right"]
                 ];
 
                 var phaserAnimation = [

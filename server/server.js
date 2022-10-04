@@ -204,7 +204,7 @@ serveur.startServer = function () {
                     return null;
 
                 ws.send(JSON.stringify({error: msg}));
-            }
+            };
 
 
 

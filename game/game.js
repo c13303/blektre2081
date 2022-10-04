@@ -66,7 +66,12 @@ module.exports = {
     onPlayerLeave: function (ws) {
         if (ws.isOnline) {
             ws.isOnline = false;
-            delete gC.WSPersos[ws.name];
+            var curPerso = ws.current_perso;
+            if (curPerso) {
+                console.log('Closing perso ' + curPerso.nom);
+                delete gC.WSPersos[curPerso.nom];
+            }
+
             tools.report(ws.name + ' LEFT THE GAME : ' + ws.id);
         }
     },
@@ -149,6 +154,8 @@ module.exports = {
         if (msg.go) {
             var nom = ws.char_inventory[msg.char].nom;
 
+
+
             console.log(ws.name + ' CHARACTEUR ONLINE  : ' + nom);
 
             /*
@@ -157,6 +164,13 @@ module.exports = {
              perso.reload(persodata);
              */
             var perso = gC.persos[nom];
+
+
+            if (gC.WSPersos[perso.nom]) {
+                console.log('ERREUR CHAR ALREADY ONDLINE');
+                ws.send(JSON.stringify({erreur: "perso déjà logué"}));
+                return null;
+            }
 
             perso.awake = true;
             perso.account = ws.name;
@@ -225,10 +239,10 @@ module.exports = {
 
 
 
-            
-            
-            
-            
+
+
+
+
             /* load CHAPITRE */
             var chapitreO = require('./../blektre/' + chapitre + '.js');
             if (!chapitreO) {
@@ -236,7 +250,8 @@ module.exports = {
             }
 
             /* load PAGE */
-           //  console.log(param);
+            //  console.log(param);
+            
             var pageObject = chapitreO.getPage(ws, page, param);
             if (!pageObject) {
                 tools.report('pageOjbect is missing at ' + chapitre + ' ' + page);
@@ -244,6 +259,7 @@ module.exports = {
             }
 
             pageObject.text = this.filterText(pageObject.text, perso);
+            
             for (var i = 0; i < pageObject.choices.length; i++) {
                 if (pageObject.choices[i])
                     pageObject.choices[i][0] = this.filterText(pageObject.choices[i][0], perso);
@@ -260,10 +276,7 @@ module.exports = {
                     }
                 }
 
-                // if intro & station 
-                if (chapitreO.station) {
-                    perso.station = chapitreO.station;
-                }
+              
             }
 
             // LET'S GO, THEN
@@ -275,8 +288,11 @@ module.exports = {
             perso.update();
             // send data to client
             var data = (pageObject);
+            /*
             if (chapitreO.name)
                 data.scene = chapitreO.name;
+             * 
+             */
             ws.send(JSON.stringify(data));
         } catch (e) {
             tools.report('!!!! ERROR LOADPAGE :  ' + chapitre + ' -> ' + page);
