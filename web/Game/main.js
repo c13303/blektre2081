@@ -13,6 +13,7 @@ var musicTrackList = [
     ["Character Creation", ['../sound/mp3/01 - Character Creation.mp3', '../sound/mp3/01-Character-Creation.ogg', '../sound/mp3/01 - Character Creation.m4a']],
     ["Valises of Life", ['../sound/mp3/03 - Valises of Life.mp3', '../sound/mp3/03-Valises-of-Life.ogg', '../sound/mp3/03 - Valises of Life.m4a']]
 ];
+var musicTrackList = [];
 var that;
 var width = window.parent.$(window).width();
 var ZOOM = 4;
@@ -90,8 +91,11 @@ class Boot extends Phaser.Scene {
         //console.log('writing');
 
         this.sound.pauseOnBlur = false;
-        music = this.sound.add(musicTrackList[musicTrackListPosition][0]);
-        musicPlayed = false;
+        if (musicTrackList.length) {
+            music = this.sound.add(musicTrackList[musicTrackListPosition][0]);
+            musicPlayed = false;
+        }
+
         that = this;
         changeScene("Preloader", false);
         setInterval(this.update, 500);
@@ -99,13 +103,26 @@ class Boot extends Phaser.Scene {
 
     update() {
 
-        if (persosOnScreen)
+        if (persosOnScreen) /// label following ass
             for (const [nom, spritePlayer] of Object.entries(persosOnScreen)) {
-
                 var label = spritePlayer.label;
                 label.css("left", (spritePlayer.x - 16) * ZOOM);
                 label.css("margin-top", (spritePlayer.y - (28 * ZOOM)) * ZOOM);
+
+
+                if (spritePlayer.movingToLeft) {
+                    spritePlayer.x -= 8;
+                }
+                if (spritePlayer.movingToRight) {
+                    spritePlayer.x += 8;
+                }
+
             }
+
+
+
+
+
     }
 
 }
@@ -122,7 +139,7 @@ function levelCtx() {
     return levelctx;
 }
 
-function changeScene(name, remove = true) {
+function changeScene(name) {
 //  console.log('=========== ChangeScene :  ' + name + "===========");
     if (currentScene)
         ctx.scene.stop(currentScene);
@@ -134,6 +151,8 @@ function changeScene(name, remove = true) {
 
 function musicPlaylisting() {
     console.log('Track music is over');
+    if (!musicTrackList.length)
+        return null;
     musicPlayed = false;
     musicTrackListPosition++;
     if (!musicTrackList[musicTrackListPosition]) {
@@ -166,36 +185,9 @@ function stopMusic() {
 
 }
 
+function moveSprite() {
 
-/*
- function changeSprite(playerId, animationName) {
- 
- 
- console.log("---ChangeSprite P" + playerId + "---");
- var phaserObj_character = levelctx["player" + playerId];
- console.log(phaserObj_character);
- if (phaserObj_character)
- {
- 
- // init du sprite avec le skin
- phaserObj_character.skin = animationName;
- 
- // idle
- try {
- phaserObj_character.play('idleP' + phaserObj_character.skin);
- } catch (e) {
- console.log('ERROR : Sprite Load for Player ' + playerId + ' : Skin ' + animationName + '');
- 
- }
- 
- 
- } else {
- console.log('ERROR HEAD NOT FOUND');
- console.log(levelctx);
- }
- }
- */
-
+}
 
 function noticeHeads() {
     for (var i = 0; i < 5; i++) {
@@ -209,7 +201,7 @@ function noticeHeads() {
 
 
 function animateHeadz(phaseranimationArray, persos, d = null) {
-
+    // console.log('-----animateHeadz---');
     persosOnScreen = {};
     var nbNotice = 0;
     var html = "";
@@ -219,6 +211,7 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
     for (var i = 0; i < 5; i++) {
         var playerCheck = levelctx["player" + i];
         if (playerCheck) {
+            // console.log('invisible');
             playerCheck.visible = false;
         }
     }
@@ -229,7 +222,15 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
     for (var i = 0; i < phaseranimationArray.length; i++) {
 
         var phaseranimation = phaseranimationArray[i];
+
+        if (phaseranimation[0] === 'cartop') {
+            levelctx.cartop.scaleX = -1;
+            continue;
+        }
+
         var spritePlayer = levelctx["player" + phaseranimation[0]];
+
+        var options = phaseranimation[3];
 
 
 
@@ -242,6 +243,7 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
 
 
         spritePlayer.visible = true;
+        // console.log('visible');
         var nom = phaseranimation[1];
         if (!persos) {
             console.log('Lost Persos ... reloading scene');
@@ -254,17 +256,102 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
         }
 
         spritePlayer.perso = nom;
-
         spritePlayer.daPerso = daPerso;
-
+        // console.log(spritePlayer.perso + ' is visible');
         persosOnScreen[nom] = spritePlayer;
         // console.log(daPerso.type);
         var type = phaseranimation[2];
-        if (phaseranimation[3]) {
-            var where = phaseranimation[3];
-            var x = where[0];
-            var y = where[1];
+
+
+        if (options) {
+
+            if (options.startX)
+                spritePlayer.x = options.startX;
+
+            if (options.startY)
+                spritePlayer.y = options.startY;
+
+            if (options.flipX)
+                spritePlayer.scaleX = -1;
+
+            if (options.endX) {
+                if (options.endX > spritePlayer.x) {  /// from left to right
+                    var endX = options.endX;
+                    spritePlayer.on(Phaser.Animations.Events.ANIMATION_UPDATE, function (anim, frame, gameObject, frameKey) {
+                        if (this.cancel)
+                            return null;
+
+
+                        if (this.x < endX) {
+                            this.x += 4;
+                        } else {
+                            console.log('Walk  anime (1) stopeed : idle');
+                            this.play('idleP' + this.daPerso.type);
+                            delete this.options;
+                            this.cancel = true;
+
+                        }
+                    });
+                }
+
+                if (options.endX < spritePlayer.x) {  /// from left to right
+                    var endX = options.endX;
+                    spritePlayer.on(Phaser.Animations.Events.ANIMATION_UPDATE, function (anim, frame, gameObject, frameKey) {
+                        if (this.cancel)
+                            return null;
+
+                        if (this.x > endX) {
+                            this.x -= 4;
+                        } else {
+                            console.log('Walk  anime (2) stopeed : idle');
+                            this.play('idleP' + this.daPerso.type);
+                            delete this.options;
+                            this.cancel = true;
+                        }
+                    });
+                }
+
+            }
+
+
+
+
+
+
         }
+
+
+        /* FUMING MOVESET */
+
+        spritePlayer.on(Phaser.Animations.Events.ANIMATION_UPDATE, function (anim, frame, gameObject, frameKey) {
+
+            if (anim.key.indexOf("takecher") !== -1) {
+                //    console.log(anim.key + " " + frame.index);
+                if (frame.index === 6) {
+                    //  console.log("reculing trigger");
+                    gameObject.movingToLeft = true;
+                }
+
+                if (frame.index === 8) {
+                    //  console.log("reculing trigger");
+                    gameObject.movingToLeft = false;
+                    this.y += 8;
+                }
+            }
+
+        });
+
+
+
+
+
+
+
+
+
+
+
+
 
         var animeName = type + 'P' + daPerso.type;
         //   console.log("animateHeadz de " + nom + " : P" + phaseranimation[0] + " -> " + animeName);
@@ -276,7 +363,6 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
         } catch (e) {
             console.log(e);
         }
-
 
 
 
@@ -335,8 +421,8 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
 
 
 /// redistribuer les notices
-    console.log('distributing ' + arrayOfNoticesToShow.length + ' notices');
-    console.log(arrayOfNoticesToShow);
+    // console.log('distributing ' + arrayOfNoticesToShow.length + ' notices');
+    // console.log(arrayOfNoticesToShow);
     for (var u = 0; u < arrayOfNoticesToShow.length; u++) {
         var nom = arrayOfNoticesToShow[u][0];
         var html = arrayOfNoticesToShow[u][1];
@@ -363,7 +449,7 @@ function display_usNotices() {
                 var delay = elem.data('delay');
                 delay--;
                 if (delay === 0) {
-                    console.log('show ' + elem.html());
+                    // console.log('show ' + elem.html());
                     elem.show().addClass('acvite');
                     setTimeout(function () {
                         window.parent.tweenNotice();

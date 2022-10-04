@@ -46,7 +46,7 @@ function phaserHook(d) {
                     PS.animateHeadz(d.phaseranimation, persals);
                 }
                 jQuery('#phaserframe').fadeIn(0);
-            }, 10);
+            }, 50);
         } else { // sinon sans attendre
             if (d.phaseranimation) {
                 var persals = persos;

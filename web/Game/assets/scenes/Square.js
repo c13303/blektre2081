@@ -5,39 +5,39 @@
 
 class Square extends Phaser.Scene {
 
-    constructor() {
-        super("Square");
+	constructor() {
+		super("Square");
 
-        /* START-USER-CTR-CODE */
+		/* START-USER-CTR-CODE */
         // Write your code here.
         /* END-USER-CTR-CODE */
-    }
+	}
 
-    /** @returns {void} */
-    editorCreate() {
+	/** @returns {void} */
+	editorCreate() {
 
-        // square
-        this.add.image(75, 50, "square");
+		// square
+		this.add.image(75, 50, "square");
 
-        // player2
-        const player2 = this.add.sprite(105, 30, "perso1", 0);
-        player2.scaleX = -1;
+		// player2
+		const player2 = this.add.sprite(105, 30, "perso1", 0);
+		player2.scaleX = -1;
 
-        // player1
-        const player1 = this.add.sprite(16, 59, "perso1", 0);
+		// player1
+		const player1 = this.add.sprite(17, 48, "perso1", 0);
 
-        this.player2 = player2;
-        this.player1 = player1;
+		this.player2 = player2;
+		this.player1 = player1;
 
-        this.events.emit("scene-awake");
-    }
+		this.events.emit("scene-awake");
+	}
 
-    /** @type {Phaser.GameObjects.Sprite} */
-    player2;
-    /** @type {Phaser.GameObjects.Sprite} */
-    player1;
+	/** @type {Phaser.GameObjects.Sprite} */
+	player2;
+	/** @type {Phaser.GameObjects.Sprite} */
+	player1;
 
-    /* START-USER-CODE */
+	/* START-USER-CODE */
 
     // Write your code here
     init() {
@@ -47,15 +47,7 @@ class Square extends Phaser.Scene {
     create() {
 
         this.editorCreate();
-        this.player1.on(Phaser.Animations.Events.ANIMATION_UPDATE, function (anim, frame, gameObject, frameKey) {
 
-
-            if (this.x < 60) {
-                this.x += 4;
-            } else {
-                this.play('idleP' + this.daPerso.type);
-            }
-        });
     }
 
     update() {

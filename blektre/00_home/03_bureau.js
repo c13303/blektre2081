@@ -25,11 +25,11 @@ module.exports = {
          * 
          *   */
         var chapitre = {
-            "intro": function () {
-                this.bureau();
+            "intro": function (param = null) {
+                return this.bureau(param);
             },
 
-            "bureau": function () {
+            "bureau": function (param = null) {
                 perso.updateStat('life', -1);
                 game.gC.setInPlace("Bureau", perso);
                 var text = "- Bonjour, vous avez rendez-vous ? \n\
@@ -60,17 +60,22 @@ La question vous stressez, et vous suez abondamment.";
                 }
 
                 var adversaire = perso.getAdversaire();
-
+                
+                
+                var pa = [
+                    [1, perso.nom, "idle"],
+                    [2, adversaire.nom, "idle"],
+                ];
+                if (param === 'left') {
+                    pa[0] = [1, perso.nom, "walk", {startX: 1, endX: 60}];
+                }
 
                 return {
                     flush: 1,
                     text: text,
                     choices: choices,
                     phaserscene: "Bureau",
-                    phaseranimation: [
-                        [1, perso.nom, "idle", [0, 0]],
-                        [2, adversaire.nom, "idle", [0, 0]],
-                    ]
+                    phaseranimation: pa
                 };
 
             } //endscene()---------------------------------------------------------------------------

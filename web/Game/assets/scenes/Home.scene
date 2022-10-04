@@ -29,8 +29,8 @@
                 "key": "LAYDOWNBIBLE",
                 "frame": 1
             },
-            "x": 76,
-            "y": 68
+            "x": 73,
+            "y": 53
         },
         {
             "type": "Sprite",
@@ -42,8 +42,8 @@
                 "key": "perso1",
                 "frame": 0
             },
-            "x": 128,
-            "y": 49,
+            "x": 135,
+            "y": 40,
             "scaleX": -1
         }
     ],

@@ -295,8 +295,8 @@ class perso {
             time: time,
             expire_message: expire_message
         };
-        console.log('ADDING Coooooool');
-        console.log(this.cools);
+        // console.log('ADDING Coooooool');
+        // console.log(this.cools);
 
     }
 
@@ -308,8 +308,12 @@ class perso {
             if (dacool.time > 0) {
                 dacool.time--;
                 if (dacool.time <= 0) {
-                    this.popup(this.cools[key].expire_message);
-                    delete this.cools[key];
+                    if (this.cools[key].expire_message) {
+                        this.popup(this.cools[key].expire_message);
+                        delete this.cools[key];
+                    } else {
+                        console.log('!ERROR COOLDOWN NO EXPIRE MESSAGE ' + key);
+                    }
                 }
             }
 

@@ -23,23 +23,14 @@ class Parvis extends Phaser.Scene {
 		const player2 = this.add.sprite(81, 24, "perso1", 0);
 		player2.scaleX = -1;
 
-		// player1
-		const player1 = this.add.sprite(26, 56, "perso1", 0);
-
-		// player3
-		const player3 = this.add.sprite(127, 56, "perso1", 0);
-		player3.scaleX = -1;
-
-		// player4
-		const player4 = this.add.sprite(54, 29, "perso1", 0);
-
 		// stop
 		this.add.image(98, 41, "stop");
 
+		// player1
+		const player1 = this.add.sprite(52, 54, "perso1", 0);
+
 		this.player2 = player2;
 		this.player1 = player1;
-		this.player3 = player3;
-		this.player4 = player4;
 
 		this.events.emit("scene-awake");
 	}
@@ -48,10 +39,6 @@ class Parvis extends Phaser.Scene {
 	player2;
 	/** @type {Phaser.GameObjects.Sprite} */
 	player1;
-	/** @type {Phaser.GameObjects.Sprite} */
-	player3;
-	/** @type {Phaser.GameObjects.Sprite} */
-	player4;
 
 	/* START-USER-CODE */
     init() {

@@ -38,9 +38,9 @@ module.exports = {
                 adversaire = perso.getAdversaire();
                 console.log(adversaire);
 
-                var phaseranimation = [[1, perso.nom, "idle", [0, 0]]];
+                var phaseranimation = [[1, perso.nom, "idle"]];
 
-                phaseranimation.push([2, adversaire.nom, "idle", [0, 0]]);
+                phaseranimation.push([2, adversaire.nom, "idle"]);
                 perso.phaseranimation = phaseranimation;
 
                 var text = "Vous approchez de <~ADVERSAIRE>";
@@ -170,7 +170,7 @@ module.exports = {
 
 
 
-            , "fume": function () {
+            , "fume": function (param) {
                 adversaire = perso.getAdversaire();
 
                 if (!adversaire) {

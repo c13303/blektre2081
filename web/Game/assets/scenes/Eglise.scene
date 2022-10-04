@@ -1,0 +1,58 @@
+{
+    "id": "d045cddd-afc3-4fd3-9be4-4b272446e030",
+    "sceneType": "SCENE",
+    "settings": {
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "sceneKey": "Eglise",
+        "borderWidth": 150,
+        "borderHeight": 100
+    },
+    "displayList": [
+        {
+            "type": "Image",
+            "id": "7928e364-2615-4dac-b8ad-47baeadfb0d7",
+            "label": "eglise",
+            "components": [],
+            "texture": {
+                "key": "eglise"
+            },
+            "x": 75,
+            "y": 50
+        },
+        {
+            "type": "Sprite",
+            "id": "e8af13a4-6dcc-40f5-9115-4df1743125c9",
+            "label": "player1",
+            "scope": "PUBLIC",
+            "components": [],
+            "texture": {
+                "key": "perso1",
+                "frame": 0
+            },
+            "x": 44,
+            "y": 59
+        },
+        {
+            "type": "Sprite",
+            "id": "a37cab9b-3876-4d5e-a32c-e88e934d4b85",
+            "label": "player2",
+            "scope": "PUBLIC",
+            "components": [],
+            "texture": {
+                "key": "perso1",
+                "frame": 0
+            },
+            "x": 87,
+            "y": 48,
+            "scaleX": -1
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 3
+    }
+}

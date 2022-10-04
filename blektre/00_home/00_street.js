@@ -54,12 +54,12 @@ Si vous ne vous dépêchez pas, vous serez en retard au travail.";
                     text: text,
                     choices: choices,
                     phaserscene: "Home",
-                    phaseranimation: [[1, perso.nom, "lay", [0, 0]]]
+                    phaseranimation: [[1, perso.nom, "lay"]]
 
                 };
             }//endscene()---------------------------------------------------------------------------
 
-            , intro2: function () {
+            , intro2: function (param) {
                 game.gC.setInPlace("Zonmai", perso);
 
                 perso.milestones.number_of_times_I_went_home++;
@@ -76,9 +76,14 @@ Si vous ne vous dépêchez pas, vous serez en retard au travail.";
                 ];
 
                 var phaserAnimation = [
-                    [1, perso.nom, "idle", [0, 0]]
+                    [1, perso.nom, "idle"]
                 ];
+                if (param === 'right') {
+                    var phaserAnimation = [
+                        [1, perso.nom, "walk", {startX: 138, startY: 60, endX: 113, flipX: true}]
+                    ];
 
+                }
                 return {
                     flush: 1,
                     text: text,
@@ -116,24 +121,24 @@ Où allez-vous ?";
 
                 var choices = [
                     ["Je monte sur le périph", "00_home/01_periphint", "intro"],
-                    ["Je rentre à la zonmai", folder, "intro2"]
+                    ["Je rentre à la zonmai", folder, "intro2__right"]
                 ];
 
                 var phaserAnimation = [
-                    [1, perso.nom, "walk", [0, 0]]
+                    [1, perso.nom, "walk", {endX: 60}]
                 ];
 
                 if (param === 'right') {
                     var phaserAnimation = [
-                        [1, perso.nom, "walk", 'right']
+                        [1, perso.nom, "walk", {startX: 138, startY: 60, endX: 113, flipX: true}]
                     ];
-                    console.log('righting the p1');
+
                 }
 
 
                 if (random && random.nom) {
                     perso.adversaire = random.nom;
-                    phaserAnimation.push([2, random.nom, "idle", [0, 0]]);
+                    phaserAnimation.push([2, random.nom, "idle"]);
                     choices.push(["J'embrouille  <~ADVERSAIRE>", "00_home/00_fume", "embrouille"]);
                 }
 
@@ -329,7 +334,7 @@ Le message passe immédiatement en vu.";
                         text: text,
                         choices: choices,
                         phaserscene: "Nuit",
-                        phaseranimation: [[1, perso.nom, "lay", [0, 0]]]};
+                        phaseranimation: [[1, perso.nom, "lay"]]};
                 }
 
 

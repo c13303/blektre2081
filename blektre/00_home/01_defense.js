@@ -29,14 +29,14 @@ module.exports = {
          *   */
         var chapitre = {
 
-            "intro": function () {
+            "intro": function (param) {
                 game.gC.setInPlace("La Défense", perso);
                 var text = "La Défense.\n\
 Il y a une manifestation devant les bureaux.";
                 var choices = [
-                    ["Je vais au bureau", "00_home/03_bureau", "bureau"],
-                    ["Je m'approche de la manifestation", folder, "manif"],
-                    ["Je continue aux 4 temps", folder, "quatre"],
+                    ["Je vais au bureau", "00_home/03_bureau", "bureau__left"],
+                    ["Je m'approche de la manifestation", folder, "manif__left"],
+                    ["Je continue aux 4 temps", "00_home/04_quatre", "intro__left"],
                     ["Je remonte sur le periph", "00_home/01_periphint", "intro"]
                 ];
 
@@ -47,17 +47,28 @@ Il y a une manifestation devant les bureaux.";
 
 
                 var cochon = game.getPersoByRole("COCHON");
+                perso.adversaire = cochon.nom;
 
+
+                var pa = [[1, perso.nom, "idle"]];
+
+                if (param === 'left') {
+                    var pa = [[1, perso.nom, "walk", {startX: 1, endX: 60}]];
+                }
+                if (param === 'right') {
+                    var pa = [[1, perso.nom, "walk", {flipX: true, startX: 150, endX: 90}]];
+                }
+
+                if (perso.adversaire) {
+                    pa.push([2, perso.adversaire, "idle"]);
+                }
 
                 return {
                     flush: 1,
                     text: text,
                     choices: choices,
                     phaserscene: "Parvis",
-                    phaseranimation: [
-                        [1, perso.nom, "idle", [0, 0]],
-                        [2, cochon.nom, "idle", [0, 0]],
-                    ]
+                    phaseranimation: pa
                 };
 
             } //endscene()---------------------------------------------------------------------------
@@ -66,7 +77,7 @@ Il y a une manifestation devant les bureaux.";
             , "manif": function () {
                 var cochon = game.getPersoByRole("COCHON");
                 perso.adversaire = cochon.nom;
-                adversaire = perso.getAdversaire();
+
 
                 var text = "La manifestation, constituée de <~COCHON>, bat son plein. \n\
 - Bonjour <monsieur/madame/mademonsieur/SELF>, une petite signature pour faire interdire la viande de cochon, s'il vous plaît.";
@@ -74,17 +85,29 @@ Il y a une manifestation devant les bureaux.";
                     ["Je signe avec le sourire", folder, "manifsigne__sourire"],
                     ["Je lance le débat", folder, "manifdebat"],
                     ["Enculés de véganistes !", folder, "manifnovegan"],
-                    ["Je m'éloigne sans mot dire", folder, "intro"]
+                    ["Je m'éloigne", folder, "intro"]
                 ];
+
+                /* phaseranimation */
+                var pa = [[1, perso.nom, "idle"]];
+
+                if (param === 'left') {
+                    var pa = [[1, perso.nom, "walk", {startX: 1, endX: 60}]];
+                }
+                if (param === 'right') {
+                    var pa = [[1, perso.nom, "walk", {flipX: true, startX: 150, endX: 90}]];
+                }
+                if (perso.adversaire) {
+                    pa.push([2, perso.adversaire, "idle"]);
+                }
+
+                /*choice*/
                 return {
                     flush: 1,
                     text: text,
                     choices: choices,
                     phaserscene: "Cochon",
-                    phaseranimation: [
-                        [1, perso.nom, "idle", [0, 0]],
-                        [2, cochon.nom, "idle", [0, 0]],
-                    ]
+                    phaseranimation: pa
                 };
 
             } //endscene()---------------------------------------------------------------------------
@@ -169,7 +192,7 @@ Il y a une manifestation devant les bureaux.";
                     adversaire.updateStat('sex', +5, perso);
                     perso.log("Vous obtenez un rencard avec " + adversaire.bnom);
                     adversaire.log(perso.bnom + " vous rencarde");
-                   // perso.cool("cochon_indispo", 1, "Le cochon est de nouveau dispo");
+                    // perso.cool("cochon_indispo", 1, "Le cochon est de nouveau dispo");
 
                     var choices = [
                         ["Je rentre me préparer", "00_home/02_date", "habillage"]
@@ -183,7 +206,7 @@ Il y a une manifestation devant les bureaux.";
                     perso.updateStat('sanity', -5);
                     adversaire.log("Vous mettez un rateau à " + adversaire.bnom);
                     perso.log(perso.bnom + " vous met un rateau");
-                   // perso.cool("cochon_indispo", 1, "Le cochon est de nouveau dispo");
+                    // perso.cool("cochon_indispo", 1, "Le cochon est de nouveau dispo");
 
                     // perso interruption
 

@@ -20,11 +20,12 @@ class Nuit extends Phaser.Scene {
 		this.add.image(75, 50, "nuit");
 
 		// player1
-		const player1 = this.add.sprite(78, 72, "LAYDOWNBIBLE", 1);
+		const player1 = this.add.sprite(73, 53, "LAYDOWNBIBLE", 1);
 
 		// player2
 		const player2 = this.add.sprite(130, 53, "perso1", 0);
 		player2.scaleX = -1;
+		player2.visible = false;
 
 		this.player1 = player1;
 		this.player2 = player2;

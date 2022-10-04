@@ -22,20 +22,6 @@
         },
         {
             "type": "Sprite",
-            "id": "48480f0d-c4c3-4340-905e-44cbaadbb770",
-            "label": "player4",
-            "scope": "PUBLIC",
-            "components": [],
-            "texture": {
-                "key": "perso1",
-                "frame": 0
-            },
-            "x": 225,
-            "y": 55,
-            "scaleX": -1
-        },
-        {
-            "type": "Sprite",
             "id": "3ff31a87-c2c2-42a2-aeda-24362dd32bdb",
             "label": "player1",
             "scope": "PUBLIC",
@@ -62,9 +48,10 @@
             "scaleX": -1
         },
         {
-            "type": "Image",
+            "type": "Sprite",
             "id": "cc05fa0e-3e8d-4284-b34d-144bc18c9baf",
-            "label": "cartop1",
+            "label": "cartop",
+            "scope": "PUBLIC",
             "components": [],
             "texture": {
                 "key": "cartop1"

@@ -37,18 +37,29 @@ module.exports = {
 
                 var PHARMACIEN = game.getPersoByRole("PHARMACIEN");
                 perso.adversaire = PHARMACIEN.nom;
-                
-                
+
+
                 var choices = [
 
                     ["Je <le/la/lae/PHARMACIEN> fume", "00_home/00_fume", "fume"],
-                    ["Je sors", "00_home/06_periphext", "intro"]
+                    ["Je sors", "00_home/06_ivry", "ivry__right"]
                 ];
+
+                var pa = [
+                    [1, perso.nom, "idle"],
+                    [2, perso.adversaire, "idle"]
+                ];
+
+                if (param === 'left') {
+                    pa[0] = [1, perso.nom, "walk", {startX: 1, endX: 50}];
+                }
 
                 return {
                     flush: 1,
                     text: text,
-                    choices: choices
+                    choices: choices,
+                    phaserscene: "Pharmacie",
+                    phaseranimation: pa
                 };
 
             } //endscene()---------------------------------------------------------------------------

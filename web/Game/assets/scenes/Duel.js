@@ -46,73 +46,16 @@ class Duel extends Phaser.Scene {
 
     }
     create() {
-        this.timer = 0;
-        this.resources = 0;
+   
 
         this.editorCreate();
-        this.player1.on(Phaser.Animations.Events.ANIMATION_UPDATE, function (anim, frame, gameObject, frameKey) {
-
-
-
-            if (anim.key.indexOf("takecher") !== -1) {
-                //    console.log(anim.key + " " + frame.index);
-                if (frame.index === 6) {
-                    //  console.log("reculing trigger");
-                    this.movingToLeft = true;
-                }
-
-                if (frame.index === 8) {
-                    //  console.log("reculing trigger");
-                    this.movingToLeft = false;
-                    this.y += 8;
-                }
-            }
-
-        });
-
-
-        this.player2.on(Phaser.Animations.Events.ANIMATION_UPDATE, function (anim, frame, gameObject, frameKey) {
-
-
-
-            if (anim.key.indexOf("takecher") !== -1) {
-                // console.log(anim.key + " " + frame.index);
-                if (frame.index === 6) {
-                    this.movingToRight = true;
-                }
-
-                if (frame.index === 8) {
-
-                    this.movingToRight = false;
-                    this.y += 8;
-                }
-            }
-
-        });
+        
 
 
 
     }
 
-    update(time, delta) {
-        var freq = 500;
-
-        this.timer += delta;
-        while (this.timer > freq) {
-            this.resources += 1;
-            this.timer -= freq;
-
-
-            if (this.player1.movingToLeft) {
-                this.player1.x -= 8;
-            }
-            if (this.player2.movingToRight) {
-                this.player2.x += 8;
-            }
-        }
-
-
-    }
+  
 
     /* END-USER-CODE */
 }

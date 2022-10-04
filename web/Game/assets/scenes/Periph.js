@@ -19,10 +19,6 @@ class Periph extends Phaser.Scene {
 		// periph
 		this.add.image(75, 50, "periph");
 
-		// player4
-		const player4 = this.add.sprite(225, 55, "perso1", 0);
-		player4.scaleX = -1;
-
 		// player1
 		const player1 = this.add.sprite(64, 45, "HEADS_", 0);
 
@@ -30,26 +26,26 @@ class Periph extends Phaser.Scene {
 		const player2 = this.add.sprite(130, 64, "perso1", 0);
 		player2.scaleX = -1;
 
-		// cartop1
-		this.add.image(53, 55, "cartop1");
+		// cartop
+		const cartop = this.add.sprite(53, 55, "cartop1");
 
 		// player3
 		const player3 = this.add.sprite(103, 64, "perso1", 0);
 
-		this.player4 = player4;
 		this.player1 = player1;
 		this.player2 = player2;
+		this.cartop = cartop;
 		this.player3 = player3;
 
 		this.events.emit("scene-awake");
 	}
 
 	/** @type {Phaser.GameObjects.Sprite} */
-	player4;
-	/** @type {Phaser.GameObjects.Sprite} */
 	player1;
 	/** @type {Phaser.GameObjects.Sprite} */
 	player2;
+	/** @type {Phaser.GameObjects.Sprite} */
+	cartop;
 	/** @type {Phaser.GameObjects.Sprite} */
 	player3;
 

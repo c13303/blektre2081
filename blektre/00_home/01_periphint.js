@@ -49,17 +49,17 @@ module.exports = {
                 var text = "Periphérique intérieur.";
 
                 var choices = [
-                    ["Je descends sur la Défense", "00_home/01_defense", "intro"],
-                    ["Périph extérieur", "00_home/06_periphext", "intro"],
+                    ["Sortie la Défense", "00_home/01_defense", "intro__left"],
+                    ["Sortie Porte d'Ivry", "00_home/06_ivry", "intro"],
                     ["Je retourne vers la zonmai", "00_home/00_street", "TheSquare__right"]
                 ];
 
                 var phaserAnimation = [
-                    [1, perso.nom, "head", [0, 0]]
+                    [1, perso.nom, "head"]
                 ];
                 if (random && random.nom) {
                     perso.adversaire = random.nom;
-                    phaserAnimation.push([2, random.nom, "head", [0, 0]]);
+                    phaserAnimation.push([2, random.nom, "head"]);
                     choices.push(["J'embrouille  <~ADVERSAIRE>", "00_home/00_fume", "embrouille"]);
                 }
 

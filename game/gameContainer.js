@@ -45,7 +45,12 @@ module.exports = {
         },
         "MENDIANT": {
             nom: "mux"
-        }
+        },
+
+        "BEZOS": {
+            nom: "mux"
+        },
+
         /// lots of manche roles
     },
     /*

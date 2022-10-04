@@ -92,6 +92,11 @@
                 "key": "eglise"
             },
             {
+                "url": "assets/scenes/Eglise.js",
+                "type": "sceneFile",
+                "key": "Eglise"
+            },
+            {
                 "url": "assets/persos/HEADS_.png",
                 "frameConfig": {
                     "frameWidth": 32,
@@ -302,6 +307,16 @@
                 "url": "assets/scenes/Preloader.js",
                 "type": "sceneFile",
                 "key": "Preloader"
+            },
+            {
+                "url": "assets/places/quatre.png",
+                "type": "image",
+                "key": "quatre"
+            },
+            {
+                "url": "assets/scenes/Quatre.js",
+                "type": "sceneFile",
+                "key": "Quatre"
             },
             {
                 "url": "assets/places/square.png",

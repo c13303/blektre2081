@@ -35,46 +35,6 @@
             "scaleX": -1
         },
         {
-            "type": "Sprite",
-            "id": "048a774a-7766-4561-b594-3a3ccee1d5aa",
-            "label": "player1",
-            "scope": "PUBLIC",
-            "components": [],
-            "texture": {
-                "key": "perso1",
-                "frame": 0
-            },
-            "x": 26,
-            "y": 56
-        },
-        {
-            "type": "Sprite",
-            "id": "5362260b-9ebf-4c0b-899b-b6af10b3969e",
-            "label": "player3",
-            "scope": "PUBLIC",
-            "components": [],
-            "texture": {
-                "key": "perso1",
-                "frame": 0
-            },
-            "x": 127,
-            "y": 56,
-            "scaleX": -1
-        },
-        {
-            "type": "Sprite",
-            "id": "5d84c0b4-d08c-46ab-ae5d-3ba78956714c",
-            "label": "player4",
-            "scope": "PUBLIC",
-            "components": [],
-            "texture": {
-                "key": "perso1",
-                "frame": 0
-            },
-            "x": 54,
-            "y": 29
-        },
-        {
             "type": "Image",
             "id": "3c2d40eb-cb05-4555-ab4f-95d4d7f36a51",
             "label": "stop",
@@ -84,6 +44,19 @@
             },
             "x": 98,
             "y": 41
+        },
+        {
+            "type": "Sprite",
+            "id": "048a774a-7766-4561-b594-3a3ccee1d5aa",
+            "label": "player1",
+            "scope": "PUBLIC",
+            "components": [],
+            "texture": {
+                "key": "perso1",
+                "frame": 0
+            },
+            "x": 52,
+            "y": 54
         }
     ],
     "plainObjects": [],

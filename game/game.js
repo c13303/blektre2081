@@ -311,13 +311,13 @@ module.exports = {
         }
     },
     getPersoByRole: function (role) {
-        console.log('getting role ' + role);
+       // console.log('getting role ' + role);
         return this.gC.persos[this.gC.roles[role].nom];
     },
     setRole: function (perso, role) {
         this.gC.roles[role] = {
             nom: perso.nom
-        }
+        };
         return null;
     },
     txt: function (text) {

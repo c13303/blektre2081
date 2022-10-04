@@ -3,7 +3,7 @@ var game = require('./../../game/game.js');
 var itemTools = require('./../../game/objets/itemsTools.js');
 module.exports = {
     name: "Periph Ext",
-    folder: "00_home/06_periphext",
+    folder: "00_home/06_ivry",
     getPage: function (ws, page = "intro", param = null) {
 
 
@@ -77,7 +77,7 @@ Cependant, le Rahelle ajoute quelque chose : \n\
 
                     ["J'accepte", folder, "suicide"],
                     ["Je suis venu chercher l'argent d'une personnée décédée", folder, "argent"],
-                    ["Je refuse poliment et je m'en vais", "00_home/06_periphext", "intro"],
+                    ["Je refuse poliment et je m'en vais", "00_home/06_ivry", "intro"],
                     ["Je <le/la/lae/RAEL> fume", "00_home/00_fume", "fume"],
                 ];
                 return {
@@ -114,7 +114,7 @@ Cependant, le Rahelle ajoute quelque chose : \n\
 
                 var choices = [
                     ["Je recommence", folder, "argent"],
-                    ["Je laisse tomber", "00_home/06_periphext", "intro"],
+                    ["Je laisse tomber", "00_home/06_ivry", "intro"],
                 ];
                 return {
                     flush: 1,
@@ -132,7 +132,7 @@ Le Rahel vous remet l'intégratité de l'argent que " + defunt + " a laissé en 
 
                 var choices = [
 
-                    ["Je suis riche", "00_home/06_periphext", "intro"],
+                    ["Je suis riche", "00_home/06_ivry", "intro"],
                 ];
                 return {
                     flush: 1,
@@ -148,7 +148,7 @@ Le Rahel vous remet l'intégratité de l'argent que " + defunt + " a laissé en 
 
                 var choices = [
 
-                    ["Je suis riche", "00_home/06_periphext", "intro"],
+                    ["Je suis riche", "00_home/06_ivry", "intro"],
                 ];
                 return {
                     flush: 1,
