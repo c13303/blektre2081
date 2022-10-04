@@ -252,32 +252,46 @@
                     "frame": 3,
                     "duration": 0,
                     "keyframe": false
-                }
-            ],
-            "frameRate": 1,
-            "skipMissedFrames": true,
-            "repeat": 3
-        },
-        {
-            "key": "takecherP2",
-            "type": "frame",
-            "frames": [
+                },
                 {
-                    "key": "persoB_FIGHT",
+                    "key": "persoA_FIGHT",
                     "frame": 1,
                     "duration": 0,
                     "keyframe": false
                 },
                 {
-                    "key": "persoB_FIGHT",
+                    "key": "persoA_FIGHT",
                     "frame": 3,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoA_FIGHT",
+                    "frame": 1,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoA_FIGHT",
+                    "frame": 5,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoA_FIGHT",
+                    "frame": 6,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "LAYDOWNBIBLE",
+                    "frame": 1,
                     "duration": 0,
                     "keyframe": false
                 }
             ],
-            "frameRate": 1,
-            "skipMissedFrames": true,
-            "repeat": 3
+            "frameRate": 2,
+            "skipMissedFrames": true
         },
         {
             "key": "takecherP3",
@@ -294,18 +308,109 @@
                     "frame": 3,
                     "duration": 0,
                     "keyframe": false
+                },
+                {
+                    "key": "persoC_FIGHT",
+                    "frame": 1,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoC_FIGHT",
+                    "frame": 3,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoC_FIGHT",
+                    "frame": 1,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoC_FIGHT",
+                    "frame": 5,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoC_FIGHT",
+                    "frame": 6,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "LAYDOWNBIBLE",
+                    "frame": 2,
+                    "duration": 0,
+                    "keyframe": false
                 }
             ],
-            "frameRate": 1,
-            "skipMissedFrames": true,
-            "repeat": 3
+            "frameRate": 2,
+            "skipMissedFrames": true
         },
         {
-            "key": "fightposeP1",
+            "key": "takecherP2",
             "type": "frame",
             "frames": [
                 {
-                    "key": "persoA_FIGHT",
+                    "key": "persoB_FIGHT",
+                    "frame": 1,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoB_FIGHT",
+                    "frame": 3,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoB_FIGHT",
+                    "frame": 1,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoB_FIGHT",
+                    "frame": 3,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoB_FIGHT",
+                    "frame": 1,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoB_FIGHT",
+                    "frame": 5,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoB_FIGHT",
+                    "frame": 6,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "LAYDOWNBIBLE",
+                    "frame": 0,
+                    "duration": 0,
+                    "keyframe": false
+                }
+            ],
+            "frameRate": 2,
+            "skipMissedFrames": true
+        },
+        {
+            "key": "fightposeP3",
+            "type": "frame",
+            "frames": [
+                {
+                    "key": "persoC_FIGHT",
                     "frame": 1,
                     "duration": 0,
                     "keyframe": false
@@ -331,66 +436,6 @@
             "repeat": -1
         },
         {
-            "key": "fightposeP3",
-            "type": "frame",
-            "frames": [
-                {
-                    "key": "persoA_FIGHT",
-                    "frame": 1,
-                    "duration": 0,
-                    "keyframe": false
-                }
-            ],
-            "frameRate": 3,
-            "skipMissedFrames": true,
-            "repeat": -1
-        },
-        {
-            "key": "fallP1",
-            "type": "frame",
-            "frames": [
-                {
-                    "key": "persoA_FIGHT",
-                    "frame": 4,
-                    "duration": 0,
-                    "keyframe": false
-                }
-            ],
-            "frameRate": 3,
-            "skipMissedFrames": true,
-            "repeat": -1
-        },
-        {
-            "key": "fallP2",
-            "type": "frame",
-            "frames": [
-                {
-                    "key": "persoB_FIGHT",
-                    "frame": 4,
-                    "duration": 0,
-                    "keyframe": false
-                }
-            ],
-            "frameRate": 3,
-            "skipMissedFrames": true,
-            "repeat": -1
-        },
-        {
-            "key": "fallP3",
-            "type": "frame",
-            "frames": [
-                {
-                    "key": "persoC_FIGHT",
-                    "frame": 4,
-                    "duration": 0,
-                    "keyframe": false
-                }
-            ],
-            "frameRate": 3,
-            "skipMissedFrames": true,
-            "repeat": -1
-        },
-        {
             "key": "punchP1",
             "type": "frame",
             "frames": [
@@ -405,11 +450,40 @@
                     "frame": 2,
                     "duration": 0,
                     "keyframe": false
+                },
+                {
+                    "key": "persoA_FIGHT",
+                    "frame": 1,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoA_FIGHT",
+                    "frame": 2,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoA_FIGHT",
+                    "frame": 3,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoA_FIGHT",
+                    "frame": 4,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoA_FIGHT",
+                    "frame": 1,
+                    "duration": 0,
+                    "keyframe": false
                 }
             ],
-            "frameRate": 1,
-            "skipMissedFrames": true,
-            "repeat": 3
+            "frameRate": 2,
+            "skipMissedFrames": true
         },
         {
             "key": "punchP2",
@@ -426,11 +500,40 @@
                     "frame": 2,
                     "duration": 0,
                     "keyframe": false
+                },
+                {
+                    "key": "persoB_FIGHT",
+                    "frame": 1,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoB_FIGHT",
+                    "frame": 2,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoB_FIGHT",
+                    "frame": 3,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoB_FIGHT",
+                    "frame": 4,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoB_FIGHT",
+                    "frame": 1,
+                    "duration": 0,
+                    "keyframe": false
                 }
             ],
-            "frameRate": 1,
-            "skipMissedFrames": true,
-            "repeat": 3
+            "frameRate": 2,
+            "skipMissedFrames": true
         },
         {
             "key": "punchP3",
@@ -447,11 +550,40 @@
                     "frame": 2,
                     "duration": 0,
                     "keyframe": false
+                },
+                {
+                    "key": "persoC_FIGHT",
+                    "frame": 1,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoC_FIGHT",
+                    "frame": 2,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoC_FIGHT",
+                    "frame": 3,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoC_FIGHT",
+                    "frame": 4,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "persoC_FIGHT",
+                    "frame": 1,
+                    "duration": 0,
+                    "keyframe": false
                 }
             ],
-            "frameRate": 1,
-            "skipMissedFrames": true,
-            "repeat": 3
+            "frameRate": 2,
+            "skipMissedFrames": true
         },
         {
             "key": "PeriphInterieur",
@@ -517,6 +649,21 @@
                 {
                     "key": "HEADS_",
                     "frame": 2,
+                    "duration": 0,
+                    "keyframe": false
+                }
+            ],
+            "frameRate": 24,
+            "skipMissedFrames": true,
+            "repeat": -1
+        },
+        {
+            "key": "urineP1",
+            "type": "frame",
+            "frames": [
+                {
+                    "key": "persoA_FIGHT",
+                    "frame": 8,
                     "duration": 0,
                     "keyframe": false
                 }

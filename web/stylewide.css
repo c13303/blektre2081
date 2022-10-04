@@ -1,4 +1,8 @@
 @media screen and (min-width:1200px){
+
+    #musictitle{
+        display:inline-block;
+    }
     *{
         background:none;
     }
@@ -120,8 +124,9 @@
     }
     #notifs{
         position: absolute;
-        margin-top: 122px;
+        margin-top: 524px;
         left: 600px;
+        background:none;
     }
     .notif{
 

@@ -138,7 +138,7 @@
                 "url": "assets/persos/LAYDOWNBIBLE.PNG",
                 "frameConfig": {
                     "frameWidth": 64,
-                    "frameHeight": 32,
+                    "frameHeight": 64,
                     "startFrame": 0,
                     "endFrame": -1,
                     "spacing": 0,

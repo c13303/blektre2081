@@ -313,7 +313,11 @@ module.exports = {
                 return {
                     flush: 1,
                     text: text,
-                    choices: choices
+                    choices: choices,
+                    phaseranimation: [
+                        [1, perso.nom, "urine"],
+                        [2, adversaire.nom, "lay"]
+                    ]
                 };
             } //endscene()---------------------------------------------------------------------------
 

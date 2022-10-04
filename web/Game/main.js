@@ -2,20 +2,27 @@ var game;
 var ctx;
 var levelctx, scenery;
 var currentScene;
-
 var music;
 var musicPlayed;
 var musicMuted = false;
 var musicTrackListPosition = 0;
-
 var musicTrackList = [
     ["Real Life Simulator Theme", ['../sound/mp3/02 - Real Life Simulator Theme.mp3', '../sound/mp3/02-Real-Life-Simulator-Theme.ogg', '../sound/mp3/02 - Real Life Simulator Theme.m4a']],
     ["Character Creation", ['../sound/mp3/01 - Character Creation.mp3', '../sound/mp3/01-Character-Creation.ogg', '../sound/mp3/01 - Character Creation.m4a']],
     ["Valises of Life", ['../sound/mp3/03 - Valises of Life.mp3', '../sound/mp3/03-Valises-of-Life.ogg', '../sound/mp3/03 - Valises of Life.m4a']]
 ];
-
 var that;
+var width = window.parent.$(window).width();
+var ZOOM = 4;
+if (width < 600) {
+    ZOOM = 3;
+}
 
+if (width < 400) {
+    ZOOM = 2;
+}
+
+console.log('Start with Zoom ' + ZOOM);
 window.addEventListener('load', function () {
 
     game = new Phaser.Game({
@@ -24,15 +31,19 @@ window.addEventListener('load', function () {
         type: Phaser.AUTO,
         backgroundColor: "#e6c86e",
         transparent: true,
+        zoom: ZOOM,
+        pixelArt: true
 
-        pixelArt: true,
-        scale: {
-            mode: Phaser.Scale.FIT,
-            autoCenter: Phaser.Scale.CENTER_BOTH
-        }
     });
     game.scene.add("Boot", Boot, true);
     game.jojal = true;
+    /*
+     * 
+     * @type type scale: {
+     mode: Phaser.Scale.FIT,
+     autoCenter: Phaser.Scale.CENTER_BOTH
+     }
+     */
 });
 class Boot extends Phaser.Scene {
 
@@ -45,7 +56,6 @@ class Boot extends Phaser.Scene {
 
 
         this.load.pack("pack", "assets/asset-pack.json");
-
         for (var i = 0; i < musicTrackList.length; i++) {
             var tune = musicTrackList[i];
             // console.log(tune);
@@ -62,7 +72,6 @@ class Boot extends Phaser.Scene {
         this.load.on('progress', function (value) {
             window.parent.$("#loadingtext").html(parseInt(value * 100) + '%');
         });
-
         this.load.on('fileprogress', function (file) {
             //  assetText.setText(file.key);
             //   window.parent.$("#assettext").html(file.key);
@@ -72,37 +81,21 @@ class Boot extends Phaser.Scene {
             window.parent.$("#loadingtext").remove();
             window.parent.$("#assettext").remove();
         });
-
-
-
-
-
-
-
-
     }
 
     create() {
         ctx = this;
-
-
-
-
         //console.log('writing');
 
         this.sound.pauseOnBlur = false;
-
-
         music = this.sound.add(musicTrackList[musicTrackListPosition][0]);
         musicPlayed = false;
-
         that = this;
         changeScene("Preloader", false);
     }
 
 }
 ;
-
 function Ctx() {
     return ctx;
 }
@@ -112,18 +105,13 @@ function levelCtx() {
 }
 
 function changeScene(name, remove = true) {
-    //  console.log('=========== ChangeScene :  ' + name + "===========");
+//  console.log('=========== ChangeScene :  ' + name + "===========");
     if (currentScene)
         ctx.scene.stop(currentScene);
     ctx.scene.start(name);
     currentScene = name;
-
     playMusic();
-
-
-
     return ("Switched to " + name);
-
 }
 
 function musicPlaylisting() {
@@ -135,9 +123,7 @@ function musicPlaylisting() {
     }
 
     music = that.sound.add(musicTrackList[musicTrackListPosition][0]);
-
     playMusic();
-
 }
 
 function playMusic() {
@@ -207,7 +193,6 @@ function noticeHeads() {
 function animateHeadz(phaseranimationArray, persos, d = null) {
 
     var persosOnScreen = {};
-
     var nbNotice = 0;
     var html = "";
     //   console.log(phaseranimation);
@@ -221,8 +206,8 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
     }
 
     window.parent.$(".playername").hide();
+    window.parent.$(".playername").css('width', 42 * ZOOM);
     var arrayOfNoticesToShow = [];
-
     for (var i = 0; i < phaseranimationArray.length; i++) {
 
         var phaseranimation = phaseranimationArray[i];
@@ -235,11 +220,7 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
 
 
         phaserObj_player.visible = true;
-
         var nom = phaseranimation[1];
-
-
-
         if (!persos) {
             console.log('Lost Persos ... reloading scene');
             return null;
@@ -252,9 +233,6 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
 
         phaserObj_player.perso = nom;
         persosOnScreen[nom] = phaserObj_player;
-
-
-
         // console.log(daPerso.type);
         var type = phaseranimation[2];
         if (phaseranimation[3]) {
@@ -280,13 +258,16 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
         var coord = [phaserObj_player.x - 16, phaserObj_player.y + 24];
         var j = i + 1;
         var label = window.parent.$("#p" + j);
+        var yOFFSET = 0;
+        if (ZOOM === 4)
+            yOFFSET = 236;
+        if (ZOOM === 2)
+            yOFFSET = -156;
+        var stil = "margin-top: " + yOFFSET + "px";
         label.show();
-        label.html("<div class='etikette etikette_" + nom + "'>" + nom + "</div>");
-        label.css("left", (phaserObj_player.x - 10) * 4);
-        label.css("top", (phaserObj_player.y - 28) * 4);
-
-
-
+        label.html("<div class='etikette etikette_" + nom + "'   style='" + stil + "'>" + nom + "</div>");
+        label.css("left", (phaserObj_player.x - 16) * ZOOM);
+        label.css("margin-top", (phaserObj_player.y - (28 * ZOOM)) * ZOOM);
         // this.levelctx.add.dynamicBitmapText(phaserObj_player.x - 16, phaserObj_player.y + 24, 'CIOFONT', nom, 9);
 
         if (daPerso.nom === window.parent.mychar.nom) {
@@ -307,21 +288,15 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
                     } else {
                         sign = "";
                         var dieClasse = "usnotice_moins";
-
                     }
                     var usNoticeID = "usNotice_N" + nbNotice;
-
                     // playername update labels
                     var curDelay = noticeOrder * seconds;
                     // arrayOfNoticesToShow.push([usNoticeID, curDelay]);
 
 
                     noticeOrder++;
-
                     arrayOfNoticesToShow.push([daNotz.nom, "<div id='" + usNoticeID + "' class='usNotice " + dieClasse + " ' data-nom='" + daPerso.nom + "' data-delay='" + curDelay + "'>" + daNotz.stat + sign + daNotz.value + '</div>']);
-
-
-
                 }
             }
         }
@@ -329,7 +304,7 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
     } /// endof animationArray
 
 
-    /// redistribuer les notices
+/// redistribuer les notices
     console.log('distributing ' + arrayOfNoticesToShow.length + ' notices');
     console.log(arrayOfNoticesToShow);
     for (var u = 0; u < arrayOfNoticesToShow.length; u++) {
@@ -351,16 +326,11 @@ function display_usNotices() {
     setTimeout(function () {
 
         var notices = window.parent.$("body").find(".usNotice");
-
         if (notices && notices.length) {
 
             notices.each(function () {
                 var elem = window.parent.$(this);
-
-
-
                 var delay = elem.data('delay');
-
                 delay--;
                 if (delay === 0) {
                     console.log('show ' + elem.html());
@@ -368,7 +338,6 @@ function display_usNotices() {
                     setTimeout(function () {
                         window.parent.tweenNotice();
                     }, 100);
-
                 }
                 elem.data('delay', delay);
                 if (delay === -2) {
@@ -379,8 +348,6 @@ function display_usNotices() {
 
 
             });
-
-
         }
 
         display_usNotices();

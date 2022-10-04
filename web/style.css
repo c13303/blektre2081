@@ -31,7 +31,7 @@ button:hover{
     background:#d77355;
     color: #e6c86e;
 }
-
+#musictitle{display:none}
 input,textarea,select{
     font-family:  'Share Tech Mono';
     border:none;
@@ -278,6 +278,7 @@ iframe{
     background:#55415f;
     width:600px;
     height:400px;
+    margin:auto;
 }
 
 
@@ -467,7 +468,3 @@ button{
     color:#d77355 !important;
 }
 
-.etikette{
-    margin-top: 216px;
-
-}

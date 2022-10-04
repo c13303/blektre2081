@@ -124,7 +124,7 @@ Où allez-vous ?";
                 ];
                 if (random && random.nom) {
                     perso.adversaire = random.nom;
-                    phaserAnimation.push([2, random.nom, "walk", [0, 0]]);
+                    phaserAnimation.push([2, random.nom, "idle", [0, 0]]);
                     choices.push(["J'embrouille  <~ADVERSAIRE>", "00_home/00_fume", "embrouille"]);
                 }
 
