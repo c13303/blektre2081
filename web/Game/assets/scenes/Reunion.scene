@@ -1,24 +1,72 @@
 {
-  "id": "ab34073f-69c9-4188-97b8-af4626edc1cd",
-  "settings": {
-    "compilerOutputLanguage": "JAVA_SCRIPT",
-    "javaScriptInitFieldsInConstructor": false,
-    "exportClass": false,
-    "autoImport": false,
-    "createMethodName": "editorCreate",
-    "compilerInsertSpaces": false,
-    "compilerTabSize": 4,
-    "borderWidth": 150,
-    "borderHeight": 100,
-    "borderX": 0,
-    "borderY": 0,
-    "sceneKey": "Reunion"
-  },
-  "sceneType": "SCENE",
-  "displayList": [],
-  "meta": {
-    "app": "Phaser Editor 2D - Scene Editor",
-    "url": "https://phasereditor2d.com",
-    "contentType": "phasereditor2d.core.scene.SceneContentType"
-  }
+    "id": "ab34073f-69c9-4188-97b8-af4626edc1cd",
+    "sceneType": "SCENE",
+    "settings": {
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "sceneKey": "Reunion",
+        "borderWidth": 150,
+        "borderHeight": 100
+    },
+    "displayList": [
+        {
+            "type": "Image",
+            "id": "241b4fe2-a509-472f-b20c-1e650ce8531d",
+            "label": "reunion",
+            "components": [],
+            "texture": {
+                "key": "reunion"
+            },
+            "x": 75,
+            "y": 50
+        },
+        {
+            "type": "Sprite",
+            "id": "b786cf01-8c26-472c-9f0c-a17cdd4d44ee",
+            "label": "player3",
+            "scope": "PUBLIC",
+            "components": [],
+            "texture": {
+                "key": "perso1",
+                "frame": 0
+            },
+            "x": 101,
+            "y": 44,
+            "scaleX": -1
+        },
+        {
+            "type": "Sprite",
+            "id": "0c34990d-97a4-4ee5-90cb-2fa6b92125b6",
+            "label": "player1",
+            "scope": "PUBLIC",
+            "components": [],
+            "texture": {
+                "key": "perso1",
+                "frame": 0
+            },
+            "x": 21,
+            "y": 55
+        },
+        {
+            "type": "Sprite",
+            "id": "01636b80-ffa5-4da7-bb19-fc800d72357b",
+            "label": "player2",
+            "scope": "PUBLIC",
+            "components": [],
+            "texture": {
+                "key": "perso1",
+                "frame": 0
+            },
+            "x": 62,
+            "y": 45,
+            "scaleX": -1
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 3
+    }
 }

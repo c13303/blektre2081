@@ -3,10 +3,10 @@
 
 /* START OF COMPILED CODE */
 
-class Cochon extends Phaser.Scene {
+class Reunion extends Phaser.Scene {
 
 	constructor() {
-		super("Cochon");
+		super("Reunion");
 
 		/* START-USER-CTR-CODE */
 		// Write your code here.
@@ -16,43 +16,39 @@ class Cochon extends Phaser.Scene {
 	/** @returns {void} */
 	editorCreate() {
 
-		// parvis
-		const parvis = this.add.image(75, 50, "parvis");
-		parvis.scaleX = 2;
-		parvis.scaleY = 2;
+		// reunion
+		this.add.image(75, 50, "reunion");
 
-		// player2
-		const player2 = this.add.sprite(114, 45, "perso1", 0);
-		player2.scaleX = -2;
-		player2.scaleY = 2;
+		// player3
+		const player3 = this.add.sprite(101, 44, "perso1", 0);
+		player3.scaleX = -1;
 
 		// player1
-		const player1 = this.add.sprite(37, 46, "perso1", 0);
-		player1.scaleX = 2;
-		player1.scaleY = 2;
+		const player1 = this.add.sprite(21, 55, "perso1", 0);
 
-		// stop
-		const stop = this.add.image(68, 89, "stop");
-		stop.scaleX = 2;
-		stop.scaleY = 2;
+		// player2
+		const player2 = this.add.sprite(62, 45, "perso1", 0);
+		player2.scaleX = -1;
 
-		this.player2 = player2;
+		this.player3 = player3;
 		this.player1 = player1;
+		this.player2 = player2;
 
 		this.events.emit("scene-awake");
 	}
 
 	/** @type {Phaser.GameObjects.Sprite} */
-	player2;
+	player3;
 	/** @type {Phaser.GameObjects.Sprite} */
 	player1;
+	/** @type {Phaser.GameObjects.Sprite} */
+	player2;
 
 	/* START-USER-CODE */
 
 	// Write your code here
 	init() {
 		levelctx = this;
-
 	}
 	create() {
 

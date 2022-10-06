@@ -30,8 +30,8 @@
                 "key": "perso1",
                 "frame": 0
             },
-            "x": 45,
-            "y": 36
+            "x": 16,
+            "y": 26
         },
         {
             "type": "Sprite",
@@ -43,31 +43,33 @@
                 "key": "perso1",
                 "frame": 0
             },
-            "x": 106,
-            "y": 36,
+            "x": 108,
+            "y": 26,
             "scaleX": -1
         },
         {
             "type": "Image",
-            "id": "4236af20-6ceb-4ae0-9d7e-8b5fe75c042d",
-            "label": "desk_bleu",
+            "id": "633c041e-b54e-4ebc-bab8-bae60b5d0c0e",
+            "label": "tables0",
             "components": [],
             "texture": {
-                "key": "desk_bleu"
+                "key": "tables",
+                "frame": 1
             },
-            "x": 109,
-            "y": 54
+            "x": 102,
+            "y": 32
         },
         {
             "type": "Image",
-            "id": "4ad5a6b9-908f-4b60-907b-7b00b3103acb",
-            "label": "pharma",
+            "id": "f80ef394-ec2d-40ea-985f-874b70afdeaf",
+            "label": "chapeaux0",
             "components": [],
             "texture": {
-                "key": "pharma"
+                "key": "chapeaux",
+                "frame": 0
             },
-            "x": 106,
-            "y": 16
+            "x": 108,
+            "y": 5
         }
     ],
     "plainObjects": [],

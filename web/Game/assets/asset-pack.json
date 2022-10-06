@@ -17,14 +17,22 @@
                 "key": "Bureau"
             },
             {
-                "url": "assets/objets/carbot.png",
-                "type": "image",
-                "key": "carbot"
-            },
-            {
                 "url": "assets/objets/cartop1.png",
                 "type": "image",
                 "key": "cartop1"
+            },
+            {
+                "url": "assets/hats/chapeaux.png",
+                "frameConfig": {
+                    "frameWidth": 32,
+                    "frameHeight": 32,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "chapeaux"
             },
             {
                 "url": "assets/places/click.png",
@@ -35,36 +43,6 @@
                 "url": "assets/scenes/Cochon.js",
                 "type": "sceneFile",
                 "key": "Cochon"
-            },
-            {
-                "url": "assets/objets/corner_pharma_desk.png",
-                "type": "image",
-                "key": "corner_pharma_desk"
-            },
-            {
-                "url": "assets/places/cybercafe.png",
-                "type": "image",
-                "key": "cybercafe"
-            },
-            {
-                "url": "assets/objets/cyberdesk.png",
-                "type": "image",
-                "key": "cyberdesk"
-            },
-            {
-                "url": "assets/objets/desk_bleu.png",
-                "type": "image",
-                "key": "desk_bleu"
-            },
-            {
-                "url": "assets/objets/desk_jaune.png",
-                "type": "image",
-                "key": "desk_jaune"
-            },
-            {
-                "url": "assets/objets/desk_vert.png",
-                "type": "image",
-                "key": "desk_vert"
             },
             {
                 "url": "assets/places/cutscenes/duel.png",
@@ -287,11 +265,6 @@
                 "key": "persoC_FIGHT"
             },
             {
-                "url": "assets/hats/pharma.png",
-                "type": "image",
-                "key": "pharma"
-            },
-            {
                 "url": "assets/places/pharmacie.png",
                 "type": "image",
                 "key": "pharmacie"
@@ -327,6 +300,11 @@
                 "key": "reunion"
             },
             {
+                "url": "assets/scenes/Reunion.js",
+                "type": "sceneFile",
+                "key": "Reunion"
+            },
+            {
                 "url": "assets/places/room-sheet.png",
                 "frameConfig": {
                     "frameWidth": 150,
@@ -353,6 +331,19 @@
                 "url": "assets/objets/stop.png",
                 "type": "image",
                 "key": "stop"
+            },
+            {
+                "url": "assets/objets/tables.png",
+                "frameConfig": {
+                    "frameWidth": 150,
+                    "frameHeight": 100,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "tables"
             },
             {
                 "url": "assets/places/cutscenes/tel.png",
