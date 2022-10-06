@@ -2,11 +2,6 @@
     "section1": {
         "files": [
             {
-                "url": "assets/places/4temps_front.png",
-                "type": "image",
-                "key": "4temps_front"
-            },
-            {
                 "url": "assets/animations.json",
                 "type": "animation",
                 "key": "animations"
@@ -57,11 +52,6 @@
                 "key": "cyberdesk"
             },
             {
-                "url": "assets/places/defense_hot.png",
-                "type": "image",
-                "key": "defense"
-            },
-            {
                 "url": "assets/objets/desk_bleu.png",
                 "type": "image",
                 "key": "desk_bleu"
@@ -77,7 +67,7 @@
                 "key": "desk_vert"
             },
             {
-                "url": "assets/places/duel.png",
+                "url": "assets/places/cutscenes/duel.png",
                 "type": "image",
                 "key": "duel"
             },
@@ -133,12 +123,12 @@
                 "key": "Home"
             },
             {
-                "url": "assets/places/INTRO.png",
+                "url": "assets/places/cutscenes/INTRO.png",
                 "type": "image",
                 "key": "INTRO"
             },
             {
-                "url": "assets/places/introscreen.png",
+                "url": "assets/places/cutscenes/introscreen.png",
                 "type": "image",
                 "key": "introscreen"
             },
@@ -365,7 +355,7 @@
                 "key": "stop"
             },
             {
-                "url": "assets/places/tel.png",
+                "url": "assets/places/cutscenes/tel.png",
                 "type": "image",
                 "key": "tel"
             },
