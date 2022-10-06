@@ -120,14 +120,19 @@ module.exports = {
         /* Load un chapitre page après un choice */
 
         if (msg.textarea) {
-            console.log('Recu Textarea' + msg.textarea);
+            console.log('Recu Textarea ' + msg.textarea);
             ws.current_perso.textarea = msg.textarea;
         }
+       
+
+
 
         if (msg.choice) {
             this.loadPage(ws, msg.choice, msg.page);
             /* clear textarea */
             delete ws.current_perso.textarea;
+            delete ws.current_perso.input;
+            delete ws.current_perso.nb;
         }
 
 
@@ -251,7 +256,7 @@ module.exports = {
 
             /* load PAGE */
             //  console.log(param);
-            
+
             var pageObject = chapitreO.getPage(ws, page, param);
             if (!pageObject) {
                 tools.report('pageOjbect is missing at ' + chapitre + ' ' + page);
@@ -259,7 +264,7 @@ module.exports = {
             }
 
             pageObject.text = this.filterText(pageObject.text, perso);
-            
+
             for (var i = 0; i < pageObject.choices.length; i++) {
                 if (pageObject.choices[i])
                     pageObject.choices[i][0] = this.filterText(pageObject.choices[i][0], perso);
@@ -276,7 +281,7 @@ module.exports = {
                     }
                 }
 
-              
+
             }
 
             // LET'S GO, THEN
@@ -289,8 +294,8 @@ module.exports = {
             // send data to client
             var data = (pageObject);
             /*
-            if (chapitreO.name)
-                data.scene = chapitreO.name;
+             if (chapitreO.name)
+             data.scene = chapitreO.name;
              * 
              */
             ws.send(JSON.stringify(data));
@@ -311,7 +316,7 @@ module.exports = {
         }
     },
     getPersoByRole: function (role) {
-       // console.log('getting role ' + role);
+        // console.log('getting role ' + role);
         return this.gC.persos[this.gC.roles[role].nom];
     },
     setRole: function (perso, role) {

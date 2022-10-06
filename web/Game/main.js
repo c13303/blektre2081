@@ -98,7 +98,7 @@ class Boot extends Phaser.Scene {
 
         that = this;
         changeScene("Preloader", false);
-        setInterval(this.update, 500);
+        setInterval(this.update, 100);
     }
 
     update() {
@@ -107,14 +107,14 @@ class Boot extends Phaser.Scene {
             for (const [nom, spritePlayer] of Object.entries(persosOnScreen)) {
                 var label = spritePlayer.label;
                 label.css("left", (spritePlayer.x - 16) * ZOOM);
-                label.css("margin-top", (spritePlayer.y - (28 * ZOOM)) * ZOOM);
+                label.css("margin-top", (spritePlayer.y - (26 * ZOOM)) * ZOOM);
 
 
                 if (spritePlayer.movingToLeft) {
-                    spritePlayer.x -= 8;
+                    spritePlayer.x -= 2;
                 }
                 if (spritePlayer.movingToRight) {
-                    spritePlayer.x += 8;
+                    spritePlayer.x += 2;
                 }
 
             }
@@ -335,7 +335,7 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
                 if (frame.index === 8) {
                     //  console.log("reculing trigger");
                     gameObject.movingToLeft = false;
-                    this.y += 8;
+                    this.y += 4;
                 }
             }
 
@@ -371,7 +371,7 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
         var label = window.parent.$("#p" + j);
         var yOFFSET = 0;
         if (ZOOM === 4)
-            yOFFSET = 236;
+            yOFFSET = 196;
         if (ZOOM === 2)
             yOFFSET = -156;
         var stil = "margin-top: " + yOFFSET + "px";
@@ -380,7 +380,7 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
         label.show();
         label.html("<div class='etikette etikette_" + nom + "'   style='" + stil + "'>" + nom + "</div>");
         label.css("left", (spritePlayer.x - 16) * ZOOM);
-        label.css("margin-top", (spritePlayer.y - (28 * ZOOM)) * ZOOM);
+        label.css("margin-top", (spritePlayer.y - (26 * ZOOM)) * ZOOM);
 
 
 

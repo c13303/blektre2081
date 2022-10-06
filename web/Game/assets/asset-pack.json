@@ -110,6 +110,19 @@
                 "key": "HEADS_"
             },
             {
+                "url": "assets/gif/heart.png",
+                "frameConfig": {
+                    "frameWidth": 150,
+                    "frameHeight": 100,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "heart"
+            },
+            {
                 "url": "assets/places/home.png",
                 "type": "image",
                 "key": "home"
@@ -317,6 +330,24 @@
                 "url": "assets/scenes/Quatre.js",
                 "type": "sceneFile",
                 "key": "Quatre"
+            },
+            {
+                "url": "assets/places/reunion.png",
+                "type": "image",
+                "key": "reunion"
+            },
+            {
+                "url": "assets/places/room-sheet.png",
+                "frameConfig": {
+                    "frameWidth": 150,
+                    "frameHeight": 100,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "room-sheet"
             },
             {
                 "url": "assets/places/square.png",

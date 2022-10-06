@@ -94,7 +94,7 @@ function gameClientHook(d) {
             $('#text').find(".content").addClass('old').fadeTo(500, 0);
         }
 
-    
+
 
 
 
@@ -109,6 +109,17 @@ function gameClientHook(d) {
             texthtml += '<br/><div class="fragebox"><textarea id="frage"></textarea><button id="frageok">OK</button></div>';
             $(document).find('#choices').hide();
         }
+
+        if (d.input) {
+            texthtml += '<br/><div class="fragebox"><input type="text" id="frage" value="' + d.input + '" /><button id="frageok">OK</button></div>';
+            $(document).find('#choices').hide();
+        }
+
+        if (d.inputnb) {
+            texthtml += '<br/><div class="fragebox"><input type="number" id="frage" value="' + d.inputnb + '"/><button id="frageok">OK</button></div>';
+            $(document).find('#choices').hide();
+        }
+
 
         /*
          if (d.dynamic_selection) {

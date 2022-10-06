@@ -61,9 +61,9 @@ Vous vous sentez obligé de lui donner une pièce";
 
 
                 var choices = [
+                    ["Je m'enfonce dans Ivry Centre", folder, "ivry__left"],
                     ["Je descends de la voiture et je fume <~MENDIANT>", folder, "mendiant"],
-                    ["Je m'enfonce dans Ivry Centre", folder, "ivry"],
-                    ["Je retourne sur le périph'", "00_home/01_periphint", "intro"],
+                    ["Je retourne sur le périph'", "00_home/01_periphint", "intro__right"],
                 ];
 
                 /*
@@ -232,8 +232,8 @@ Vous vous sentez obligé de lui donner une pièce";
 
 
                 var choices = [
-                    ["Je vais à l'église psychédélislaïque", "00_home/05_eglise", "intro"],
-                    ["Je vais à la pharmacie", "00_home/08_pharmacie", "intro"],
+                    ["Je vais à l'église psychédélislaïque", "00_home/05_eglise", "intro__left"],
+                    ["Je vais à la pharmacie", "00_home/08_pharmacie", "intro__left"],
                     ["Je retourne sur le périph'", folder, "intro__right"],
                 ];
 

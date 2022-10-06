@@ -42,22 +42,36 @@ module.exports = {
 
                     ["J'en ai marre de la vie", folder, "suicide"],
                     ["J'ai besoin d'argent", folder, "argent"],
-                    //   ["Je vais à la machine à café", folder, "cafe"],
                     ["Je <le/la/lae/RAEL> fume", "00_home/00_fume", "fume"],
                     ["Je me tire", "00_home/06_ivry", "ivry__right"]
                 ];
 
-                var adversaire = perso.getAdversaire();
+
+
+
+
+                var pa = [[1, perso.nom, "idle"]];
+
+                if (param === 'left') {
+                    var pa = [[1, perso.nom, "walk", {startX: 1, endX: 60}]];
+                }
+                if (param === 'right') {
+                    var pa = [[1, perso.nom, "walk", {flipX: true, startX: 150, endX: 90}]];
+                }
+
+                if (perso.adversaire) {
+                    pa.push([2, perso.adversaire, "idle"]);
+                }
+
+
+
 
                 return {
                     flush: 1,
                     text: text,
                     choices: choices,
                     phaserscene: "Eglise",
-                    phaseranimation: [
-                        [1, perso.nom, "idle"],
-                        [2, adversaire.nom, "idle"],
-                    ]
+                    phaseranimation: pa
                 };
             } //endscene()---------------------------------------------------------------------------
 

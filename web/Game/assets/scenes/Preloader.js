@@ -22,13 +22,19 @@ class Preloader extends Phaser.Scene {
         // click
         const click = this.add.sprite(75, 50, "click");
 
+        // heart
+        const heart = this.add.sprite(75, 50, "heart", 0);
+
         this.click = click;
+        this.heart = heart;
 
         this.events.emit("scene-awake");
     }
 
     /** @type {Phaser.GameObjects.Sprite} */
     click;
+    /** @type {Phaser.GameObjects.Sprite} */
+    heart;
 
     /* START-USER-CODE */
 
@@ -40,10 +46,15 @@ class Preloader extends Phaser.Scene {
     create() {
 
         this.editorCreate();
+
+
+
+        this.heart.play("heart");
+
         this.click.setInteractive();
 
         window.parent.resizeIframeOnCanvas();
-        
+
         this.click.on('pointerdown', function (pointer) {
 
             changeScene('Portrait');

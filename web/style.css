@@ -324,6 +324,7 @@ iframe{
 }
 #visuelcache{
     overflow:hidden;
+    position:relative;
 }
 
 .updatestat{
@@ -449,6 +450,7 @@ button{
 }
 
 .usNotice{
+    margin-left:64px;
     display:none;
     position:absolute;
     top:0;

@@ -103,13 +103,13 @@ Que boire pour oublier que personne ne vous respecte ?  ";
 
             , "cruise": function () {
 
-            
+
 
                 var text = "<~COCHON> vous met au défi.\n\
 - Tu connais mon Instagram, au moins ?";
 
                 var choices = [
-                    ["Bien sûr", folder, "devine", "input"],
+                    ["Bien sûr", folder, "devineinput"],
                     ["Peu importe, mes sentiments sont réels", folder, "pecho"],
                     ["Je pars en pleurant", "00_street", "nuit"]
                 ];
@@ -122,15 +122,33 @@ Que boire pour oublier que personne ne vous respecte ?  ";
             } //endscene()---------------------------------------------------------------------------
 
 
+            , "devineinput": function () {
+
+
+
+                var text = "[INPUT] [NB]";
+
+                var choices = [
+
+                    ["Peu importe, mes sentiments sont réels", folder, "devine"],
+                    ["Je pars en pleurant", "00_street", "nuit"]
+                ];
+                return {
+                    flush: 0,
+                    text: text,
+                    choices: choices
+                };
+
+            } //endscene()---------------------------------------------------------------------------
 
 
 
 
 
 
-            , "devine": function () {
+            , "devine": function (param) {
 
-             
+
 
 
                 var text = "<~COCHON> rougit car vous avez trouvé juste.\n\
@@ -174,7 +192,7 @@ Que boire pour oublier que personne ne vous respecte ?  ";
 
             , "pecho": function () {
 
-               
+
 
 
 

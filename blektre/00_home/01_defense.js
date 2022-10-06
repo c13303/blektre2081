@@ -83,7 +83,7 @@ Il y a une manifestation devant les bureaux.";
 - Bonjour <monsieur/madame/mademonsieur/SELF>, une petite signature pour faire interdire la viande de cochon, s'il vous plaît.";
                 var choices = [
                     ["Je signe avec le sourire", folder, "manifsigne__sourire"],
-                    ["Je lance le débat", folder, "manifdebat"],
+                    ["Je pose des questions", folder, "manifdebat"],
                     ["Enculés de véganistes !", folder, "manifnovegan"],
                     ["Je m'éloigne", folder, "intro"]
                 ];
@@ -119,12 +119,12 @@ Il y a une manifestation devant les bureaux.";
                 adversaire = perso.getAdversaire();
 
 
-                var text = "- Quand même, ce sont des emplois ... Vous n'avez pas l'impression de cracher dans la soupe ? demandez-vous.\n\
-- OK <boomer/boomeuse/boomeurses/SELF>, dit <~COCHON> en soupirant.";
-                perso.log('Vous vous faites recadrer par ' + adversaire.bnom);
+                var text = "- Les cochons bénéficient du plein emploi ... Vous n'avez pas l'impression de cracher dans la soupe ? demandez-vous.\n\
+<~COCHON> est révolté. \n\
+- <Boomers/Boomeuses/Boomeurses/SELF> ! Vous ne comprenez rien. On se tue au travail ! On veut de meilleures conditions ! ";
+                perso.log(adversaire.bnom + " vous recadre lors d'un débat pacifique");
 
                 var choices = [
-                    ["Je l'invite à boire un verre", folder, "cochon_drague"],
                     ["Je <le/la/lae/COCHON> fume", "00_home/00_fume", "fume"],
                     ["Je souris poliment et je m'éloigne", folder, "intro"]
                 ];
@@ -235,10 +235,9 @@ Il y a une manifestation devant les bureaux.";
             , "manifnovegan": function () {
 
 
-                var text = "Vous manifestez agressivement votre opposition à leur point de vue politique.\n\
-- Mais si on ne mange plus de viande, on va manger quoi ? Affameurs ! Véginazis !\n\
-<~ADVERSAIRE> décide de vous ignorer. Vous pensez l'avoir bien <remis/remise/remises/ADVERSAIRE> en place.";
-                perso.updateStat('karma', -50);
+                var text = "- Mais si on ne mange plus de viande, on va manger quoi ? Affameurs ! Véginazis !\n\
+<~ADVERSAIRE> vous regarde fixement, l'air passablement énervé.";
+                perso.updateStat('karma', -10);
                 perso.log('Vous agressez les manifestants anti-viande');
 
                 perso.choiceExit = {
@@ -249,9 +248,8 @@ Il y a une manifestation devant les bureaux.";
                 };
 
                 var choices = [
-                    ["J'avance des arguments politiques", folder, "manifdebat"],
-                    ["Je m'éloigne", folder, "intro"],
-                    ["Je <le/la/lae/ADVERSAIRE> fume", "00_home/00_fume", "fume"]
+                    ["Je <le/la/lae/ADVERSAIRE> fume", "00_home/00_fume", "fume"],
+                    ["Je bredouille une excuse et je m'éloigne", folder, "intro"],
                 ];
 
                 return {
