@@ -53,7 +53,7 @@ $(document).ready(function () {
         // console.log('Choice : ' + $(this).data('target'));
         $("#map").hide();
         $("#places").html("");
-        $("#notifs").html("");
+       // $("#notifs").html("");
 
         /* AFFICHAGE MAP DE METRO */
 
@@ -65,7 +65,7 @@ $(document).ready(function () {
             page: $(this).data('page')
         };
 
-       
+
 
         /* textarea*/
 
@@ -142,10 +142,15 @@ $(document).ready(function () {
         var persoKey = $(this).data('n');
         var perso = persos[persoKey];
         //  console.log('over people ' + persoKey);
+        var relation;
+        if (mychar.relationships[perso.nom])
+            relation = mychar.relationships[perso.nom];
+        else
+            relation = "aucune";
 
         $(this).append('<div class="hoverpeople">'
                 + '<b>' + perso.bnom + '</b>'
-                + '<br/>Relation avec vous : ' + mychar.relationships[perso.nom]
+                + '<br/>Relation avec vous : ' + relation
                 + '<br/>Karma : ' + perso.karma
                 + '<br/>Sex-appeal : ' + perso.sex
                 + '<br/>Santé mentale : ' + perso.sanity

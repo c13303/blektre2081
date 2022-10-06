@@ -106,7 +106,7 @@ class perso {
                     fatal('PERSO ' + this.nom + ' HAS A OBJECT ADVERSAIRE');
                 }
                 ws.send(JSON.stringify(data));
-                this.loglines = [];
+               // this.loglines = [];
                 this.usNotice = [];
             } catch (e) {
                 console.log('erreur at update CHAR ' + this.nom);

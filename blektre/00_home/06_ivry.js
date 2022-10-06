@@ -70,7 +70,7 @@ module.exports = {
 
                 var choices = [
                     ["Je m'enfonce dans Ivry Centre", folder, "ivry__left"],
-                    ["Je descends de la voiture et je fume <~MENDIANT>", folder, "mendiant"],
+                    ["J'agresse <~MENDIANT>", folder, "mendiant"],
                     ["Je retourne sur le périph'", "00_home/01_periphint", "intro__right"],
                 ];
 
@@ -135,7 +135,7 @@ module.exports = {
 
 
                 if (perso.sanity < adversaire.sanity) {
-                    var text = "Vous approchez de <~ADVERSAIRE> et lui dites d'aller prendre une douche. <Il/Elle/Elles/ADVERSAIRE> s'écroule sur le sol, en sang.";
+                    var text = "Vous adressez un coup de boule à <~ADVERSAIRE> pour obtenir son attention. <Il/Elle/Ielle/ADVERSAIRE> se retrouve sur le sol, en sang.";
                     adversaire.updateStat('sanity', +25, perso);
                     perso.updateStat('sanity', +25);
                     perso.updateStat('karma', +10);
@@ -158,13 +158,13 @@ module.exports = {
 
                     // perso interruption
                 } else {
-                    var text = "Vous approchez de <~ADVERSAIRE> pour lui faire la morale, quand soudain cette dernière ";
+                    var text = "Vous approchez de <~ADVERSAIRE> pour lui faire la morale, mais <il/elle/ielle/ADVERSAIRE> vous en colle une.";
 
                     perso.updateStat('life', -25);
-                    adversaire.log("Vous adressez un prompt coup de boule à " + adversaire.bnom);
+                    adversaire.log("Vous adressez un prompt coup de boule à " + perso.bnom);
                     adversaire.updateStat('karma', +10, perso);
 
-                    perso.log(perso.bnom + " vous adresse un prompt coup de boule");
+                    perso.log(adversaire.bnom + " vous adresse un prompt coup de boule");
                     // perso interruption
 
                     var phaseranimation = [

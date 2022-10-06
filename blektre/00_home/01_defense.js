@@ -125,8 +125,8 @@ Il y a une manifestation devant les bureaux.";
                 perso.log(adversaire.bnom + " vous recadre lors d'un débat pacifique");
 
                 var choices = [
-                    ["Je <le/la/lae/COCHON> fume", "00_home/00_fume", "fume"],
-                    ["Je souris poliment et je m'éloigne", folder, "intro"]
+                    ["Je souris poliment et je m'éloigne", folder, "intro"],
+                    ["Je <le/la/lae/COCHON> fume", "00_home/00_fume", "fume"]
                 ];
                 return {
                     flush: 1,

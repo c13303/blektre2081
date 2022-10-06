@@ -178,9 +178,10 @@ function gameClientHook(d) {
 
     if (d.mychar) {
         if (d.mychar.loglines.length) {
+            $('#notifs').html("");
             for (var i = 0; i < d.mychar.loglines.length; i++) {
                 if (d.mychar.loglines[i][0] !== '!') // symbole update stat
-                    $('#notifs').html('<div class="notif">' + d.mychar.loglines[i] + '</div>');
+                    $('#notifs').append('<div class="notif">' + d.mychar.loglines[i] + '</div>');
             }
         }
         // var html = "<b class='name'>" + d.mychar.nom + "</b>";

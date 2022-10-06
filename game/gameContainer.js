@@ -9,46 +9,44 @@ module.exports = {
     WSPersos: {}, /// les clients WS en stock
     places: {},
     roles: {
-        "default": {
-            "nom": "jacques_mimol"
-        },
+       
         "DIRECTOR": {
-            nom: 'selbst'
+            nom: 'manuel_valse'
         },
         "STAGIAIRE": {
-            nom: 'mux'
+            nom: 'florence_parly2'
         },
         "INFLUENCE": {
-            nom: 'mux'
+            nom: 'florence_parly2'
         },
         "DJ": {
-            nom: "titebulle",
-            tube: "<em><b>Incouple, involontairement en couple, yeah yeah</b></em>"
+            nom: "manuel_valse",
+            tube: "<em><b>KIF ME BB</b></em>"
         },
         "COCHON": {
-            nom: "mux"
+            nom: "manuel_valse"
         },
         "SERVEUR": {
-            nom: "mux"
+            nom: "manuel_valse"
         },
         "SECRETAIRE": {
-            nom: "titebulle"
+            nom: "florence_parly2"
         },
         "RAEL": {
-            nom: "mux"
+            nom: "manuel_valse"
         }
         , "PHARMACIEN": {
-            nom: "mux"
+            nom: "florence_parly2"
         },
         "VIGILE": {
-            nom: "mux"
+            nom: "manuel_valse"
         },
         "MENDIANT": {
-            nom: "mux"
+            nom: "manuel_valse"
         },
 
         "BEZOS": {
-            nom: "mux"
+            nom: "manuel_valse"
         },
 
         /// lots of manche roles

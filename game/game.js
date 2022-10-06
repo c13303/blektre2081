@@ -209,7 +209,7 @@ module.exports = {
 
 
     tick: function () {
-        console.log(this.gC.tick);
+        //console.log(this.gC.tick);
         this.gC.tick++;
         /// ticks personnels
         for (const [key, persal] of Object.entries(gC.persos)) {

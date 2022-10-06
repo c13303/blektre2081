@@ -79,9 +79,8 @@ module.exports = {
             , "heal": function (param = null) {
 
 
-                var text = "- Hm j'ai bien quelques pilules pour ça.\n\
-Ielle s'absente un instant et revient poser des cachets de toutes les couleurs sur le comptoir.\n\
-Lesquels prenez-vous ?";
+                var text = "<Il/Elle/Ielle/PHARMACIEN> s'absente un instant et revient poser des pilules de toutes les couleurs sur le comptoir.\n\
+Lesquelles prenez-vous ?";
                 if (param === 'back') {
                     var text = "- Lesquelles ?";
                 }

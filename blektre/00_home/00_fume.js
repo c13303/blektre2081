@@ -127,7 +127,7 @@ module.exports = {
 
 
                 if (adversaire.sex > perso.sex) {
-                    var text = "Vous montrez votre Insta à <~ADVERSAIRE>, qui se montre guère <impressionné/impressionnée/impressionnes/ADVERSAIRE>. Vous pouvez être sûr qu'ielle vous ignorera, désormais.";
+                    var text = "[-sex] Vous montrez votre Insta à <~ADVERSAIRE>, qui se montre guère <impressionné/impressionnée/impressionnes/ADVERSAIRE>. Vous pouvez être sûr qu'ielle vous ignorera, désormais.";
                     adversaire.updateStat('sex', +10, perso);
                     perso.updateStat('sex', -10);
                     perso.log('Vous gagnez un nouveau follower nommé ' + adversaire.bnom);
@@ -183,15 +183,14 @@ module.exports = {
 
 
                 if (perso.karma > adversaire.karma) {
-                    var text = "Vous approchez de <~ADVERSAIRE> et lui adressez un prompt coup de boule sur le nez. <Il/Elle/Elles/ADVERSAIRE> s'écroule sur le sol, en sang.\n\
-";
+                   var text = "Vous adressez un coup de boule à <~ADVERSAIRE>. <Il/Elle/Ielle/ADVERSAIRE> se retrouve sur le sol, en sang.";
+                   
                     adversaire.updateStat('life', -25, perso);
                     adversaire.updateStat('karma', +10, perso);
                     perso.updateStat('karma', -10);
-
-                    perso.log("Vous adressez un prompt coup de boule à " + adversaire.bnom);
-                    adversaire.log(perso.bnom + " vous adresse un prompt coup de boule");
-                    perso.cool("cochon_indispo", 1, "Le cochon est de nouveau dispo");
+                    perso.log("Vous fumez " + adversaire.bnom);
+                    adversaire.log(perso.bnom + " vous a fumé");
+                    
                     var choices = [
                         ["Je lui pisse dessus", folder, "pisse"],
                         ["Je m'en vais", perso.choiceExit.folder, perso.choiceExit.page]
@@ -206,10 +205,11 @@ module.exports = {
 
                     // perso interruption
                 } else {
-                    var text = "Tel le pigeon dans l'enfer des villes, <~ADVERSAIRE> esquive votre coup et vous allume en retour. ";
+                    var text = "Agile comme le pigeon, <~ADVERSAIRE> esquive votre coup et vous fume en retour. ";
 
                     if (adversaire.sex > perso.sex) {
-                        text += "<~ADVERSAIRE> vous urine dessus en riant, avant de s'éloigner.";
+                        text += "\
+[-sex] <~ADVERSAIRE> vous urine dessus en riant, avant de s'éloigner.";
                         perso.updateStat('sex', 1);
                         perso.updateStat('sex', 1);
                         perso.updateStat('sex', 1);
@@ -226,10 +226,10 @@ module.exports = {
                     }
 
                     perso.updateStat('life', -25);
-                    adversaire.log("Vous adressez un prompt coup de boule à " + adversaire.bnom);
+                    adversaire.log("Vous avez fumé " + perso.bnom);
                     adversaire.updateStat('karma', +10, perso);
 
-                    perso.log(perso.bnom + " vous adresse un prompt coup de boule");
+                    perso.log("Vous vous faites fumer par " + adversaire.bnom);
                     // perso interruption
 
                     var phaseranimation = [
@@ -269,7 +269,7 @@ module.exports = {
 
 
                 if (perso.sanity > adversaire.sanity) {
-                    var text = "Vous urinez sur <~ADVERSAIRE>.\n\
+                    var text = "[+sex] Vous urinez sur <~ADVERSAIRE>.\n\
 ";
                     perso.updateStat('sex', -10);
 
