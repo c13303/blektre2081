@@ -123,7 +123,7 @@ module.exports = {
             console.log('Recu Textarea ' + msg.textarea);
             ws.current_perso.textarea = msg.textarea;
         }
-       
+
 
 
 
@@ -219,7 +219,7 @@ module.exports = {
         setTimeout(function () {
             gC.date++;
             that.tick();
-        }, 60000);
+        }, 1000);
     },
 
     loadPage: function (ws, chapitre, page, dest = null, param = null) {
@@ -264,6 +264,12 @@ module.exports = {
             }
 
             pageObject.text = this.filterText(pageObject.text, perso);
+            if (pageObject.text2) {
+                console.log('Text2 detected..filtering');
+                console.log(pageObject.text2);
+                pageObject.text2 = this.filterText(pageObject.text2, perso);
+            }
+
 
             for (var i = 0; i < pageObject.choices.length; i++) {
                 if (pageObject.choices[i])
@@ -331,6 +337,12 @@ module.exports = {
 
     filterText: function (text, perso) { //// GENDERIZE DA TEXT
 
+
+
+        if (!text) {
+            console.log('ERROR : Filter Text No Text');
+            return null;
+        }
         var arrStr = text.split(/[<>]/);
         try {
             //  console.log(arrStr.length + " codes found in this page");

@@ -179,7 +179,7 @@ canvas {
 }
 #col_popups{
     margin-top: 20px;
-    position: relative;
+    position: absolute;
     right: 0;
     top: 0;
 

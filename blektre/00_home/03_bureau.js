@@ -42,9 +42,7 @@ La question vous stressez, et vous suez abondamment.";
 
                 perso.choiceExit = {
                     folder: folder,
-                    page: "reunionkicked",
-                    coolDownLabel: "fuming_de_secretaire",
-                    coolDownTime: 1
+                    page: "reunionkicked"
                 };
 
                 var choices = [
@@ -89,9 +87,7 @@ La question vous stressez, et vous suez abondamment.";
 
                 perso.choiceExit = {
                     folder: folder,
-                    page: "reunionkicked",
-                    coolDownLabel: "fuming_de_patron",
-                    coolDownTime: 1
+                    page: "reunionkicked"
                 };
 
                 var choices = [

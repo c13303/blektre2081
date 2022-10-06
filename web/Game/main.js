@@ -285,7 +285,7 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
                         if (this.x < endX) {
                             this.x += 4;
                         } else {
-                            console.log('Walk  anime (1) stopeed : idle');
+                         //   console.log('Walk  anime (1) stopeed : idle');
                             this.play('idleP' + this.daPerso.type);
                             delete this.options;
                             this.cancel = true;
@@ -303,7 +303,7 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
                         if (this.x > endX) {
                             this.x -= 4;
                         } else {
-                            console.log('Walk  anime (2) stopeed : idle');
+                           // console.log('Walk  anime (2) stopeed : idle');
                             this.play('idleP' + this.daPerso.type);
                             delete this.options;
                             this.cancel = true;

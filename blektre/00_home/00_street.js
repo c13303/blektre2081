@@ -36,7 +36,8 @@ module.exports = {
             intro: function () {
                 game.gC.setInPlace("Zonmai", perso);
 
-
+                perso.cool("Envie de chier", 4, "Vous avez envie de chier");
+                
                 if (!perso.milestones.number_of_times_I_went_home) {
                     perso.milestones.number_of_times_I_went_home = 0;
                 }

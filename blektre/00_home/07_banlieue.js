@@ -3,7 +3,7 @@ var game = require('./../../game/game.js');
 var itemTools = require('./../../game/objets/itemsTools.js');
 module.exports = {
     name: "Periph Ext",
-    folder: "00_home/06_ivry",
+    folder: "00_home/07_banlieue",
     getPage: function (ws, page = "intro", param = null) {
 
 
@@ -15,9 +15,7 @@ module.exports = {
         /* landing page en cas de fuming */
         perso.choiceExit = {
             folder: folder,
-            page: "outfumed",
-            coolDownLabel: this.name + "choiceExit",
-            coolDownTime: 1
+            page: "outfumed"
         };
 
 
@@ -142,7 +140,7 @@ Le Rahel vous remet l'intégratité de l'argent que " + defunt + " a laissé en 
                 };
             } //endscene()---------------------------------------------------------------------------
 
-            , "fuming_de_rael": function () {
+            , "outfumed": function () {
 
                 var text = "Vous quittez l'église.";
 

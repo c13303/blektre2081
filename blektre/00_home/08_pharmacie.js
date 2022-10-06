@@ -12,12 +12,16 @@ module.exports = {
         var perso = ws.current_perso;
         var folder = this.folder;
 
+
+        var medocslabels = {
+            karma: "Homeopathie",
+            sex: "Vasodilatateur",
+            sanity: "Antidépresseurs"
+        };
         /* landing page en cas de fuming */
         perso.choiceExit = {
             folder: folder,
             page: "outfumed",
-            coolDownLabel: this.name + "choiceExit",
-            coolDownTime: 1
         };
 
 
@@ -41,8 +45,8 @@ module.exports = {
 
 
                 var choices = [
-                    ["J'ai mal au mike", folder, "heal"],
-                    ["J'ai la jeu-ra ", folder, "boloss"],
+                    ["Je voudrais des pilules", folder, "heal"],
+                    ["Je voudrais tuer quelqu'un", folder, "boloss"],
                     //  ["Je <le/la/lae/PHARMACIEN> fume", "00_home/00_fume", "fume"],
                     ["Je sors", "00_home/06_ivry", "ivry__right"]
                 ];
@@ -72,7 +76,7 @@ module.exports = {
 
 
 
-            , "heal": function (param) {
+            , "heal": function (param = null) {
 
 
                 var text = "- Hm j'ai bien quelques pilules pour ça.\n\
@@ -84,9 +88,9 @@ Lesquels prenez-vous ?";
 
 
                 var choices = [
-                    ["Homeopathie", folder, "healchoice__blanches"],
-                    ["Vasodilatateur", folder, "healchoice__rouges"],
-                    ["Antidépresseurs", folder, "healchoice__vertes"],
+                    ["Homeopathie", folder, "healchoice__karma"],
+                    ["Vasodilatateur", folder, "healchoice__sex"],
+                    ["Antidépresseurs", folder, "healchoice__sanity"],
                     ["J'ai changé d'avis", folder, "intro"],
                 ];
 
@@ -100,12 +104,40 @@ Lesquels prenez-vous ?";
 
 
             , "healchoice": function (param) {
+                if (!param) {
+                    console.log('ERROR : NO PARAM HEALCHOICE');
+                    perso.send({erreur: "ERROR : NO PARAM HEALCHOICE"});
+                    return this.intro();
+                }
+
+                var text = "Jai pas compris lol.";
+
+                perso.aboutToBuy = param;
+                perso.price = 10;
+                if (param === 'karma') {
+                    var text = "- Avec ça, vous aurez bonne conscience. A prendre n'importe quand, sans trop de risque ...";
+                }
+
+                if (param === 'sex') {
+                    var text = "- Ah, ceux là, pour vos histoires intimes. Attention ! Pas plus de 3 par jour, sinon ... ";
+                }
+
+                if (param === 'sanity') {
+                    var text = "-  Je me disais bien que vous aviez une tête de merde en entrant. Attention, ce médicament doit être pris tous les jours pour être efficace. Autrement ... ?";
+                }
 
 
-                var text = "- C'est 10€ pièce. Combien en voulez-vous ?";
+
+                text += "\
+\n\
+C'est " + perso.price + "€ pièce. Combien en voulez-vous ?\n\
+";
+
+
+
 
                 var choices = [
-                    ['OK', folder, "healchoice2"],
+                    ['Je tape mon code de CB', folder, "healchoice2"],
                     ["J'ai changé d'avis", folder, "intro"],
                 ];
 
@@ -117,6 +149,7 @@ Lesquels prenez-vous ?";
                     choices: choices,
                     inputnb: 1,
                     text2: "\
+\n\
 <~PHARMACIEN> vous tend l'appareil à carte bleue."
                 };
 
@@ -124,10 +157,33 @@ Lesquels prenez-vous ?";
 
 
 
-            , "healchoice2": function (param) {
+            , "healchoice2": function () {
 
-                var price = 10 * param;
+                /* valid nb */
+                var qt = perso.textarea;
+                if (!qt || isNaN(qt)) {
+                    perso.send({erreur: "invalid Qt NaN"});
+                    return this.intro();
+                }
 
+                /* qt negative */
+                if (qt < 0) {
+                    var text = "- <monsieur/madame/mademonsieur/SELF> est un petit malin, n'est-ce pas ?";
+                    var choices = [
+                        ["Je <le/la/lae/PHARMACIEN> fume", "00_home/00_fume", "fume"],
+                    ];
+                    return {
+                        flush: 1,
+                        text: text,
+                        choices: choices
+                    };
+                }
+
+                /* price me */
+                var price = 10 * qt;
+
+
+                /* no money */
                 if (price > perso.money) {
                     var text = "- Vous n'avez pas les " + price + "€ nécéssaires.\n\
 <~PHARMACIEN> vous regarde avec mépris.";
@@ -135,22 +191,26 @@ Lesquels prenez-vous ?";
                         ["Je <le/la/lae/PHARMACIEN> fume", "00_home/00_fume", "fume"]
                     ];
                     return {
-                        flush: 0,
+                        flush: 1,
                         text: text,
                         choices: choices
                     };
                 }
 
+                /* pay cash */
+                var price = price * -1;
+                perso.updateStat('money', price);
+                perso.log('Vous achetez ' + qt + ' cachets de ' + medocslabels[perso.aboutToBuy]);
 
-                perso.us('money', price * -1);
 
+                /* end of transaction */
 
                 var text = "- Deal. Autre chose ? ";
 
                 var choices = [
                     ["Des pilules", folder, "heal__back"],
                     ["Autre chose", folder, "intro"],
-                    ["Plus rien, je me casse", "06_ivry", "ivry"],
+                    ["Plus rien, je me casse", "00_home/06_ivry", "ivry"],
                 ];
 
                 var choices = [
@@ -180,12 +240,13 @@ Lesquels prenez-vous ?";
             , "boloss": function () {
 
 
-                var text = "- ???";
+                var text = "- Tirez-vous avant que j'appelle la police.";
 
 
 
                 var choices = [
-                    ["OK", folder, "intro"],
+                    ["OK", "00_home/06_ivry", "ivry__right"],
+                    ["Je <le/la/lae/PHARMACIEN> fume", "00_home/00_fume", "fume"]
                 ];
 
                 return {

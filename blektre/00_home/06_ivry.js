@@ -15,9 +15,7 @@ module.exports = {
         /* landing page en cas de fuming */
         perso.choiceExit = {
             folder: folder,
-            page: "outfumed",
-            coolDownLabel: this.name + "choiceExit",
-            coolDownTime: 1
+            page: "outfumed"
         };
 
 
@@ -43,20 +41,30 @@ module.exports = {
                 };
 
 
-                var text = "Vous êtes dans la périphérique d'Ivry.";
+                var text = "Porte d'Ivry. ";
 
                 var mendiant = game.getPersoByRole("MENDIANT");
                 perso.adversaire = mendiant.nom;
-                text += "\n\
-<~MENDIANT> est là, qui mendie.";
+                text += "Ici, <~MENDIANT> mendie.";
 
                 if (mendiant.karma > perso.karma) {
                     text += "\n\
-Vous vous sentez obligé de lui donner une pièce";
-                    perso.updateStat("money", -1);
-                    mendiant.updateStat("money", +1, perso);
-                    perso.log('Vous donnez une pièce à ' + mendiant.bnom);
-                    mendiant.log(perso.bnom + " vous donne une pièce");
+[-karma] Vous vous sentez obligé de lui donner une pièce !";
+
+                    if (perso.money > 0) {
+                        perso.updateStat("money", -1);
+                        mendiant.updateStat("money", +1, perso);
+                        perso.log('Vous donnez une pièce à ' + mendiant.bnom);
+                        mendiant.log(perso.bnom + " vous donne une pièce");
+                    } else {
+                        text += " Heureusement, vous n'avez pas une tune.\n\
+- Clochard, dit <~MENDIANT>.";
+                        perso.us("karma", 1);
+                    }
+
+                } else {
+                    text += "\n\
+[karma] Vous l'ignorez avec dignité.";
                 }
 
 

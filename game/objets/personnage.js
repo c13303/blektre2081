@@ -291,6 +291,7 @@ class perso {
     }
 
     cool(label, time, expire_message) {
+
         this.cools[label] = {
             time: time,
             expire_message: expire_message
@@ -312,7 +313,8 @@ class perso {
                         this.popup(this.cools[key].expire_message);
                         delete this.cools[key];
                     } else {
-                        console.log('!ERROR COOLDOWN NO EXPIRE MESSAGE ' + key);
+                        // console.log('!ERROR COOLDOWN NO EXPIRE MESSAGE ' + key);
+                        delete this.cools[key];
                     }
                 }
             }

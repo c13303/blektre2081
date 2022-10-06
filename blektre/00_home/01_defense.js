@@ -242,9 +242,7 @@ Il y a une manifestation devant les bureaux.";
 
                 perso.choiceExit = {
                     folder: folder,
-                    page: "intro",
-                    coolDownLabel: "cochon_indispo",
-                    coolDownTime: 1
+                    page: "intro"
                 };
 
                 var choices = [

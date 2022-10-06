@@ -15,9 +15,7 @@ module.exports = {
         /* landing page en cas de fuming */
         perso.choiceExit = {
             folder: folder,
-            page: "fuming_de_rael",
-            coolDownLabel: "fuming_de_rael",
-            coolDownTime: 1
+            page: "fuming_de_rael"
         };
 
 
@@ -168,8 +166,7 @@ Le Rahel vous remet l'intégratité de l'argent que " + defunt + " a laissé en 
                 var text = "Vous quittez l'église.";
 
                 var choices = [
-
-                    ["Vroum", "00_home/06_ivry", "intro"],
+                    ["Vroum", "00_home/06_ivry", "ivry__right"]
                 ];
                 return {
                     flush: 1,

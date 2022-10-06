@@ -84,9 +84,6 @@ var consoleTools = {
     }
      , whosonline: function () {
         console.log(gC.WSPersos);
-    },
-    us: function(){
-        
     }
 };
 

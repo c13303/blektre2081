@@ -240,6 +240,7 @@ function gameClientHook(d) {
 
 
     if (d.popups) {
+        console.log('Popups receveid !!');
         console.log(d.popups);
         var html = '';
         for (var i = 0; i < d.popups.length; i++) {

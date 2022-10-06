@@ -15,9 +15,7 @@ module.exports = {
         /* landing page en cas de fuming */
         perso.choiceExit = {
             folder: folder,
-            page: "outfumed",
-            coolDownLabel: this.name + "choiceExit",
-            coolDownTime: 1
+            page: "outfumed"
         };
 
 

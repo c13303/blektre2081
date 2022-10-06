@@ -16,8 +16,6 @@ module.exports = {
         perso.choiceExit = {
             folder: folder,
             page: "outfumed",
-            coolDownLabel: this.name + "choiceExit",
-            coolDownTime: 1
         };
 
 
