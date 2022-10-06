@@ -82,7 +82,14 @@ var consoleTools = {
     , perso: function (param) {
         console.log(gC.persos[param]);
     }
-     , whosonline: function () {
+    , set: function (arg1, arg2, arg3) {
+        var perso = gC.persos[arg1];
+        perso[arg2] = parseInt(arg3);
+        console.log(perso);
+    }
+
+
+    , whosonline: function () {
         console.log(gC.WSPersos);
     }
 };

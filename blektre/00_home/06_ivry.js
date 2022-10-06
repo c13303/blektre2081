@@ -59,7 +59,7 @@ module.exports = {
                     } else {
                         text += " Heureusement, vous n'avez pas une tune.\n\
 - Clochard, dit <~MENDIANT>.";
-                        perso.us("karma", 1);
+                        perso.updateStat("karma", 1);
                     }
 
                 } else {

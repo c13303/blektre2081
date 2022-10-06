@@ -275,9 +275,16 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
                 spritePlayer.scaleX = -1;
 
             if (options.endX) {
+
+
+
+
                 if (options.endX > spritePlayer.x) {  /// from left to right
                     var endX = options.endX;
                     spritePlayer.on(Phaser.Animations.Events.ANIMATION_UPDATE, function (anim, frame, gameObject, frameKey) {
+                        if (anim.key.indexOf("takecher") !== -1 || anim.key.indexOf("punch") !== -1) {
+                            return null;
+                        }
                         if (this.cancel)
                             return null;
 
@@ -285,7 +292,7 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
                         if (this.x < endX) {
                             this.x += 4;
                         } else {
-                         //   console.log('Walk  anime (1) stopeed : idle');
+                            //   console.log('Walk  anime (1) stopeed : idle');
                             this.play('idleP' + this.daPerso.type);
                             delete this.options;
                             this.cancel = true;
@@ -297,13 +304,14 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
                 if (options.endX < spritePlayer.x) {  /// from left to right
                     var endX = options.endX;
                     spritePlayer.on(Phaser.Animations.Events.ANIMATION_UPDATE, function (anim, frame, gameObject, frameKey) {
-                        if (this.cancel)
+                        if (anim.key.indexOf("takecher") !== -1 || anim.key.indexOf("punch") !== -1) {
                             return null;
+                        }
 
                         if (this.x > endX) {
                             this.x -= 4;
                         } else {
-                           // console.log('Walk  anime (2) stopeed : idle');
+                            // console.log('Walk  anime (2) stopeed : idle');
                             this.play('idleP' + this.daPerso.type);
                             delete this.options;
                             this.cancel = true;
@@ -329,12 +337,27 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
                 //    console.log(anim.key + " " + frame.index);
                 if (frame.index === 6) {
                     //  console.log("reculing trigger");
-                    gameObject.movingToLeft = true;
+                    // console.log(gameObject);
+                    console.log(gameObject.scaleX);
+
+                    if (gameObject.scaleX > 0) {
+                        console.log('falling left');
+                        gameObject.movingToLeft = true;
+                    } else {
+                        console.log('falling right');
+                        gameObject.movingToRight = true;
+                    }
+
+
+
+
                 }
 
                 if (frame.index === 8) {
                     //  console.log("reculing trigger");
+                    //  console.log(gameObject);
                     gameObject.movingToLeft = false;
+                    gameObject.movingToRight = false;
                     this.y += 4;
                 }
             }

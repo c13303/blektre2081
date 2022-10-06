@@ -30,6 +30,124 @@ module.exports = {
             } //endscene()---------------------------------------------------------------------------
 
 
+
+
+
+            , "fume": function (param) {
+                adversaire = perso.getAdversaire();
+
+                if (!adversaire) {
+                    console.log(perso.nom + 'MAINFUME ERROR NO ADVERSAIRE');
+                }
+
+                if (!perso.choiceExit) {
+                    console.log(perso.nom + " MAINFUME ERROR NO CHOICEEXIT");
+                }
+
+
+                if (perso.karma > adversaire.karma) {
+                    var text = "Vous adressez un coup de boule à <~ADVERSAIRE>. <Il/Elle/Ielle/ADVERSAIRE> se retrouve sur le sol, en sang.";
+
+                    adversaire.updateStat('life', -25, perso);
+                    adversaire.updateStat('karma', +10, perso);
+                    perso.updateStat('karma', -10);
+                    perso.log("Vous fumez " + adversaire.bnom);
+                    adversaire.log(perso.bnom + " vous a fumé");
+
+                    var choices = [
+                        ["Je lui pisse dessus", folder, "pisse"],
+                        ["Je m'en vais", perso.choiceExit.folder, perso.choiceExit.page]
+                    ];
+
+
+                    var phaseranimation = [
+                        [1, perso.nom, "punch"],
+                        [2, adversaire.nom, "takecher"]
+                    ];
+
+
+                    // perso interruption
+                } else {
+                    var text = "Agile comme le pigeon, <~ADVERSAIRE> esquive votre coup et vous fume en retour. ";
+
+                    if (adversaire.sex > perso.sex) {
+                        text += "\
+\n\
+[-sex] <~ADVERSAIRE> vous urine dessus en riant, avant de s'éloigner.";
+                        perso.updateStat('sex', 1);
+                        perso.updateStat('sex', 1);
+                        perso.updateStat('sex', 1);
+                        perso.updateStat('sex', 1);
+                        perso.updateStat('sex', 1);
+                        perso.updateStat('sex', 1);
+                        perso.updateStat('sex', 1);
+                        perso.updateStat('sex', 1);
+                        perso.updateStat('sex', 1);
+                        perso.updateStat('sex', 1);
+                        perso.updateStat('sex', 1);
+                        perso.updateStat('sex', 1);
+
+                    }
+
+                    perso.updateStat('life', -25);
+                    adversaire.log("Vous avez fumé " + perso.bnom);
+                    adversaire.updateStat('karma', +10, perso);
+
+                    perso.log("Vous vous faites fumer par " + adversaire.bnom);
+                    // perso interruption
+
+                    var phaseranimation = [
+                        [1, perso.nom, "takecher"],
+                        [2, adversaire.nom, "punch"]
+                    ];
+
+
+
+                    var choices = [
+                        ["Je ramasse mes dents", perso.choiceExit.folder, perso.choiceExit.page]
+                    ];
+                }
+
+                if (perso.choiceExit.coolDownLabel) {
+                    perso.cool(perso.choiceExit.coolDownLabel, perso.choiceExit.coolDownTime);
+                }
+
+                return {
+                    phaseranimation: phaseranimation,
+                    flush: 1,
+                    text: text,
+                    choices: choices
+                };
+            } //endscene()---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             , "embrouille": function () {
 
 
@@ -167,98 +285,6 @@ module.exports = {
 
 
 
-
-
-
-            , "fume": function (param) {
-                adversaire = perso.getAdversaire();
-
-                if (!adversaire) {
-                    console.log(perso.nom + 'MAINFUME ERROR NO ADVERSAIRE');
-                }
-
-                if (!perso.choiceExit) {
-                    console.log(perso.nom + " MAINFUME ERROR NO CHOICEEXIT");
-                }
-
-
-                if (perso.karma > adversaire.karma) {
-                   var text = "Vous adressez un coup de boule à <~ADVERSAIRE>. <Il/Elle/Ielle/ADVERSAIRE> se retrouve sur le sol, en sang.";
-                   
-                    adversaire.updateStat('life', -25, perso);
-                    adversaire.updateStat('karma', +10, perso);
-                    perso.updateStat('karma', -10);
-                    perso.log("Vous fumez " + adversaire.bnom);
-                    adversaire.log(perso.bnom + " vous a fumé");
-                    
-                    var choices = [
-                        ["Je lui pisse dessus", folder, "pisse"],
-                        ["Je m'en vais", perso.choiceExit.folder, perso.choiceExit.page]
-                    ];
-
-
-                    var phaseranimation = [
-                        [1, perso.nom, "punch"],
-                        [2, adversaire.nom, "takecher"]
-                    ];
-
-
-                    // perso interruption
-                } else {
-                    var text = "Agile comme le pigeon, <~ADVERSAIRE> esquive votre coup et vous fume en retour. ";
-
-                    if (adversaire.sex > perso.sex) {
-                        text += "\
-[-sex] <~ADVERSAIRE> vous urine dessus en riant, avant de s'éloigner.";
-                        perso.updateStat('sex', 1);
-                        perso.updateStat('sex', 1);
-                        perso.updateStat('sex', 1);
-                        perso.updateStat('sex', 1);
-                        perso.updateStat('sex', 1);
-                        perso.updateStat('sex', 1);
-                        perso.updateStat('sex', 1);
-                        perso.updateStat('sex', 1);
-                        perso.updateStat('sex', 1);
-                        perso.updateStat('sex', 1);
-                        perso.updateStat('sex', 1);
-                        perso.updateStat('sex', 1);
-
-                    }
-
-                    perso.updateStat('life', -25);
-                    adversaire.log("Vous avez fumé " + perso.bnom);
-                    adversaire.updateStat('karma', +10, perso);
-
-                    perso.log("Vous vous faites fumer par " + adversaire.bnom);
-                    // perso interruption
-
-                    var phaseranimation = [
-                        [1, perso.nom, "takecher"],
-                        [2, adversaire.nom, "punch"]
-                    ];
-
-
-
-                    var choices = [
-                        ["Je ramasse mes dents", perso.choiceExit.folder, perso.choiceExit.page]
-                    ];
-                }
-
-
-
-
-
-                if (perso.choiceExit.coolDownLabel) {
-                    perso.cool(perso.choiceExit.coolDownLabel, perso.choiceExit.coolDownTime);
-                }
-
-                return {
-                    phaseranimation: phaseranimation,
-                    flush: 1,
-                    text: text,
-                    choices: choices,
-                };
-            } //endscene()---------------------------------------------------------------------------
 
 
 

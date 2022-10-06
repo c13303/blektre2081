@@ -24,7 +24,7 @@ module.exports = {
             tube: "<em><b>KIF ME BB</b></em>"
         },
         "COCHON": {
-            nom: "manuel_valse"
+            nom: "charles_padqua"
         },
         "SERVEUR": {
             nom: "manuel_valse"
