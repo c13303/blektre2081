@@ -1,28 +1,28 @@
 {
-    "id": "1cd89929-9921-4826-acd7-a7fdf32502d2",
+    "id": "e926e1d4-a43d-4e33-9662-d2366a055e8b",
     "sceneType": "SCENE",
     "settings": {
         "preloadPackFiles": [],
         "createMethodName": "editorCreate",
-        "sceneKey": "StreetHub",
+        "sceneKey": "Porteladefense",
         "borderWidth": 150,
         "borderHeight": 100
     },
     "displayList": [
         {
             "type": "Image",
-            "id": "4ff4113a-dc6b-455a-b9c0-70f14ea082bb",
-            "label": "street_1",
+            "id": "a6e0491c-e969-4446-b1ec-89f91c4a9263",
+            "label": "porteladef",
             "components": [],
             "texture": {
-                "key": "street_1"
+                "key": "porteladef"
             },
             "x": 75,
             "y": 50
         },
         {
             "type": "Sprite",
-            "id": "c6065923-73cb-4f79-9855-e1c17cb6f3ba",
+            "id": "986b4cfe-36e0-4bff-a751-afc735adb2d8",
             "label": "player1",
             "scope": "PUBLIC",
             "components": [],
@@ -30,12 +30,12 @@
                 "key": "perso1",
                 "frame": 0
             },
-            "x": 38,
-            "y": 50
+            "x": 42,
+            "y": 57
         },
         {
             "type": "Sprite",
-            "id": "944cc7e0-b1d0-4833-b70e-af85f0769aed",
+            "id": "878915fe-4a87-4bfd-8e5e-3746b9be3120",
             "label": "player2",
             "scope": "PUBLIC",
             "components": [],
@@ -43,9 +43,20 @@
                 "key": "perso1",
                 "frame": 0
             },
-            "x": 114,
-            "y": 52,
+            "x": 130,
+            "y": 61,
             "scaleX": -1
+        },
+        {
+            "type": "Image",
+            "id": "bf2b9db7-52d3-4150-a055-ddde44fc3844",
+            "label": "cartop1",
+            "components": [],
+            "texture": {
+                "key": "cartop1"
+            },
+            "x": 18,
+            "y": 66
         }
     ],
     "plainObjects": [],

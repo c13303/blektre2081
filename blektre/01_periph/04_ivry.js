@@ -3,7 +3,7 @@ var game = require('./../../game/game.js');
 var itemTools = require('./../../game/objets/itemsTools.js');
 module.exports = {
     name: "Ivry",
-    folder: "00_home/06_ivry",
+    folder: "01_periph/04_ivry",
     getPage: function (ws, page = "intro", param = null) {
 
 
@@ -36,7 +36,7 @@ module.exports = {
                 perso.updateStat('life', -1);
 
                 perso.choiceExit = {
-                    folder: "00_home/06_ivry",
+                    folder: "01_periph/04_ivry",
                     page: "intro"
                 };
 
@@ -57,21 +57,22 @@ module.exports = {
                         perso.log('Vous donnez une pièce à ' + mendiant.bnom);
                         mendiant.log(perso.bnom + " vous donne une pièce");
                     } else {
-                        text += " Heureusement, vous n'avez pas une tune.\n\
+                        text += "\
+Heureusement, vous n'avez pas une tune !\n\
 - Clochard, dit <~MENDIANT>.";
                         perso.updateStat("karma", 1);
                     }
 
                 } else {
                     text += "\n\
-[karma] Vous l'ignorez avec dignité.";
+[karma] Vous résistez à la tentation de lui donner une pièce !";
                 }
 
 
                 var choices = [
                     ["Je m'enfonce dans Ivry Centre", folder, "ivry__left"],
                     ["J'agresse <~MENDIANT>", folder, "mendiant"],
-                    ["Je retourne sur le périph'", "00_home/01_periphint", "intro__right"],
+                    ["Je remonte sur le périph'", "01_periph/01_peripherique", "intro__right"],
                 ];
 
                 /*
@@ -81,7 +82,7 @@ module.exports = {
                  " + random.bnom + " vous double en klaxonnant";
                  perso.adversaire = random.nom;
                  phaseranimation.push([2, perso.adversaire, "idle"]);
-                 choices.push(["J'embrouille  <~ADVERSAIRE>", "00_home/00_fume", "embrouille"]);
+                 choices.push(["J'embrouille  <~ADVERSAIRE>", "00/fume", "embrouille"]);
                  }
                  * 
                  */
@@ -240,9 +241,9 @@ module.exports = {
 
 
                 var choices = [
-                    ["Je vais à l'église psychédélislaïque", "00_home/05_eglise", "intro__left"],
-                    ["Je vais à la pharmacie", "00_home/08_pharmacie", "intro__left"],
-                    ["Je retourne sur le périph'", folder, "intro__right"],
+                    ["Je vais à l'église psychédélislaïque", "01_periph/05_eglise", "intro__left"],
+                    ["Je vais à la pharmacie", "01_periph/05_pharmacie", "intro__left"],
+                    ["Je pars", folder, "intro__right"],
                 ];
 
 
@@ -252,7 +253,7 @@ module.exports = {
 " + random.bnom + " vous double en klaxonnant";
                     perso.adversaire = random.nom;
                     phaseranimation.push([2, perso.adversaire, "idle"]);
-                    choices.push(["J'embrouille  <~ADVERSAIRE>", "00_home/00_fume", "embrouille"]);
+                    choices.push(["J'embrouille  <~ADVERSAIRE>", "00/fume", "embrouille"]);
                 }
                 return {
                     flush: 1,

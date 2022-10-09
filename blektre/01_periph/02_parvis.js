@@ -6,7 +6,7 @@ var itemTools = require('./../../game/objets/itemsTools.js');
 
 module.exports = {
     name: "Defense",
-    folder: "00_home/01_defense",
+    folder: "01_periph/03_parvis",
 
     getPage: function (ws, page = "intro", param = null) {
 
@@ -31,13 +31,14 @@ module.exports = {
 
             "intro": function (param) {
                 game.gC.setInPlace("La Défense", perso);
+                
                 var text = "La Défense.\n\
 Il y a une manifestation devant les bureaux.";
                 var choices = [
-                    ["Je vais au bureau", "00_home/03_bureau", "bureau__left"],
+                    ["Je vais au bureau", "01_periph/03_bureau", "bureau__left"],
                     ["Je m'approche de la manifestation", folder, "manif__left"],
-                    ["Je continue aux 4 temps", "00_home/04_quatre", "intro__left"],
-                    ["Je remonte sur le periph", "00_home/01_periphint", "intro"]
+                    ["Je continue aux 4 temps", "01_periph/03_quatre", "intro__left"],
+                    ["Je pars", "01_periph/01_peripherique", "porteladefense__right"]
                 ];
 
                 if (perso.iscooling("cochon_indispo")) {
@@ -126,7 +127,7 @@ Il y a une manifestation devant les bureaux.";
 
                 var choices = [
                     ["Je souris poliment et je m'éloigne", folder, "intro"],
-                    ["Je <le/la/lae/COCHON> fume", "00_home/00_fume", "fume"]
+                    ["Je <le/la/lae/COCHON> fume", "00/fume", "fume"]
                 ];
                 return {
                     flush: 1,
@@ -195,7 +196,7 @@ Il y a une manifestation devant les bureaux.";
                     // perso.cool("cochon_indispo", 1, "Le cochon est de nouveau dispo");
 
                     var choices = [
-                        ["Je rentre me préparer", "00_home/02_date", "habillage"]
+                        ["Je rentre me préparer", "01_home/02_date", "habillage"]
                     ];
 
                     // perso interruption
@@ -246,7 +247,7 @@ Il y a une manifestation devant les bureaux.";
                 };
 
                 var choices = [
-                    ["Je <le/la/lae/ADVERSAIRE> fume", "00_home/00_fume", "fume"],
+                    ["Je <le/la/lae/ADVERSAIRE> fume", "00/fume", "fume"],
                     ["Je bredouille une excuse et je m'éloigne", folder, "intro"],
                 ];
 

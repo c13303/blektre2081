@@ -20,14 +20,14 @@ class Periph extends Phaser.Scene {
 		this.add.image(75, 50, "periph");
 
 		// player1
-		const player1 = this.add.sprite(64, 45, "HEADS_", 0);
+		const player1 = this.add.sprite(64, 45, "perso1", 0);
 
 		// player2
 		const player2 = this.add.sprite(130, 64, "perso1", 0);
 		player2.scaleX = -1;
 
 		// cartop
-		const cartop = this.add.sprite(53, 55, "cartop1");
+		const cartop = this.add.sprite(26, 58, "cartop1");
 
 		// player3
 		const player3 = this.add.sprite(103, 64, "perso1", 0);

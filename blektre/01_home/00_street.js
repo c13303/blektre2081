@@ -9,7 +9,7 @@ var itemTools = require('./../../game/objets/itemsTools.js');
 
 module.exports = {
 
-    folder: "00_home/00_street",
+    folder: "01_home/00_street",
 
     getPage: function (ws, page = "intro", param = null) {
 
@@ -36,8 +36,8 @@ module.exports = {
             intro: function () {
                 game.gC.setInPlace("Zonmai", perso);
 
-                perso.cool("Envie de chier", 4, "Vous avez envie de chier");
-                
+                perso.cool("Envie de chier", 60 * 5, "Vous avez envie de chier");
+
                 if (!perso.milestones.number_of_times_I_went_home) {
                     perso.milestones.number_of_times_I_went_home = 0;
                 }
@@ -105,7 +105,7 @@ Si vous ne vous dépêchez pas, vous serez en retard au travail.";
                 var place = "Square Manuel Valls";
                 game.gC.setInPlace(place, perso);
                 perso.choiceExit = {
-                    folder: "00_home/00_street",
+                    folder: "01_home/00_street",
                     page: "TheSquare"
                 };
 
@@ -115,13 +115,12 @@ Si vous ne vous dépêchez pas, vous serez en retard au travail.";
                 perso.updateStat('life', -1);
 
 
-                var random = game.gC.getSomeoneRandom(perso);
 
                 var text = "Square Manuel Valls. Dehors, le bruit des voitures rend la communication avec les autres assez difficile.\n\
 Où allez-vous ?";
 
                 var choices = [
-                    ["Je monte sur le périph", "00_home/01_periphint", "intro"],
+                    ["Je monte sur le périph", "01_periph/01_peripherique", "intro"],
                     ["Je rentre à la zonmai", folder, "intro2__right"]
                 ];
 
@@ -136,11 +135,14 @@ Où allez-vous ?";
 
                 }
 
-
+                /* the random encounter */
+                var random = game.gC.getSomeoneRandom(perso);
                 if (random && random.nom) {
                     perso.adversaire = random.nom;
+                    text += "\n\
+<~ADVERSAIRE> passe par là et vous ignore avec dédain.";
                     phaserAnimation.push([2, random.nom, "idle"]);
-                    choices.push(["J'embrouille  <~ADVERSAIRE>", "00_home/00_fume", "embrouille"]);
+                    choices.push(["J'embrouille  <~ADVERSAIRE>", "00/fume", "embrouille"]);
                 }
 
 

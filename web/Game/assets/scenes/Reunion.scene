@@ -60,6 +60,18 @@
             "x": 62,
             "y": 45,
             "scaleX": -1
+        },
+        {
+            "type": "Image",
+            "id": "2252f073-ef3f-4d7c-b3d7-4c9cca967d65",
+            "label": "tables0",
+            "components": [],
+            "texture": {
+                "key": "tables",
+                "frame": 0
+            },
+            "x": 70,
+            "y": 53
         }
     ],
     "plainObjects": [],

@@ -3,7 +3,7 @@ var game = require('./../../game/game.js');
 var itemTools = require('./../../game/objets/itemsTools.js');
 module.exports = {
     name: "Date",
-    folder: "00_home/02_date",
+    folder: "01_home/02_date",
     getPage: function (ws, page = "intro", param = null) {
 
         var perso = ws.current_perso;
@@ -24,7 +24,7 @@ module.exports = {
                 var text = "Vous vous préparez à aller boire une bière.";
                 var choices = [
                     ["Je vais à mon rencard", folder, "intro"],
-                    ["Je vais me coucher", "00_home/00_street", "dodo"]
+                    ["Je vais me coucher", "01_home/00_street", "dodo"]
                 ];
                 return {
                     flush: 1,
@@ -190,28 +190,6 @@ Que boire pour oublier que personne ne vous respecte ?  ";
             } //endscene()---------------------------------------------------------------------------
 
 
-            , "pecho": function () {
-
-
-
-
-
-                var text = "<~COCHON> vous gifle. \n\
-- Désolé mais t'es loin d'être assez chaud pour moi.\n\
-Vous êtes dégoûté.";
-
-                var choices = [
-                    ["Je le fume", folder, "fume"],
-                    ["C'est l'heure d'y aller", "00_fume", "nuit"]
-
-                ];
-                return {
-                    flush: 1,
-                    text: text,
-                    choices: choices
-                };
-
-            } //endscene()---------------------------------------------------------------------------
 
 
 

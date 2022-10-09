@@ -3,7 +3,7 @@ var game = require('./../../game/game.js');
 var itemTools = require('./../../game/objets/itemsTools.js');
 module.exports = {
     name: "Pharmacie",
-    folder: "00_home/08_pharmacie",
+    folder: "01_periph/08_pharmacie",
     getPage: function (ws, page = "intro", param = null) {
 
 
@@ -47,8 +47,8 @@ module.exports = {
                 var choices = [
                     ["Je voudrais des pilules", folder, "heal"],
                     ["Je voudrais tuer quelqu'un", folder, "boloss"],
-                    //  ["Je <le/la/lae/PHARMACIEN> fume", "00_home/00_fume", "fume"],
-                    ["Je sors", "00_home/06_ivry", "ivry__right"]
+                    //  ["Je <le/la/lae/PHARMACIEN> fume", "00/fume", "fume"],
+                    ["Je sors", "01_periph/04_ivry", "ivry__right"]
                 ];
 
                 //pa = phaseranimation
@@ -169,7 +169,7 @@ C'est " + perso.price + "€ pièce. Combien en voulez-vous ?\n\
                 if (qt < 0) {
                     var text = "- <monsieur/madame/mademonsieur/SELF> est un petit malin, n'est-ce pas ?";
                     var choices = [
-                        ["Je <le/la/lae/PHARMACIEN> fume", "00_home/00_fume", "fume"],
+                        ["Je <le/la/lae/PHARMACIEN> fume", "00/fume", "fume"],
                     ];
                     return {
                         flush: 1,
@@ -187,7 +187,7 @@ C'est " + perso.price + "€ pièce. Combien en voulez-vous ?\n\
                     var text = "- Vous n'avez pas les " + price + "€ nécéssaires.\n\
 <~PHARMACIEN> vous regarde avec mépris.";
                     var choices = [
-                        ["Je <le/la/lae/PHARMACIEN> fume", "00_home/00_fume", "fume"]
+                        ["Je <le/la/lae/PHARMACIEN> fume", "00/fume", "fume"]
                     ];
                     return {
                         flush: 1,
@@ -209,7 +209,7 @@ C'est " + perso.price + "€ pièce. Combien en voulez-vous ?\n\
                 var choices = [
                     ["Des pilules", folder, "heal__back"],
                     ["Autre chose", folder, "intro"],
-                    ["Plus rien, je me casse", "00_home/06_ivry", "ivry"],
+                    ["Plus rien, je me casse", "01_periph/04_ivry", "ivry"],
                 ];
 
                 var choices = [
@@ -244,8 +244,8 @@ C'est " + perso.price + "€ pièce. Combien en voulez-vous ?\n\
 
 
                 var choices = [
-                    ["OK", "00_home/06_ivry", "ivry__right"],
-                    ["Je <le/la/lae/PHARMACIEN> fume", "00_home/00_fume", "fume"]
+                    ["OK", "01_periph/04_ivry", "ivry__right"],
+                    ["Je <le/la/lae/PHARMACIEN> fume", "00/fume", "fume"]
                 ];
 
                 return {

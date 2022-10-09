@@ -338,13 +338,13 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
                 if (frame.index === 6) {
                     //  console.log("reculing trigger");
                     // console.log(gameObject);
-                    console.log(gameObject.scaleX);
+                    //  console.log(gameObject.scaleX);
 
                     if (gameObject.scaleX > 0) {
-                        console.log('falling left');
+                        // console.log('falling left');
                         gameObject.movingToLeft = true;
                     } else {
-                        console.log('falling right');
+                        // console.log('falling right');
                         gameObject.movingToRight = true;
                     }
 

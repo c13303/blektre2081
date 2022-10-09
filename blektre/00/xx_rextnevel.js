@@ -3,7 +3,7 @@ var game = require('./../../game/game.js');
 var itemTools = require('./../../game/objets/itemsTools.js');
 module.exports = {
     name: "Pharmacie",
-    folder: "00_home/08_pharmacie",
+    folder: "01_periph/08_pharmacie",
     getPage: function (ws, page = "intro", param = null) {
 
 
@@ -39,8 +39,8 @@ module.exports = {
 
 
                 var choices = [
-                    //  ["Je <le/la/lae/PHARMACIEN> fume", "00_home/00_fume", "fume"],
-                    ["Je sors", "00_home/06_ivry", "ivry__right"]
+                    //  ["Je <le/la/lae/PHARMACIEN> fume", "00/fume", "fume"],
+                    ["Je sors", "01_periph/04_ivry", "ivry__right"]
                 ];
 
 

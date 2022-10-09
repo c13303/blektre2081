@@ -108,9 +108,9 @@ module.exports = {
         };
         perso.daytime = 0;
         // game.addPlace(perso, "La Défense", "01_defense/00_intro");
-        //  game.addPlace(perso, "Parc", "00_home/parc");
+        //  game.addPlace(perso, "Parc", "01_home/parc");
         // perso.addPlace("La Défense", "01_defense/00_in\n\tro");
-        //  perso.addPlace("Parc", "00_home/parc");
+        //  perso.addPlace("Parc", "01_home/parc");
         perso.update();
         return (perso);
     },
@@ -222,11 +222,11 @@ module.exports = {
         }, 1000);
     },
 
-    loadPage: function (ws, chapitre, page, dest = null, param = null) {
+    loadPage: function (ws, chapitre, page, param = null) {
 
 
-        console.log('LoadPage() ' + chapitre + ' page ' + JSON.stringify(page));
-        console.log(page.indexOf('__'));
+        //   console.log('LoadPage() ' + chapitre + ' page ' + JSON.stringify(page));
+        // console.log(page.indexOf('__'));
         // PAGE WITH PARAMETER /// 
         if (page.indexOf('__') !== -1) {   // separator = __    example : calling__1  
             var paramArray = page.split('__');
@@ -278,11 +278,11 @@ module.exports = {
 
 
             // INTRO SPECIAL LIKE ... IS THERE ANY INTERRUPT SIR ? 
-            if (page === "intro") {
+            if (page.indexOf("intro") !== -1) {
                 if (!pageObject.nointerrupt) {
                     var interruptArrayLoad = perso.checkInterrupt(ws, chapitre, page);
                     if (interruptArrayLoad) {
-                        this.loadPage(interruptArrayLoad[0], interruptArrayLoad[1], interruptArrayLoad[2]);
+                        this.loadPage(interruptArrayLoad[0], interruptArrayLoad[1], interruptArrayLoad[2], interruptArrayLoad[3]);
                         return null;
                     }
                 }

@@ -1,21 +1,22 @@
 process.chdir("/home/blektre2081/blektre2081/");
 var game = require('./../../game/game.js');
 var itemTools = require('./../../game/objets/itemsTools.js');
+
+
+
 module.exports = {
-    name: "Periph",
-    folder: "00_home/01_periphint",
+    name: "Defense",
+    folder: "01_periph/03_quatre",
+
     getPage: function (ws, page = "intro", param = null) {
-
-
-
 
         var perso = ws.current_perso;
         var folder = this.folder;
 
-        /* landing page en cas de fuming */
+
         perso.choiceExit = {
             folder: folder,
-            page: "outfumed"
+            page: "intro"
         };
 
 
@@ -28,65 +29,43 @@ module.exports = {
          *   */
         var chapitre = {
 
-            "intro": function () {
-                var place = "Periph Intérieur";
-                game.gC.setInPlace(place, perso);
-                perso.choiceExit = {
-                    folder: "00_home/00_street",
-                    page: "periph"
-                };
+            "intro": function (param) {
 
 
+                var text = "Les Quatre Temps est tenue par <~BEZOS>.";
 
+                var ADV = game.getPersoByRole("BEZOS");
+                perso.adversaire = ADV.nom;
 
-
-
-
-                var random = game.gC.getSomeoneRandom(perso);
-
-                var text = "Periphérique intérieur.";
 
                 var choices = [
-                    ["Sortie la Défense", "00_home/01_defense", "intro__left"],
-                    ["Sortie Porte d'Ivry", "00_home/06_ivry", "intro"],
-                    ["Je retourne vers la zonmai", "00_home/00_street", "TheSquare__right"]
+
+                    ["Je <le/la/lae/PHARMACIEN> fume", "00/fume", "fume"],
+                    ["Je sors", "01_periph/parvis", "intro__right"]
                 ];
 
-                var phaserAnimation = [
-                    [1, perso.nom, "head"]
-                ];
-                if (random && random.nom) {
-                    perso.adversaire = random.nom;
-                    phaserAnimation.push([2, random.nom, "head"]);
-                    choices.push(["J'embrouille  <~ADVERSAIRE>", "00_home/00_fume", "embrouille"]);
+                var pa = [];
+               
+                if (param === 'left') {
+                    var pa = [[1, perso.nom, "walk", {startX: 1, endX: 60}]];
+                }
+                if (param === 'right') {
+                    var pa = [[1, perso.nom, "walk", {flipX: true, startX: 150, endX: 90}]];
                 }
 
+                if (perso.adversaire) {
+                    pa.push([2, perso.adversaire, "idle"]);
+                }
 
                 return {
                     flush: 1,
                     text: text,
                     choices: choices,
-                    phaserscene: "PeriphInterieur",
-                    phaseranimation: phaserAnimation
-
+                    phaserscene: "Quatre",
+                    phaseranimation: pa
                 };
 
             } //endscene()---------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -117,9 +96,7 @@ module.exports = {
 
 
 
-
-
-        }; //endchap ============================================ STOP ====================================================
+        };//endchap ============================================ STOP ====================================================
         ////////////============================================ STOP ====================================================
         ////////////============================================ STOP ====================================================
         ////////////============================================ STOP ====================================================
@@ -127,6 +104,8 @@ module.exports = {
 
 
         return chapitre[page](param);
+
+
     }//endpage
-}; //end module
+};//end module
 

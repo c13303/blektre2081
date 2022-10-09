@@ -68,7 +68,6 @@ module.exports = {
         var that = this;
         connection.query('SELECT * FROM persos', function (err, rows, fields) {
             for (var i = 0; i < rows.length; i++) {
-
                 var data = JSON.parse(rows[i].data);
                 var nom = rows[i].nom;
                 console.log('DB reload ' + nom);
@@ -76,7 +75,7 @@ module.exports = {
                 var newperso = new Perso();
                 newperso.reload(data);
                 that.persos[nom] = newperso;
-                console.log(that.persos[nom]);
+                //console.log(that.persos[nom]);
             }
 
             console.log(Object.keys(that.persos).length + ' personnages loaded');

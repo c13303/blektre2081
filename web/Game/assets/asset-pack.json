@@ -275,6 +275,16 @@
                 "key": "Pharmacie"
             },
             {
+                "url": "assets/places/porte_ladefense.png",
+                "type": "image",
+                "key": "porteladef"
+            },
+            {
+                "url": "assets/scenes/Porteladefense.js",
+                "type": "sceneFile",
+                "key": "Porteladefense"
+            },
+            {
                 "url": "assets/scenes/Portrait.js",
                 "type": "sceneFile",
                 "key": "Portrait"

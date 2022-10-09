@@ -22,19 +22,6 @@
         },
         {
             "type": "Sprite",
-            "id": "c69959bd-581a-4d15-8047-50c1fd19db98",
-            "label": "player1",
-            "scope": "PUBLIC",
-            "components": [],
-            "texture": {
-                "key": "perso1",
-                "frame": 0
-            },
-            "x": 22,
-            "y": 64
-        },
-        {
-            "type": "Sprite",
             "id": "1e29cfb1-6ebc-4418-8928-c0099131b9a2",
             "label": "player2",
             "scope": "PUBLIC",
@@ -43,9 +30,22 @@
                 "key": "perso1",
                 "frame": 0
             },
-            "x": 56,
-            "y": 25,
+            "x": 86,
+            "y": 61,
             "scaleX": -1
+        },
+        {
+            "type": "Sprite",
+            "id": "c69959bd-581a-4d15-8047-50c1fd19db98",
+            "label": "player1",
+            "scope": "PUBLIC",
+            "components": [],
+            "texture": {
+                "key": "perso1",
+                "frame": 0
+            },
+            "x": 18,
+            "y": 69
         }
     ],
     "plainObjects": [],

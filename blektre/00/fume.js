@@ -3,7 +3,7 @@ var game = require('./../../game/game.js');
 var itemTools = require('./../../game/objets/itemsTools.js');
 module.exports = {
     name: "Blektre_is_not_UNIX",
-    folder: "00_home/00_fume",
+    folder: "00/fume",
     getPage: function (ws, page = "intro", param = null) {
 
         var perso = ws.current_perso;
@@ -20,7 +20,7 @@ module.exports = {
                 perso.log('Vous reprenez vos esprits');
                 perso.updateStat('karma', -5);
                 var choices = [
-                    ["Wow", "00_home/00_street", "intro"]
+                    ["Wow", "01_home/00_street", "intro"]
                 ];
                 return {
                     flush: 1,
@@ -30,7 +30,31 @@ module.exports = {
             } //endscene()---------------------------------------------------------------------------
 
 
+            , interrupt_fume: function (param) {
 
+
+                console.log('interruption demo');
+                console.log(param);
+
+                var text = "";
+                text += "[Interruption]";
+
+                var choices = [
+                    ["Je m'en vais", perso.choiceExit.folder, perso.choiceExit.page]
+                ];
+                
+                var phaseranimation = [
+                    [1, perso.nom, "takecher"],
+                    [2, adversaire.nom, "punch"]
+                ];
+
+                return {
+                    phaseranimation: phaseranimation,
+                    flush: 1,
+                    text: text,
+                    choices: choices
+                };
+            }
 
 
             , "fume": function (param) {
@@ -45,6 +69,7 @@ module.exports = {
                 }
 
 
+                /* PERSO WINS */
                 if (perso.karma > adversaire.karma) {
                     var text = "Vous adressez un coup de boule à <~ADVERSAIRE>. <Il/Elle/Ielle/ADVERSAIRE> se retrouve sur le sol, en sang.";
 
@@ -66,8 +91,13 @@ module.exports = {
                     ];
 
 
-                    // perso interruption
+                    adversaire.interrupt("00/fume", "interrupt_fume", perso, "Test Notif Stat ?", {isWinning: 1});
+
+
+
                 } else {
+                    /* ADVERSAIRE WINS */
+
                     var text = "Agile comme le pigeon, <~ADVERSAIRE> esquive votre coup et vous fume en retour. ";
 
                     if (adversaire.sex > perso.sex) {
@@ -106,7 +136,13 @@ module.exports = {
                     var choices = [
                         ["Je ramasse mes dents", perso.choiceExit.folder, perso.choiceExit.page]
                     ];
+
+                    adversaire.interrupt("00/fume", "interrupt_fume", perso, "Test Notif Stat ?", {isWinning: 0, myExit: perso.choiceExit});
+
                 }
+
+
+
 
                 if (perso.choiceExit.coolDownLabel) {
                     perso.cool(perso.choiceExit.coolDownLabel, perso.choiceExit.coolDownTime);
@@ -165,7 +201,7 @@ module.exports = {
                 var choices = [
                     ["Je demande de l'argent", folder, "money"],
                     ["Je l'oblige à me follow sur Insta", folder, "insta"],
-                    ["Je <le/la/l'/ADVERSAIRE> fume", "00_home/00_fume", "fume"],
+                    ["Je <le/la/l'/ADVERSAIRE> fume", "00/fume", "fume"],
                     ["Je m'en vais", perso.choiceExit.folder, perso.choiceExit.page]
                 ];
                 return {
@@ -185,7 +221,7 @@ module.exports = {
                 var choices = [
                     ["15 balles ?", folder, "moneyask__15"],
                     ["150 ?", folder, "moneyask__150"],
-                    ["1500 et je te permets de prendre un selfie avec oim", "00_home/00_fume", "moneyask__1500"],
+                    ["1500 et je te permets de prendre un selfie avec oim", "00/fume", "moneyask__1500"],
                     ["Je m'en vais", perso.choiceExit.folder, perso.choiceExit.page]
                 ];
                 return {
@@ -223,7 +259,7 @@ module.exports = {
 
 
                 var choices = [
-                    ["Je <le/la/l'/ADVERSAIRE> fume", "00_home/00_fume", "fume"],
+                    ["Je <le/la/l'/ADVERSAIRE> fume", "00/fume", "fume"],
                     ["Je m'en vais", perso.choiceExit.folder, perso.choiceExit.page]
                 ];
                 return {
@@ -251,7 +287,7 @@ module.exports = {
                     perso.log('Vous gagnez un nouveau follower nommé ' + adversaire.bnom);
                     adversaire.log("Vous commencez à follow " + perso.bnom);
                     var choices = [
-                        ["Je <le/la/l'/COCHON> fume", "00_home/00_fume", "fume"],
+                        ["Je <le/la/l'/COCHON> fume", "00/fume", "fume"],
                         ["Je m'en vais", perso.choiceExit.folder, perso.choiceExit.page]
                     ];
                 } else {
@@ -260,7 +296,7 @@ module.exports = {
                     perso.log('Vous gagnez un nouveau follower nommé ' + adversaire.bnom);
                     adversaire.log("Vous commencez à follow " + perso.bnom);
                     var choices = [
-                        ["Je <le/la/l'/COCHON> fume", "00_home/00_fume", "fume"],
+                        ["Je <le/la/l'/COCHON> fume", "00/fume", "fume"],
                         ["Je m'en vais", perso.choiceExit.folder, perso.choiceExit.page]
                     ];
                     var text = "Peu après avoir montré votre Insta à <~ADVERSAIRE>, vous recevez une notification de following.\n\

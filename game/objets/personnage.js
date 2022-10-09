@@ -19,9 +19,9 @@ class perso {
         this.bnom = "<span class='perso_' data-n='" + this.nom + "'>" + nom + "</span>";
         this.type = type;
         this.bio = bio;
-        this.chapitre = '00_home/00_street';
+        this.chapitre = '01_home/00_street';
         this.scene = 'intro';
-        // this.chapitre = '00_home/01_defense';        this.scene = 'intro';
+        // this.chapitre = '01_periph/parvis';        this.scene = 'intro';
         this.place = 'uterus';
         this.page = "disclaimer";
         this.gender = gender;
@@ -35,7 +35,7 @@ class perso {
         this.jour = 1;
         this.reac = 0;
         this.place = null; // current place
-        this.places = [["Zonmai", "00_home/00_street"]]; /// les places unlocked dans la map
+        this.places = [["Zonmai", "01_home/00_street"]]; /// les places unlocked dans la map
         this.disclaimer = false;
         this.loglines = []; // les petites notifs type "vous avez .."
         this.popups = []; // les popups notifs (plutot pour le farming / incremental)
@@ -48,7 +48,7 @@ class perso {
         this.horsjeu = false;
         this.cools = {};
         this.relationships = {
-            "jacques_mimol": 0,
+            "florence_parly2": 0,
         };
         this.rdvblackbar = {};
         this.sensibilite = null;
@@ -106,7 +106,7 @@ class perso {
                     fatal('PERSO ' + this.nom + ' HAS A OBJECT ADVERSAIRE');
                 }
                 ws.send(JSON.stringify(data));
-               // this.loglines = [];
+                // this.loglines = [];
                 this.usNotice = [];
             } catch (e) {
                 console.log('erreur at update CHAR ' + this.nom);
@@ -176,16 +176,17 @@ class perso {
 
     log(notif) {
         this.loglines.push(gC.date + ':' + notif);
+
     }
 
-    interrupt(chapitre, page, adversaire, statnotif, data = null) {
+    interrupt(chapitre, page, adversaire, statnotif, param = null) {
 
         this.interruptions.push({
             chapitre: chapitre,
             page: page,
             adversaire: adversaire.nom,
             statnotif: statnotif,
-            data: data
+            param: param
         }
 
         );
@@ -194,14 +195,15 @@ class perso {
     checkInterrupt(ws, chapitre, page) {
 
         if (this.interruptions[0]) {
+
             this.returnAfterInterrupt = {
                 chapitre: chapitre,
                 page: page
             };
             this.adversaire = this.interruptions[0].adversaire;
             this.lastInterruptData = this.interruptions[0];
-            console.log('interrupt triggered for ' + ws.current_perso.nom);
-            return [ws, this.interruptions[0].chapitre, this.interruptions[0].page]; // for stop loading current page
+            console.log('!!!Interrupt triggered for ' + ws.current_perso.nom);
+            return [ws, this.interruptions[0].chapitre, this.interruptions[0].page, this.interruptions[0].param]; // for stop loading current page
         }
         return false;
     }
@@ -444,8 +446,8 @@ class perso {
     }
 
     getAdversaire() {
-        console.log("getAdversaire");
-        console.log(this.adversaire);
+        //  console.log("getAdversaire");
+        //  console.log(this.adversaire);
         if (this.adversaire) {
             if (this.adversaire instanceof Object) {
                 console.log('EEEEEEURUUUR ADVERSAIRE IS AN OBJECT ' + this.nom);

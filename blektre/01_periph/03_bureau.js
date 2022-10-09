@@ -6,7 +6,7 @@ var itemTools = require('./../../game/objets/itemsTools.js');
 
 module.exports = {
     name: "Bureau",
-    folder: "00_home/03_bureau",
+    folder: "01_periph/03_bureau",
 
     getPage: function (ws, page = "intro", param = null) {
 
@@ -33,7 +33,7 @@ module.exports = {
                 perso.updateStat('life', -1);
                 game.gC.setInPlace("Bureau", perso);
                 var text = "- Bonjour, vous avez rendez-vous ? \n\
-La question vous stressez, et vous suez abondamment.";
+La question vous stresse, et vous suez abondamment.";
                 perso.log('Vous suez au travail');
                 perso.updateStat('sanity', -2);
 
@@ -46,11 +46,11 @@ La question vous stressez, et vous suez abondamment.";
                 };
 
                 var choices = [
-                    ["Je <le/la/lae/SECRETAIRE> fume", "00_home/00_fume", "fume"],
+                    ["Je <le/la/lae/SECRETAIRE> fume", "00/fume", "fume"],
                     ["Je fonce en réunion", folder, "reunion"],
                     //   ["Je vais à la machine à café", folder, "cafe"],
 
-                    ["Je me tire", "00_home/01_defense", "intro"]
+                    ["Je me tire", "01_periph/02_parvis", "intro"]
                 ];
 
                 if (perso.iscooling(perso.choiceExit.coolDownLabel)) {
@@ -93,7 +93,7 @@ La question vous stressez, et vous suez abondamment.";
                 var choices = [
                     ["Je ris", folder, "reunionkicked__sanity"],
                     ["Je pleure", folder, "reunionkicked__karma"],
-                    ["Je <le/la/lae/DIRECTOR> fume", "00_home/00_fume", "fume"],
+                    ["Je <le/la/lae/DIRECTOR> fume", "00/fume", "fume"],
                 ];
 
 
@@ -114,7 +114,7 @@ La question vous stressez, et vous suez abondamment.";
                 perso.log('Vous vous êtes fait virer');
 
                 var choices = [
-                    ["Bye", "00_home/01_defense", "intro"]
+                    ["Bye", "01_periph/02_parvis", "intro"]
                 ];
 
 

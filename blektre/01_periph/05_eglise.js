@@ -3,7 +3,7 @@ var game = require('./../../game/game.js');
 var itemTools = require('./../../game/objets/itemsTools.js');
 module.exports = {
     name: "Eglise",
-    folder: "00_home/05_eglise",
+    folder: "01_periph/05_eglise",
     getPage: function (ws, page = "intro", param = null) {
 
 
@@ -40,8 +40,8 @@ module.exports = {
 
                     ["J'en ai marre de la vie", folder, "suicide"],
                     ["J'ai besoin d'argent", folder, "argent"],
-                    ["Je <le/la/lae/RAEL> fume", "00_home/00_fume", "fume"],
-                    ["Je me tire", "00_home/06_ivry", "ivry__right"]
+                    ["Je <le/la/lae/RAEL> fume", "00/fume", "fume"],
+                    ["Je me tire", "01_periph/04_ivry", "ivry__right"]
                 ];
 
 
@@ -96,8 +96,8 @@ Cependant, le Rahelle ajoute quelque chose : \n\
 
                     ["J'accepte", folder, "suicide"],
                     ["Je suis venu chercher l'argent d'une personnée décédée", folder, "argent"],
-                    ["Je refuse poliment et je m'en vais", "00_home/06_ivry", "intro"],
-                    ["Je <le/la/lae/RAEL> fume", "00_home/00_fume", "fume"]
+                    ["Je refuse poliment et je m'en vais", "01_periph/04_ivry", "intro"],
+                    ["Je <le/la/lae/RAEL> fume", "00/fume", "fume"]
                 ];
                 return {
                     flush: 1,
@@ -133,7 +133,7 @@ Cependant, le Rahelle ajoute quelque chose : \n\
 
                 var choices = [
                     ["Je recommence", folder, "argent"],
-                    ["Je laisse tomber", "00_home/06_ivry", "intro"],
+                    ["Je laisse tomber", "01_periph/04_ivry", "intro"],
                 ];
                 return {
                     flush: 1,
@@ -151,7 +151,7 @@ Le Rahel vous remet l'intégratité de l'argent que " + defunt + " a laissé en 
 
                 var choices = [
 
-                    ["Je suis riche", "00_home/06_ivry", "intro"],
+                    ["Je suis riche", "01_periph/04_ivry", "intro"],
                 ];
                 return {
                     flush: 1,
@@ -166,7 +166,7 @@ Le Rahel vous remet l'intégratité de l'argent que " + defunt + " a laissé en 
                 var text = "Vous quittez l'église.";
 
                 var choices = [
-                    ["Vroum", "00_home/06_ivry", "ivry__right"]
+                    ["Vroum", "01_periph/04_ivry", "ivry__right"]
                 ];
                 return {
                     flush: 1,
