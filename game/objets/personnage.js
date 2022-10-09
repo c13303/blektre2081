@@ -195,15 +195,16 @@ class perso {
     checkInterrupt(ws, chapitre, page) {
 
         if (this.interruptions[0]) {
-
+            var param = this.interruptions[0].param;
+                        
             this.returnAfterInterrupt = {
                 chapitre: chapitre,
                 page: page
             };
             this.adversaire = this.interruptions[0].adversaire;
             this.lastInterruptData = this.interruptions[0];
-            console.log('!!!Interrupt triggered for ' + ws.current_perso.nom);
-            return [ws, this.interruptions[0].chapitre, this.interruptions[0].page, this.interruptions[0].param]; // for stop loading current page
+           // console.log('!!!Interrupt triggered for ' + ws.current_perso.nom);
+            return [ws, this.interruptions[0].chapitre, this.interruptions[0].page, param]; // for stop loading current page
         }
         return false;
     }

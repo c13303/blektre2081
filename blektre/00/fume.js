@@ -39,10 +39,8 @@ module.exports = {
                 var text = "";
                 text += "[Interruption]";
 
-                var choices = [
-                    ["Je m'en vais", perso.choiceExit.folder, perso.choiceExit.page]
-                ];
-                
+                var choices = [perso.getChoiceEndInterrupt("GOSH")];
+
                 var phaseranimation = [
                     [1, perso.nom, "takecher"],
                     [2, adversaire.nom, "punch"]
