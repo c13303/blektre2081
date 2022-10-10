@@ -128,6 +128,7 @@ module.exports = {
 
 
         if (msg.choice) {
+            ws.current_perso.turn++;
             this.loadPage(ws, msg.choice, msg.page);
             /* clear textarea */
             delete ws.current_perso.textarea;
@@ -391,9 +392,9 @@ module.exports = {
                         var daPerso = perso;
 
                     if (genderArray[3] === 'ADVERSAIRE') {
-                        console.log('Filtering with adversaire');
+                        //   console.log('Filtering with adversaire');
                         var daPerso = perso.getAdversaire();
-                        console.log(daPerso);
+                        //  console.log(daPerso);
                     }
 
                     if (!daPerso) {

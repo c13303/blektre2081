@@ -19,9 +19,8 @@ class perso {
         this.bnom = "<span class='perso_' data-n='" + this.nom + "'>" + nom + "</span>";
         this.type = type;
         this.bio = bio;
-        this.chapitre = '01_home/00_street';
+        this.chapitre = '01_home/00_home';
         this.scene = 'intro';
-        // this.chapitre = '01_periph/parvis';        this.scene = 'intro';
         this.place = 'uterus';
         this.page = "disclaimer";
         this.gender = gender;
@@ -35,7 +34,7 @@ class perso {
         this.jour = 1;
         this.reac = 0;
         this.place = null; // current place
-        this.places = [["Zonmai", "01_home/00_street"]]; /// les places unlocked dans la map
+        this.places = [["Zonmai", "01_home/00_home"]]; /// les places unlocked dans la map
         this.disclaimer = false;
         this.loglines = []; // les petites notifs type "vous avez .."
         this.popups = []; // les popups notifs (plutot pour le farming / incremental)
@@ -45,6 +44,7 @@ class perso {
         this.toInsertDB = true;
         this.place = null;
         this.day = 0;
+        this.turn = 0;
         this.horsjeu = false;
         this.cools = {};
         this.relationships = {
@@ -175,8 +175,10 @@ class perso {
     }
 
     log(notif) {
-        this.loglines.push(gC.date + ':' + notif);
-
+        
+        if (notif !== this.loglines[this.loglines.length - 1])
+            this.loglines.push(this.turn + ':' + notif);
+        
     }
 
     interrupt(chapitre, page, adversaire, statnotif, param = null) {
@@ -196,14 +198,16 @@ class perso {
 
         if (this.interruptions[0]) {
             var param = this.interruptions[0].param;
-                        
+            var adversaire = this.interruptions[0].adversaire;
+            param.adversaire = adversaire;
+
             this.returnAfterInterrupt = {
                 chapitre: chapitre,
                 page: page
             };
-            this.adversaire = this.interruptions[0].adversaire;
+            this.interruptAdversaire = this.interruptions[0].adversaire;
             this.lastInterruptData = this.interruptions[0];
-           // console.log('!!!Interrupt triggered for ' + ws.current_perso.nom);
+            // console.log('!!!Interrupt triggered for ' + ws.current_perso.nom);
             return [ws, this.interruptions[0].chapitre, this.interruptions[0].page, param]; // for stop loading current page
         }
         return false;
@@ -458,7 +462,10 @@ class perso {
             }
             return gC.persos[this.adversaire];
         } else {
-            console.log('Erreuer Get Adversaire ' + this.nom);
+
+
+
+            tools.fatal('Erreuer Get Adversaire NO ADVERSAIRE ?????  ' + this.nom);
             return null;
         }
     }

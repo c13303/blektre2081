@@ -85,7 +85,7 @@ var consoleTools = {
     , set: function (arg1, arg2, arg3) {
         var perso = gC.persos[arg1];
         perso[arg2] = parseInt(arg3);
-        console.log(perso);
+      //  console.log(perso);
     }
 
 

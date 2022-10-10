@@ -6,7 +6,7 @@ var itemTools = require('./../../game/objets/itemsTools.js');
 
 module.exports = {
     name: "Defense",
-    folder: "01_periph/03_parvis",
+    folder: "01_periph/02_parvis",
 
     getPage: function (ws, page = "intro", param = null) {
 

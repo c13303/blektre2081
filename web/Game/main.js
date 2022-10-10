@@ -236,7 +236,7 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
 
 
         if (!spritePlayer) {
-            console.log('ERROR SPRITE NOT FOUND');
+            console.log('animateHeadz ERROR SPRITE NOT FOUND');
             console.log(phaseranimation);
             continue;
         }
@@ -251,8 +251,8 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
         }
         var daPerso = persos[nom];
         if (!daPerso) {
-            console.log(nom);
-            console.log('ERROR PERSAL NOT FOUND ' + nom);
+            console.log('animateHeadz : ERROR PERSAL NOT FOUND ' + nom);
+            console.log(spritePlayer);
         }
 
         spritePlayer.perso = nom;

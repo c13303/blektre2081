@@ -2,11 +2,14 @@ process.chdir("/home/blektre2081/blektre2081/");
 var game = require('./../../game/game.js');
 var itemTools = require('./../../game/objets/itemsTools.js');
 
-
+/*
+ * 
+ *  Minimaliste version
+ */
 
 module.exports = {
-    name: "Defense",
-    folder: "01_periph/03_quatre",
+
+    folder: "01_home/00_home",
 
     getPage: function (ws, page = "intro", param = null) {
 
@@ -22,6 +25,7 @@ module.exports = {
 
 
 
+
         /* 
          * 
          * CHAPITRES
@@ -29,40 +33,58 @@ module.exports = {
          *   */
         var chapitre = {
 
-            "intro": function (param) {
+            "intro": function (param = null) {
+                var place = "Square Manuel Valls";
+                game.gC.setInPlace(place, perso);
+                perso.choiceExit = {
+                    folder: "01_home/00_square",
+                    page: "intro"
+                };
 
 
-                var text = "Les Quatre Temps est tenue par <~BEZOS>.";
 
-                var ADV = game.getPersoByRole("BEZOS");
-                perso.adversaire = ADV.nom;
 
+                perso.updateStat('life', -1);
+
+
+
+                var text = "Square Manuel Valls. Dehors, le bruit des voitures rend la communication avec les autres assez difficile.\n\
+Où allez-vous ?";
 
                 var choices = [
-
-                    ["Je <le/la/lae/PHARMACIEN> fume", "00/fume", "fume"],
-                    ["Je sors", "01_periph/02_parvis", "intro__right"]
+                    ["Je monte sur le périph", "01_periph/01_peripherique", "intro"],
+                    ["Je rentre à la zonmai", folder, "intro2__right"]
                 ];
 
-                var pa = [];
-               
-                if (param === 'left') {
-                    var pa = [[1, perso.nom, "walk", {startX: 1, endX: 60}]];
-                }
+                var phaserAnimation = [
+                    [1, perso.nom, "walk", {endX: 60}]
+                ];
+
                 if (param === 'right') {
-                    var pa = [[1, perso.nom, "walk", {flipX: true, startX: 150, endX: 90}]];
+                    var phaserAnimation = [
+                        [1, perso.nom, "walk", {startX: 138, startY: 60, endX: 113, flipX: true}]
+                    ];
+
                 }
 
-                if (perso.adversaire) {
-                    pa.push([2, perso.adversaire, "idle"]);
+                /* the random encounter */
+                var random = game.gC.getSomeoneRandom(perso);
+                if (random && random.nom) {
+                    perso.adversaire = random.nom;
+                    text += "\n\
+<~ADVERSAIRE> passe par là et vous ignore avec dédain.";
+                    phaserAnimation.push([2, random.nom, "idle"]);
+                    choices.push(["J'embrouille  <~ADVERSAIRE>", "00/fume", "embrouille"]);
                 }
+
 
                 return {
                     flush: 1,
                     text: text,
                     choices: choices,
-                    phaserscene: "Quatre",
-                    phaseranimation: pa
+                    phaserscene: "Square",
+                    phaseranimation: phaserAnimation
+
                 };
 
             } //endscene()---------------------------------------------------------------------------
@@ -70,24 +92,11 @@ module.exports = {
 
 
 
-            , "outfumed": function () {
-
-
-                var text = "Ainsi va la vie";
 
 
 
-                var choices = [
-                    ["OK", folder, "intro"],
-                ];
 
-                return {
-                    flush: 0,
-                    text: text,
-                    choices: choices
-                };
 
-            } //endscene()---------------------------------------------------------------------------
 
 
 

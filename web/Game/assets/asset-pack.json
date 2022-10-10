@@ -7,6 +7,11 @@
                 "key": "animations"
             },
             {
+                "url": "assets/scenes/Bugne.js",
+                "type": "sceneFile",
+                "key": "Bugne"
+            },
+            {
                 "url": "assets/places/bureau.png",
                 "type": "image",
                 "key": "bureau"

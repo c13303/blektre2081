@@ -9,7 +9,7 @@ module.exports = {
     WSPersos: {}, /// les clients WS en stock
     places: {},
     roles: {
-       
+
         "DIRECTOR": {
             nom: 'manuel_valse'
         },
@@ -102,8 +102,7 @@ module.exports = {
     getAllPackedPersos: function () {
         var packedPersos = {};
         for (const [key, value] of Object.entries(this.persos)) {
-            if (!value.horsjeu)
-                packedPersos[key] = this.getPackedPerso(value);
+            packedPersos[key] = this.getPackedPerso(value);
         }
         return packedPersos;
     },
@@ -172,14 +171,14 @@ module.exports = {
                 }
 
             }
-        }
+    }
 
 
 
 
 
 
-        console.log(perso.nom + ' has moved, --updated places');
+    //     console.log(perso.nom + ' has moved, --updated places');
     },
     getOtherPeopleHere: function (place, perso, relationshipMin = - 1, relationshipMax = - 1) {
 
@@ -191,23 +190,36 @@ module.exports = {
             this.places[place] = {};
         var tablo = [];
         for (const [key, value] of Object.entries(this.places[place])) {
-            if (value.nom !== perso.nom) {
-                if (relationshipMin >= 0) {// test if relationshiplol
-                    var relationship = perso.getRelationship(value.nom);
-                    if (relationship >= relationshipMin && relationship <= relationshipMax) {
-                        tablo.push(value);
-                    }
-                } else {
-                    tablo.push(value);
-                }
-
+            if (value.nom !== perso.nom && !value.horsjeu) {
+                tablo.push(value);
             }
+
+            /*
+             * Code fuckery ? ????
+             * 
+             * 
+             if (value.nom !== perso.nom) {
+             if (relationshipMin >= 0) {// test if relationshiplol
+             var relationship = perso.getRelationship(value.nom);
+             if (relationship >= relationshipMin && relationship <= relationshipMax) {
+             tablo.push(value);
+             }
+             } else {
+             tablo.push(value);
+             }
+             
+             }
+             * 
+             */
         }
-        console.log('check people in ' + place + ' = ' + tablo.length);
+        //console.log('check people in ' + place + ' = ' + tablo.length);
         return tablo;
     }
     , getSomeoneRandom(perso) {
         var random = this.getOtherPeopleHere(perso.place, perso);
+
+
+
         return random[0];
     }
 

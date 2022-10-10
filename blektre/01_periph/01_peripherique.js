@@ -1,6 +1,9 @@
 process.chdir("/home/blektre2081/blektre2081/");
 var game = require('./../../game/game.js');
 var itemTools = require('./../../game/objets/itemsTools.js');
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+}
 module.exports = {
     name: "Periph",
     folder: "01_periph/01_peripherique",
@@ -27,25 +30,41 @@ module.exports = {
                 var place = "Periph Intérieur";
                 game.gC.setInPlace(place, perso);
                 perso.choiceExit = {
-                    folder: "01_home/00_street",
+                    folder: "01_home/00_home",
                     page: "periph"
                 };
-                var random = game.gC.getSomeoneRandom(perso);
+
                 var text = "Periphérique intérieur.";
                 var choices = [
                     ["Sortie la Défense", folder, "porteladefense__left"],
                     ["Sortie Porte d'Ivry", "01_periph/04_ivry", "intro"],
                     ["Je continue sur la Rocade", "02_rocade/01_rocade", "intro"],
-                    ["Je retourne vers la zonmai", "01_home/00_street", "TheSquare__right"]
+                    ["Je retourne vers la zonmai", "01_home/00_square", "intro__right"]
                 ];
                 var phaserAnimation = [
                     [1, perso.nom, "head"]
                 ];
+
+
+                /* the random encounter */
+                /*
+                 var random = game.gC.getSomeoneRandom(perso);
+                 if (random && random.nom) {
+                 perso.adversaire = random.nom;
+                 phaserAnimation.push([2, random.nom, "head"]);
+                 choices.push(["J'embrouille  <~ADVERSAIRE>", "00/fume", "embrouille"]);
+                 }
+                 */
+
+                /* random version full embrouille */
+                var random = game.gC.getSomeoneRandom(perso);
                 if (random && random.nom) {
-                    perso.adversaire = random.nom;
-                    phaserAnimation.push([2, random.nom, "head"]);
-                    choices.push(["J'embrouille  <~ADVERSAIRE>", "00/fume", "embrouille"]);
+                    var de = getRandomInt(0, 6);
+                    if (de > 1) {
+                        return this.randomEmbrouille();
+                    }
                 }
+
 
 
                 return {
@@ -57,6 +76,48 @@ module.exports = {
 
                 };
             } //endscene()---------------------------------------------------------------------------
+
+
+
+
+
+
+
+            , "randomEmbrouille": function () {
+
+                var text = "Vous roulez sur le périphérique quand soudain la bagnole de <~ADVERSAIRE> vous rentre dedans !\n\
+C'est sans appel, il a bugné votre caisse.";
+                var choices = [
+                    ["Je le fume", "00/fume", "fume"]
+                ];
+
+
+
+
+                return {
+                    flush: 1,
+                    text: text,
+                    choices: choices,
+                    phaserscene: "Bugne",
+                    phaseranimation: phaserAnimation
+
+                };
+            } //endscene()---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

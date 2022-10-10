@@ -7,7 +7,7 @@ module.exports = {
     getPage: function (ws, page = "intro", param = null) {
 
         var perso = ws.current_perso;
-        var adversaire = perso.getAdversaire();
+
         var folder = this.folder;
         /* 
          * 
@@ -20,7 +20,7 @@ module.exports = {
                 perso.log('Vous reprenez vos esprits');
                 perso.updateStat('karma', -5);
                 var choices = [
-                    ["Wow", "01_home/00_street", "intro"]
+                    ["Wow", "01_home/00_home", "intro"]
                 ];
                 return {
                     flush: 1,
@@ -30,29 +30,7 @@ module.exports = {
             } //endscene()---------------------------------------------------------------------------
 
 
-            , interrupt_fume: function (param) {
 
-
-                console.log('interruption demo');
-                console.log(param);
-
-                var text = "";
-                text += "[Interruption]";
-
-                var choices = [perso.getChoiceEndInterrupt("GOSH")];
-
-                var phaseranimation = [
-                    [1, perso.nom, "takecher"],
-                    [2, adversaire.nom, "punch"]
-                ];
-
-                return {
-                    phaseranimation: phaseranimation,
-                    flush: 1,
-                    text: text,
-                    choices: choices
-                };
-            }
 
 
             , "fume": function (param) {
@@ -76,6 +54,7 @@ module.exports = {
                     perso.updateStat('karma', -10);
                     perso.log("Vous fumez " + adversaire.bnom);
                     adversaire.log(perso.bnom + " vous a fumé");
+                    adversaire.horsjeu = 1;
 
                     var choices = [
                         ["Je lui pisse dessus", folder, "pisse"],
@@ -97,24 +76,14 @@ module.exports = {
                     /* ADVERSAIRE WINS */
 
                     var text = "Agile comme le pigeon, <~ADVERSAIRE> esquive votre coup et vous fume en retour. ";
-
-                    if (adversaire.sex > perso.sex) {
+                    var urine = 0;
+                    if (adversaire.sex > 10) {
                         text += "\
 \n\
 [-sex] <~ADVERSAIRE> vous urine dessus en riant, avant de s'éloigner.";
-                        perso.updateStat('sex', 1);
-                        perso.updateStat('sex', 1);
-                        perso.updateStat('sex', 1);
-                        perso.updateStat('sex', 1);
-                        perso.updateStat('sex', 1);
-                        perso.updateStat('sex', 1);
-                        perso.updateStat('sex', 1);
-                        perso.updateStat('sex', 1);
-                        perso.updateStat('sex', 1);
-                        perso.updateStat('sex', 1);
-                        perso.updateStat('sex', 1);
-                        perso.updateStat('sex', 1);
-
+                        for (var i = 0; i < 10; i++)
+                            perso.updateStat('sex', 1);
+                        urine = 1;
                     }
 
                     perso.updateStat('life', -25);
@@ -135,7 +104,7 @@ module.exports = {
                         ["Je ramasse mes dents", perso.choiceExit.folder, perso.choiceExit.page]
                     ];
 
-                    adversaire.interrupt("00/fume", "interrupt_fume", perso, "Test Notif Stat ?", {isWinning: 0, myExit: perso.choiceExit});
+                    adversaire.interrupt("00/fume", "interrupt_fume", perso, "Test Notif Stat ?", {isWinning: 0, urinated: urine});
 
                 }
 
@@ -161,7 +130,47 @@ module.exports = {
 
 
 
+            , interrupt_fume: function (param) {
 
+
+                //   console.log('interrupt_fume');
+                //    console.log(param);
+
+                var text = "";
+
+
+                var choices = [perso.getChoiceEndInterrupt("GOSH")];
+
+
+                var adversaire = game.gC.persos[param.adversaire];
+
+                if (!param.isWinning) {
+                    text += "Quand tout à coup, vous tombe dessus par surprise.\n\
+[karma] Vous évitez le coup et lui adressez un prompt coup de boule en retour.\n\
+Vous le laissez, en PLS sur le sol.";
+                    var phaseranimation = [
+                        [1, perso.nom, "punch"],
+                        [2, adversaire.nom, "takecher"]
+                    ];
+                } else {
+                    text += "Quand tout à coup,  vous tombe dessus par surprise.\n\
+[-karma] Il vous adresse un prompt coup de boule qui vous laisse en PLS sur le sol.";
+                    var phaseranimation = [
+                        [1, perso.nom, "takecher"],
+                        [2, adversaire.nom, "punch"]
+                    ];
+                }
+
+
+                return {
+                    phaseranimation: phaseranimation,
+                    flush: 1,
+                    text: text,
+                    choices: choices
+                };
+            }
+
+            //endscene()---------------------------------------------------------------------------
 
 
 

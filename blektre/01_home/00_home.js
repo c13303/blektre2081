@@ -9,7 +9,7 @@ var itemTools = require('./../../game/objets/itemsTools.js');
 
 module.exports = {
 
-    folder: "01_home/00_street",
+    folder: "01_home/00_home",
 
     getPage: function (ws, page = "intro", param = null) {
 
@@ -48,7 +48,7 @@ Si vous ne vous dépêchez pas, vous serez en retard au travail.";
                 var choices = [
                     ["Je vérifie mes likes sur Instagram", folder, "instagram"],
                     //    ["Je décroche le téléphone", folder, "tel_permis"],
-                    ["Je m'habille  et j'y vais", folder, "TheSquare"],
+                    ["Je sors", "01_home/00_square", "intro"],
                 ];
                 return {
                     flush: 1,
@@ -73,7 +73,7 @@ Si vous ne vous dépêchez pas, vous serez en retard au travail.";
                     ["Je me couche", folder, "dodo"],
                     ["Je vérifie mes likes sur Instagram", folder, "instagram"],
                     //   ["Je décroche le téléphone", folder, "tel_permis"],
-                    ["Je sors de chez moi", folder, "TheSquare"]
+                    ["Je sors", "01_home/00_square", "intro__left"]
                 ];
 
                 var phaserAnimation = [
@@ -94,68 +94,6 @@ Si vous ne vous dépêchez pas, vous serez en retard au travail.";
                 };
             }//endscene()---------------------------------------------------------------------------
 
-
-
-
-
-
-
-
-            , "TheSquare": function (param = null) {
-                var place = "Square Manuel Valls";
-                game.gC.setInPlace(place, perso);
-                perso.choiceExit = {
-                    folder: "01_home/00_street",
-                    page: "TheSquare"
-                };
-
-
-
-
-                perso.updateStat('life', -1);
-
-
-
-                var text = "Square Manuel Valls. Dehors, le bruit des voitures rend la communication avec les autres assez difficile.\n\
-Où allez-vous ?";
-
-                var choices = [
-                    ["Je monte sur le périph", "01_periph/01_peripherique", "intro"],
-                    ["Je rentre à la zonmai", folder, "intro2__right"]
-                ];
-
-                var phaserAnimation = [
-                    [1, perso.nom, "walk", {endX: 60}]
-                ];
-
-                if (param === 'right') {
-                    var phaserAnimation = [
-                        [1, perso.nom, "walk", {startX: 138, startY: 60, endX: 113, flipX: true}]
-                    ];
-
-                }
-
-                /* the random encounter */
-                var random = game.gC.getSomeoneRandom(perso);
-                if (random && random.nom) {
-                    perso.adversaire = random.nom;
-                    text += "\n\
-<~ADVERSAIRE> passe par là et vous ignore avec dédain.";
-                    phaserAnimation.push([2, random.nom, "idle"]);
-                    choices.push(["J'embrouille  <~ADVERSAIRE>", "00/fume", "embrouille"]);
-                }
-
-
-                return {
-                    flush: 1,
-                    text: text,
-                    choices: choices,
-                    phaserscene: "Square",
-                    phaseranimation: phaserAnimation
-
-                };
-
-            } //endscene()---------------------------------------------------------------------------
 
 
 
