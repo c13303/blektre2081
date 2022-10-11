@@ -34,6 +34,17 @@ module.exports = {
                     page: "periph"
                 };
 
+
+
+
+                if (perso.sanity < 0) {
+                    return this.accident();
+                }
+
+
+
+
+
                 var text = "Periphérique intérieur.";
                 var choices = [
                     ["Sortie la Défense", folder, "porteladefense__left"],
@@ -60,7 +71,7 @@ module.exports = {
                 var random = game.gC.getSomeoneRandom(perso);
                 if (random && random.nom) {
                     var de = getRandomInt(0, 6);
-                    if (de > 1) {
+                    if (de > 5) {
                         return this.randomEmbrouille();
                     }
                 }
@@ -79,7 +90,33 @@ module.exports = {
 
 
 
+            , "accident": function () {
 
+                var text = "Vous êtes trop défoncé pour conduire ! Vous vous plantez dans une voiture en stationnement. ";
+                var choices = [];
+                var phaserAnimation = [
+                    [1, perso.nom, "idle"]
+                ];
+
+                if (perso.money < 100) {
+                    text += "\n\
+Vous n'avez pas les moyens d'appeller une dépanneuse. Vous voilà piéton ...";
+                    perso.updateStat('car', 0);
+                } else {
+                    choices.push(["J'appelle une dépanneuse", folder, "intro"]);
+                }
+
+                choices.push(["J'abandonne la voiture", folder, "intro"]);
+
+                return {
+                    flush: 1,
+                    text: text,
+                    choices: choices,
+                    phaserscene: "Bugne",
+                    phaseranimation: phaserAnimation
+
+                };
+            }
 
 
 
@@ -92,7 +129,9 @@ C'est sans appel, il a bugné votre caisse.";
                 ];
 
 
-
+                var phaserAnimation = [
+                    [1, perso.nom, "idle"], [2, perso.adversaire, "idle"]
+                ];
 
                 return {
                     flush: 1,

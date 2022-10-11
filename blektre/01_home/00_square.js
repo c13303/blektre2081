@@ -68,13 +68,27 @@ Où allez-vous ?";
                 }
 
                 /* the random encounter */
-                var random = game.gC.getSomeoneRandom(perso);
-                if (random && random.nom) {
-                    perso.adversaire = random.nom;
-                    text += "\n\
-<~ADVERSAIRE> passe par là et vous ignore avec dédain.";
-                    phaserAnimation.push([2, random.nom, "idle"]);
-                    choices.push(["J'embrouille  <~ADVERSAIRE>", "00/fume", "embrouille"]);
+                /*
+                 var random = game.gC.getSomeoneRandom(perso);                
+                 if (random && random.nom) {
+                 perso.adversaire = random.nom;
+                 text += "\n\
+                 <~ADVERSAIRE> passe par là et vous ignore avec dédain.";
+                 phaserAnimation.push([2, random.nom, "idle"]);
+                 choices.push(["J'embrouille  <~ADVERSAIRE>", "00/fume", "embrouille"]);
+                 }
+                 */
+
+                /* the full people */
+                var peopleHere = game.gC.getOtherPeopleHere(perso.place, perso);
+
+                if (peopleHere.length) {
+                    for (var i = 0; i < peopleHere.length; i++) {
+                        var random = peopleHere[i];
+                        var spriteId = i + 2; // 1 = player1
+                        phaserAnimation.push([spriteId, random.nom, "idle"]);
+                    }
+                    choices.push(["J'embrouille quelqu'un", "00/fume", "peopleHere"]);
                 }
 
 
@@ -91,7 +105,7 @@ Où allez-vous ?";
 
 
 
-
+           
 
 
 

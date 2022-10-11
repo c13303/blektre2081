@@ -116,6 +116,7 @@ module.exports = {
                 }
 
                 return {
+                    phaserscene: "Duel",
                     phaseranimation: phaseranimation,
                     flush: 1,
                     text: text,
@@ -125,6 +126,63 @@ module.exports = {
 
 
 
+
+
+
+
+
+
+            , "peopleHere": function () {
+
+
+                var text = "Qui embrouiller ? ";
+
+                var choices = [
+
+                ];
+
+
+
+
+
+
+                var peopleHere = game.gC.getOtherPeopleHere(perso.place, perso);
+                for (var i = 0; i < peopleHere.length; i++) {
+
+                    var random = peopleHere[i];
+
+
+                    choices.push([random.nom, folder, "selectPeople__" + random.nom]);
+                }
+
+                choices.push(["Finalement, non", perso.choiceExit.folder, perso.choiceExit.page]);
+
+                return {
+                    flush: 1,
+                    text: text,
+                    choices: choices
+
+
+                };
+
+            }
+
+            , selectPeople: function (param) {
+                if (!param) {
+                    perso.hack();
+                    return null;
+                }
+
+
+                if (!game.gC.persos[param] || param === perso.nom) {
+                    perso.hack();
+                    return null;
+                }
+
+                perso.adversaire = param;
+                return this.fume();
+
+            }
 
 
 
@@ -163,6 +221,7 @@ Vous le laissez, en PLS sur le sol.";
 
 
                 return {
+                    phaserscene: "Duel",
                     phaseranimation: phaseranimation,
                     flush: 1,
                     text: text,

@@ -30,9 +30,62 @@
                 "key": "perso1",
                 "frame": 0
             },
-            "x": 105,
-            "y": 30,
+            "x": 31,
+            "y": 21,
             "scaleX": -1
+        },
+        {
+            "type": "Sprite",
+            "id": "0334c9c9-5528-4499-8799-fbda3e78b71d",
+            "label": "player3",
+            "scope": "PUBLIC",
+            "components": [],
+            "texture": {
+                "key": "perso1",
+                "frame": 0
+            },
+            "x": 115,
+            "y": 38
+        },
+        {
+            "type": "Sprite",
+            "id": "8e7f345c-4176-4be6-b45d-877130779303",
+            "label": "player4",
+            "scope": "PUBLIC",
+            "components": [],
+            "texture": {
+                "key": "perso1",
+                "frame": 0
+            },
+            "x": 93,
+            "y": 31,
+            "scaleX": -1
+        },
+        {
+            "type": "Sprite",
+            "id": "0e496d19-2f11-4406-9e89-a582bca958a8",
+            "label": "player5",
+            "scope": "PUBLIC",
+            "components": [],
+            "texture": {
+                "key": "perso1",
+                "frame": 0
+            },
+            "x": 43,
+            "y": 27
+        },
+        {
+            "type": "Sprite",
+            "id": "6b1920c0-9a91-4dfb-ae0d-0259991c22a0",
+            "label": "player6",
+            "scope": "PUBLIC",
+            "components": [],
+            "texture": {
+                "key": "perso1",
+                "frame": 0
+            },
+            "x": 57,
+            "y": 36
         },
         {
             "type": "Sprite",
@@ -44,8 +97,22 @@
                 "key": "perso1",
                 "frame": 0
             },
-            "x": 17,
+            "x": 15,
             "y": 48
+        },
+        {
+            "type": "Sprite",
+            "id": "08e623df-98bd-40dd-a840-f1805b307db0",
+            "label": "player7",
+            "scope": "PUBLIC",
+            "components": [],
+            "texture": {
+                "key": "perso1",
+                "frame": 0
+            },
+            "x": 131,
+            "y": 69,
+            "scaleX": -1
         }
     ],
     "plainObjects": [],

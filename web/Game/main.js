@@ -208,7 +208,7 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
     //   console.log(phaseranimation);
 
     // hide all caracters
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 8; i++) {
         var playerCheck = levelctx["player" + i];
         if (playerCheck) {
             // console.log('invisible');

@@ -120,7 +120,7 @@ module.exports = {
 
         // place = new placed :(
         perso.oldplace = perso.place;
-        //  console.log('[setInPlace] Moving ' + perso.nom + ' to ' + place);
+        console.log('[setInPlace] Moving ' + perso.nom + ' to ' + place);
         // creation list des places si nexiste pas
         if (!this.places[place])
             this.places[place] = {}; // contient les persos
@@ -217,9 +217,6 @@ module.exports = {
     }
     , getSomeoneRandom(perso) {
         var random = this.getOtherPeopleHere(perso.place, perso);
-
-
-
         return random[0];
     }
 

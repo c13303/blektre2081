@@ -175,15 +175,15 @@ serveur.startServer = function () {
                             if (perso.toInsertDB) {
                                 perso.toInsertDB = null;
                                 var data = JSON.stringify(perso);
-                                console.log('BDD INSERT : ' + perso.nom);
+                                console.log('PERSO BDD INSERT : ' + perso.nom);
                                 connection.query('INSERT INTO persos(nom,data,player_id) VALUES (?,?,?)', [perso.nom, data, ws.id], function (err) {
 
                                 });
                             } else {
                                 var data = JSON.stringify(perso);
-                                console.log('BDD UPDATE : ' + perso.nom);
+                                console.log('PERSO BDD UPDATE : ' + perso.nom);
                                 connection.query('UPDATE persos SET data=? WHERE nom= ?', [data, perso.nom], function (err) {
-
+                                    console.log(data);
                                     //  console.log(data);
                                 });
                             }

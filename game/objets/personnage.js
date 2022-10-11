@@ -55,6 +55,7 @@ class perso {
         this.salaires = {};
         this.steps = {};
         this.milestones = {};
+        this.hack = 0;
 
 
         this.usNotice = []; // updateStat notices such as karma+5, life-1 etc
@@ -83,6 +84,10 @@ class perso {
         for (const [key, value] of Object.entries(persodata)) {
             this[key] = value;
         }
+
+        if (perso.place)
+            gC.setInPlace(perso.place, perso);
+
         console.log('Reloaded data for ' + this.nom);
     }
 
@@ -156,6 +161,12 @@ class perso {
         }
 
     }
+
+    hack() {
+        this.hack++;
+        this.send({erreur: "hack attempt detected ... stop doing this"});
+    }
+
     send(ki, data) {
 
         var popObject = {};
@@ -175,10 +186,10 @@ class perso {
     }
 
     log(notif) {
-        
+
         if (notif !== this.loglines[this.loglines.length - 1])
             this.loglines.push(this.turn + ':' + notif);
-        
+
     }
 
     interrupt(chapitre, page, adversaire, statnotif, param = null) {
