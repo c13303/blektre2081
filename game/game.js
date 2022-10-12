@@ -227,7 +227,7 @@ module.exports = {
             var paramArray = page.split('__');
             var param = paramArray[1];
             page = paramArray[0];
-            console.log('Param called for ' + page + ' : ' + param);
+          //  console.log('Param called for ' + page + ' : ' + param);
         }
 
 
@@ -373,6 +373,19 @@ module.exports = {
     },
     getPersoByRole: function (role) {
         // console.log('getting role ' + role);
+
+        if (!this.gC.roles[role]) {
+            console.log('getPersoByRole ERROR ROLE NOT FOUND ');
+            console.log(role);
+
+        }
+
+        if (!this.gC.persos[this.gC.roles[role].nom]) {
+            console.log('getPersoByRole ERROR PERSO NOT FOUND ');
+            console.log(role);
+
+        }
+
         return this.gC.persos[this.gC.roles[role].nom];
     },
     setRole: function (perso, role) {

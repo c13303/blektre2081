@@ -33,7 +33,8 @@ module.exports = {
                     folder: "01_home/00_home",
                     page: "periph"
                 };
-                if (perso.sanity < 0) {
+                if (perso.sanity < 0 && !perso.todayAccident) {
+                    perso.todayAccident = true;
                     return this.accident();
                 }
 
@@ -73,7 +74,7 @@ module.exports = {
 
 
                 return {
-                    
+
                     text: text,
                     choices: choices,
                     phaserscene: "PeriphInterieur",
@@ -95,11 +96,10 @@ module.exports = {
 Vous voilà forcé d'appeller une dépanneuse ! Cela va encore vous coûter un bras ...";
 
                 perso.updateStat('money', -100);
-                perso.sanity = 0;
                 perso.updateStat("karma", 100);
                 perso.log('Vous plantez la caisse');
                 choices.push(["Uncool", folder, "intro"]);
-                return {                    
+                return {
                     text: text,
                     choices: choices,
                     phaserscene: "Bugne",
@@ -121,7 +121,7 @@ C'est sans appel, il a bugné votre caisse.";
                     [1, perso.nom, "idle"], [2, perso.adversaire, "idle"]
                 ];
                 return {
-                    
+
                     text: text,
                     choices: choices,
                     phaserscene: "Bugne",
@@ -189,7 +189,7 @@ C'est sans appel, il a bugné votre caisse.";
 
                 //exit
                 return {
-                    
+
                     text: text,
                     choices: choices,
                     phaserscene: "Porteladefense",

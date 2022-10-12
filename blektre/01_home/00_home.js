@@ -306,7 +306,7 @@ Le message passe immédiatement en vu.";
                 perso.updateStat("jour", +1);
 
                 perso.isDailyTafDone = false;
-
+                perso.todayAccident = false;
 
                 perso.log('Vous dormez');
                 var choices = [

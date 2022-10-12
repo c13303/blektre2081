@@ -74,7 +74,7 @@ La question vous stresse, et vous suez abondamment.";
                 var SECRETAIRE = game.getPersoByRole("SECRETAIRE");
                 perso.adversaire = SECRETAIRE.nom;
                 SECRETAIRE.updateStat('sex', +1);
-                
+
                 perso.choiceExit = {
                     folder: folder,
                     page: "reunionkicked"
@@ -83,7 +83,7 @@ La question vous stresse, et vous suez abondamment.";
                 var choices = [
 
                     ["Je fonce en réunion", folder, "reunion"],
-                    ["Je <le/la/lae/SECRETAIRE> fume", "00/fume", "fume"],
+                    //       ["J'embrouille <le/la/lae/SECRETAIRE> secrétaire", "00/fume", "embrouille"],
                     //   ["Je vais à la machine à café", folder, "cafe"],
 
                     ["Je me tire", "01_periph/02_parvis", "intro"]
@@ -115,7 +115,7 @@ La question vous stresse, et vous suez abondamment.";
             } //endscene()---------------------------------------------------------------------------
 
             , dailyTafDone: function () {
-                var text = "<~SELF>, la réunion du jour a déjà eu lieu, dit <~DIRECTOR>. ";
+                var text = "<~SELF>, la réunion du jour a déjà eu lieu, dit <~DIRECTOR>. Reviens demain. ";
 
 
                 var DIRECTOR = game.getPersoByRole("DIRECTOR");
@@ -127,7 +127,7 @@ La question vous stresse, et vous suez abondamment.";
 
                 var pa = [
                     [1, perso.nom, "idle"],
-                    [2, perso.adversaire, "idle"],
+                    [2, perso.adversaire, "idle"]
                 ];
 
                 //exit
@@ -139,7 +139,7 @@ La question vous stresse, et vous suez abondamment.";
 
                 var pa = [
                     [1, perso.nom, "idle"],
-                    [2, perso.adversaire.nom, "idle"],
+                    [2, perso.adversaire, "idle"],
                 ];
                 if (param === 'left') {
                     pa[0] = [1, perso.nom, "walk", {startX: 1, endX: 20}];
@@ -166,8 +166,8 @@ La question vous stresse, et vous suez abondamment.";
                 perso.updateMoney(7);
                 perso.isDailyTafDone = 1;
 
-                var DIRECTOR = game.getPersoByRole("DIRECTOR");
-                perso.adversaire = DIRECTOR.nom;
+                var directeur = game.getPersoByRole("DIRECTOR");
+                perso.adversaire = directeur.nom;
 
 
                 perso.choiceExit = {
@@ -182,7 +182,7 @@ La question vous stresse, et vous suez abondamment.";
 
                 var pa = [
                     [1, perso.nom, "idle"],
-                    [2, perso.adversaire.nom, "idle"],
+                    [2, perso.adversaire, "idle"],
                 ];
                 if (param === 'left') {
                     pa[0] = [1, perso.nom, "walk", {startX: 1, endX: 20}];

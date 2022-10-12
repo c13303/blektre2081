@@ -40,7 +40,7 @@ module.exports = {
 
                 var choices = [
 
-                    ["Je <le/la/lae/PHARMACIEN> fume", "00/fume", "fume"],
+                    ["Je <le/la/lae/BEZOS> fume", "00/fume", "fume"],
                     ["Je sors", "01_periph/02_parvis", "intro__right"]
                 ];
 

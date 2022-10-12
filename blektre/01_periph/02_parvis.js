@@ -31,7 +31,7 @@ module.exports = {
 
             "intro": function (param) {
                 game.gC.setInPlace("La Défense", perso);
-                
+
                 var text = "La Défense.\n\
 Il y a une manifestation devant les bureaux.";
                 var choices = [
@@ -65,7 +65,7 @@ Il y a une manifestation devant les bureaux.";
                 }
 
                 return {
-                    
+
                     text: text,
                     choices: choices,
                     phaserscene: "Parvis",
@@ -84,8 +84,8 @@ Il y a une manifestation devant les bureaux.";
 - Bonjour <monsieur/madame/mademonsieur/SELF>, une petite signature pour faire interdire la viande de cochon, s'il vous plaît.";
                 var choices = [
                     ["Je signe avec le sourire", folder, "manifsigne__sourire"],
-                    ["Je pose des questions", folder, "manifdebat"],
-                    ["Enculés de véganistes !", folder, "manifnovegan"],
+                    ["Je critique gentiment le végétarisme", folder, "manifdebat"],
+                    ["Je critique vigoureusement le végétarisme", folder, "manifnovegan"],
                     ["Je m'éloigne", folder, "intro"]
                 ];
 
@@ -104,7 +104,7 @@ Il y a une manifestation devant les bureaux.";
 
                 /*choice*/
                 return {
-                    
+
                     text: text,
                     choices: choices,
                     phaserscene: "Cochon",
@@ -120,9 +120,9 @@ Il y a une manifestation devant les bureaux.";
                 adversaire = perso.getAdversaire();
 
 
-                var text = "- Les cochons bénéficient du plein emploi ... Vous n'avez pas l'impression de cracher dans la soupe ? demandez-vous.\n\
-<~COCHON> est révolté. \n\
-- <Boomers/Boomeuses/Boomeurses/SELF> ! Vous ne comprenez rien. On se tue au travail ! On veut de meilleures conditions ! ";
+                var text = "- Etre transformé en viande, c'est un travail comme un autre ... Vous n'avez pas l'impression de cracher dans la soupe ? demandez-vous.\n\
+<~COCHON> s'agace.\n\
+- Essayez de vous mettre à notre place.";
                 perso.log(adversaire.bnom + " vous recadre lors d'un débat pacifique");
 
                 var choices = [
@@ -130,7 +130,7 @@ Il y a une manifestation devant les bureaux.";
                     ["Je <le/la/lae/COCHON> fume", "00/fume", "fume"]
                 ];
                 return {
-                    
+
                     text: text,
                     choices: choices
                 };
@@ -166,7 +166,7 @@ Il y a une manifestation devant les bureaux.";
                     ["Je souris poliment et je m'éloigne", folder, "intro"]
                 ];
                 return {
-                    
+
                     text: text,
                     choices: choices
                 };
@@ -221,7 +221,7 @@ Il y a une manifestation devant les bureaux.";
 
 
                 return {
-                    
+
                     text: text,
                     choices: choices
                 };
@@ -252,7 +252,7 @@ Il y a une manifestation devant les bureaux.";
                 ];
 
                 return {
-                    
+
                     text: text,
                     choices: choices
                 };
