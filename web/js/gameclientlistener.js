@@ -87,7 +87,7 @@ function gameClientHook(d) {
         texthtml = texthtml.replaceAll('__', '<br/><br/>');
         if (!d.choices)
             console.log('ERREUR : D.CHOICES MISSING');
-        if (d.flush) {
+        if (!d.noflush) {
             $('#leftgame').delay(500).fadeTo(1000, 1);
             $('#text').html("");
         } else {
@@ -181,7 +181,12 @@ function gameClientHook(d) {
             $('#notifs').html("");
             for (var i = d.mychar.loglines.length; i > -1; i--) {
                 if (d.mychar.loglines[i] && d.mychar.loglines[i][0] !== '!') // symbole update stat
-                    $('#notifs').append('<div class="notif">' + d.mychar.loglines[i] + '</div>');
+                    var idd = d.mychar.loglines.length - i;
+                var opacity = 100 - (idd - 1) * 20;
+                if (opacity < 1)
+                    break;
+                $('#notifs').append('<div style="opacity:' + opacity + '%"class="notif notifcolor notifcolor_' + idd + '">' + d.mychar.loglines[i] + '</div>');
+
             }
         }
         // var html = "<b class='name'>" + d.mychar.nom + "</b>";

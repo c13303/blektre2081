@@ -86,7 +86,7 @@ Heureusement, vous n'avez pas une tune !\n\
                  }
                  * 
                  */
-                var pa = [[1, perso.nom, "head"]];
+                var pa = [[1, perso.nom, "idle"]];
 
                 if (param === 'idle') {
                     var pa = [[1, perso.nom, "idle"]];
@@ -104,7 +104,7 @@ Heureusement, vous n'avez pas une tune !\n\
                 }
 
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices,
                     phaserscene: "Periph",
@@ -189,7 +189,7 @@ Heureusement, vous n'avez pas une tune !\n\
 
                 return {
                     phaseranimation: phaseranimation,
-                    flush: 1,
+                    
                     text: text,
                     choices: choices
                 };
@@ -256,7 +256,7 @@ Heureusement, vous n'avez pas une tune !\n\
                     choices.push(["J'embrouille  <~ADVERSAIRE>", "00/fume", "embrouille"]);
                 }
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices,
                     phaserscene: "Ivry",
@@ -292,7 +292,7 @@ Heureusement, vous n'avez pas une tune !\n\
                 ];
 
                 return {
-                    flush: 0,
+                    noflush: 1,
                     text: text,
                     choices: choices
                 };

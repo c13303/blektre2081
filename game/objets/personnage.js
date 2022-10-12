@@ -85,10 +85,9 @@ class perso {
             this[key] = value;
         }
 
-        if (perso.place)
-            gC.setInPlace(perso.place, perso);
 
-        console.log('Reloaded data for ' + this.nom);
+
+        // console.log('Reloaded data for ' + this.nom);
     }
 
     update() {
@@ -108,7 +107,7 @@ class perso {
         if (ws) {
             try {
                 if (this.adversaire instanceof Object) {
-                    fatal('PERSO ' + this.nom + ' HAS A OBJECT ADVERSAIRE');
+                    tools.fatal('PERSO ' + this.nom + ' HAS A OBJECT ADVERSAIRE');
                 }
                 ws.send(JSON.stringify(data));
                 // this.loglines = [];
@@ -190,6 +189,14 @@ class perso {
         if (notif !== this.loglines[this.loglines.length - 1])
             this.loglines.push(this.turn + ':' + notif);
 
+        if (this.loglines.length === 10) {
+            this.interruptions.splice(0, 1);
+        }
+        
+        if(this.loglines>10){
+            tools.fatal('caca loglines');
+        }
+
     }
 
     interrupt(chapitre, page, adversaire, statnotif, param = null) {
@@ -251,14 +258,14 @@ class perso {
     us(stat, value) {
         updateStat(stat, value);
     }
-    updateStat(stat, value, persoToNotice = this) {
+    updateStat(stat, value, persoToNotice = this, replace = false) {
         //console.log('Update STAT de ' + this.nom + ' ' + stat + ' ' + value);
 
 
         var newstat = this[stat] + value;
+        if (replace)
+            newstat = value;
 
-        if (newstat > 100)
-            newstat = 100;
 
 
 
@@ -281,32 +288,23 @@ class perso {
         };
     }
 
-    // ajoute 1 au day time et reset au max
-    upDaytime() {
-        console.log('Update heure ' + this.nom);
-        if (this.daytime === 2) {
-            /* end of day */
-            this.daytime = 0;
-            this.day++;
-            this.loyer.days--;
-            if (this.loyer.days === 0) {
-                this.loyer.days = 28;
-                console.log('LOYER TIME FOR ' + this.nom);
-                var loyer = this.loyer.amount;
-                var diff = this.money - loyer;
-                if (diff > 0) {
-                    this.money -= loyer;
-                    this.log("Vous payer votre loyer");
-                } else {
-                    this.money = 0;
-                    this.log("Vous échouez à payer votre loyer");
-                }
-            }
-
-        } else {
-            this.daytime++;
-        }
+    updateKarma(value, replace = false, persoToNotice = null) {
+        this.updateStat('karma', value, persoToNotice, replace);
     }
+    updateSex(value, replace = false, persoToNotice = null) {
+        this.updateStat('sex', value, persoToNotice, replace);
+    }
+    updateSanity(value, replace = false, persoToNotice = null) {
+        this.updateStat('sanity', value, persoToNotice, replace);
+    }
+    updateLife(value, replace = false, persoToNotice = null) {
+        this.updateStat('life', value, persoToNotice, replace);
+    }
+    updateMoney(value, replace = false, persoToNotice = null) {
+        this.updateStat('money', value, persoToNotice, replace);
+    }
+
+    
 
     cool(label, time, expire_message) {
 

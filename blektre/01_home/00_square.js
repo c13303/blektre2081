@@ -93,7 +93,7 @@ Où allez-vous ?";
 
 
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices,
                     phaserscene: "Square",

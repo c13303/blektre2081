@@ -51,7 +51,7 @@ Si vous ne vous dépêchez pas, vous serez en retard au travail.";
                     ["Je sors", "01_home/00_square", "intro"],
                 ];
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices,
                     phaserscene: "Home",
@@ -86,7 +86,7 @@ Si vous ne vous dépêchez pas, vous serez en retard au travail.";
 
                 }
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices,
                     phaserscene: "Home",
@@ -113,16 +113,30 @@ Si vous ne vous dépêchez pas, vous serez en retard au travail.";
 
                 ];
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices,
                     phaserscene: "tel",
                 };
 
             }//endscene()---------------------------------------------------------------------------
-            , "instagram": function () {
-                var text = "Vous avez un like. <Un/Une/Uns/INFLUENCE> <certain/certaine/certaines/INFLUENCE> <~INFLUENCE>";
 
+
+
+
+
+            , "instagram": function () {
+
+                if (perso.liked)
+                    var text = "Vous avez un like. <Un/Une/Uns/INFLUENCE> <certain/certaine/certaines/INFLUENCE> <~INFLUENCE>";
+                else
+                    var text = "Vous n'avez pas de nouveau like, à part celui de <~INFLUENCE>";
+
+
+                perso.liked = true;
+
+
+                perso.log('Vous recevez un like sur Insta');
                 var choices = [
                     ["Je visite son profil", folder, "instacontact"],
                     ["Je poste un selfie", folder, "selfie"],
@@ -130,7 +144,7 @@ Si vous ne vous dépêchez pas, vous serez en retard au travail.";
 
                 ];
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices,
                     phaserscene: "tel",
@@ -138,7 +152,19 @@ Si vous ne vous dépêchez pas, vous serez en retard au travail.";
 
             }//endscene()---------------------------------------------------------------------------
 
+
+
+
+
+
+
+
+
+
             , "instacontact": function () {
+
+
+
                 var text = "Vous parcourez rapidement son flux de photos, habilement habillé de selfies dans lesquelles <~INFLUENCE> se met en valeur dans des poses suggestives.  \n\
 Soudain, votre pouce dérape et vous likez une photo sans faire exprès. ";
 
@@ -148,7 +174,7 @@ Soudain, votre pouce dérape et vous likez une photo sans faire exprès. ";
                     ["Je lui envoie un message privé", folder, "instacontact2__pm"],
                 ];
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices,
                     phaserscene: "tel",
@@ -163,7 +189,7 @@ Soudain, votre pouce dérape et vous likez une photo sans faire exprès. ";
                         ["J'aime", folder, "tel"],
                     ];
                     return {
-                        flush: 1,
+                        
                         text: text,
                         choices: choices,
                         phaserscene: "tel",
@@ -192,7 +218,7 @@ Le résultat est abominable.  ";
                     ["J'aime", folder, "tel"],
                 ];
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices,
                     phaserscene: "tel",
@@ -226,7 +252,7 @@ Le message passe immédiatement en vu.";
                     ["OK ...", folder, "intro2"]
                 ];
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices,
                     phaserscene: "tel",
@@ -248,7 +274,7 @@ Le message passe immédiatement en vu.";
                         ["OK ...", folder, "intro2"]
                     ];
                     return {
-                        flush: 1,
+                        
                         text: text,
                         choices: choices,
                         phaserscene: "tel"
@@ -271,7 +297,7 @@ Le message passe immédiatement en vu.";
 
 
                     return {
-                        flush: 1,
+                        
                         text: text,
                         choices: choices,
                         phaserscene: "Nuit",

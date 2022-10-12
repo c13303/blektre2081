@@ -60,7 +60,7 @@ module.exports = {
                 //exit
 
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices,
                     phaserscene: "Pharmacie",
@@ -84,7 +84,7 @@ module.exports = {
                 ];
 
                 return {
-                    flush: 0,
+                    noflush: 1,
                     text: text,
                     choices: choices
                 };

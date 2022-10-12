@@ -1,6 +1,6 @@
 const server = require('ws').Server;
 var tools = require('./../server/tools.js');
-
+var gC = require('./../game/gameContainer.js');
 
 
 class wssx extends server {
@@ -127,6 +127,10 @@ class wssx extends server {
                 setTimeout(callback, 100);
             }
         });
+
+
+        /* save full world */
+        gC.save();
     }
 
     getClientFromId(id) {

@@ -475,3 +475,16 @@ button{
     color:#d77355 !important;
 }
 
+.notifcolor{
+    opacity: 0%;
+}
+
+
+@media screen and (max-width:1200px){
+    #notifs{
+        opacity: 0%;
+    }
+    #notifs:hover{
+        opacity:100%;
+    }
+}

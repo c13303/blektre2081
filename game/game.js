@@ -102,15 +102,8 @@ module.exports = {
 
         gC.persos[perso.nom] = perso;
         gC.setInPlace(startplace, perso);
-        perso.loyer = {
-            amount: 880,
-            days: 28,
-        };
-        perso.daytime = 0;
-        // game.addPlace(perso, "La Défense", "01_defense/00_intro");
-        //  game.addPlace(perso, "Parc", "01_home/parc");
-        // perso.addPlace("La Défense", "01_defense/00_in\n\tro");
-        //  perso.addPlace("Parc", "01_home/parc");
+
+
         perso.update();
         return (perso);
     },
@@ -162,7 +155,7 @@ module.exports = {
 
 
 
-            console.log(ws.name + ' CHARACTEUR ONLINE  : ' + nom);
+            console.log(ws.name + ' CHARACTEUR JUST GOT ONLINE  : ' + nom);
 
             /*
              var persodata = ws.char_inventory[msg.char];
@@ -191,8 +184,16 @@ module.exports = {
             if (perso.scene) {
                 scene = perso.scene;
             }
+
+            gC.persosLastChoices[perso.nom] = [
+                [perso.chapitre, scene]
+            ];
             this.loadPage(ws, perso.chapitre, scene);
             perso.scene = null;
+
+
+
+
 
 
             // forcer update place if not moved
@@ -226,6 +227,16 @@ module.exports = {
     loadPage: function (ws, chapitre, page, param = null) {
 
 
+
+
+
+
+
+
+
+
+
+
         //   console.log('LoadPage() ' + chapitre + ' page ' + JSON.stringify(page));
         // console.log(page.indexOf('__'));
         // PAGE WITH PARAMETER /// 
@@ -242,6 +253,39 @@ module.exports = {
             var perso = ws.current_perso;
             delete perso.horsjeu;
             // delete perso.adversaire; // dont do that 
+
+
+            /* SECURITY CHOICE */
+            var availableChoices = gC.persosLastChoices[perso.nom];
+            var validated = false;
+
+            if (availableChoices) {
+                for (var i = 0; i < availableChoices.length; i++) {
+                    //  console.log(availableChoices[i][0] + ' vs ' + chapitre);
+                    if (availableChoices[i][0] === chapitre && availableChoices[i][1].indexOf(page) !== -1) {
+                        validated = true;
+                    }
+                }
+            }
+
+            if (validated) {
+
+            } else {
+                console.log('Unvalidated loadpage : ' + chapitre + ',' + page + '(param: ' + param + ')');
+                perso.hack();
+                return null;
+            }
+
+
+
+
+
+
+            if (perso.dead) {
+                this.loadPage(ws, "00/death", "intro");
+                return null;
+            }
+
 
 
 
@@ -266,8 +310,8 @@ module.exports = {
 
             pageObject.text = this.filterText(pageObject.text, perso);
             if (pageObject.text2) {
-                console.log('Text2 detected..filtering');
-                console.log(pageObject.text2);
+                //  console.log('Text2 detected..filtering');
+                //  console.log(pageObject.text2);
                 pageObject.text2 = this.filterText(pageObject.text2, perso);
             }
 
@@ -287,9 +331,28 @@ module.exports = {
                         return null;
                     }
                 }
-
-
             }
+
+
+
+            /* NO INTERRUPTION ... STILL ALIVE ? */
+            if (perso.life < 0 && !perso.dead) {
+                perso.dead = 1;
+            }
+
+
+
+
+
+
+            /* SECURITY CHOICE */
+            gC.persosLastChoices[perso.nom] = [];
+            for (var i = 0; i < pageObject.choices.length; i++) {
+                gC.persosLastChoices[perso.nom].push([pageObject.choices[i][1], pageObject.choices[i][2]]); // on inscrit : [chapitre, page]
+            }
+
+
+
 
             // LET'S GO, THEN
             perso.chapitre = chapitre;
@@ -300,6 +363,18 @@ module.exports = {
             perso.update();
             // send data to client
             var data = (pageObject);
+
+
+
+
+
+
+
+
+
+
+
+
             /*
              if (chapitreO.name)
              data.scene = chapitreO.name;
@@ -307,8 +382,10 @@ module.exports = {
              */
             ws.send(JSON.stringify(data));
         } catch (e) {
-            tools.report('!!!! ERROR LOADPAGE :  ' + chapitre + ' -> ' + page);
+            // tools.report('!!!! ERROR LOADPAGE :  ' + chapitre + ' -> ' + page);
             perso.popup('!!!! ERROR LOADPAGE :  ' + chapitre + ' -> ' + page);
+            //  tools.fatal('Error Loadpage ' + chapitre + ' -> ' + page);
+            console.log('Loadpage() ERROR LOADING ' + chapitre + ' -> ' + page);
             console.log(e);
         }
         return null;
@@ -398,7 +475,7 @@ module.exports = {
                     }
 
                     if (!daPerso) {
-                        console.log('filterText : using name replacement ???');
+                        //console.log('filterText : using name replacement ???');
                         if (genderArray[3].indexOf('~') !== -1) {
                             var daName = genderArray[3].replace('~', '');
                             var daPerso = this.gC.persos[daName];

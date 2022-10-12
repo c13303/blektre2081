@@ -65,7 +65,7 @@ Il y a une manifestation devant les bureaux.";
                 }
 
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices,
                     phaserscene: "Parvis",
@@ -104,7 +104,7 @@ Il y a une manifestation devant les bureaux.";
 
                 /*choice*/
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices,
                     phaserscene: "Cochon",
@@ -130,7 +130,7 @@ Il y a une manifestation devant les bureaux.";
                     ["Je <le/la/lae/COCHON> fume", "00/fume", "fume"]
                 ];
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices
                 };
@@ -166,7 +166,7 @@ Il y a une manifestation devant les bureaux.";
                     ["Je souris poliment et je m'éloigne", folder, "intro"]
                 ];
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices
                 };
@@ -221,7 +221,7 @@ Il y a une manifestation devant les bureaux.";
 
 
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices
                 };
@@ -252,7 +252,7 @@ Il y a une manifestation devant les bureaux.";
                 ];
 
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices
                 };

@@ -65,7 +65,7 @@ module.exports = {
 
 
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices,
                     phaserscene: "Eglise",
@@ -81,31 +81,92 @@ module.exports = {
 
 
             , "suicide": function () {
-                game.gC.setInPlace("Eglise", perso);
                 var text = "- J'en ai marre de la vie.\n\
-     Le Râhel sourit. \n\
-- Tu tombes bien, nous avons un programme parfait pour mourir en toute sérénité. \n\
-__PAUSE__\n\
-- Le processus est très simple : il suffit de donner tout ton argent.\n\
-Vous avez l'impression que c'est une arnaque. \n\
-__PAUSE__\n\
-Cependant, le Rahelle ajoute quelque chose : \n\
-- Ce n'est pas une arnaque, si vous vous venez me réclamer votre argent dans une prochaine vie, je vous le rendrais intégralement. Vous me faites confiance, désormais, n'est-ce-pas ? ";
+     <Le Râhel/La Râhelle/Lae Rähelles/RAEL> sourit. \n\
+- Tu tombes bien, nous avons un programme parfait pour mourir en toute sérénité.";
 
                 var choices = [
-
-                    ["J'accepte", folder, "suicide"],
-                    ["Je suis venu chercher l'argent d'une personnée décédée", folder, "argent"],
-                    ["Je refuse poliment et je m'en vais", "01_periph/04_ivry", "intro"],
-                    ["Je <le/la/lae/RAEL> fume", "00/fume", "fume"]
+                    ["Ho", folder, "suicideX2"]
                 ];
                 return {
-                    flush: 1,
+                    
                     text: text,
-                    choices: choices,
+                    choices: choices
 
                 };
             } //endscene()---------------------------------------------------------------------------
+
+
+            , "suicideX2": function () {
+
+                var text = "- Le processus est très simple : il suffit de donner tout ton argent.";
+
+                var choices = [
+                    ["C'est une arnaque ?", folder, "suicideX3"]
+                ];
+                return {
+                    
+                    text: text,
+                    choices: choices
+
+                };
+            } //endscene()---------------------------------------------------------------------------
+
+
+
+
+            , "suicideX3": function () {
+                var text = "- Non, ce n'est pas une arnaque, si vous vous venez me réclamer votre argent dans une prochaine vie, je vous le rendrais intégralement. Vous me faites confiance, désormais, n'est-ce-pas ? ";
+
+                var choices = [
+                    ["J'accepte", folder, "suicideaction"],
+                    ["Je suis venu pour récupérer l'argent d'une personnée suicidée", folder, "argent"],
+                    ["Je n'ai plus envie de mourir", "01_periph/04_ivry", "intro"],
+                    ["Je <le/la/lae/RAEL> fume", "00/fume", "fume"]
+                ];
+                return {
+                    
+                    text: text,
+                    choices: choices
+
+                };
+            } //endscene()---------------------------------------------------------------------------
+
+
+
+            , "suicideaction": function () {
+                var text = "- Très bien, fermez les yeux ...\n\
+<Le Râhel/La Râhelle/Lae Rähelles/RAEL> marmonne quelque chose. Vous sentez une petite piqûre, et vous ne vous rappellez plus très bien de la suite ...";
+                perso.updateLife(-1000);
+                perso.log('Vous vous suicidez à l\'église');
+                game.gC.suicides[perso.nom] = perso.money;
+
+                var choices = [
+                    ["Wow ...", "00/death", "intro"]
+                ];
+                return {
+                    
+                    text: text,
+                    choices: choices
+
+                };
+            } //endscene()---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
             , "argent": function () {
@@ -119,7 +180,7 @@ Cependant, le Rahelle ajoute quelque chose : \n\
                     ["J'accepte", folder, "argent2"],
                 ];
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices,
 
@@ -136,7 +197,7 @@ Cependant, le Rahelle ajoute quelque chose : \n\
                     ["Je laisse tomber", "01_periph/04_ivry", "intro"],
                 ];
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices,
 
@@ -154,7 +215,7 @@ Le Rahel vous remet l'intégratité de l'argent que " + defunt + " a laissé en 
                     ["Je suis riche", "01_periph/04_ivry", "intro"],
                 ];
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices,
 
@@ -169,7 +230,7 @@ Le Rahel vous remet l'intégratité de l'argent que " + defunt + " a laissé en 
                     ["Vroum", "01_periph/04_ivry", "ivry__right"]
                 ];
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices,
 

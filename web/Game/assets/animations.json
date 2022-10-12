@@ -716,6 +716,36 @@
             "frameRate": 3,
             "skipMissedFrames": true,
             "hideOnComplete": true
+        },
+        {
+            "key": "urineP2",
+            "type": "frame",
+            "frames": [
+                {
+                    "key": "persoB_FIGHT",
+                    "frame": 8,
+                    "duration": 0,
+                    "keyframe": false
+                }
+            ],
+            "frameRate": 24,
+            "skipMissedFrames": true,
+            "repeat": -1
+        },
+        {
+            "key": "urineP3",
+            "type": "frame",
+            "frames": [
+                {
+                    "key": "persoC_FIGHT",
+                    "frame": 8,
+                    "duration": 0,
+                    "keyframe": false
+                }
+            ],
+            "frameRate": 24,
+            "skipMissedFrames": true,
+            "repeat": -1
         }
     ],
     "globalTimeScale": 1,

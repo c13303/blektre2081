@@ -30,6 +30,36 @@ module.exports = {
             },
 
             "bureau": function (param = null) {
+
+
+
+
+                if (perso.fired) {
+                    var text = "Vous avez été viré. Vous n'avez rien à faire ici.";
+
+                    var choices = [
+                        ["Bye", "01_periph/02_parvis", "intro"]
+                    ];
+
+                    //pa = phaseranimation
+                    var pa = [[1, perso.nom, "walk", {flipX: true, startX: 75, endX: -50}]];
+
+                    //exit
+
+                    return {
+                        
+                        text: text,
+                        choices: choices,
+                        phaserscene: "Fired",
+                        phaseranimation: pa
+                    };
+                }
+
+
+
+
+
+
                 perso.updateStat('life', -1);
                 game.gC.setInPlace("Bureau", perso);
                 var text = "- Bonjour, vous avez rendez-vous ? \n\
@@ -58,8 +88,8 @@ La question vous stresse, et vous suez abondamment.";
                 }
 
                 var adversaire = perso.getAdversaire();
-                
-                
+
+
                 var pa = [
                     [1, perso.nom, "idle"],
                     [2, adversaire.nom, "idle"],
@@ -69,7 +99,7 @@ La question vous stresse, et vous suez abondamment.";
                 }
 
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices,
                     phaserscene: "Bureau",
@@ -99,7 +129,7 @@ La question vous stresse, et vous suez abondamment.";
 
 
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices
                 };
@@ -112,6 +142,7 @@ La question vous stresse, et vous suez abondamment.";
                 var text = "Vous êtes viré.";
 
                 perso.log('Vous vous êtes fait virer');
+                perso.fired = 1;
 
                 var choices = [
                     ["Bye", "01_periph/02_parvis", "intro"]
@@ -119,10 +150,18 @@ La question vous stresse, et vous suez abondamment.";
 
 
 
+                //pa = phaseranimation
+
+                var pa = [[1, perso.nom, "walk", {flipX: true, startX: 75, endX: -50}]];
+
+                //exit
+
                 return {
-                    flush: 1,
+                    
                     text: text,
-                    choices: choices
+                    choices: choices,
+                    phaserscene: "Fired",
+                    phaseranimation: pa
                 };
 
             } //endscene()---------------------------------------------------------------------------

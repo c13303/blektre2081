@@ -65,7 +65,7 @@ module.exports = {
                 }
 
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices,
                     phaserscene: "Pharmacie",
@@ -94,7 +94,7 @@ Lesquelles prenez-vous ?";
                 ];
 
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices
                 };
@@ -143,7 +143,7 @@ C'est " + perso.price + "€ pièce. Combien en voulez-vous ?\n\
 
 
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices,
                     inputnb: 1,
@@ -172,7 +172,7 @@ C'est " + perso.price + "€ pièce. Combien en voulez-vous ?\n\
                         ["Je <le/la/lae/PHARMACIEN> fume", "00/fume", "fume"],
                     ];
                     return {
-                        flush: 1,
+                        
                         text: text,
                         choices: choices
                     };
@@ -190,7 +190,7 @@ C'est " + perso.price + "€ pièce. Combien en voulez-vous ?\n\
                         ["Je <le/la/lae/PHARMACIEN> fume", "00/fume", "fume"]
                     ];
                     return {
-                        flush: 1,
+                        
                         text: text,
                         choices: choices
                     };
@@ -217,7 +217,7 @@ C'est " + perso.price + "€ pièce. Combien en voulez-vous ?\n\
                 ];
 
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices
                 };
@@ -249,7 +249,7 @@ C'est " + perso.price + "€ pièce. Combien en voulez-vous ?\n\
                 ];
 
                 return {
-                    flush: 0,
+                    noflush: 1,
                     text: text,
                     choices: choices
                 };
@@ -284,7 +284,7 @@ C'est " + perso.price + "€ pièce. Combien en voulez-vous ?\n\
                 ];
 
                 return {
-                    flush: 0,
+                    noflush: 1,
                     text: text,
                     choices: choices
                 };

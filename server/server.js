@@ -183,7 +183,7 @@ serveur.startServer = function () {
                                 var data = JSON.stringify(perso);
                                 console.log('PERSO BDD UPDATE : ' + perso.nom);
                                 connection.query('UPDATE persos SET data=? WHERE nom= ?', [data, perso.nom], function (err) {
-                                    console.log(data);
+                                    // console.log(data);
                                     //  console.log(data);
                                 });
                             }

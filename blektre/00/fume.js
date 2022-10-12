@@ -23,7 +23,7 @@ module.exports = {
                     ["Wow", "01_home/00_home", "intro"]
                 ];
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices
                 };
@@ -118,7 +118,7 @@ module.exports = {
                 return {
                     phaserscene: "Duel",
                     phaseranimation: phaseranimation,
-                    flush: 1,
+                    
                     text: text,
                     choices: choices
                 };
@@ -158,7 +158,7 @@ module.exports = {
                 choices.push(["Finalement, non", perso.choiceExit.folder, perso.choiceExit.page]);
 
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices
 
@@ -223,7 +223,7 @@ Vous le laissez, en PLS sur le sol.";
                 return {
                     phaserscene: "Duel",
                     phaseranimation: phaseranimation,
-                    flush: 1,
+                    
                     text: text,
                     choices: choices
                 };
@@ -271,7 +271,7 @@ Vous le laissez, en PLS sur le sol.";
                     ["Je m'en vais", perso.choiceExit.folder, perso.choiceExit.page]
                 ];
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices,
                     phaserscene: "Duel",
@@ -291,7 +291,7 @@ Vous le laissez, en PLS sur le sol.";
                     ["Je m'en vais", perso.choiceExit.folder, perso.choiceExit.page]
                 ];
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices
                 };
@@ -329,7 +329,7 @@ Vous le laissez, en PLS sur le sol.";
                     ["Je m'en vais", perso.choiceExit.folder, perso.choiceExit.page]
                 ];
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices
                 };
@@ -376,7 +376,7 @@ Vous le laissez, en PLS sur le sol.";
 
 
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices
                 };
@@ -439,7 +439,7 @@ Vous le laissez, en PLS sur le sol.";
 
 
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices,
                     phaseranimation: [

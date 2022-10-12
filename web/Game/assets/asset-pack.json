@@ -70,6 +70,16 @@
                 "key": "Eglise"
             },
             {
+                "url": "assets/places/cutscenes/fired.png",
+                "type": "image",
+                "key": "fired"
+            },
+            {
+                "url": "assets/scenes/cuts/Fired.js",
+                "type": "sceneFile",
+                "key": "Fired"
+            },
+            {
                 "url": "assets/persos/HEADS_.png",
                 "frameConfig": {
                     "frameWidth": 32,

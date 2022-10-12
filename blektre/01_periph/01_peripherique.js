@@ -33,10 +33,6 @@ module.exports = {
                     folder: "01_home/00_home",
                     page: "periph"
                 };
-
-
-
-
                 if (perso.sanity < 0) {
                     return this.accident();
                 }
@@ -55,8 +51,6 @@ module.exports = {
                 var phaserAnimation = [
                     [1, perso.nom, "head"]
                 ];
-
-
                 /* the random encounter */
                 /*
                  var random = game.gC.getSomeoneRandom(perso);
@@ -79,7 +73,7 @@ module.exports = {
 
 
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices,
                     phaserscene: "PeriphInterieur",
@@ -92,24 +86,20 @@ module.exports = {
 
             , "accident": function () {
 
-                var text = "Vous êtes trop défoncé pour conduire ! Vous vous plantez dans une voiture en stationnement. ";
+                var text = "[-sanity] Vous faites un malaise au volant ! Vous vous plantez dans une voiture en stationnement. ";
                 var choices = [];
                 var phaserAnimation = [
                     [1, perso.nom, "idle"]
                 ];
+                text += "\n\
+Vous voilà forcé d'appeller une dépanneuse ! Cela va encore vous coûter un bras ...";
 
-                if (perso.money < 100) {
-                    text += "\n\
-Vous n'avez pas les moyens d'appeller une dépanneuse. Vous voilà piéton ...";
-                    perso.updateStat('car', 0);
-                } else {
-                    choices.push(["J'appelle une dépanneuse", folder, "intro"]);
-                }
-
-                choices.push(["J'abandonne la voiture", folder, "intro"]);
-
-                return {
-                    flush: 1,
+                perso.updateStat('money', -100);
+                perso.sanity = 0;
+                perso.updateStat("karma", 100);
+                perso.log('Vous plantez la caisse');
+                choices.push(["Uncool", folder, "intro"]);
+                return {                    
                     text: text,
                     choices: choices,
                     phaserscene: "Bugne",
@@ -127,14 +117,11 @@ C'est sans appel, il a bugné votre caisse.";
                 var choices = [
                     ["Je le fume", "00/fume", "fume"]
                 ];
-
-
                 var phaserAnimation = [
                     [1, perso.nom, "idle"], [2, perso.adversaire, "idle"]
                 ];
-
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices,
                     phaserscene: "Bugne",
@@ -166,23 +153,17 @@ C'est sans appel, il a bugné votre caisse.";
             , "porteladefense": function () {
 
                 var text = "Porte de la Défense. Du talon, le soleil écrase le goudron";
-
                 /* new place */
                 var place = "Porte la Défense";
                 game.gC.setInPlace(place, perso);
-
-
                 /* default exit */
                 perso.choiceExit.page = "porteladefense";
-
-
                 /* choices base */
                 var choices = [
                     //  ["Je <le/la/lae/PHARMACIEN> fume", "00/fume", "fume"],
                     ["Je descends sur le parvis", "01_periph/02_parvis", "intro__left"],
                     ["Je remonte sur le peripherique", folder, "intro__right"]
                 ];
-
                 /* pa phaseranimation base  */
                 var pa = [[1, perso.nom, "idle"]];
                 if (param === 'left') {
@@ -208,7 +189,7 @@ C'est sans appel, il a bugné votre caisse.";
 
                 //exit
                 return {
-                    flush: 1,
+                    
                     text: text,
                     choices: choices,
                     phaserscene: "Porteladefense",
@@ -238,7 +219,7 @@ C'est sans appel, il a bugné votre caisse.";
                     ["OK", folder, "intro"],
                 ];
                 return {
-                    flush: 0,
+                    noflush: 1,
                     text: text,
                     choices: choices
                 };

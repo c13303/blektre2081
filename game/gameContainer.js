@@ -6,7 +6,11 @@ module.exports = {
     date: 0,
     tick: 0,
     persos: {},
+    persosLastChoices: {}, ///anticheat - security
     WSPersos: {}, /// les clients WS en stock
+    "suicides": {
+
+    },
     places: {},
     roles: {
 
@@ -44,25 +48,10 @@ module.exports = {
         "MENDIANT": {
             nom: "manuel_valse"
         },
-
         "BEZOS": {
             nom: "manuel_valse"
         },
-
         /// lots of manche roles
-    },
-    /*
-     setRole: function (role, nom) {
-     this.roles[role].nom = nom;
-     }, */
-    races: {
-        1: "reptilienne",
-        2: "marbreuse",
-        3: "végétale",
-        4: "tête large"
-    },
-    rules: {
-        oppressed: 4,
     },
     recoverPlayersFromDB: function (connection) {
         var that = this;
@@ -114,13 +103,12 @@ module.exports = {
         }
         return packedPersos;
     },
-
     /* change a perso de place and notify EVERYBOY */
     setInPlace: function (place, perso, old_place_check = true) {
 
         // place = new placed :(
         perso.oldplace = perso.place;
-        console.log('[setInPlace] Moving ' + perso.nom + ' to ' + place);
+        // console.log('[setInPlace] Moving ' + perso.nom + ' to ' + place);
         // creation list des places si nexiste pas
         if (!this.places[place])
             this.places[place] = {}; // contient les persos
@@ -219,6 +207,20 @@ module.exports = {
         var random = this.getOtherPeopleHere(perso.place, perso);
         return random[0];
     }
+    , save() {
+        var connection = tools.connection;
+        var data = {
+            roles: this.roles,
+            suicides: this.suicides
+        };
+        connection.query('UPDATE world SET data=? WHERE nom="main_world"', JSON.stringify(data), function (err, rows, fields) {
+            if (err) {
+                console.log('ERROR SAVING THE WORKD');
+                console.log(err);
+            } else {
+                console.log('World has been saved');
+            }
 
-
-};
+        }
+        );
+    }};

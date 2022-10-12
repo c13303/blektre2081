@@ -1,27 +1,21 @@
 process.chdir("/home/blektre2081/blektre2081/");
 var game = require('./../../game/game.js');
 var itemTools = require('./../../game/objets/itemsTools.js');
-
-
-
 module.exports = {
-    name: "Defense",
-    folder: "01_periph/03_quatre",
-
+    name: "Death",
+    folder: "00/death",
     getPage: function (ws, page = "intro", param = null) {
+
+
+
 
         var perso = ws.current_perso;
         var folder = this.folder;
-
-
+        /* landing page en cas de fuming */
         perso.choiceExit = {
             folder: folder,
-            page: "intro"
+            page: "outfumed"
         };
-
-
-
-
         /* 
          * 
          * CHAPITRES
@@ -29,46 +23,59 @@ module.exports = {
          *   */
         var chapitre = {
 
-            "intro": function (param) {
+            "intro": function () {
 
 
-                var text = "Les Quatre Temps est tenue par <~BEZOS>.";
-
-                var ADV = game.getPersoByRole("BEZOS");
-                perso.adversaire = ADV.nom;
-
-
+                var text = "Vous êtes mort.";
                 var choices = [
-
-                    ["Je <le/la/lae/PHARMACIEN> fume", "00/fume", "fume"],
-                    ["Je sors", "01_periph/02_parvis", "intro__right"]
+                    //  ["Je <le/la/lae/PHARMACIEN> fume", "00/fume", "fume"],
+                    ["J'envoie de l'argent sur Paypal pour ressuciter", folder, "resurrect"]
                 ];
+                //pa = phaseranimation
 
-                var pa = [
-                    [1, perso.nom, "idle"]
-                ];
-
-                if (param === 'left') {
-                    var pa = [[1, perso.nom, "walk", {startX: 1, endX: 60}]];
-                }
-                if (param === 'right') {
-                    var pa = [[1, perso.nom, "walk", {flipX: true, startX: 150, endX: 90}]];
-                }
-
-                if (perso.adversaire) {
-                    pa.push([2, perso.adversaire, "idle"]);
-                }
+                var pa = [[1, perso.nom, "lay"]];
+                //exit
 
                 return {
                     
                     text: text,
                     choices: choices,
-                    phaserscene: "Quatre",
-                    phaseranimation: pa
+                    phaseranimation: pa,
+                    phaserscene: "Duel"
                 };
-
             } //endscene()---------------------------------------------------------------------------
 
+
+
+           
+
+
+
+
+
+            , "resurrect": function () {
+
+                perso.updateStat("life", "resussitation");
+
+                perso.updateLife(100, true);
+
+
+
+                var text = "Envoyez une donation sur le Paypal erreure@gmail.com s'il vous plaît.";
+                var choices = [
+                    //  ["Je <le/la/lae/PHARMACIEN> fume", "00/fume", "fume"],
+                    ["C'est fait", "01_home/00_home", "intro"]
+                ];
+
+
+
+
+                return {
+                    
+                    text: text,
+                    choices: choices,
+                };
+            } //endscene()---------------------------------------------------------------------------
 
 
 
@@ -76,19 +83,14 @@ module.exports = {
 
 
                 var text = "Ainsi va la vie";
-
-
-
                 var choices = [
                     ["OK", folder, "intro"],
                 ];
-
                 return {
                     noflush: 1,
                     text: text,
                     choices: choices
                 };
-
             } //endscene()---------------------------------------------------------------------------
 
 
@@ -98,7 +100,9 @@ module.exports = {
 
 
 
-        };//endchap ============================================ STOP ====================================================
+
+
+        }; //endchap ============================================ STOP ====================================================
         ////////////============================================ STOP ====================================================
         ////////////============================================ STOP ====================================================
         ////////////============================================ STOP ====================================================
@@ -106,8 +110,6 @@ module.exports = {
 
 
         return chapitre[page](param);
-
-
     }//endpage
-};//end module
+}; //end module
 
