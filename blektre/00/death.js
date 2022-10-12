@@ -25,11 +25,17 @@ module.exports = {
 
             "intro": function () {
 
+                perso.deadHasBeenRedirected = false;
+                var text = "Vous êtes toujours mort.";
 
-                var text = "Vous êtes mort.";
+                if (perso.firstDeath) {
+                    var text = "Vous êtes mort.";
+                    perso.firstDeath = false;
+                }
+
                 var choices = [
                     //  ["Je <le/la/lae/PHARMACIEN> fume", "00/fume", "fume"],
-                    ["J'envoie de l'argent sur Paypal pour ressuciter", folder, "resurrect"]
+                    ["J'invoque le développeur pour me ressuciter", folder, "resurrect"]
                 ];
                 //pa = phaseranimation
 
@@ -37,7 +43,7 @@ module.exports = {
                 //exit
 
                 return {
-                    
+
                     text: text,
                     choices: choices,
                     phaseranimation: pa,
@@ -47,7 +53,7 @@ module.exports = {
 
 
 
-           
+
 
 
 
@@ -55,27 +61,53 @@ module.exports = {
 
             , "resurrect": function () {
 
-                perso.updateStat("life", "resussitation");
-
-                perso.updateLife(100, true);
 
 
 
-                var text = "Envoyez une donation sur le Paypal erreure@gmail.com s'il vous plaît.";
+
+                var text = "Envoyez une donation sur le Paypal erreure@gmail.com s'il vous plaît. ";
                 var choices = [
                     //  ["Je <le/la/lae/PHARMACIEN> fume", "00/fume", "fume"],
-                    ["C'est fait", "01_home/00_home", "intro"]
+                    ["C'est fait", folder, "resurrect2"]
                 ];
 
 
 
 
                 return {
-                    
+
                     text: text,
                     choices: choices,
                 };
             } //endscene()---------------------------------------------------------------------------
+
+
+
+
+            , "resurrect2": function () {
+
+                perso.updateStat("life", "resussitation");
+                perso.updateLife(100, true);
+                perso.dead = false;
+                perso.updateMoney(0, 12);
+              
+
+                var text = "Merci. Soyez courageux, et bon retour à la vie.";
+                var choices = [
+                    ["Merci mon doux seigneur", "01_home/00_home", "intro"]
+                ];
+
+
+
+
+                return {
+                    text: text,
+                    choices: choices
+                };
+            } //endscene()---------------------------------------------------------------------------
+
+
+
 
 
 

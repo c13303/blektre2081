@@ -46,16 +46,18 @@ class perso {
         this.day = 0;
         this.turn = 0;
         this.horsjeu = false;
-        this.cools = {};
+
         this.relationships = {
             "florence_parly2": 0,
         };
         this.rdvblackbar = {};
         this.sensibilite = null;
         this.salaires = {};
-        this.steps = {};
-        this.milestones = {};
         this.hack = 0;
+
+      
+        this.steps = {};  /// importante progression
+        this.cools = {};
 
 
         this.usNotice = []; // updateStat notices such as karma+5, life-1 etc
@@ -192,8 +194,8 @@ class perso {
         if (this.loglines.length === 10) {
             this.interruptions.splice(0, 1);
         }
-        
-        if(this.loglines>10){
+
+        if (this.loglines > 10) {
             tools.fatal('caca loglines');
         }
 
@@ -288,23 +290,21 @@ class perso {
         };
     }
 
-    updateKarma(value, replace = false, persoToNotice = null) {
+    updateKarma(value, replace = false, persoToNotice = this) {
         this.updateStat('karma', value, persoToNotice, replace);
     }
-    updateSex(value, replace = false, persoToNotice = null) {
+    updateSex(value, replace = false, persoToNotice = this) {
         this.updateStat('sex', value, persoToNotice, replace);
     }
-    updateSanity(value, replace = false, persoToNotice = null) {
+    updateSanity(value, replace = false, persoToNotice = this) {
         this.updateStat('sanity', value, persoToNotice, replace);
     }
-    updateLife(value, replace = false, persoToNotice = null) {
+    updateLife(value, replace = false, persoToNotice = this) {
         this.updateStat('life', value, persoToNotice, replace);
     }
-    updateMoney(value, replace = false, persoToNotice = null) {
+    updateMoney(value, replace = false, persoToNotice = this) {
         this.updateStat('money', value, persoToNotice, replace);
     }
-
-    
 
     cool(label, time, expire_message) {
 

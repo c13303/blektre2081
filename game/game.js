@@ -281,7 +281,10 @@ module.exports = {
 
 
 
-            if (perso.dead) {
+            if (perso.dead && !perso.deadHasBeenRedirected && chapitre !== '00/death') {
+                this.firstDeath = true;
+                perso.deadHasBeenRedirected = true;
+                gC.persosLastChoices[perso.nom] = [["00/death", "intro"]];
                 this.loadPage(ws, "00/death", "intro");
                 return null;
             }

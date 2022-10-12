@@ -38,10 +38,10 @@ module.exports = {
 
                 perso.cool("Envie de chier", 60 * 5, "Vous avez envie de chier");
 
-                if (!perso.milestones.number_of_times_I_went_home) {
-                    perso.milestones.number_of_times_I_went_home = 0;
+                if (!perso.steps.number_of_times_I_went_home) {
+                    perso.steps.number_of_times_I_went_home = 0;
                 }
-                perso.milestones.number_of_times_I_went_home++;
+                perso.steps.number_of_times_I_went_home++;
                 var text = "Vous êtes dans votre nouvel appartement. \n\
 Vous contemplez par la fenêtre le périphérique interieur aérien supérieur, et son balet de voitures.\n\
 Si vous ne vous dépêchez pas, vous serez en retard au travail.";
@@ -63,8 +63,8 @@ Si vous ne vous dépêchez pas, vous serez en retard au travail.";
             , intro2: function (param) {
                 game.gC.setInPlace("Zonmai", perso);
 
-                perso.milestones.number_of_times_I_went_home++;
-                if (perso.milestones.number_of_times_I_went_home === 3) {
+                perso.steps.number_of_times_I_went_home++;
+                if (perso.steps.number_of_times_I_went_home === 3) {
 
                 }
                 var text = " Vous êtes dans votre salon. Ca sent très fort le biodiesel. <~DJ_tube>, le dernier tube de <~DJ>, se fait entendre par la fenêtre. ";
