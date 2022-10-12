@@ -14,6 +14,11 @@ var gC = require('./../gameContainer.js');
 process.chdir("/home/blektre2081/blektre2081/");
 class perso {
     constructor(nom = null, type = null, bio = null, gender = 'nb') {
+
+
+
+        const tools = require('../../server/tools.js');
+
         if (nom)
             this.nom = this.slugify(nom); // slug
         this.bnom = "<span class='perso_' data-n='" + this.nom + "'>" + nom + "</span>";
@@ -55,13 +60,14 @@ class perso {
         this.salaires = {};
         this.hack = 0;
 
-      
+
         this.steps = {};  /// importante progression
         this.cools = {};
 
 
         this.usNotice = []; // updateStat notices such as karma+5, life-1 etc
     }
+    
     slugify(str) {
 
         str = str.replace(/^\s+|\s+$/g, ''); // trim
@@ -478,6 +484,18 @@ class perso {
             return null;
         }
     }
+
+    makeStep(step, value = 1, replace = false) {
+        if (replace) {
+            this.steps[step] = value;
+        } else {
+            if (!this.steps[step])
+                this.steps[step] = 0;
+            this.steps[step] += value;
+        }
+        return null;
+    }
+
 }
 
 module.exports = perso;

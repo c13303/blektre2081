@@ -7,10 +7,7 @@ var monitor = require('./../server/console.js');
 var gC = require('./../game/gameContainer.js');
 var itemTools = require('./../game/objets/itemsTools.js');
 var Perso = require('./../game/objets/personnage.js');
-
-
 eval(tools.toolbox);
-
 module.exports = {
     gC: gC,
     timerLast: Date.now(),
@@ -78,8 +75,8 @@ module.exports = {
     createCharacter: function (nom, type, bio, gender = 'nb', startplace = "Home") {
         //var perso = msg.create_char;
 
-
-        if (gC.persos[nom]) {
+        var slugnom = slugify(nom);
+        if (gC.persos[slugnom]) {
             console.log('name taken ' + nom);
             return null;
         }
@@ -99,11 +96,8 @@ module.exports = {
         perso.addInventaire("Slip", 1, {
             "sex": 1
         });
-
         gC.persos[perso.nom] = perso;
         gC.setInPlace(startplace, perso);
-
-
         perso.update();
         return (perso);
     },
@@ -132,10 +126,14 @@ module.exports = {
 
         /* CREATION DE PERSONNAGE */
         if (msg.create_char) {
+
+
+
+
             var perso = this.createCharacter(msg.create_char.nom, msg.create_char.type, msg.create_char.bio);
             //var perso = new Perso(msg.create_char.nom, msg.create_char.type, msg.create_char.bio);
             if (!perso) {
-                ws.errorme("Nom de personnage déjà pris");
+                ws.send(JSON.stringify({erreur: "Nom de personnage déjà pris"}));
                 return null;
             }
 
@@ -152,19 +150,13 @@ module.exports = {
         /* DEMARRAGE PARTIE */
         if (msg.go) {
             var nom = ws.char_inventory[msg.char].nom;
-
-
-
             console.log(ws.name + ' CHARACTEUR JUST GOT ONLINE  : ' + nom);
-
             /*
              var persodata = ws.char_inventory[msg.char];
              var perso = new Perso();
              perso.reload(persodata);
              */
             var perso = gC.persos[nom];
-
-
             if (gC.WSPersos[perso.nom]) {
                 console.log('ERREUR CHAR ALREADY ONDLINE');
                 ws.send(JSON.stringify({erreur: "perso déjà logué"}));
@@ -173,8 +165,6 @@ module.exports = {
 
             perso.awake = true;
             perso.account = ws.name;
-
-
             ws.current_perso = perso;
             gC.WSPersos[perso.nom] = ws;
             //  console.log(ws.name + ' starts the game');
@@ -190,12 +180,6 @@ module.exports = {
             ];
             this.loadPage(ws, perso.chapitre, scene);
             perso.scene = null;
-
-
-
-
-
-
             // forcer update place if not moved
             // 
             // make a pack with all packed persos //
@@ -223,7 +207,6 @@ module.exports = {
             that.tick();
         }, 1000);
     },
-
     loadPage: function (ws, chapitre, page, param = null) {
 
 
@@ -258,7 +241,6 @@ module.exports = {
             /* SECURITY CHOICE */
             var availableChoices = gC.persosLastChoices[perso.nom];
             var validated = false;
-
             if (availableChoices) {
                 for (var i = 0; i < availableChoices.length; i++) {
                     //  console.log(availableChoices[i][0] + ' vs ' + chapitre);
@@ -361,23 +343,10 @@ module.exports = {
             perso.chapitre = chapitre;
             perso.page = page;
             perso.step++;
-
             //  game.updateChar(perso);
             perso.update();
             // send data to client
             var data = (pageObject);
-
-
-
-
-
-
-
-
-
-
-
-
             /*
              if (chapitreO.name)
              data.scene = chapitreO.name;
@@ -415,7 +384,6 @@ module.exports = {
     txt: function (text) {
         return null;
     },
-
     filterText: function (text, perso) { //// GENDERIZE DA TEXT
 
 
@@ -431,9 +399,7 @@ module.exports = {
             for (var i = 0; i < arrStr.length; i++) {
                 var role = null;
                 var daPerso = null;
-
                 var daCode = arrStr[i];
-
                 if (daCode.indexOf('~') !== -1 && daCode.indexOf('/') === -1) {   /// SI LE TAG CONTIENT ~  SELF,ADVERSAIRE,ROLE
                     var attr = null;
                     if (daCode.indexOf('_') !== -1) {
@@ -470,7 +436,6 @@ module.exports = {
 
                     if (genderArray[3] === 'SELF')
                         var daPerso = perso;
-
                     if (genderArray[3] === 'ADVERSAIRE') {
                         //   console.log('Filtering with adversaire');
                         var daPerso = perso.getAdversaire();
@@ -506,7 +471,6 @@ module.exports = {
                     }
 
                     text = text.replace("<" + daCode + ">", "<span class='gendered'>" + daGender + "</span>");
-
                 }
             }
             return text;
@@ -515,7 +479,6 @@ module.exports = {
             console.log(e);
             console.log('ERROR IN FILTER--->text : ');
             console.log(text);
-
         }
     }
 

@@ -47,7 +47,7 @@ module.exports = {
                     //exit
 
                     return {
-                        
+
                         text: text,
                         choices: choices,
                         phaserscene: "Fired",
@@ -55,6 +55,10 @@ module.exports = {
                     };
                 }
 
+
+                if (perso.isDailyTafDone) {
+                    return this.dailyTafDone();
+                }
 
 
 
@@ -69,15 +73,17 @@ La question vous stresse, et vous suez abondamment.";
 
                 var SECRETAIRE = game.getPersoByRole("SECRETAIRE");
                 perso.adversaire = SECRETAIRE.nom;
-
+                SECRETAIRE.updateStat('sex', +1);
+                
                 perso.choiceExit = {
                     folder: folder,
                     page: "reunionkicked"
                 };
 
                 var choices = [
-                    ["Je <le/la/lae/SECRETAIRE> fume", "00/fume", "fume"],
+
                     ["Je fonce en réunion", folder, "reunion"],
+                    ["Je <le/la/lae/SECRETAIRE> fume", "00/fume", "fume"],
                     //   ["Je vais à la machine à café", folder, "cafe"],
 
                     ["Je me tire", "01_periph/02_parvis", "intro"]
@@ -99,7 +105,7 @@ La question vous stresse, et vous suez abondamment.";
                 }
 
                 return {
-                    
+
                     text: text,
                     choices: choices,
                     phaserscene: "Bureau",
@@ -108,12 +114,61 @@ La question vous stresse, et vous suez abondamment.";
 
             } //endscene()---------------------------------------------------------------------------
 
+            , dailyTafDone: function () {
+                var text = "<~SELF>, la réunion du jour a déjà eu lieu, dit <~DIRECTOR>. ";
+
+
+                var DIRECTOR = game.getPersoByRole("DIRECTOR");
+                perso.adversaire = DIRECTOR.nom;
+
+                var choices = [
+                    ["Oh", "01_periph/02_parvis", "intro"]
+                ];
+
+                var pa = [
+                    [1, perso.nom, "idle"],
+                    [2, perso.adversaire, "idle"],
+                ];
+
+                //exit
+
+                var choices = [
+
+                    ["Je me tire", "01_periph/02_parvis", "intro"]
+                ];
+
+                var pa = [
+                    [1, perso.nom, "idle"],
+                    [2, perso.adversaire.nom, "idle"],
+                ];
+                if (param === 'left') {
+                    pa[0] = [1, perso.nom, "walk", {startX: 1, endX: 20}];
+                }
+
+                return {
+
+                    text: text,
+                    choices: choices,
+                    phaserscene: "Reunion",
+                    phaseranimation: pa
+                };
+
+            } //endscene()---------------------------------------------------------------------------
 
 
             , "reunion": function () {
                 game.gC.setInPlace("Bureau", perso);
-                var text = "Vous débarquez, suant, en salle de réunion. <~DIRECTOR> vous regarde à peine.\n\
-- Ca suffit, <~SELF>, ce n'est plus la peine de revenir.";
+                var text = "La réunion se passe à fond. <~DIRECTOR> vous donne une tape dans le dos.\n\
+- Allez va, t'as bien bossé.";
+                perso.makeStep("allerAuTaf");
+                perso.updateLife(-20);
+                perso.updateSanity(-20);
+                perso.updateMoney(7);
+                perso.isDailyTafDone = 1;
+
+                var DIRECTOR = game.getPersoByRole("DIRECTOR");
+                perso.adversaire = DIRECTOR.nom;
+
 
                 perso.choiceExit = {
                     folder: folder,
@@ -121,18 +176,26 @@ La question vous stresse, et vous suez abondamment.";
                 };
 
                 var choices = [
-                    ["Je ris", folder, "reunionkicked__sanity"],
-                    ["Je pleure", folder, "reunionkicked__karma"],
                     ["Je <le/la/lae/DIRECTOR> fume", "00/fume", "fume"],
+                    ["Je me tire", "01_periph/02_parvis", "intro"]
                 ];
 
-
+                var pa = [
+                    [1, perso.nom, "idle"],
+                    [2, perso.adversaire.nom, "idle"],
+                ];
+                if (param === 'left') {
+                    pa[0] = [1, perso.nom, "walk", {startX: 1, endX: 20}];
+                }
 
                 return {
-                    
+
                     text: text,
-                    choices: choices
+                    choices: choices,
+                    phaserscene: "Reunion",
+                    phaseranimation: pa
                 };
+
 
             } //endscene()---------------------------------------------------------------------------
 
@@ -157,7 +220,7 @@ La question vous stresse, et vous suez abondamment.";
                 //exit
 
                 return {
-                    
+
                     text: text,
                     choices: choices,
                     phaserscene: "Fired",

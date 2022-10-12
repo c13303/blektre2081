@@ -242,7 +242,7 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
         }
 
 
-        spritePlayer.visible = true;
+
         // console.log('visible');
         var nom = phaseranimation[1];
         if (!persos) {
@@ -253,8 +253,12 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
         if (!daPerso) {
             console.log('animateHeadz : ERROR PERSAL NOT FOUND ' + nom);
             console.log(spritePlayer);
+            return null;
         }
 
+
+
+        spritePlayer.visible = true;
         spritePlayer.perso = nom;
         spritePlayer.daPerso = daPerso;
         // console.log(spritePlayer.perso + ' is visible');
@@ -376,15 +380,20 @@ function animateHeadz(phaseranimationArray, persos, d = null) {
 
 
 
-        var animeName = type + 'P' + daPerso.type;
-        //   console.log("animateHeadz de " + nom + " : P" + phaseranimation[0] + " -> " + animeName);
-//        console.log(spritePlayer);
-        //      console.log(animeName);
-        try {
 
+        //   console.log("animateHeadz de " + nom + " : P" + phaseranimation[0] + " -> " + animeName);
+      /*  console.log(spritePlayer);
+        console.log(animeName);
+        console.log(daPerso);*/
+
+
+
+        try {
+            var animeName = type + 'P' + daPerso.type;
             spritePlayer.play(animeName);
         } catch (e) {
             console.log(e);
+            continue;
         }
 
 

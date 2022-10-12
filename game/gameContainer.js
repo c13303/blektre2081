@@ -51,6 +51,9 @@ module.exports = {
         "BEZOS": {
             nom: "manuel_valse"
         },
+        "PROPRIO": {
+            nom: "manuel_valse"
+        }
         /// lots of manche roles
     },
     recoverPlayersFromDB: function (connection) {

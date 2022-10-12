@@ -178,7 +178,9 @@ the map overlay -->
                         "Quentine", "Seniana", "Coufeux", "Loufon", "Giboulard", "Copate", "Simili-Cuir", "Sencha-sanlafrez", "Sambal", "Macreuse", "Pileur",
                         "Verdure", "Gislabe", "Falantôme", "Pantine", "Stagalas", "Jenpol", "Luje", "Pleural", "Olivier",
                         "Arrosoir", "PatrickB", "Sectorin", "Sabeum", "Zigomas", "Alandru", "Pilopé", "Enfalme",
-                        "Zobstance", "Peulan", "Peducelle", "Avantage", "Dego-Sabanthème");
+                        "Zobstance", "Peulan", "Peducelle", "Avantage", "Dego-Sabanthème", "Envouteur", "Salopendre",
+                        "Purance", "Anglemou", "Rentale-Félicité"
+                    );
                     shuffle($tab);
                     return $tab[0];
                 }
